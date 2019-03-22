@@ -7,13 +7,22 @@ public class TestPlayer : MonoBehaviour {
     public Vector2 position;
     public int armNumber;
 
-	// Use this for initialization
-	void Start () {
+    public Camera _camera;
+    public ParticleSystem tapEffect;
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if (Input.GetMouseButtonDown(0))
+        {
+            var pos = _camera.ScreenToWorldPoint(Input.mousePosition + _camera.transform.forward * 10);
+
+            tapEffect.transform.position = pos;
+            tapEffect.Emit(1);
+        }
+    }
 }
