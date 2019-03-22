@@ -7,12 +7,13 @@ public class TestPlayer : MonoBehaviour {
     public Vector2 position;
     public int armNumber;
 
-    public Camera _camera;
-    public ParticleSystem tapEffect;
+    [SerializeField] ParticleSystem tapEffect;              // タップエフェクト
+    [SerializeField] Camera _camera;                        // カメラの座標
+    
 
     // Use this for initialization
     void Start () {
-		
+
 	}
 	
 	// Update is called once per frame
@@ -23,6 +24,9 @@ public class TestPlayer : MonoBehaviour {
 
             tapEffect.transform.position = pos;
             tapEffect.Emit(1);
+
+            Debug.Log("Touch!");
         }
+
     }
 }
