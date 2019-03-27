@@ -31,9 +31,12 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         
 
         disTex.text = (goal - Input.mousePosition.y).ToString();
-        armTex.text = armNumber.ToString();
 
-	}
+        if (armNumber < 6)
+        {
+            armTex.text = armNumber.ToString();
+        }
+    }
 
 
     public void SetPosition(Vector2 posi)

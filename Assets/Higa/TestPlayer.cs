@@ -7,7 +7,12 @@ public class TestPlayer : MonoBehaviour {
     public Vector2 position;
     public int armNumber;
 
-    [SerializeField] ParticleSystem tapEffect;              // タップエフェクト
+    [SerializeField] ParticleSystem tapEffect;              // タップしたとき
+    [SerializeField] ParticleSystem Explosion;              // 腕の爆発
+    [SerializeField] ParticleSystem WallHit;                // 壁に当たったとき
+    [SerializeField] ParticleSystem Pearl;                  // パールを取得したとき
+    [SerializeField] ParticleSystem Rotation;               // 回転したとき
+    [SerializeField] ParticleSystem FireWorks;              // 花火
     [SerializeField] Camera _camera;                        // カメラの座標
     
 
@@ -22,11 +27,38 @@ public class TestPlayer : MonoBehaviour {
         {
             var pos = _camera.ScreenToWorldPoint(Input.mousePosition + _camera.transform.forward * 10);
 
-            tapEffect.transform.position = pos;
-            tapEffect.Emit(1);
+            //tapEffect.transform.position = pos;
+            //tapEffect.Emit(1);
 
-            Debug.Log("Touch!");
+            var effect = GameObject.Instantiate(tapEffect);
+            effect.transform.position = pos;
+
+            Debug.Log(pos);
         }
-
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            var effect = GameObject.Instantiate(Explosion);
+            effect.transform.position = new Vector2( 0, 0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            var effect = GameObject.Instantiate(WallHit);
+            effect.transform.position = new Vector2(0, 0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            var effect = GameObject.Instantiate(Pearl);
+            effect.transform.position = new Vector2(0, 0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            var effect = GameObject.Instantiate(Rotation);
+            effect.transform.position = new Vector2(0, 0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            var effect = GameObject.Instantiate(FireWorks);
+            effect.transform.position = new Vector2(0, 0);
+        }
     }
 }
