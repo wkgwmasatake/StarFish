@@ -6,11 +6,27 @@ using UnityEngine.UI;
 public class StarFishBehavior : MonoBehaviour {
 
     const byte _MAX_TAP = 5;        // タップできる最大数
+    const byte _MAX_LEG = 5;        // 腕の最大数
+
     byte armNum = 0;                // 現在の腕
+
+    SpriteRenderer[] LegSpriteRenderer; // 腕のスプライトレンダラー
+
+    public Sprite[] LegImages;      // 腕の画像(0.. 通常時、1.. 選択時、2、3.. 爆発後)
 
 	// Use this for initialization
 	void Start () {
-        GameDirector.Instance.SetArmNumber(_MAX_TAP + 1);                              // 腕の本数を初期化(最初のタップは腕を消費しないため6に設定)
+        GameDirector.Instance.SetArmNumber(_MAX_TAP + 1);               // 腕の本数を初期化(最初のタップは腕を消費しないため6に設定)
+
+        LegSpriteRenderer = new SpriteRenderer[_MAX_LEG];               // 腕の本数分配列を確保
+        
+        for(int i = 0; i < _MAX_LEG; i++)                               // それぞれの腕のスプライトレンダラーを取得
+        {
+            LegSpriteRenderer[i] = transform.GetChild(i).GetComponent<SpriteRenderer>();
+        }
+
+        LegSpriteRenderer[0].sprite = LegImages[1];                     // 最初の腕を選択時の腕に画像を変更
+
 	}
 	
 	// Update is called once per frame
@@ -28,13 +44,18 @@ public class StarFishBehavior : MonoBehaviour {
                 rb.AddTorque(1.0f, ForceMode2D.Impulse);                // 一瞬のみ回転を加える
                 rb.AddForce(force, ForceMode2D.Impulse);                // 一瞬のみ力を加える
 
+                LegSpriteRenderer[armNum].sprite = LegImages[2];        // 現在の腕を爆発後の腕の画像に変更
+                if (armNum < _MAX_LEG - 1)                              // 現在の腕が最後の腕じゃなかったら
+                {
+                    LegSpriteRenderer[armNum + 1].sprite = LegImages[1];// 次の腕を選択時の腕の画像に変更
+                }
                 armNum++;                                               // 次の腕へ
             }
             else                                                        // 最初のタップ
             {
                 Rigidbody2D rb = GetComponent<Rigidbody2D>();           // Rigidbodyを取得
                 Vector2 force = new Vector2(-5.0f, 5.0f);                // 力を設定
-                rb.AddTorque(1.0f, ForceMode2D.Impulse);                // 一瞬のみ回転を加える
+                rb.AddTorque(0.8f, ForceMode2D.Impulse);                // 一瞬のみ回転を加える
                 rb.AddForce(force, ForceMode2D.Impulse);                // 一瞬のみ力を加える
 
             }
