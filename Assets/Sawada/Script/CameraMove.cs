@@ -7,8 +7,7 @@ public class CameraMove : MonoBehaviour {
     //背景のオブジェクト格納
     [SerializeField] private GameObject BGPre;
 
-    //カメラの追従速度
-    [SerializeField] private float CameraSpeed;
+    [SerializeField] private GameObject player;
 
     //背景オブジェクトの情報格納
     private BackGround BG;
@@ -19,12 +18,24 @@ public class CameraMove : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        //背景オブジェクトの情報参照
         BG = BGPre.GetComponent<BackGround>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        if( BG.height/2 - MARGIN > transform.position.y ) transform.Translate(0, CameraSpeed * Time.deltaTime, 0);
-	}
+        //プレイヤーを追従
+        transform.position = new Vector3(transform.position.x, player.transform.position.y, transform.position.z);
+
+        if (BG.height / 2 - MARGIN < transform.position.y)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        }
+
+        if(-(BG.height / 2) + MARGIN >= transform.position.y)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        }
+    }
 }
