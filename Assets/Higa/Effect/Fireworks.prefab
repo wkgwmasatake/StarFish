@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4542584986426438}
   - component: {fileID: 198611768460444522}
   - component: {fileID: 199454373960718598}
+  - component: {fileID: 114183461300393130}
   m_Layer: 0
   m_Name: Fireworks
   m_TagString: Untagged
@@ -35,12 +36,23 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1736583519171238}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.9291044, y: 0.12874232, z: 90.04515}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114183461300393130
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1736583519171238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d06f620c2bd79d04197741b42fec93d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198611768460444522
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -48,10 +60,10 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1736583519171238}
   serializedVersion: 5
-  lengthInSec: 5
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 0
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -101,7 +113,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1372132990
+  randomSeed: -1137630455
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -1604,7 +1616,7 @@ ParticleSystem:
     magnitude:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 2
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -2853,8 +2865,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 1, b: 0.13103437, a: 1}
-        key1: {r: 0.07586192, g: 0, b: 1, a: 0}
+        key0: {r: 0.07586192, g: 0, b: 1, a: 1}
+        key1: {r: 1, g: 0, b: 0, a: 0}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -2882,8 +2894,8 @@ ParticleSystem:
         m_NumAlphaKeys: 2
       minGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 0.95862055, b: 1, a: 1}
-        key1: {r: 1, g: 0, b: 0.84827566, a: 0}
+        key0: {r: 0.1586206, g: 1, b: 0, a: 1}
+        key1: {r: 0.5724139, g: 0, b: 1, a: 0}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}

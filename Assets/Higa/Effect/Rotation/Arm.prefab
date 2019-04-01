@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4382498929477592}
   - component: {fileID: 198861506279918614}
   - component: {fileID: 199053517156700470}
+  - component: {fileID: 114463131653232202}
   m_Layer: 0
   m_Name: Arm
   m_TagString: Untagged
@@ -41,6 +42,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114463131653232202
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1522496597233746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d06f620c2bd79d04197741b42fec93d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198861506279918614
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -101,7 +113,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1156110923
+  randomSeed: 28090806
   InitialModule:
     serializedVersion: 3
     enabled: 1
