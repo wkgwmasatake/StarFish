@@ -12,6 +12,10 @@ public class StarFishBehavior : MonoBehaviour {
 
     SpriteRenderer[] LegSpriteRenderer; // 腕のスプライトレンダラー
 
+    [SerializeField] ParticleSystem RollParticle;       // 回転エフェクト
+    [SerializeField] ParticleSystem BombParticle;       // 爆発エフェクト
+    [SerializeField] ParticleSystem FireWorksParticle;  // 花火エフェクト
+
     public Sprite[] LegImages;      // 腕の画像(0.. 通常時、1.. 選択時、2、3.. 爆発後)
 
 	// Use this for initialization
