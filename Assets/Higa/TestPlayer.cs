@@ -13,8 +13,12 @@ public class TestPlayer : MonoBehaviour {
     [SerializeField] ParticleSystem Pearl;                  // パールを取得したとき
     [SerializeField] ParticleSystem Rotation;               // 回転したとき
     [SerializeField] ParticleSystem FireWorks;              // 花火
+    [SerializeField] ParticleSystem fw_red;
+    [SerializeField] ParticleSystem fw_green;
+    [SerializeField] ParticleSystem fw_blue;
+    [SerializeField] ParticleSystem fw_yellow;
     [SerializeField] Camera _camera;                        // カメラの座標
-    
+
 
     // Use this for initialization
     void Start () {
@@ -23,6 +27,7 @@ public class TestPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
         if (Input.GetMouseButtonDown(0))
         {
             var pos = _camera.ScreenToWorldPoint(Input.mousePosition + _camera.transform.forward * 10);
@@ -58,6 +63,26 @@ public class TestPlayer : MonoBehaviour {
         else if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             var effect = GameObject.Instantiate(FireWorks);
+            effect.transform.position = new Vector2(0, 0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            var effect = GameObject.Instantiate(fw_red);
+            effect.transform.position = new Vector2(0, 0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            var effect = GameObject.Instantiate(fw_green);
+            effect.transform.position = new Vector2(0, 0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            var effect = GameObject.Instantiate(fw_blue);
+            effect.transform.position = new Vector2(0, 0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            var effect = GameObject.Instantiate(fw_yellow);
             effect.transform.position = new Vector2(0, 0);
         }
     }
