@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class StarFishBehavior : MonoBehaviour {
 
@@ -45,13 +46,23 @@ public class StarFishBehavior : MonoBehaviour {
             if(GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1 && GameDirector.Instance.GetArmNumber() > 1)        // 最初のタップと最後のタップ以外の時
             {
                 Instantiate(ParticleList[(int)PARTICLE.ARM],transform); // 海星の子に設定して泡のパーティクルを生成
-                Vector2 armPos = transform.GetChild(armNum).position;   // ヒエラルキービューの上から子オブジェクトを取得
+                Vector2 armPos = transform.GetChild(armNum).position;   // ヒエラルキービューの上から子オブジェクトのワールド座標を取得
                 float ForceX = transform.position.x - armPos.x;         // 本体と腕のx座標の差を求める(力を加えるx方向)
                 float ForceY = transform.position.y - armPos.y;         // 本体と腕のy座標の差を求める(力を加えるy方向)
 
                 Rigidbody2D rb = GetComponent<Rigidbody2D>();           // Rigidbodyを取得
                 Vector2 force = new Vector2(ForceX * 30, ForceY * 30);  // 本体と腕の座標の差から力を設定
-                rb.AddTorque(1.0f, ForceMode2D.Impulse);                // 一瞬のみ回転を加える
+
+                rb.angularVelocity = 0;                                 // 回転の力を0に戻す
+
+                if (transform.position.x < armPos.x)                    // 腕が本体の右側にあれば
+                {
+                    rb.AddTorque(1.5f, ForceMode2D.Impulse);            // 時計回りに回転
+                }
+                else                                                    // そうでなければ
+                {
+                    rb.AddTorque(-1.5f, ForceMode2D.Impulse);           // 反時計回りに回転
+                }
                 rb.AddForce(force, ForceMode2D.Impulse);                // 一瞬のみ力を加える
 
                 LegSpriteRenderer[armNum].sprite = LegImages[2];        // 現在の腕を爆発後の腕の画像に変更
@@ -74,25 +85,15 @@ public class StarFishBehavior : MonoBehaviour {
             {
                 Transform StarFishTransform = transform;
                 Instantiate(ParticleList[(int)PARTICLE.FIREWORK], StarFishTransform);   // 海星の子に設定して花火のパーティクルを設定
-                //Destroy(this.gameObject);                                     // 自分自身を破棄
-                StartCoroutine("DestroyObject");                                //一定時間経過後に自分自身を破棄
+                StartCoroutine("DestroyObject");                                        //1フレーム後に自分自身を破棄
             }
-
-            Debug.Log(armNum);
         }
-
-        //---------- デバッグ用 ----------//
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            GameDirector.Instance.SetArmNumber(_MAX_TAP);
-            armNum = 0;
-        }
-        //--------------------------------//
     }
 
     private IEnumerator DestroyObject()
     {
-        yield return new WaitForSeconds(0.1f);
+        // 1フレーム後に自分自身を破棄
+        yield return null;
         Destroy(this.gameObject);
     }
 }
