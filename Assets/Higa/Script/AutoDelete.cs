@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class AutoDelete : MonoBehaviour {
 
-    private float lifetime;
 
 	// Use this for initialization
 	void Start () {
 
         gameObject.transform.parent = null;
 
-        ParticleSystem partcleSystem = GetComponent<ParticleSystem>();
-        Destroy(gameObject, (float)partcleSystem.main.duration);
+        ParticleSystem ps = GetComponent<ParticleSystem>();
+
+        Destroy(gameObject, (float)ps.main.duration);
 
     }
 	

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 198752657916541514}
   - component: {fileID: 199801477844168868}
   - component: {fileID: 114046873644524346}
+  - component: {fileID: 114886915406865014}
   m_Layer: 0
   m_Name: Wall_Hit
   m_TagString: Untagged
@@ -51,6 +52,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d06f620c2bd79d04197741b42fec93d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114886915406865014
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1853236462683664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0ca0bff972fac640baca6d1ceb3dd26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!198 &198752657916541514
@@ -113,7 +125,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -690433138
+  randomSeed: -1747838877
   InitialModule:
     serializedVersion: 3
     enabled: 1
