@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class StarFishBehavior : MonoBehaviour {
 
@@ -16,10 +17,13 @@ public class StarFishBehavior : MonoBehaviour {
     const byte _MAX_LEG = 5;        // 腕の最大数
 
     byte armNum = 0;                // 現在の腕
+    float Presstime = 0;            // 画面を長押ししている時間
 
     SpriteRenderer[] LegSpriteRenderer; // 腕のスプライトレンダラー
 
-    [SerializeField] ParticleSystem[] ParticleList;       // パーティクルリスト(0.. 腕のパーティクル、1.. 爆発のパーティクル、2.. 花火のパーティクル)
+    [SerializeField] ParticleSystem[] ParticleList;     // パーティクルリスト(0.. 腕のパーティクル、1.. 爆発のパーティクル、2.. 花火のパーティクル)
+    [SerializeField] GameObject ArrowObject;            // 矢印のゲームオブジェクト
+    [SerializeField] float bombPower;                   // 爆発の大きさ
 
     public Sprite[] LegImages;      // 腕の画像(0.. 通常時、1.. 選択時、2、3.. 爆発後)
 
@@ -36,22 +40,50 @@ public class StarFishBehavior : MonoBehaviour {
 
         LegSpriteRenderer[0].sprite = LegImages[1];                     // 最初の腕を選択時の腕に画像を変更
 
+        ArrowObject.SetActive(false);                                   // 非アクティブに設定
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetMouseButtonDown(0) && GameDirector.Instance.GetArmNumber() > 0)        // 左クリックしたとき、かつタップの最大数以下の時
+        if(Input.GetMouseButton(0) && GameDirector.Instance.GetArmNumber() > 1 && GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1)     // 最初のタップと最後のタップ以外
         {
-            if(GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1 && GameDirector.Instance.GetArmNumber() > 1)        // 最初のタップと最後のタップ以外の時
+            Presstime += Time.deltaTime;        // 長押ししている時間を計測
+            if (Presstime > 0.5)                // 0.5秒間長押ししたら
+                ArrowObject.SetActive(true);    // アクティブに設定
+        }
+
+		if(Input.GetMouseButtonUp(0) && GameDirector.Instance.GetArmNumber() > 0)        // 左クリックしたとき、かつタップの最大数以下の時
+        {
+            Presstime = 0;                      // 長押しの時間を初期化
+
+            if (GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1 && GameDirector.Instance.GetArmNumber() > 1)        // 最初のタップと最後のタップ以外の時
             {
+                if (!ArrowObject.activeSelf)         // 非アクティブ状態なら
+                {
+                    ArrowObject.SetActive(true);     // アクティブ状態に設定
+                }
+
+                ArrowObject.GetComponent<ArrowDirector>().SetArrowPos(transform.GetChild(armNum + 1));        // 次の腕に応じた矢印の位置に設定
+                ArrowObject.SetActive(false);   // 非アクティブに設定
+
                 Instantiate(ParticleList[(int)PARTICLE.ARM],transform); // 海星の子に設定して泡のパーティクルを生成
-                Vector2 armPos = transform.GetChild(armNum).position;   // ヒエラルキービューの上から子オブジェクトを取得
+                Vector2 armPos = transform.GetChild(armNum).position;   // ヒエラルキービューの上から子オブジェクトのワールド座標を取得
                 float ForceX = transform.position.x - armPos.x;         // 本体と腕のx座標の差を求める(力を加えるx方向)
                 float ForceY = transform.position.y - armPos.y;         // 本体と腕のy座標の差を求める(力を加えるy方向)
-
+                
                 Rigidbody2D rb = GetComponent<Rigidbody2D>();           // Rigidbodyを取得
-                Vector2 force = new Vector2(ForceX * 30, ForceY * 30);  // 本体と腕の座標の差から力を設定
-                rb.AddTorque(1.0f, ForceMode2D.Impulse);                // 一瞬のみ回転を加える
+                Vector2 force = new Vector2(ForceX * bombPower, ForceY * bombPower);  // 本体と腕の座標の差から力を設定
+
+                rb.angularVelocity = 0;                                 // 回転の力を0に戻す
+
+                if (transform.position.x < armPos.x)                    // 腕が本体の右側にあれば
+                {
+                    rb.AddTorque(1.5f, ForceMode2D.Impulse);            // 時計回りに回転
+                }
+                else                                                    // そうでなければ
+                {
+                    rb.AddTorque(-1.5f, ForceMode2D.Impulse);           // 反時計回りに回転
+                }
                 rb.AddForce(force, ForceMode2D.Impulse);                // 一瞬のみ力を加える
 
                 LegSpriteRenderer[armNum].sprite = LegImages[2];        // 現在の腕を爆発後の腕の画像に変更
@@ -65,7 +97,7 @@ public class StarFishBehavior : MonoBehaviour {
             else if(GameDirector.Instance.GetArmNumber() > _MAX_TAP)    // 最初のタップ
             {
                 Rigidbody2D rb = GetComponent<Rigidbody2D>();           // Rigidbodyを取得
-                Vector2 force = new Vector2(-5.0f, 5.0f);                // 力を設定
+                Vector2 force = new Vector2(-5.0f * bombPower / 20, 5.0f * bombPower / 20);                // 力を設定
                 rb.AddTorque(0.8f, ForceMode2D.Impulse);                // 一瞬のみ回転を加える
                 rb.AddForce(force, ForceMode2D.Impulse);                // 一瞬のみ力を加える
                 GameDirector.Instance.SetArmNumber(GameDirector.Instance.GetArmNumber() - 1);               // 腕の本数を1減算
@@ -74,25 +106,15 @@ public class StarFishBehavior : MonoBehaviour {
             {
                 Transform StarFishTransform = transform;
                 Instantiate(ParticleList[(int)PARTICLE.FIREWORK], StarFishTransform);   // 海星の子に設定して花火のパーティクルを設定
-                //Destroy(this.gameObject);                                     // 自分自身を破棄
-                StartCoroutine("DestroyObject");                                //一定時間経過後に自分自身を破棄
+                StartCoroutine("DestroyObject");                                        //1フレーム後に自分自身を破棄
             }
-
-            Debug.Log(armNum);
         }
-
-        //---------- デバッグ用 ----------//
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            GameDirector.Instance.SetArmNumber(_MAX_TAP);
-            armNum = 0;
-        }
-        //--------------------------------//
     }
 
     private IEnumerator DestroyObject()
     {
-        yield return new WaitForSeconds(0.1f);
+        // 1フレーム後に自分自身を破棄
+        yield return null;
         Destroy(this.gameObject);
     }
 }
