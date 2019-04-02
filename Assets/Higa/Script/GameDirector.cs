@@ -32,9 +32,9 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
         disTex.text = (goal - Input.mousePosition.y).ToString();
 
-        if (armNumber < 6)
+        if (armNumber < 7)
         {
-            armTex.text = armNumber.ToString();
+            armTex.text = (armNumber-1).ToString();
         }
     }
 

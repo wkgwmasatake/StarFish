@@ -239,6 +239,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d95ec09adadb4ee49a789ddfe41bf551, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RollParticle: {fileID: 198861506279918614, guid: f7b81c9bb55ab974489d7d249a63a327,
+    type: 2}
+  BombParticle: {fileID: 198034085523943532, guid: fd3ac868bbbfa42489ba0a241acf072f,
+    type: 2}
+  FireWorksParticle: {fileID: 198611768460444522, guid: cb27aa06930320642b0c6a6f60eeb4d9,
+    type: 2}
   LegImages:
   - {fileID: 21300000, guid: 11fac192610b7b44c9b0ca22f957c25d, type: 3}
   - {fileID: 21300000, guid: 2ced74caef37ccc48a97159561bbdb48, type: 3}
