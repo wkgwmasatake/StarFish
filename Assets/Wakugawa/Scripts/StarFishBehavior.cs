@@ -10,7 +10,8 @@ public class StarFishBehavior : MonoBehaviour {
     {
         ARM,
         BOMB,
-        FIREWORK
+        FIREWORK,
+        WALLTOUTCH
     }
 
     const byte _MAX_TAP = 5;        // タップできる最大数
@@ -107,8 +108,7 @@ public class StarFishBehavior : MonoBehaviour {
             }
             else                // 最後の花火
             {
-                Transform StarFishTransform = transform;
-                Instantiate(ParticleList[(int)PARTICLE.FIREWORK], StarFishTransform);   // 海星の子に設定して花火のパーティクルを設定
+                Instantiate(ParticleList[(int)PARTICLE.FIREWORK], transform);   // 海星の子に設定して花火のパーティクルを設定
                 StartCoroutine("DestroyObject");                                        //1フレーム後に自分自身を破棄
             }
         }
@@ -127,6 +127,7 @@ public class StarFishBehavior : MonoBehaviour {
             Rigidbody2D rb = GetComponent<Rigidbody2D>();           // Rigidbodyを取得
         if (col.collider.tag == "Rock")
         {
+            Instantiate(ParticleList[(int)PARTICLE.WALLTOUTCH], transform);
             if (transform.position.x < 0)        // 画面の左側で岩にあたった場合
             {
                 rb.AddTorque(0.6f, ForceMode2D.Impulse);                    // 一瞬のみ時計回りに回転を加える
