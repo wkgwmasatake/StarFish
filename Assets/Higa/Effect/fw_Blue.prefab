@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 198121642028285556}
   - component: {fileID: 199015207933323296}
   - component: {fileID: 114438760236809250}
+  - component: {fileID: 114208111649403428}
   m_Layer: 0
   m_Name: fw_Blue
   m_TagString: Untagged
@@ -42,6 +43,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
+--- !u!114 &114208111649403428
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1742213379197010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0ca0bff972fac640baca6d1ceb3dd26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114438760236809250
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -60,10 +72,10 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1742213379197010}
   serializedVersion: 5
-  lengthInSec: 2
+  lengthInSec: 2.5
   simulationSpeed: 1
   stopAction: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -113,7 +125,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -224152565
+  randomSeed: -235995286
   InitialModule:
     serializedVersion: 3
     enabled: 1

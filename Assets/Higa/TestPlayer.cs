@@ -31,7 +31,7 @@ public class TestPlayer : MonoBehaviour {
         if (Input.GetMouseButtonDown(0))
         {
             var pos = _camera.ScreenToWorldPoint(Input.mousePosition + _camera.transform.forward * 10);
-
+            
             //tapEffect.transform.position = pos;
             //tapEffect.Emit(1);
 
@@ -43,7 +43,7 @@ public class TestPlayer : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             var effect = GameObject.Instantiate(Explosion);
-            effect.transform.position = new Vector2( 0, 0);
+            effect.transform.position = new Vector3( 0, 0,-1);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {

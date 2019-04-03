@@ -6,9 +6,6 @@ using UnityEngine.UI;
 public class GameDirector : SingletonMonoBehaviour<GameDirector>
 {
 
-    public Text disTex;         // 空までの距離(UI)
-    public Text armTex;         // 腕の残り本数(UI)
-
     public int StageStatus;     // ステージのクリア状況
     public int AreaStatus;      // エリアの制覇状況
     public int PearlStatus;     // 真珠の取得状況
@@ -17,24 +14,40 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     private Vector2 position;
     private int armNumber;
 
-    public TestPlayer tp;
-    private float goal = 100;
+    private GameObject player;
+    private Camera cam;
+    private GameObject goalLine;
 
-	// Use this for initialization
-	void Start () {
-		
+    public Text disTex;         // 空までの距離(UI)
+    public Text armTex;         // 腕の残り本数(UI)
+
+    // Use this for initialization
+    void Start () {
+
+        player = GameObject.Find("starfish");
+        cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        goalLine = GameObject.Find("GoalLine");
+
+        //disTex = GameObject.Find("ToSky").GetComponent<Text>();
+        //armTex = GameObject.Find("RemainArm").GetComponent<Text>();
+        
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        
+        if(goalLine == null)
+        {
+            Debug.Log("not goalline");
+        }
 
-        disTex.text = (goal - Input.mousePosition.y).ToString();
+        disTex.text = "水面まで\n"　+
+            ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y).ToString() + "m";
 
         if (armNumber < 7)
         {
-            armTex.text = (armNumber-1).ToString();
+            armTex.text = "残り " +
+                (armNumber-1).ToString();
         }
     }
 
