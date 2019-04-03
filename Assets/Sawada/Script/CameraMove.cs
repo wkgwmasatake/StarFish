@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraMove : MonoBehaviour {
+public class CameraMove : MonoBehaviour
+{
 
     //背景のオブジェクト格納
     [SerializeField] private GameObject BGPre;
 
     [SerializeField] private GameObject player;
+
+    [SerializeField] private string TagName;
 
     //背景オブジェクトの情報格納
     private BackGround BG;
@@ -19,7 +22,8 @@ public class CameraMove : MonoBehaviour {
     private Vector2 SIZE = new Vector2(1, 10);
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
         //背景オブジェクトの情報参照
         BG = BGPre.GetComponent<BackGround>();
@@ -28,7 +32,7 @@ public class CameraMove : MonoBehaviour {
 
         Debug.Log(BG.height);
         Debug.Log(BG.width);
-	}
+    }
 
     // Update is called once per frame
     void Update()
@@ -88,5 +92,9 @@ public class CameraMove : MonoBehaviour {
         //コリジョンの大きさ
         childR.GetComponent<BoxCollider2D>().size = SIZE;
         childL.GetComponent<BoxCollider2D>().size = SIZE;
+
+        //タグを追加
+        childR.tag = TagName;
+        childL.tag = TagName;
     }
 }
