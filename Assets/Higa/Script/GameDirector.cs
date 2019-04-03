@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.PostProcessing;
 using UnityEngine;
 using UnityEngine.UI;
+
 
 public class GameDirector : SingletonMonoBehaviour<GameDirector>
 {
@@ -15,11 +17,12 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     private int armNumber;
 
     private GameObject player;
-    private Camera cam;
+    private Camera cam;          // メインカメラ
     private GameObject goalLine;
 
     public Text disTex;         // 空までの距離(UI)
     public Text armTex;         // 腕の残り本数(UI)
+    
 
     // Use this for initialization
     void Start () {
@@ -28,10 +31,11 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         goalLine = GameObject.Find("GoalLine");
 
+
         //disTex = GameObject.Find("ToSky").GetComponent<Text>();
         //armTex = GameObject.Find("RemainArm").GetComponent<Text>();
-        
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -41,14 +45,18 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
             Debug.Log("not goalline");
         }
 
-        disTex.text = "水面まで\n"　+
-            ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y).ToString() + "m";
+        if (player != null)
+        {
+            disTex.text = /*"水面まで\n"　+*/
+                ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y).ToString() + "m";
+        }
 
         if (armNumber < 7)
         {
-            armTex.text = "残り " +
+            armTex.text = /*"残り " +*/
                 (armNumber-1).ToString();
         }
+        
     }
 
 
