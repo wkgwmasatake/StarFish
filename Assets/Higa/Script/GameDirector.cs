@@ -47,8 +47,14 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
         if (player != null)
         {
+            var distance = ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y);
             disTex.text = /*"水面まで\n"　+*/
-                ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y).ToString() + "m";
+                distance.ToString() + "m";
+            if(distance < 0)
+            {
+                disTex.gameObject.SetActive(false);
+                armTex.gameObject.SetActive(false);
+            }
         }
 
         if (armNumber < 7)
