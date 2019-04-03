@@ -4,8 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
+<<<<<<< HEAD
   - Left_arrow
   - Right_arrow
+=======
+  - Rock
+>>>>>>> master
   layers:
   - Default
   - TransparentFX
