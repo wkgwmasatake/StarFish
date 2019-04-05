@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.PostProcessing;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class GameDirector : SingletonMonoBehaviour<GameDirector>
@@ -22,6 +23,8 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
     public Text disTex;         // 空までの距離(UI)
     public Text armTex;         // 腕の残り本数(UI)
+
+    public Button retry;
     
 
     // Use this for initialization
@@ -31,7 +34,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         goalLine = GameObject.Find("GoalLine");
 
-
+        
         //disTex = GameObject.Find("ToSky").GetComponent<Text>();
         //armTex = GameObject.Find("RemainArm").GetComponent<Text>();
 
@@ -86,4 +89,13 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         return armNumber;
     }
 
+    public void RetryButton()
+    {
+
+        // 現在のScene名を取得する
+        Scene loadScene = SceneManager.GetActiveScene();
+        // Sceneの読み直し
+        SceneManager.LoadScene(loadScene.name);
+
+    }
 }
