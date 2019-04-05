@@ -280,7 +280,7 @@ MonoBehaviour:
   ArrowDisplayTime: 0.2
   LegImages:
   - {fileID: 21300000, guid: 11fac192610b7b44c9b0ca22f957c25d, type: 3}
-  - {fileID: 21300000, guid: 2ced74caef37ccc48a97159561bbdb48, type: 3}
+  - {fileID: 21300000, guid: 1847d88acf38b1d4da27e3f2e95ff48b, type: 3}
   - {fileID: 21300000, guid: 3aa4cecc2ff8fe844890c5017c86378f, type: 3}
   - {fileID: 21300000, guid: ee886d61f05e10b48a0203fd5a2e945e, type: 3}
 --- !u!114 &114831459776439848

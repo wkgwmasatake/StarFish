@@ -218,6 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BGPre: {fileID: 1740401890}
   player: {fileID: 816186979}
+  TagName: Rock
 --- !u!81 &129004662
 AudioListener:
   m_ObjectHideFlags: 0
@@ -485,12 +486,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e786cbe9b133e0c4ca446b74148de6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disTex: {fileID: 385667502}
-  armTex: {fileID: 111798906}
   StageStatus: 0
   AreaStatus: 0
   PearlStatus: 0
-  tp: {fileID: 0}
+  disTex: {fileID: 385667502}
+  armTex: {fileID: 111798906}
 --- !u!4 &560079256
 Transform:
   m_ObjectHideFlags: 0
@@ -656,6 +656,34 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!1 &1105520364
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1105520365}
+  m_Layer: 0
+  m_Name: GoalLine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1105520365
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1105520364}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1.0263201, z: 1.0263199}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1156179178
 GameObject:
   m_ObjectHideFlags: 0
