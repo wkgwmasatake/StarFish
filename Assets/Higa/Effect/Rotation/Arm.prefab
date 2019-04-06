@@ -21,11 +21,10 @@ GameObject:
   - component: {fileID: 4382498929477592}
   - component: {fileID: 198861506279918614}
   - component: {fileID: 199053517156700470}
-  - component: {fileID: 114463131653232202}
-  - component: {fileID: 114289996450965238}
   - component: {fileID: 82020646946388344}
   - component: {fileID: 82391807171642164}
   - component: {fileID: 169486445496156136}
+  - component: {fileID: 114369538380911880}
   m_Layer: 0
   m_Name: Arm
   m_TagString: Untagged
@@ -206,7 +205,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114289996450965238
+--- !u!114 &114369538380911880
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -214,20 +213,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1522496597233746}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0ca0bff972fac640baca6d1ceb3dd26, type: 3}
+  m_Script: {fileID: 11500000, guid: ab86fe89c4c074447a5b3502a056df75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114463131653232202
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1522496597233746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d06f620c2bd79d04197741b42fec93d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  Scale: 1
 --- !u!169 &169486445496156136
 AudioLowPassFilter:
   m_ObjectHideFlags: 1
@@ -309,7 +298,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -726466601
+  randomSeed: -66904041
   InitialModule:
     serializedVersion: 3
     enabled: 1

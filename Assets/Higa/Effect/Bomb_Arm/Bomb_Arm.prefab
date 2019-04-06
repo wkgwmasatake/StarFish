@@ -21,8 +21,7 @@ GameObject:
   - component: {fileID: 4840090015494666}
   - component: {fileID: 198034085523943532}
   - component: {fileID: 199963887707808896}
-  - component: {fileID: 114665870553372398}
-  - component: {fileID: 114358461826954502}
+  - component: {fileID: 114114933202274726}
   m_Layer: 0
   m_Name: Bomb_Arm
   m_TagString: Untagged
@@ -43,7 +42,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114358461826954502
+--- !u!114 &114114933202274726
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -51,20 +50,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1555874088384198}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0ca0bff972fac640baca6d1ceb3dd26, type: 3}
+  m_Script: {fileID: 11500000, guid: ab86fe89c4c074447a5b3502a056df75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114665870553372398
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1555874088384198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d06f620c2bd79d04197741b42fec93d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  Scale: 1
 --- !u!198 &198034085523943532
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -125,7 +114,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -389845694
+  randomSeed: 250544254
   InitialModule:
     serializedVersion: 3
     enabled: 1
