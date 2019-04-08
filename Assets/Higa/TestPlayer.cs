@@ -38,7 +38,7 @@ public class TestPlayer : MonoBehaviour {
             var effect = GameObject.Instantiate(tapEffect);
             effect.transform.position = pos;
 
-            Debug.Log(pos);
+            //Debug.Log(pos);
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
