@@ -125,7 +125,7 @@ public class StarFishBehavior : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D col)
     {
             Rigidbody2D rb = GetComponent<Rigidbody2D>();           // Rigidbodyを取得
-        if (col.collider.tag == "Rock")
+        if (col.collider.tag == "Rock" || col.collider.tag == "Wall")
         {
             Instantiate(ParticleList[(int)PARTICLE.WALLTOUTCH], transform);
             if (transform.position.x < 0)        // 画面の左側で岩にあたった場合
