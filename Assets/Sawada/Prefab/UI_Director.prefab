@@ -9,62 +9,49 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1231000364928300}
+  m_RootGameObject: {fileID: 1789880004256578}
   m_IsPrefabParent: 1
---- !u!1 &1231000364928300
+--- !u!1 &1789880004256578
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4466383099933242}
-  - component: {fileID: 114471106991709810}
+  - component: {fileID: 4470275878359700}
+  - component: {fileID: 114480551906871326}
   m_Layer: 0
-  m_Name: GameDirector
+  m_Name: UI_Director
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4466383099933242
+--- !u!4 &4470275878359700
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1231000364928300}
+  m_GameObject: {fileID: 1789880004256578}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 72.71214, y: 119.69743, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114471106991709810
+--- !u!114 &114480551906871326
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1231000364928300}
+  m_GameObject: {fileID: 1789880004256578}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e786cbe9b133e0c4ca446b74148de6e8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a578a290f4576e41a9073e6a73b4079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  P_RectLeft: 0.5
-  P_RectRight: 0.5
-  P_RectTop: -500
-  P_RectButtom: 500
-  C_RectLeft: 148
-  C_Rect_Right: -148
-  C_RectTop: -615
-  C_RectButtom: 615
-  UI_Pause01: {fileID: 1059054395131376, guid: c8e98cc7476c1a04d88b870b839079a6, type: 2}
-  UI_Pause02: {fileID: 1374913223616752, guid: 31cf0295f3671064e8873533d1884dc9, type: 2}
-  StageStatus: 0
-  AreaStatus: 0
-  PearlStatus: 0
   Menu:
     m_SceneName: 
-  disTex: {fileID: 0}
-  armTex: {fileID: 0}
+  UI_Pause01: {fileID: 0}
+  UI_Pause02: {fileID: 0}

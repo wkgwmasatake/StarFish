@@ -8,11 +8,9 @@ using UnityEngine.SceneManagement;
 
 public class GameDirector : SingletonMonoBehaviour<GameDirector>
 {
-
     public int StageStatus;     // ステージのクリア状況
     public int AreaStatus;      // エリアの制覇状況
     public int PearlStatus;     // 真珠の取得状況
-
 
     private Vector2 position;
     private int armNumber;
@@ -26,7 +24,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     public Text disTex;         // 空までの距離(UI)
     public Text armTex;         // 腕の残り本数(UI)
 
-    public Button retry;
+    //public Button retry;
     
 
     // Use this for initialization
@@ -69,6 +67,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         }
     }
 
+    #region Getter/Setter
     #region ポジション（ゲッター・セッター）
     public void SetPosition(Vector2 posi)
     {
@@ -97,14 +96,6 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     public bool SetPauseFlg { set { pauseFlg = value; } }
     public bool GetPauseFlg { get { return pauseFlg;  } }
     #endregion
+    #endregion
 
-    public void RetryButton()
-    {
-
-        // 現在のScene名を取得する
-        Scene loadScene = SceneManager.GetActiveScene();
-        // Sceneの読み直し
-        SceneManager.LoadScene(loadScene.name);
-
-    }
 }
