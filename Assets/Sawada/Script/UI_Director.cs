@@ -86,5 +86,11 @@ public class UI_Director : SingletonMonoBehaviour<UI_Director>
         UI_Pause01.SetActive(true);
     }
 
+    //Nextボタン
+    public void NextButton()
+    {
+        Debug.Log("Next Scene!");
+    }
+
     #endregion
 }
