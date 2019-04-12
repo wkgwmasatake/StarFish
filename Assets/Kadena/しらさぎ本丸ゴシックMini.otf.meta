@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 396d2516adb003a46aa95bc69528bfc8
+timeCreated: 1554435663
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: ShirasagiHonmaruGothicMini
+  fontNames:
+  - ShirasagiHonmaruGothicMini
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 9865c78dad010664aab89f1e0b000377, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

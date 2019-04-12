@@ -15,7 +15,7 @@ public class SaveCSV : MonoBehaviour {
 		
 	}
 
-    public void SavePos(Vector2[] position , byte length)
+    public void SavePos(Vector2[] position, float[] angle, byte length)
     {
         
         // ファイルパスとファイルの上書きを指定(trueもしくは指定しなかったら追記)
@@ -24,6 +24,7 @@ public class SaveCSV : MonoBehaviour {
         for(int i = 0; i < length; i++)
         {
             sw.WriteLine(position[i]);      // i番目の座標を1行ずつCSVファイルに書き込み
+            sw.WriteLine(angle[i]);         // i番目の角度を1行ずつCSVファイルに書き込み
         }
 
         sw.Close();
