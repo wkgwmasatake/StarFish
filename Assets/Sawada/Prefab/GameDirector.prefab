@@ -51,9 +51,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e786cbe9b133e0c4ca446b74148de6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disTex: {fileID: 0}
-  armTex: {fileID: 0}
+  P_RectLeft: 0.5
+  P_RectRight: 0.5
+  P_RectTop: -500
+  P_RectButtom: 500
+  C_RectLeft: 148
+  C_Rect_Right: -148
+  C_RectTop: -615
+  C_RectButtom: 615
+  UI_Pause01: {fileID: 1059054395131376, guid: c8e98cc7476c1a04d88b870b839079a6, type: 2}
+  UI_Pause02: {fileID: 1374913223616752, guid: 31cf0295f3671064e8873533d1884dc9, type: 2}
   StageStatus: 0
   AreaStatus: 0
   PearlStatus: 0
-  tp: {fileID: 0}
+  Menu:
+    m_SceneName: 
+  disTex: {fileID: 0}
+  armTex: {fileID: 0}

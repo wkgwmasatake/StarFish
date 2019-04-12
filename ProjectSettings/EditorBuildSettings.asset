@@ -5,12 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Kadena/Area_Select.unity
-    guid: 706f5d34a0a9e31429d0e5034387977e
-  - enabled: 1
-    path: Assets/Kadena/Stage_Select.unity
-    guid: 3ec8de7b15563fd4399eb9a220e804c0
-  - enabled: 1
+  - enabled: 0
     path: Assets/Sawada/Stage_Test.unity
     guid: 405f9b229d64af64b8c4cce56b20031c
+  - enabled: 1
+    path: Assets/Higa/StageTest_copy.unity
+    guid: 939bd14e0e523894fbfe78a20408b23a
