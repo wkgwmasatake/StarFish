@@ -13,7 +13,7 @@ public class LoadCSV : MonoBehaviour
 
         if (sr == null) return -1;
 
-        _LoadPos = new float[50, 2];  //２次元配列を用意（５０個分の座標とｘ、ｙ分の２個）
+        _LoadPos = new float[100, 2];  //２次元配列を用意（５０個分の座標とｘ、ｙ分の２個）
         string line;
         int i = 0;
 

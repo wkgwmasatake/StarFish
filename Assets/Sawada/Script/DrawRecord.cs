@@ -8,12 +8,16 @@ public class DrawRecord : MonoBehaviour {
     [SerializeField] private GameObject LoadCSV_Obj;
     private LoadCSV loadcsv;
 
+    [SerializeField] private GameObject ghost;
+
     //time変数
     [SerializeField] private float span;
     private float time;
 
     //描画する画像
     [SerializeField] private Sprite pos;
+
+    [SerializeField] private int LayerNumber;
 
     private int roupNmber;
 
@@ -54,11 +58,7 @@ public class DrawRecord : MonoBehaviour {
     //オブジェクト生成メソッド
     void CreateObj(int i)
     {
-        //空のオブジェクト生成
-        GameObject newObj = new GameObject();
-        //Sprite追加 →　Sprite画像追加
-        newObj.AddComponent<SpriteRenderer>().sprite = pos;
-        //位置追加
-        newObj.transform.position = new Vector3(loadcsv.LoadPos[i, 0], loadcsv.LoadPos[i, 1], 1);
+        //Ghost生成
+        Instantiate(ghost, new Vector3(loadcsv.LoadPos[i, 0], loadcsv.LoadPos[i, 1], 1), Quaternion.identity);
     }
 }
