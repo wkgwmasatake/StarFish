@@ -17,8 +17,6 @@ public class DrawRecord : MonoBehaviour {
     //描画する画像
     [SerializeField] private Sprite pos;
 
-    [SerializeField] private int LayerNumber;
-
     private int roupNmber;
 
     private int i;
@@ -50,7 +48,11 @@ public class DrawRecord : MonoBehaviour {
         {
             time = 0;
             CreateObj(i);
+
+            // --- デバッグ用 --- //
             Debug.Log("Load CSV!!");
+            // ------------------ //
+
             i++;
         }
     }
@@ -59,6 +61,6 @@ public class DrawRecord : MonoBehaviour {
     void CreateObj(int i)
     {
         //Ghost生成
-        Instantiate(ghost, new Vector3(loadcsv.LoadPos[i, 0], loadcsv.LoadPos[i, 1], 1), Quaternion.identity);
+        Instantiate(ghost, new Vector3(loadcsv.LoadPos[i, 0], loadcsv.LoadPos[i, 1], 1), new Quaternion(0, 0, loadcsv.LoadAngle[i], 1));
     }
 }
