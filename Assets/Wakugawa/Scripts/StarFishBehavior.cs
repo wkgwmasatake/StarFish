@@ -51,6 +51,7 @@ public class StarFishBehavior : MonoBehaviour {
             LegSpriteRenderer[i] = transform.GetChild(i).GetComponent<SpriteRenderer>();
         }
 
+        transform.GetChild(0).GetComponent<Transform>().localScale = new Vector3(1.5f, 1.5f, 1.5f);     // 最初の腕の表示を1.5倍に拡大
         LegSpriteRenderer[0].sprite = LegImages[1];                     // 最初の腕を選択時の腕に画像を変更
 
         ArrowObject.SetActive(false);                                   // 非アクティブに設定
@@ -131,8 +132,10 @@ public class StarFishBehavior : MonoBehaviour {
                     LegSpriteRenderer[armNum].sprite = LegImages[2];        // 現在の腕を爆発後の腕の画像に変更
                     if (armNum < _MAX_LEG - 1)                              // 現在の腕が最後の腕じゃなかったら
                     {
+                        transform.GetChild(armNum + 1).GetComponent<Transform>().localScale = new Vector3(1.5f, 1.5f, 1.5f);    // 次の腕の大きさを1.5倍に変更
                         LegSpriteRenderer[armNum + 1].sprite = LegImages[1];// 次の腕を選択時の腕の画像に変更
                     }
+                    transform.GetChild(armNum).GetComponent<Transform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);            // 現在の腕の大きさを標準に変更
                     armNum++;                                               // 次の腕へ
                     GameDirector.Instance.SetArmNumber(GameDirector.Instance.GetArmNumber() - 1);               // 腕の本数を1減算
                 }
