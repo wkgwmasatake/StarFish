@@ -21,12 +21,11 @@ public class StarFishArmImage : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-
         ArmNumber = GameDirector.Instance.GetArmNumber();
-        if(ArmNumber == StartArmNum && ArmNumber != 0 && StartArmNum != 0)
+        if (ArmNumber == StartArmNum && ArmNumber != 0 && StartArmNum != 0)
         {
             StartArmNum--;
-            if(StartArmNum >= 0) LegRender[StartArmNum].sprite = legImage;
+            if(StartArmNum >= 0 && LegRender[StartArmNum] != null) LegRender[StartArmNum].sprite = legImage;
         }
 	}
 }
