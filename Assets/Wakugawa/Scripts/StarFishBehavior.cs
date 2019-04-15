@@ -26,7 +26,7 @@ public class StarFishBehavior : MonoBehaviour {
 
     byte i = 0;                     // 海星の座標を取得する際の要素番号
     Vector2[] position;             // 一定時間経過後に海星の座標を一時保存しておく変数
-    float[] angle;                    // 一定時間経過後に海星の角度を一時保存しておく変数
+    float[] angle;                  // 一定時間経過後に海星の角度を一時保存しておく変数
 
     SpriteRenderer[] LegSpriteRenderer; // 腕のスプライトレンダラー
 
@@ -93,11 +93,13 @@ public class StarFishBehavior : MonoBehaviour {
 
                 if (GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1 && GameDirector.Instance.GetArmNumber() > 1)        // 最初のタップと最後のタップ以外の時
                 {
-                    TimeCount = 0;                                  // タイムカウンタをリセット
-                    position[i] = this.transform.position;          // 爆発したときも座標を取得
-                    angle[i] = this.transform.localEulerAngles.z;   // 現在の角度を取得
-                    i++;                                            // 保存する配列の要素番号を1つ加算
-
+                    if (i < 100)
+                    {
+                        TimeCount = 0;                                  // タイムカウンタをリセット
+                        position[i] = this.transform.position;          // 爆発したときも座標を取得
+                        angle[i] = this.transform.localEulerAngles.z;   // 現在の角度を取得
+                        i++;                                            // 保存する配列の要素番号を1つ加算
+                    }
                     if (!ArrowObject.activeSelf)         // 非アクティブ状態なら
                     {
                         ArrowObject.SetActive(true);     // アクティブ状態に設定
