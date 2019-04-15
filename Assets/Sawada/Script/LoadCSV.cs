@@ -6,6 +6,7 @@ using System.IO;
 public class LoadCSV : MonoBehaviour
 {
     private float[,] _LoadPos;
+    private float[] _LoadAngle;
 
     public int Load()
     {
@@ -13,15 +14,24 @@ public class LoadCSV : MonoBehaviour
 
         if (sr == null) return -1;
 
-        _LoadPos = new float[100, 2];  //２次元配列を用意（５０個分の座標とｘ、ｙ分の２個）
+        _LoadPos = new float[200, 2];  //２次元配列を用意
+        _LoadAngle = new float[200];
         string line;
         int i = 0;
 
         while((line = sr.ReadLine()) != null)
         {
             string[] Spritline = line.Trim('(', ')').Split(',');  //読み込んだ１行に含まれている中かっこを取り除き、カンマで区切って読み込む
-            _LoadPos[i, 0] = float.Parse(Spritline[0]);  //x座標を抽出
-            _LoadPos[i, 1] = float.Parse(Spritline[1]);  //y座標を抽出
+            if (i % 2 == 0)
+            {
+                _LoadPos[i, 0] = float.Parse(Spritline[0]);  //x座標を抽出
+                _LoadPos[i, 1] = float.Parse(Spritline[1]);  //y座標を抽出
+            }
+            else
+            {
+                _LoadAngle[i] = float.Parse(line);
+            }
+
             i++;
         }
 
@@ -34,5 +44,9 @@ public class LoadCSV : MonoBehaviour
     public float[,] LoadPos
     {
         get { return _LoadPos; }
+    }
+    public float[] LoadAngle
+    {
+        get { return _LoadAngle; }
     }
 }

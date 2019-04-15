@@ -68,7 +68,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     }
 
     #region Getter/Setter
-    #region ポジション（ゲッター・セッター）
+
     public void SetPosition(Vector2 posi)
     {
         position = posi;
@@ -79,8 +79,6 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         return position;
     }
 
-    #endregion
-    #region 腕の数（ゲッター・セッター）
     public void SetArmNumber(int num)
     {
         armNumber = num;
@@ -91,11 +89,9 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         return armNumber;
     }
 
-    #endregion
-    #region 一時停止フラグ（ゲッター・セッター）
     public bool SetPauseFlg { set { pauseFlg = value; } }
     public bool GetPauseFlg { get { return pauseFlg;  } }
-    #endregion
+
     #endregion
 
 }
