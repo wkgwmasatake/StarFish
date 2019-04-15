@@ -17,9 +17,22 @@ public class SaveCSV : MonoBehaviour {
 
     public void SavePos(Vector2[] position, float[] angle, byte length)
     {
-        
+        string filePass;
+
+        // アンドロイドで実行している場合
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            // 軌跡データのパスを保存
+            filePass = Application.persistentDataPath + "\\Resources\\Ghost_Record.csv";
+
+        }
+        else    // その他(pc)で実行している場合
+        {
+            // 軌跡データのパスを保存
+            filePass = Application.dataPath + "\\Resources\\Ghost_Record.csv";
+        }
         // ファイルパスとファイルの上書きを指定(trueもしくは指定しなかったら追記)
-        StreamWriter sw = new StreamWriter(@"Assets/Resources/Ghost_Record.csv", false);
+        StreamWriter sw = new StreamWriter(filePass, false);
 
         for(int i = 0; i < length; i++)
         {
