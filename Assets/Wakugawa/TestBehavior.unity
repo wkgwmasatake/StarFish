@@ -602,7 +602,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 266325260}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 287.8, y: -596.9774, z: 0}
+  m_LocalPosition: {x: 287.8, y: -597.5803, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1504945491}
@@ -1092,11 +1092,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e786cbe9b133e0c4ca446b74148de6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameOverScene:
+    m_SceneName: 
+  GameResultScene:
+    m_SceneName: 
+  player: {fileID: 0}
   StageStatus: 0
   AreaStatus: 0
   PearlStatus: 0
-  disTex: {fileID: 0}
-  armTex: {fileID: 0}
 --- !u!4 &560079256
 Transform:
   m_ObjectHideFlags: 0
@@ -2509,8 +2512,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1504945487}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 77.5, y: 137.5, z: 0}
-  m_LocalScale: {x: 0.19375, y: 0.19375, z: 0.19375}
+  m_LocalPosition: {x: 107, y: 190, z: 0}
+  m_LocalScale: {x: 0.2675, y: 0.2675, z: 0.2675}
   m_Children:
   - {fileID: 266325261}
   - {fileID: 1082509113}
@@ -2831,7 +2834,7 @@ MonoBehaviour:
   - {fileID: 198633304363806112, guid: 93f28a2fbd4df1f45b8d32fac1cd913c, type: 2}
   - {fileID: 198752657916541514, guid: 43fc9d5eb8fb612429f35fad65560ca3, type: 2}
   ArrowObject: {fileID: 301031051}
-  bombPower: 10
+  bombPower: 1
   ArrowDisplayTime: 0.5
   SavePosTime: 0.5
   LegImages:
@@ -2923,7 +2926,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2038299110}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 332.4, y: 640.18744, z: 0}
+  m_LocalPosition: {x: 332.39996, y: 640.79034, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1504945491}
