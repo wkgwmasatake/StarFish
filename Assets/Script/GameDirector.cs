@@ -8,6 +8,11 @@ using UnityEngine.SceneManagement;
 
 public class GameDirector : SingletonMonoBehaviour<GameDirector>
 {
+    [SerializeField] private SceneObject GameOverScene;
+    [SerializeField] private SceneObject GameResultScene;
+
+    [SerializeField] private GameObject player;
+
     public int StageStatus;     // ステージのクリア状況
     public int AreaStatus;      // エリアの制覇状況
     public int PearlStatus;     // 真珠の取得状況
@@ -15,36 +20,25 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     private Vector2 position;
     private int armNumber;
 
+    private int distance;
+
     private bool pauseFlg;
 
     private bool _particleFlg;
 
-    private GameObject player;
     private Camera cam;          // メインカメラ
-    private GameObject goalLine;
-
-    public Text disTex;         // 空までの距離(UI)
-    public Text armTex;         // 腕の残り本数(UI)
-
-    //public Button retry;
-    
+    private GameObject goalLine;    
 
     // Use this for initialization
     void Start () {
 
-        player = GameObject.Find("starfish");
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         goalLine = GameObject.Find("GoalLine");
-
-        
-        //disTex = GameObject.Find("ToSky").GetComponent<Text>();
-        //armTex = GameObject.Find("RemainArm").GetComponent<Text>();
-
     }
 	
 	// Update is called once per frame
-	void Update () {
-
+	void Update ()
+    {
         if(goalLine == null)
         {
             Debug.Log("not goalline");
@@ -52,52 +46,75 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
         if (player != null)
         {
-            var distance = ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y);
-            disTex.text = /*"水面まで\n"　+*/
-                distance.ToString() + "m";
-
-            if(armNumber == 0)
-            {
-                if (distance <= 0)
-                {
-                    //disTex.gameObject.SetActive(false);
-                    //armTex.gameObject.SetActive(false);
-                }
-            }
+            distance = ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y);
         }
 
-        if (armNumber < 7)
+        //残りの足の本数がなくなり、パーティクルが削除されたら
+        if (armNumber == 1 && _particleFlg == true)
         {
-            armTex.text = /*"残り " +*/
-                (armNumber-1).ToString();
+            //位置判定メソッド
+            SelectLoadScene(distance);
+        }
+    }
+
+    void SelectLoadScene(int distance)
+    {
+        //Playerの位置判定
+        if (distance <= 0)
+        {
+            //GameResultがアタッチされていたら
+            if(GameResultScene != null)
+            {
+                SceneManager.LoadScene(GameResultScene);
+            }
+            //されていなければ
+            else
+            {
+                Debug.LogError("Not GameResultScene");
+            }
+        }
+        else
+        {
+            //GameOrverがアタッチされていたら
+            if(GameOverScene != null)
+            {
+                SceneManager.LoadScene(GameOverScene);
+            }
+            //されていなければ
+            else
+            {
+                Debug.LogError("Not GameOrverScene");
+            }
         }
     }
 
     #region Getter/Setter
 
+    //ポジションのゲッター・セッター
     public void SetPosition(Vector2 posi)
     {
         position = posi;
     }
-
     public Vector2 GetPosition()
     {
         return position;
     }
 
+    //ArmNumberのゲッター・セッター
     public void SetArmNumber(int num)
     {
         armNumber = num;
     }
-
     public int GetArmNumber()
     {
         return armNumber;
     }
 
+    //ポーズフラグのゲッター・セッター
     public bool SetPauseFlg { set { pauseFlg = value; } }
     public bool GetPauseFlg { get { return pauseFlg;  } }
 
+    //パーティクルの削除判定
     public bool ParticleFlg
     {
         get { return _particleFlg; }

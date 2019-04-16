@@ -1566,14 +1566,9 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114471106991709810, guid: c62f113ca1bd4c54285b9f91aac2b9e8,
         type: 2}
-      propertyPath: disTex
+      propertyPath: player
       value: 
-      objectReference: {fileID: 157514673}
-    - target: {fileID: 114471106991709810, guid: c62f113ca1bd4c54285b9f91aac2b9e8,
-        type: 2}
-      propertyPath: armTex
-      value: 
-      objectReference: {fileID: 1362932515}
+      objectReference: {fileID: 1845855008}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c62f113ca1bd4c54285b9f91aac2b9e8, type: 2}
   m_IsPrefabParent: 0

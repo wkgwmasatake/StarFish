@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 114937340294476082}
   m_Layer: 0
   m_Name: starfish_betaPre
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -306,6 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa2283af9daa7c441bc975b92efd5980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testText: {fileID: 0}
 --- !u!212 &212001607814232560
 SpriteRenderer:
   m_ObjectHideFlags: 1
