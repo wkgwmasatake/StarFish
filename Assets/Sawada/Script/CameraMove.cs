@@ -24,14 +24,10 @@ public class CameraMove : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
         //背景オブジェクトの情報参照
         BG = BGPre.GetComponent<BackGround>();
 
         CreateCollision();
-
-        Debug.Log(BG.height);
-        Debug.Log(BG.width);
     }
 
     // Update is called once per frame

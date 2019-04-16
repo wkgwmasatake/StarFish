@@ -17,6 +17,8 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
     private bool pauseFlg;
 
+    private bool _particleFlg;
+
     private GameObject player;
     private Camera cam;          // メインカメラ
     private GameObject goalLine;
@@ -53,11 +55,15 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
             var distance = ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y);
             disTex.text = /*"水面まで\n"　+*/
                 distance.ToString() + "m";
-            //if(distance < 0)
-            //{
-            //    disTex.gameObject.SetActive(false);
-            //    armTex.gameObject.SetActive(false);
-            //}
+
+            if(armNumber == 0)
+            {
+                if (distance <= 0)
+                {
+                    //disTex.gameObject.SetActive(false);
+                    //armTex.gameObject.SetActive(false);
+                }
+            }
         }
 
         if (armNumber < 7)
@@ -91,6 +97,12 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
     public bool SetPauseFlg { set { pauseFlg = value; } }
     public bool GetPauseFlg { get { return pauseFlg;  } }
+
+    public bool ParticleFlg
+    {
+        get { return _particleFlg; }
+        set { _particleFlg = value; }
+    }
 
     #endregion
 
