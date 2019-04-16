@@ -18,7 +18,7 @@ public class StarFishOriginal : MonoBehaviour {
     byte selectArm = 0;             // 現在の腕
     float Presstime = 0;            // 画面を長押ししている時間
 
-    float ForceX, ForceY;           // 力を加える方向
+    float ForceX = 0, ForceY = 0;           // 力を加える方向
 
     float TimeCount = 0;            // タイムカウンタ
 
@@ -110,8 +110,6 @@ public class StarFishOriginal : MonoBehaviour {
                     ForceX = transform.position.x - armPos.x;                   // 本体と腕のx座標の差を求める(力を加えるx方向)
                     ForceY = transform.position.y - armPos.y;                   // 本体と腕のy座標の差を求める(力を加えるy方向)
 
-                    Vector2 force = new Vector2(ForceX * bombPower, ForceY * bombPower);  // 本体と腕の座標の差から力を設定
-
                     LegSpriteRenderer[selectArm].sprite = LegImages[2];        // 現在の腕を爆発後の腕の画像に変更
                     if (selectArm < _MAX_LEG - 1)                              // 現在の腕が最後の腕じゃなかったら
                     {
@@ -124,17 +122,23 @@ public class StarFishOriginal : MonoBehaviour {
                 else if(GameDirector.Instance.GetArmNumber() > _MAX_TAP)        // 最初のタップ
                 {
                     GameDirector.Instance.SetArmNumber(GameDirector.Instance.GetArmNumber() - 1);               // 腕の本数を1減算
+                    ForceX = 0.1f;
+                    ForceY = 0.1f;
                 }
                 else                                                            // 最後の花火
                 {
                     Instantiate(ParticleList[(int)PARTICLE.FIREWORK], transform);   // 海星の子に設定して花火のパーティクルを生成
                     //SaveCSV SavePos = this.GetComponent<SaveCSV>();               // スクリプトを取得
-                    //SavePos.SavePos(position, angle, i);                          // 取得した座標をCSVファイルに書き込み
+                    //SavePos.BinarySavePos(position, angle, i);                    // ユーザーの見えない場所に座標と角度を保存 
                     StartCoroutine("DestroyObject");                                // 1フレーム後に自分自身を非アクティブに設定
                 }
             }
 
-            transform.Rotate(new Vector3(0, 0, rotatePower));   // 海星を回転
+            //transform.Rotate(new Vector3(0, 0, rotatePower));   // 海星を回転
+            transform.Translate(ForceX * bombPower, ForceY * bombPower, 0);         // 爆発の威力に応じて移動
+
+            ForceX *= 0.98f;
+            ForceY *= 0.98f;
         }
     }
 
