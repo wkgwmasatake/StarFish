@@ -5,6 +5,7 @@ using UnityEngine;
 public class VariousFixer : MonoBehaviour {
 
     [SerializeField] bool Scale;            // ヒトデから生成するエフェクトのみオン
+    [SerializeField] bool FireWorks;        // 最後の爆発（花火）だけオン
 
     private ParticleSystem ps;
     
@@ -20,6 +21,8 @@ public class VariousFixer : MonoBehaviour {
 
         if(Scale)
             ScaleFix();
+
+
 
         AutoDelete();
 
@@ -41,6 +44,11 @@ public class VariousFixer : MonoBehaviour {
     private void AutoDelete()                            // パーティクルの Duration で指定した時間で消えるように
     {
         Destroy(gameObject, (float)ps.main.duration);
+
+        if (FireWorks)
+        {
+            
+        }
     }
 
     private void ParentCut()                             // 親子関係を絶つ
