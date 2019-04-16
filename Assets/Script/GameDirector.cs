@@ -101,7 +101,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     public bool ParticleFlg
     {
         get { return _particleFlg; }
-        private set { _particleFlg = value; }
+        set { _particleFlg = value; }
     }
 
     #endregion

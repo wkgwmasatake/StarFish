@@ -22,8 +22,6 @@ public class VariousFixer : MonoBehaviour {
         if(Scale)
             ScaleFix();
 
-
-
         AutoDelete();
 
         ParentCut();
@@ -43,12 +41,10 @@ public class VariousFixer : MonoBehaviour {
 
     private void AutoDelete()                            // パーティクルの Duration で指定した時間で消えるように
     {
+        Invoke("SetParticleFlg", (float)ps.main.duration);
+
         Destroy(gameObject, (float)ps.main.duration);
 
-        if (FireWorks)
-        {
-            
-        }
     }
 
     private void ParentCut()                             // 親子関係を絶つ
@@ -71,8 +67,20 @@ public class VariousFixer : MonoBehaviour {
         }
     }
 
+    void SetParticleFlg()
+    {
+        if (FireWorks)
+        {
+            GameDirector.Instance.ParticleFlg = true;
+            //Debug.Log("finish");
+        }
+        
+    }
+
     public void RotationY(float y)                      // 指定された分だけ Y軸を回転
     {
         ps.gameObject.transform.Rotate(new Vector3(0, 1, 0), y);
     }
+
+
 }
