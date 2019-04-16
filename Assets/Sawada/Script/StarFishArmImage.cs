@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StarFishArmImage : MonoBehaviour {
-
+public class StarFishArmImage : MonoBehaviour
+{
     [SerializeField] private int ArmNumber;
     [SerializeField] private int StartArmNum;
 
@@ -22,6 +22,10 @@ public class StarFishArmImage : MonoBehaviour {
     void Update ()
     {
         ArmNumber = GameDirector.Instance.GetArmNumber();
+
+        Debug.Log("ArmNumber : " + ArmNumber);
+        Debug.Log("StartArmNumber : " + StartArmNum);
+
         if (ArmNumber == StartArmNum && ArmNumber != 0 && StartArmNum != 0)
         {
             StartArmNum--;

@@ -130,12 +130,14 @@ public class StarFishBehavior : MonoBehaviour {
                     rb.AddForce(force, ForceMode2D.Impulse);                // 一瞬のみ力を加える
 
                     LegSpriteRenderer[armNum].sprite = LegImages[2];        // 現在の腕を爆発後の腕の画像に変更
+                    transform.GetChild(armNum).GetComponent<Transform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);            // 現在の腕の大きさを標準に変更
+
                     if (armNum < _MAX_LEG - 1)                              // 現在の腕が最後の腕じゃなかったら
                     {
                         transform.GetChild(armNum + 1).GetComponent<Transform>().localScale = new Vector3(1.5f, 1.5f, 1.5f);    // 次の腕の大きさを1.5倍に変更
                         LegSpriteRenderer[armNum + 1].sprite = LegImages[1];// 次の腕を選択時の腕の画像に変更
                     }
-                    transform.GetChild(armNum).GetComponent<Transform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);            // 現在の腕の大きさを標準に変更
+
                     armNum++;                                               // 次の腕へ
                     GameDirector.Instance.SetArmNumber(GameDirector.Instance.GetArmNumber() - 1);               // 腕の本数を1減算
                 }

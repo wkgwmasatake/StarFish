@@ -5,7 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class UI_Director : SingletonMonoBehaviour<UI_Director>
 {
-    [SerializeField] private SceneObject Menu;
+    //シーンメイン
+    [SerializeField] private SceneObject SceneMain;
+
+    //シーンメニュー
+    [SerializeField] private SceneObject SceneMenu;
+
+    //シーンネクスト
+    [SerializeField] private SceneObject SceneNext;
 
     [SerializeField] private GameObject UI_Pause01;
     [SerializeField] private GameObject UI_Pause02;
@@ -33,11 +40,18 @@ public class UI_Director : SingletonMonoBehaviour<UI_Director>
         //TimeScaleが０なら元に戻す
         if (Time.timeScale <= 0) Time.timeScale = 1;
         GameDirector.Instance.SetPauseFlg = false;
-        // 現在のScene名を取得する
-        Scene loadScene = SceneManager.GetActiveScene();
 
-        // Sceneの読み直し
-        SceneManager.LoadScene(loadScene.name);
+        //シーンメインがアタッチされていたら
+        if(SceneMain != null)
+        {
+            // Sceneの読み直し
+            SceneManager.LoadScene(SceneMain);
+        }
+        //されていれば
+        else
+        {
+            Debug.Log("Not SceneMain");
+        }
     }
 
     //再開
@@ -65,11 +79,29 @@ public class UI_Director : SingletonMonoBehaviour<UI_Director>
     //メニュー
     public void MenuButton()
     {
-        //UI_Pause02アクティブ化
-        UI_Pause02.SetActive(true);
+        //現在のシーンがメインなら
+        if(SceneManager.GetActiveScene().name == SceneMain)
+        {
+            //UI_Pause02アクティブ化
+            UI_Pause02.SetActive(true);
 
-        //UI_Pause01非アクティブ化
-        UI_Pause01.SetActive(false);
+            //UI_Pause01非アクティブ化
+            UI_Pause01.SetActive(false);
+        }
+        //それ以外なら
+        else
+        {
+            //メニューシーンがアタッチされていたら
+            if(SceneMenu != null)
+            {
+                SceneManager.LoadScene(SceneMenu);
+            }
+            //いなければ
+            else
+            {
+                Debug.Log("Not SceneMenu");
+            }
+        }
     }
 
     //確認用ボタン
@@ -89,7 +121,16 @@ public class UI_Director : SingletonMonoBehaviour<UI_Director>
     //Nextボタン
     public void NextButton()
     {
-        Debug.Log("Next Scene!");
+        //次のシーンがアタッチされていたら
+        if(SceneNext != null)
+        {
+            SceneManager.LoadScene(SceneNext);
+        }
+        //いなければ
+        else
+        {
+            Debug.Log("Not SceneNext");
+        }
     }
 
     #endregion
