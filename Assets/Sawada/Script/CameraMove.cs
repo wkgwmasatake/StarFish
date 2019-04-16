@@ -37,7 +37,7 @@ public class CameraMove : MonoBehaviour
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z);
 
         Vector3 player_pos = transform.position;
-        player_pos.y = Mathf.Clamp(player_pos.y, -BG.height / 2 + MARGIN, BG.height / 2 + MARGIN);
+        //player_pos.y = Mathf.Clamp(player_pos.y, -BG.height / 2 + MARGIN, BG.height / 2 + MARGIN);
         transform.position = new Vector3(player_pos.x, player_pos.y, player_pos.z);
     }
 
