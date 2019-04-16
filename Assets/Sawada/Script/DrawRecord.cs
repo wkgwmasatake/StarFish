@@ -49,10 +49,6 @@ public class DrawRecord : MonoBehaviour {
             time = 0;
             CreateObj(i);
 
-            // --- デバッグ用 --- //
-            Debug.Log("Load CSV!!");
-            // ------------------ //
-
             i++;
         }
     }
