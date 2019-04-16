@@ -25,7 +25,7 @@ public class StarFishOriginal : MonoBehaviour {
     byte i = 0;                     // 海星の座標を取得する際の要素番号
     Vector2[] position;             // 一定時間経過後に海星の座標を一時保存しておく変数
     float[] angle;                  // 一定時間経過後に海星の角度を一時保存しておく変数
-    float rotatePower;              // 海星本体の回転量
+    float rotatePower = 0;              // 海星本体の回転量
 
     SpriteRenderer[] LegSpriteRenderer; // 腕のスプライトレンダラー
 
@@ -60,7 +60,7 @@ public class StarFishOriginal : MonoBehaviour {
 	void Update () {
         if (!GameDirector.Instance.GetPauseFlg)      // ポーズ中でなければ通常通り実行
         {
-            TimeCount += Time.deltaTime;                // 1フレーム間の時間を加算
+            TimeCount += Time.deltaTime;                 // 1フレーム間の時間を加算
             if (TimeCount > SavePosTime && i < 100)      // 一定時間経過後
             {
                 TimeCount = 0;                                  // タイムカウンタをリセット
@@ -71,7 +71,7 @@ public class StarFishOriginal : MonoBehaviour {
             if (GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1)
             {
                 rotatePower *= 0.985f;                               // 回転力を減衰
-                if (rotatePower < 1.5f)
+                if (rotatePower < 1.5f && rotatePower > -1.5f)
                     rotatePower = 1.5f;
             }
 
@@ -85,7 +85,7 @@ public class StarFishOriginal : MonoBehaviour {
             if (Input.GetMouseButtonUp(0) && GameDirector.Instance.GetArmNumber() > 0)   // 左クリックしたとき、かつタップの最大数以下の時
             {
                 Presstime = 0;          // 長押しの時間を初期化
-                rotatePower = 0.3f * bombPower;
+                rotatePower = -30f * bombPower;
 
                 if (GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1 && GameDirector.Instance.GetArmNumber() > 1)        // 最初のタップと最後のタップ以外の時
                 {
@@ -134,8 +134,8 @@ public class StarFishOriginal : MonoBehaviour {
                 }
             }
 
-            //transform.Rotate(new Vector3(0, 0, rotatePower));   // 海星を回転
-            transform.Translate(ForceX * bombPower, ForceY * bombPower, 0);         // 爆発の威力に応じて移動
+            transform.Rotate(new Vector3(0, 0, rotatePower));   // 海星を回転
+            transform.Translate(ForceX * bombPower, ForceY * bombPower, 0, Space.World);         // 爆発の威力に応じて移動
 
             ForceX *= 0.98f;
             ForceY *= 0.98f;
@@ -148,4 +148,82 @@ public class StarFishOriginal : MonoBehaviour {
         yield return null;
         gameObject.SetActive(false);
     }
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();           // Rigidbodyを取得
+        if (col.collider.tag == "Rock")
+        {
+            Vector3 hitPos;
+            foreach (ContactPoint2D point in col.contacts)
+            {
+                hitPos = point.point;                                                   // 衝突した座標を取得
+                var effect = Instantiate(ParticleList[(int)PARTICLE.WALLTOUTCH]);       // エフェクト生成
+                effect.transform.position = hitPos;                                     // エフェクトを衝突した座標に移動
+                VariousFixer vf = effect.GetComponent<VariousFixer>();                  // スクリプト取得
+                vf.RotationY(GetAngle(transform.position, hitPos));                      // スクリプト内の関数で角度を修正
+            }
+
+            Instantiate(ParticleList[(int)PARTICLE.WALLTOUTCH], transform);
+            if (transform.position.x < 0)        // 画面の左側で岩にあたった場合
+            {
+                transform.Rotate(new Vector3(0, 0, rotatePower));
+                rb.AddTorque(0.6f, ForceMode2D.Impulse);                    // 一瞬のみ時計回りに回転を加える
+                rb.AddForce(new Vector2(0.07f * bombPower, 0.07f * bombPower), ForceMode2D.Impulse);  // 一瞬のみ力を加える
+            }
+            else
+            {
+                rb.AddTorque(-0.6f, ForceMode2D.Impulse);                   // 一瞬のみ反時計回りに回転を加える
+                rb.AddForce(new Vector2(-0.07f * bombPower, 0.07f * bombPower), ForceMode2D.Impulse); // 一瞬のみ力を加える
+            }
+        }
+        else if (col.collider.tag == "Wall")
+        {
+            Vector3 hitPos;
+            foreach (ContactPoint2D point in col.contacts)
+            {
+                hitPos = point.point;                                                   // 衝突した座標を取得
+                var effect = Instantiate(ParticleList[(int)PARTICLE.WALLTOUTCH]);       // エフェクト生成
+                effect.transform.position = hitPos;                                     // エフェクトを衝突した座標に移動
+                VariousFixer vf = effect.GetComponent<VariousFixer>();                  // スクリプト取得
+                if (transform.position.x < 0)       // 画面の左側で壁にあたった場合
+                {
+                    vf.RotationY(90f);              // エフェクトを右向きに
+                }
+                else
+                {
+                    vf.RotationY(270f);             // エフェクトを左向きに
+                }
+            }
+
+            Instantiate(ParticleList[(int)PARTICLE.WALLTOUTCH], transform);
+            if (transform.position.x < 0)        // 画面の左側で岩にあたった場合
+            {
+                rb.AddTorque(0.6f, ForceMode2D.Impulse);                    // 一瞬のみ時計回りに回転を加える
+                rb.AddForce(new Vector2(0.07f * bombPower, 0.07f * bombPower), ForceMode2D.Impulse);  // 一瞬のみ力を加える
+            }
+            else
+            {
+                rb.AddTorque(-0.6f, ForceMode2D.Impulse);                   // 一瞬のみ反時計回りに回転を加える
+                rb.AddForce(new Vector2(-0.07f * bombPower, 0.07f * bombPower), ForceMode2D.Impulse); // 一瞬のみ力を加える
+            }
+
+        }
+
+    }
+
+    private float GetAngle(Vector2 start, Vector2 target)
+    {
+        Vector2 dt = target - start;
+        float rad = Mathf.Atan2(dt.x, dt.y);
+        float degree = rad * Mathf.Rad2Deg;
+
+        if (degree < 0)
+        {
+            degree += 360;
+        }
+
+        return degree;
+    }
+
 }

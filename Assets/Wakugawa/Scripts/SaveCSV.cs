@@ -89,9 +89,4 @@ public class SaveCSV : MonoBehaviour {
         StartCoroutine("WaitTime");
         testText.text = combinedPath;
     }
-
-    private IEnumerator WaitTime()
-    {
-        yield return new WaitForSeconds(3.0f);  // 3秒待つ
-    }
 }
