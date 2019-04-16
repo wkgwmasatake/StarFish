@@ -1566,26 +1566,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114471106991709810, guid: c62f113ca1bd4c54285b9f91aac2b9e8,
         type: 2}
-      propertyPath: disTex
-      value: 
-      objectReference: {fileID: 157514673}
-    - target: {fileID: 114471106991709810, guid: c62f113ca1bd4c54285b9f91aac2b9e8,
-        type: 2}
-      propertyPath: armTex
-      value: 
-      objectReference: {fileID: 1362932515}
-    - target: {fileID: 114471106991709810, guid: c62f113ca1bd4c54285b9f91aac2b9e8,
-        type: 2}
-      propertyPath: GameResultScene.m_SceneName
-      value: Result_Test
-      objectReference: {fileID: 0}
-    - target: {fileID: 114471106991709810, guid: c62f113ca1bd4c54285b9f91aac2b9e8,
-        type: 2}
-      propertyPath: GameOverScene.m_SceneName
-      value: GameOver_Test
-      objectReference: {fileID: 0}
-    - target: {fileID: 114471106991709810, guid: c62f113ca1bd4c54285b9f91aac2b9e8,
-        type: 2}
       propertyPath: player
       value: 
       objectReference: {fileID: 1845855008}
