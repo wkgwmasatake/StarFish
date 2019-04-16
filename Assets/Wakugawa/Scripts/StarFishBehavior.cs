@@ -153,7 +153,8 @@ public class StarFishBehavior : MonoBehaviour {
                 {
                     Instantiate(ParticleList[(int)PARTICLE.FIREWORK], transform);   // 海星の子に設定して花火のパーティクルを設定
                     SaveCSV SavePos = this.GetComponent<SaveCSV>();                 // スクリプトを取得
-                    SavePos.SavePos(position, angle, i);                                      // 取得した座標をCSVファイルに書き込み
+                    //SavePos.SavePos(position, angle, i);                            // 取得した座標をCSVファイルに書き込み
+                    SavePos.BinarySavePos(position, angle, i);                      // 取得した座標と角度をCSVファイルに書き込み
                     StartCoroutine("DestroyObject");                                //1フレーム後に自分自身を破棄
                 }
             }
