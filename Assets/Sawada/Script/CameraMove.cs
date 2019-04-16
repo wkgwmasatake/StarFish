@@ -34,7 +34,7 @@ public class CameraMove : MonoBehaviour
     void Update()
     {
         //プレイヤーを追従
-        transform.position = new Vector3(transform.position.x, player.transform.position.y, transform.position.z);
+        transform.position = new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z);
 
         Vector3 player_pos = transform.position;
         player_pos.y = Mathf.Clamp(player_pos.y, -BG.height / 2 + MARGIN, BG.height / 2 + MARGIN);
