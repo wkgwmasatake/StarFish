@@ -49,19 +49,11 @@ public class SaveCSV : MonoBehaviour {
             try
             {
                 using (var StarFish = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+                using (var currentActivity = StarFish.GetStatic<AndroidJavaObject>("currentActivity"))
+                using (var getFilesDir = currentActivity.Call<AndroidJavaObject>("getFilesDir"))
                 {
-                    testText.text = StarFish.ToString();
-                    using (var currentActivity = StarFish.GetStatic<AndroidJavaObject>("currentActivity"))
-                    {
-                        testText.text = currentActivity.ToString();
-                        using (var getFilesDir = currentActivity.Call<AndroidJavaObject>("getFilesDir"))
-                        {
-                            testText.text = getFilesDir.ToString();
-
-                            filePass = getFilesDir.Call<string>("getCanonicalPath");    // ユーザーから見えない場所のパスを取得
-                            testText.text = filePass.ToString();
-                        }
-                    }
+                    filePass = getFilesDir.Call<string>("getCanonicalPath");    // ユーザーから見えない場所のパスを取得
+                    testText.text = filePass.ToString();
                 }
             }
             catch
