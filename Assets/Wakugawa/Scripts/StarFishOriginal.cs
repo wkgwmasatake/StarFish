@@ -48,6 +48,7 @@ public class StarFishOriginal : MonoBehaviour {
             LegSpriteRenderer[i] = transform.GetChild(i).GetComponent<SpriteRenderer>();
         }
 
+        transform.GetChild(0).GetComponent<Transform>().localScale = new Vector3(1.5f, 1.5f, 1.5f);     // 最初の腕の表示を1.5倍に拡大
         LegSpriteRenderer[0].sprite = LegImages[1];             // 最初の腕を選択時の腕に画像を変更
 
         ArrowObject.SetActive(false);                           // 非アクティブに設定
@@ -71,8 +72,14 @@ public class StarFishOriginal : MonoBehaviour {
             if (GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1)
             {
                 rotatePower *= 0.985f;                               // 回転力を減衰
-                if (rotatePower < 1.5f && rotatePower > -1.5f)
+                if (rotatePower < 1.5f && rotatePower > 0)
+                {
                     rotatePower = 1.5f;
+                }
+                else if (rotatePower > -1.5f && rotatePower < 0)
+                {
+                    rotatePower = -1.5f;
+                }
             }
 
             if (Input.GetMouseButton(0) && GameDirector.Instance.GetArmNumber() > 1 && GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1)
@@ -85,7 +92,6 @@ public class StarFishOriginal : MonoBehaviour {
             if (Input.GetMouseButtonUp(0) && GameDirector.Instance.GetArmNumber() > 0)   // 左クリックしたとき、かつタップの最大数以下の時
             {
                 Presstime = 0;          // 長押しの時間を初期化
-                rotatePower = -30f * bombPower;
 
                 if (GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1 && GameDirector.Instance.GetArmNumber() > 1)        // 最初のタップと最後のタップ以外の時
                 {
@@ -110,10 +116,22 @@ public class StarFishOriginal : MonoBehaviour {
                     ForceX = transform.position.x - armPos.x;                   // 本体と腕のx座標の差を求める(力を加えるx方向)
                     ForceY = transform.position.y - armPos.y;                   // 本体と腕のy座標の差を求める(力を加えるy方向)
 
+                    if(transform.position.x < armPos.x)     // 本体の右側で腕が爆発したら
+                    {
+                        rotatePower = 15f * bombPower;      // 時計回りに回転
+                    }
+                    else                                    // 本体の左側で腕が爆発したら
+                    {
+                        rotatePower = -15f * bombPower;     // 反時計回りに回転
+                    }
+
                     LegSpriteRenderer[selectArm].sprite = LegImages[2];        // 現在の腕を爆発後の腕の画像に変更
+                    transform.GetChild(selectArm).GetComponent<Transform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);     // 現在の腕の表示を標準に変更
+
                     if (selectArm < _MAX_LEG - 1)                              // 現在の腕が最後の腕じゃなかったら
                     {
                         LegSpriteRenderer[selectArm + 1].sprite = LegImages[1];// 次の腕を選択時の腕の画像に変更
+                        transform.GetChild(selectArm + 1).GetComponent<Transform>().localScale = new Vector3(1.5f, 1.5f, 1.5f);     // 次の腕の表示を1.5倍に拡大
                     }
                     selectArm++;                                               // 次の腕へ
                     GameDirector.Instance.SetArmNumber(GameDirector.Instance.GetArmNumber() - 1);               // 腕の本数を1減算
@@ -122,7 +140,8 @@ public class StarFishOriginal : MonoBehaviour {
                 else if(GameDirector.Instance.GetArmNumber() > _MAX_TAP)        // 最初のタップ
                 {
                     GameDirector.Instance.SetArmNumber(GameDirector.Instance.GetArmNumber() - 1);               // 腕の本数を1減算
-                    ForceX = 0.1f;
+                    rotatePower = 12f * bombPower;
+                    ForceX = -0.07f;
                     ForceY = 0.1f;
                 }
                 else                                                            // 最後の花火
@@ -165,16 +184,19 @@ public class StarFishOriginal : MonoBehaviour {
             }
 
             Instantiate(ParticleList[(int)PARTICLE.WALLTOUTCH], transform);
-            if (transform.position.x < 0)        // 画面の左側で岩にあたった場合
+            if (transform.position.x < 0)       // 画面の左側で岩にあたった場合
             {
-                transform.Rotate(new Vector3(0, 0, rotatePower));
-                rb.AddTorque(0.6f, ForceMode2D.Impulse);                    // 一瞬のみ時計回りに回転を加える
-                rb.AddForce(new Vector2(0.07f * bombPower, 0.07f * bombPower), ForceMode2D.Impulse);  // 一瞬のみ力を加える
+                rotatePower = 7.0f;             // 時計回りに回転
+                // 右上に力を加える
+                ForceX = 0.07f;
+                ForceY = 0.07f;
             }
             else
             {
-                rb.AddTorque(-0.6f, ForceMode2D.Impulse);                   // 一瞬のみ反時計回りに回転を加える
-                rb.AddForce(new Vector2(-0.07f * bombPower, 0.07f * bombPower), ForceMode2D.Impulse); // 一瞬のみ力を加える
+                rotatePower = -7.0f;            // 反時計回りに回転
+                // 左上に力を加える
+                ForceX = -0.07f;
+                ForceY = 0.07f;
             }
         }
         else if (col.collider.tag == "Wall")
@@ -199,13 +221,15 @@ public class StarFishOriginal : MonoBehaviour {
             Instantiate(ParticleList[(int)PARTICLE.WALLTOUTCH], transform);
             if (transform.position.x < 0)        // 画面の左側で岩にあたった場合
             {
-                rb.AddTorque(0.6f, ForceMode2D.Impulse);                    // 一瞬のみ時計回りに回転を加える
-                rb.AddForce(new Vector2(0.07f * bombPower, 0.07f * bombPower), ForceMode2D.Impulse);  // 一瞬のみ力を加える
+                rotatePower = 5.0f;
+                ForceX = 0.07f;
+                ForceY = 0.07f;
             }
             else
             {
-                rb.AddTorque(-0.6f, ForceMode2D.Impulse);                   // 一瞬のみ反時計回りに回転を加える
-                rb.AddForce(new Vector2(-0.07f * bombPower, 0.07f * bombPower), ForceMode2D.Impulse); // 一瞬のみ力を加える
+                rotatePower = -5.0f;
+                ForceX = -0.07f;
+                ForceY = 0.07f;
             }
 
         }
