@@ -28,16 +28,21 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
     private bool _particleFlg;
 
+    private string SceneName = "Stage_Test";
+
     private Camera cam;          // メインカメラ
     private GameObject goalLine;
     private Text DistanceText;
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
 
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         goalLine = GameObject.Find("GoalLine");
-        DistanceText = disTex.GetComponent<Text>();
+
+        //現在のシーンがメインなら
+        if(SceneManager.GetActiveScene().name == SceneName) DistanceText = disTex.GetComponent<Text>();
     }
 	
 	// Update is called once per frame
@@ -51,7 +56,9 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         if (player != null)
         {
             _distance = ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y);
-            DistanceText.text = "地上まで \n" + GetDistance.ToString() + "m";
+
+            //現在のシーンがメインなら
+            if(SceneManager.GetActiveScene().name == SceneName) DistanceText.text = "地上まで \n" + GetDistance.ToString() + "m";
         }
 
         //残りの足の本数がなくなり、パーティクルが削除されたら
