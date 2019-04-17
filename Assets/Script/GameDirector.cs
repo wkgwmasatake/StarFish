@@ -13,6 +13,8 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
     [SerializeField] private GameObject player;
 
+    [SerializeField] private Text disTex;
+
     public int StageStatus;     // ステージのクリア状況
     public int AreaStatus;      // エリアの制覇状況
     public int PearlStatus;     // 真珠の取得状況
@@ -20,20 +22,22 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     private Vector2 position;
     private int armNumber;
 
-    private int distance;
+    private int _distance;
 
     private bool pauseFlg;
 
     private bool _particleFlg;
 
     private Camera cam;          // メインカメラ
-    private GameObject goalLine;    
+    private GameObject goalLine;
+    private Text DistanceText;
 
     // Use this for initialization
     void Start () {
 
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         goalLine = GameObject.Find("GoalLine");
+        DistanceText = disTex.GetComponent<Text>();
     }
 	
 	// Update is called once per frame
@@ -46,14 +50,15 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
         if (player != null)
         {
-            distance = ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y);
+            _distance = ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y);
+            DistanceText.text = "地上まで \n" + GetDistance.ToString() + "m";
         }
 
         //残りの足の本数がなくなり、パーティクルが削除されたら
         if (armNumber == 1 && _particleFlg == true)
         {
             //位置判定メソッド
-            SelectLoadScene(distance);
+            SelectLoadScene(_distance);
         }
     }
 
@@ -109,6 +114,10 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     {
         return armNumber;
     }
+
+    //distanceのゲッター・セッター
+    public int GetDistance { get { return _distance; } }
+    public int SetDistance { set { _distance = value; } }
 
     //ポーズフラグのゲッター・セッター
     public bool SetPauseFlg { set { pauseFlg = value; } }

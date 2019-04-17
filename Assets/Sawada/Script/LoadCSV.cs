@@ -64,15 +64,15 @@ public class LoadCSV : MonoBehaviour
         string filePass;
 
         //アンドロイドで実行している場合
-        if(Application.platform == RuntimePlatform.Android)
+        if (Application.platform == RuntimePlatform.Android)
         {
             try
             {
-                using (var StarFish = new AndroidJavaClass("com.unity3d.player.unityPlayer"))
+                using (var StarFish = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
                 using (var currentActivity = StarFish.GetStatic<AndroidJavaObject>("currentActivity"))
                 using (var getFilesDir = currentActivity.Call<AndroidJavaObject>("getFilesDir"))
                 {
-                    filePass = getFilesDir.Call<string>("getCanonicaPath");  //ユーザーから見えない場所のパスを取得
+                    filePass = getFilesDir.Call<string>("getCanonicalPath");  //ユーザーから見えない場所のパスを取得
                 }
             }
             catch
@@ -93,14 +93,13 @@ public class LoadCSV : MonoBehaviour
 
         try
         {
-            using (StringReader sr = new StringReader(combinedPath))
+            using (StreamReader sr = new StreamReader(combinedPath))
             {
                 _LoadPos = new float[100, 2];
                 _LoadAngle = new float[100];
-
-
                 while ((line = sr.ReadLine()) != null)
                 {
+                    Debug.Log(line);
                     if (i++ % 2 == 0)
                     {
                         string[] Spritline = line.Trim('(', ')').Split(',');  //読み込んだ１行に含まれている中かっこを取り除き、カンマで区切って読み込む
