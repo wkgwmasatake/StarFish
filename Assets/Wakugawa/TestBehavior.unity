@@ -1613,11 +1613,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4089327550490724, guid: e150517cabfc13c48ad9b07fc0487599, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.02
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 4089327550490724, guid: e150517cabfc13c48ad9b07fc0487599, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -13.76
+      value: -21.29
       objectReference: {fileID: 0}
     - target: {fileID: 4089327550490724, guid: e150517cabfc13c48ad9b07fc0487599, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2834,13 +2834,33 @@ MonoBehaviour:
   - {fileID: 198633304363806112, guid: 93f28a2fbd4df1f45b8d32fac1cd913c, type: 2}
   - {fileID: 198752657916541514, guid: 43fc9d5eb8fb612429f35fad65560ca3, type: 2}
   ArrowObject: {fileID: 301031051}
-  bombPower: 1
+  bombPower: 0.8
   ArrowDisplayTime: 0.5
   SavePosTime: 0.5
   LegImages:
   - {fileID: 21300000, guid: 9cbf11b37aadb8c4abbc2bfc27be4a02, type: 3}
-  - {fileID: 21300000, guid: f0ffe8f0d94eba24e9c36e1ff48639e7, type: 3}
+  - {fileID: 21300000, guid: 0184518076d4d60419f857dcceb59976, type: 3}
   - {fileID: 21300000, guid: 5f75b004ee01a31469147763241e7eb3, type: 3}
+--- !u!50 &1715575269
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1715575263}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0.03
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &1996272744
 Prefab:
   m_ObjectHideFlags: 0
