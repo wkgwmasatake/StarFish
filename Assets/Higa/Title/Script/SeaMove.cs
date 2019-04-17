@@ -22,7 +22,7 @@ public class SeaMove : MonoBehaviour
 
         this.transform.position += new Vector3(speed, 0, 0);
 
-        if (this.transform.position.x >= DeletePosX)
+        if (this.transform.position.x > DeletePosX)
         {
             PosXdiff = this.transform.position.x - DeletePosX;
             bufPos = new Vector3(ReStartPosX + PosXdiff, this.transform.position.y, this.transform.position.z);

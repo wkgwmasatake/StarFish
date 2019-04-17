@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour {
+public class TitleController : MonoBehaviour {
 
     enum PHASE
     {
@@ -31,7 +31,12 @@ public class CameraController : MonoBehaviour {
     [SerializeField] GameObject starfish;
     [SerializeField] GameObject waterdrop;
 
+    [SerializeField] GameObject cloud1;
+    [SerializeField] GameObject cloud2;
+    [SerializeField] GameObject cloud3;
+
     [SerializeField] GameObject fireworks;
+
 
     private PHASE now_phase;
     private float speed;
@@ -67,7 +72,7 @@ public class CameraController : MonoBehaviour {
         //bubble2.SetActive(false);
         //bubble3.SetActive(false);
 
-        now_phase = PHASE.START;
+        now_phase = PHASE.BUBBLE;
         speed = 0f;
         time = 0f;
 
@@ -85,7 +90,13 @@ public class CameraController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        switch (now_phase)
+        if (Input.GetMouseButtonDown(0) && now_phase < PHASE.SPLASH)
+        {
+            SkipProcess();
+            now_phase = PHASE.SPLASH;
+        }
+
+            switch (now_phase)
         {
             case PHASE.START:
                 StartProcess();
@@ -191,7 +202,7 @@ public class CameraController : MonoBehaviour {
             _cam1.gameObject.SetActive(!_cam1.gameObject.activeSelf);
             _cam2.gameObject.SetActive(!_cam2.gameObject.activeSelf);
 
-            whiteback.gameObject.SetActive(!whiteback.gameObject.activeSelf);
+            whiteback.gameObject.SetActive(true);
 
             ChangeScene(PHASE.SPLASH);
 
@@ -202,6 +213,15 @@ public class CameraController : MonoBehaviour {
 
     private void SplashProcess()
     {
+        if (pawnflg1 == false)
+        {
+            Instantiate(cloud1);
+            Instantiate(cloud2);
+            Instantiate(cloud3);
+
+            pawnflg1 = true;
+        }
+
         // 残り時間を更新
         currentRemainTime -= Time.deltaTime;
 
@@ -230,6 +250,8 @@ public class CameraController : MonoBehaviour {
         //    Rigidbody2D rb = _starfish.GetComponent<Rigidbody2D>();
         //    pawnflg1 = true;
         //}
+
+
         
 
         if (moveflg1 == false)
@@ -312,6 +334,14 @@ public class CameraController : MonoBehaviour {
         moveflg1 = moveflg2 = moveflg3 = false;
 
 
+    }
+
+    private void SkipProcess()
+    {
+        _cam1.gameObject.SetActive(!_cam1.gameObject.activeSelf);
+        _cam2.gameObject.SetActive(!_cam2.gameObject.activeSelf);
+
+        whiteback.gameObject.SetActive(true);
     }
 
 }
