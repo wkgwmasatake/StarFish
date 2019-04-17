@@ -6,7 +6,7 @@ using System.IO;
 
 public class SaveCSV : MonoBehaviour {
 
-    public Text testText;
+   // public Text testText;
 
     public void SavePos(Vector2[] position, float[] angle, byte length)
     {
@@ -53,12 +53,12 @@ public class SaveCSV : MonoBehaviour {
                 using (var getFilesDir = currentActivity.Call<AndroidJavaObject>("getFilesDir"))
                 {
                     filePass = getFilesDir.Call<string>("getCanonicalPath");    // ユーザーから見えない場所のパスを取得
-                    testText.text = filePass.ToString();
+                    //testText.text = filePass.ToString();
                 }
             }
             catch
             {
-                testText.text = ("パス取得失敗");
+                //testText.text = ("パス取得失敗");
                 return;
             }
         }
@@ -82,11 +82,10 @@ public class SaveCSV : MonoBehaviour {
         }
         catch
         {
-            testText.text = "書き込み失敗";
+            //testText.text = "書き込み失敗";
             return;
         }
-        testText.text = "書き込み完了";
-        StartCoroutine("WaitTime");
-        testText.text = combinedPath;
+        //testText.text = "書き込み完了";
+        //testText.text = combinedPath;
     }
 }
