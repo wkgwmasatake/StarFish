@@ -28,6 +28,11 @@ public class CameraController : MonoBehaviour {
 
     [SerializeField] GameObject whiteback;
 
+    [SerializeField] GameObject starfish;
+    [SerializeField] GameObject waterdrop;
+
+    [SerializeField] GameObject fireworks;
+
     private PHASE now_phase;
     private float speed;
     private float time;
@@ -36,9 +41,20 @@ public class CameraController : MonoBehaviour {
     private bool pawnflg2;
     private bool pawnflg3;
 
-
+    private float fadetime;
+    private float currentRemainTime;
+    private SpriteRenderer spRenderer;
 
     Vector3 startPos;
+
+    private bool moveflg1;
+    private bool moveflg2;
+    private bool moveflg3;
+
+    private GameObject _starfish;
+    private float bufposY;
+
+
 
     // Use this for initialization
     void Start () {
@@ -56,6 +72,14 @@ public class CameraController : MonoBehaviour {
         time = 0f;
 
         pawnflg1 = pawnflg2 = pawnflg3 = false;
+
+        fadetime = 0.5f;
+        currentRemainTime = fadetime;
+        spRenderer = whiteback.GetComponent<SpriteRenderer>();
+
+        moveflg1 = moveflg2 = moveflg3 = false;
+
+        bufposY = -6f;
 	}
 	
 	// Update is called once per frame
@@ -92,25 +116,17 @@ public class CameraController : MonoBehaviour {
                 break;
         }
 
-
-        //if (Input.GetKeyDown("1"))
-        //{
-        //    _cam1.gameObject.SetActive(!_cam1.gameObject.activeSelf);
-        //    _cam2.gameObject.SetActive(!_cam2.gameObject.activeSelf);
-        //}
 	}
 
     private void StartProcess()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            now_phase = PHASE.BUBBLE;
+            ChangeScene(PHASE.BUBBLE);
         }
 
-        //bubble1.SetActive(true);
-        //bubble2.SetActive(true);
-        //bubble3.SetActive(true);
     }
+
 
     private void BubbleProcess()
     {
@@ -136,22 +152,9 @@ public class CameraController : MonoBehaviour {
 
         if(pawnflg1 && pawnflg2 && pawnflg3 && time > 1.5f)
         {
-            now_phase = PHASE.RISING;
-            pawnflg1 = pawnflg2 = pawnflg3 = false;
+            ChangeScene(PHASE.RISING);
         }
 
-        //if (Input.GetKeyDown("1"))
-        //{
-        //    Instantiate(bubble1);
-        //}
-        //if (Input.GetKeyDown("2"))
-        //{
-        //    Instantiate(bubble2);
-        //}
-        //if (Input.GetKeyDown("3"))
-        //{
-        //    Instantiate(bubble3);
-        //}
     }
 
 
@@ -190,11 +193,8 @@ public class CameraController : MonoBehaviour {
 
             whiteback.gameObject.SetActive(!whiteback.gameObject.activeSelf);
 
-            now_phase = PHASE.SPLASH;
-            //Destroy(this.gameObject);
+            ChangeScene(PHASE.SPLASH);
 
-            //_cam1.transform.position = startPos;
-            //speed = 0f;
         }
 
     }
@@ -202,24 +202,115 @@ public class CameraController : MonoBehaviour {
 
     private void SplashProcess()
     {
-        //whiteback.GetComponent<SpriteRenderer>().color.a 
+        // 残り時間を更新
+        currentRemainTime -= Time.deltaTime;
+
+        if (currentRemainTime <= 0f)
+        {
+            //GameObject.Destroy(gameObject);
+            ChangeScene(PHASE.STARFISH);
+            
+        }
+
+        // フェードアウト
+        float alpha = currentRemainTime / fadetime;
+        var color = spRenderer.color;
+        color.a = alpha;
+        spRenderer.color = color;
     }
 
 
     private void StarfishProcess()
     {
 
+
+        //if (pawnflg1 == false)
+        //{
+        //    var _starfish = Instantiate(starfish);
+        //    Rigidbody2D rb = _starfish.GetComponent<Rigidbody2D>();
+        //    pawnflg1 = true;
+        //}
+        
+
+        if (moveflg1 == false)
+        {
+            _starfish = Instantiate(starfish);
+            Rigidbody2D rb = _starfish.GetComponent<Rigidbody2D>();
+
+            Vector2 force = new Vector2(0f, 30f);
+            rb.AddForce(force, ForceMode2D.Impulse);
+            rb.AddTorque(5f, ForceMode2D.Impulse);
+
+            moveflg1 = true;
+        }
+
+        if (moveflg2 == false)
+        {
+            var _waterdrop = Instantiate(waterdrop);
+            Rigidbody2D rb = _waterdrop.GetComponent<Rigidbody2D>();
+
+            Vector2 force = new Vector2(2f, 5f * Random.Range(0.8f, 1.2f));
+            rb.AddForce(force, ForceMode2D.Impulse);
+            rb.AddTorque(-2f, ForceMode2D.Impulse);
+
+            moveflg2 = true;
+        }
+
+        if (moveflg3 == false)
+        {
+            var _waterdrop = Instantiate(waterdrop);
+            Rigidbody2D rb = _waterdrop.GetComponent<Rigidbody2D>();
+
+            Vector2 force = new Vector2(-2f, 5f * Random.Range(0.8f, 1.2f));
+            rb.AddForce(force, ForceMode2D.Impulse);
+            rb.AddTorque(2f, ForceMode2D.Impulse);
+
+            moveflg3 = true;
+        }
+
+        
+        if(bufposY <= _starfish.transform.position.y)       // 最大高度まで上がったらヒトデを消す
+        {
+            bufposY = _starfish.transform.position.y;
+            Debug.Log(bufposY);
+        }
+        else
+        {
+            ChangeScene(PHASE.FIREWORKS);
+
+            Debug.Log("destroy");
+        }
     }
 
 
     private void FireWorksProcess()
     {
+        if (pawnflg1 == false)
+        {
+            var effect = Instantiate(fireworks);
+            var pos = _starfish.transform.position;
+            effect.transform.position = pos;
 
+            Destroy(_starfish);
+
+            pawnflg1 = true;
+        }
     }
 
 
     private void EndProcess()
     {
+
+    }
+
+    private void ChangeScene(PHASE p)
+    {
+        now_phase = p;
+
+        pawnflg1 = pawnflg2 = pawnflg3 = false;
+
+        moveflg1 = moveflg2 = moveflg3 = false;
+
 
     }
 

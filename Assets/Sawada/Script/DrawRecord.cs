@@ -29,7 +29,7 @@ public class DrawRecord : MonoBehaviour {
 
         loadcsv = LoadCSV_Obj.GetComponent<LoadCSV>();
 
-        roupNmber = loadcsv.Load();
+        roupNmber = loadcsv.BinaryLoad();
 
     }
 	
