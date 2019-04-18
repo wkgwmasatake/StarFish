@@ -45,7 +45,6 @@ public class BGM_Select : MonoBehaviour {
 
     public void VolumeChange(float num)//bgmの音量変更
     {
-        fix_vol = num;
         bgmAS.volume = num;        
     }
 }
