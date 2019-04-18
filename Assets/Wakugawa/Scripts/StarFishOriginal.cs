@@ -25,7 +25,10 @@ public class StarFishOriginal : MonoBehaviour {
     byte i = 0;                     // 海星の座標を取得する際の要素番号
     Vector2[] position;             // 一定時間経過後に海星の座標を一時保存しておく変数
     float[] angle;                  // 一定時間経過後に海星の角度を一時保存しておく変数
-    float rotatePower = 0;              // 海星本体の回転量
+    float rotatePower = 0;          // 海星本体の回転量
+    Vector2 armPos;
+    float ParticleAngle;
+    byte FlameCount = 0;
 
     SpriteRenderer[] LegSpriteRenderer; // 腕のスプライトレンダラー
 
@@ -66,6 +69,15 @@ public class StarFishOriginal : MonoBehaviour {
                 angle[i] = this.transform.localEulerAngles.z;   // 現在の角度を取得
                 i++;                                            // 保存する配列の要素番号を1つ加算
             }
+
+            if(Presstime < 0.01 && GameDirector.Instance.GetArmNumber() <= _MAX_TAP && GameDirector.Instance.GetArmNumber() > 1)
+            {
+                var effect = Instantiate(ParticleList[(int)PARTICLE.BOMB]); // 泡のパーティクルを生成
+                effect.transform.position = transform.position;             // 生成したパーティクルを腕の位置に設定
+                VariousFixer vf = effect.GetComponent<VariousFixer>();      // スクリプトを取得
+                vf.RotationY(ParticleAngle);                                // 角度を変更
+            }
+
             if (GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1)
             {
                 rotatePower *= 0.97f;                               // 回転力を減衰
@@ -111,12 +123,17 @@ public class StarFishOriginal : MonoBehaviour {
                     ArrowObject.GetComponent<ArrowDirector>().SetArrowPos(transform.GetChild(selectArm + 1));      // 次の腕に応じた矢印の位置に設定
                     ArrowObject.SetActive(false);       // 非アクティブに設定
 
-                    Instantiate(ParticleList[(int)PARTICLE.ARM], transform);    // 海星の子に設定して泡のパーティクルを生成
-                    Vector2 armPos = transform.GetChild(selectArm).position;       // ヒエラルキービューの上から子オブジェクトのワールド座標を取得
+                    armPos = transform.GetChild(selectArm).position;    // ヒエラルキービューの上から子オブジェクトのワールド座標を取得
                     ForceX = transform.position.x - armPos.x;                   // 本体と腕のx座標の差を求める(力を加えるx方向)
                     ForceY = transform.position.y - armPos.y;                   // 本体と腕のy座標の差を求める(力を加えるy方向)
 
-                    if(transform.position.x < armPos.x)     // 本体の右側で腕が爆発したら
+                    var effect = Instantiate(ParticleList[(int)PARTICLE.BOMB]); // 泡のパーティクルを生成
+                    effect.transform.position = armPos;                         // 生成したパーティクルを腕の位置に設定
+                    VariousFixer vf = effect.GetComponent<VariousFixer>();      // スクリプトを取得
+                    ParticleAngle = GetAngle(transform.position, armPos);       // 角度を取得
+                    vf.RotationY(ParticleAngle);                                // 角度を変更
+
+                    if (transform.position.x < armPos.x)    // 本体の右側で腕が爆発したら
                     {
                         rotatePower = 20f * bombPower;      // 時計回りに回転
                     }
@@ -252,5 +269,4 @@ public class StarFishOriginal : MonoBehaviour {
 
         return degree;
     }
-
 }
