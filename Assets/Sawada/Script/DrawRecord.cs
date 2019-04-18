@@ -8,6 +8,8 @@ public class DrawRecord : MonoBehaviour {
     [SerializeField] private GameObject LoadCSV_Obj;
     private LoadCSV loadcsv;
 
+    [SerializeField] private GameObject ghost;
+
     //time変数
     [SerializeField] private float span;
     private float time;
@@ -27,7 +29,7 @@ public class DrawRecord : MonoBehaviour {
 
         loadcsv = LoadCSV_Obj.GetComponent<LoadCSV>();
 
-        roupNmber = loadcsv.Load();
+        roupNmber = loadcsv.BinaryLoad();
 
     }
 	
@@ -46,7 +48,7 @@ public class DrawRecord : MonoBehaviour {
         {
             time = 0;
             CreateObj(i);
-            Debug.Log("Load CSV!!");
+
             i++;
         }
     }
@@ -54,11 +56,7 @@ public class DrawRecord : MonoBehaviour {
     //オブジェクト生成メソッド
     void CreateObj(int i)
     {
-        //空のオブジェクト生成
-        GameObject newObj = new GameObject();
-        //Sprite追加 →　Sprite画像追加
-        newObj.AddComponent<SpriteRenderer>().sprite = pos;
-        //位置追加
-        newObj.transform.position = new Vector3(loadcsv.LoadPos[i, 0], loadcsv.LoadPos[i, 1], 1);
+        //Ghost生成
+        Instantiate(ghost, new Vector3(loadcsv.LoadPos[i, 0], loadcsv.LoadPos[i, 1], 1), new Quaternion(0, 0, loadcsv.LoadAngle[i], 1));
     }
 }

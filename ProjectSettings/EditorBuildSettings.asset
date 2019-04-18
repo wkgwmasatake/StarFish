@@ -5,12 +5,18 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Sawada/Stage_Test.unity
     guid: 405f9b229d64af64b8c4cce56b20031c
   - enabled: 1
     path: Assets/Higa/StageTest_copy.unity
     guid: 939bd14e0e523894fbfe78a20408b23a
+  - enabled: 1
+    path: Assets/Sawada/GameOver_Test.unity
+    guid: 10f0e6b8522b9bc43bc1a523a9e98db7
+  - enabled: 1
+    path: Assets/Sawada/Result_Test.unity
+    guid: 68163263499705e429dee1a8c2b3f60f
   - enabled: 1
     path: Assets/Kadena/Area_Select.unity
     guid: 706f5d34a0a9e31429d0e5034387977e

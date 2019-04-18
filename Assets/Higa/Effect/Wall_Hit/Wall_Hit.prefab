@@ -135,6 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Scale: 0
+  FireWorks: 0
 --- !u!198 &198752657916541514
 ParticleSystem:
   m_ObjectHideFlags: 1
