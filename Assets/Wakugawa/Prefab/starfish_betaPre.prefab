@@ -282,7 +282,7 @@ MonoBehaviour:
   SavePosTime: 1
   LegImages:
   - {fileID: 21300000, guid: 9cbf11b37aadb8c4abbc2bfc27be4a02, type: 3}
-  - {fileID: 21300000, guid: 0184518076d4d60419f857dcceb59976, type: 3}
+  - {fileID: 21300000, guid: b6527a2b04933c6438cd5a643dceabe6, type: 3}
   - {fileID: 21300000, guid: 5f75b004ee01a31469147763241e7eb3, type: 3}
 --- !u!114 &114431294915530062
 MonoBehaviour:
