@@ -11,19 +11,18 @@ public class StageDirector : SingletonMonoBehaviour<StageDirector>
     [SerializeField] private GameObject icon_2;
     [SerializeField] private GameObject icon_3;
 
-    public enum StateNum// エリアの状態
+    public enum StateNum// ステージの状態
     {
         Unlocked = 0, // 選択可能かつ未選択
         Locked = 1,// 選択不可能
         Selected = 2,// 選択可能かつ選択中
     }
 
-    private int STAGE_MAX = 2;//エリアの総数を２と仮定
-
+    private int STAGE_MAX = 2;//ステージの総数を２と仮定
     private int START_NUM = 0;
-    private int num_stage;//配列areaの変数受け入れ用
+
+    private int num_stage;//配列stageの変数受け入れ用
     private Text StageName;
-    private int test = 0;
 
     //0, // 選択可能かつ未選択
     //1,// 選択不可能
@@ -47,12 +46,7 @@ public class StageDirector : SingletonMonoBehaviour<StageDirector>
     {
         stage = new int[STAGE_MAX + 1];
         num_stage = START_NUM;
-        Stage_state = new int[STAGE_MAX + 1];
-
-        //仮のクリア状況
-        Stage_state[0] = 0;
-        Stage_state[1] = 0;
-        Stage_state[2] = 1;
+        Stage_state = new int[STAGE_MAX + 1];        
     }
 
     public void SetNumStage(int num)//外部からエリア配列の要素数を変更する処理
