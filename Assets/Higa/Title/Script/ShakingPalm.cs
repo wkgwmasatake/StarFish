@@ -30,19 +30,19 @@ public class ShakingPalm : MonoBehaviour {
         }
 
         var rotation = this.transform.eulerAngles;
-        Debug.Log(this.gameObject.transform.eulerAngles);
+        //Debug.Log(this.gameObject.transform.eulerAngles);
 
         if(turnflg == false)
         {
             rotation.z -= speed;
             this.transform.eulerAngles = rotation;
-            Debug.Log("to Min");
+            //Debug.Log("to Min");
         }
         else
         {
             rotation.z += speed;
             this.transform.eulerAngles = rotation;
-            Debug.Log("to Max");
+            //Debug.Log("to Max");
         }
 
 

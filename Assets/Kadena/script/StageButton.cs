@@ -107,14 +107,14 @@ public class StageButton : MonoBehaviour {
     {
         SE_Taped.PlayOneShot(SE_Taped.clip);//効果音再生
 
-        //SceneManager.LoadScene("Stage_Test");//ゲームメインの読み込み
-        //テスト処理
-        if (gameObject.name == "stage_1")
-        {
-            StageDirector.Instance.SetStateStage(0, (int)StateNum.Unlocked);
-            StageDirector.Instance.SetStateStage(1, (int)StateNum.Selected);
-            SetChangeStage(stage_2);
-        }//テスト処理ここまで        
+        SceneManager.LoadScene("Stage_Test");//ゲームメインの読み込み
+        ////テスト処理
+        //if (gameObject.name == "stage_1")
+        //{
+        //    StageDirector.Instance.SetStateStage(0, (int)StateNum.Unlocked);
+        //    StageDirector.Instance.SetStateStage(1, (int)StateNum.Selected);
+        //    SetChangeStage(stage_2);
+        //}//テスト処理ここまで        
     }
 
     private void GetObj()

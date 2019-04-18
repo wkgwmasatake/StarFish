@@ -20,6 +20,8 @@ public class TitleController : MonoBehaviour {
     [SerializeField] GameObject _cam1;
     [SerializeField] GameObject _cam2;
 
+    [SerializeField] AudioSource AS;
+
     [SerializeField] GameObject bubble1;
     [SerializeField] GameObject bubble2;
     [SerializeField] GameObject bubble3;
@@ -131,10 +133,9 @@ public class TitleController : MonoBehaviour {
 
     private void StartProcess()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            ChangeScene(PHASE.BUBBLE);
-        }
+
+        AS.Play();
+        AS.pitch = 1f;
 
     }
 
@@ -163,7 +164,7 @@ public class TitleController : MonoBehaviour {
 
         if(pawnflg1 && pawnflg2 && pawnflg3 && time > 1.5f)
         {
-            ChangeScene(PHASE.RISING);
+            ChangePhase(PHASE.RISING);
         }
 
     }
@@ -195,7 +196,9 @@ public class TitleController : MonoBehaviour {
 
             _cam1.transform.position = pos;
 
-            //Debug.Log(pos.y);
+            AS.pitch += speed / 2;
+
+            Debug.Log(AS.pitch);
         }
         else
         {
@@ -204,7 +207,9 @@ public class TitleController : MonoBehaviour {
 
             whiteback.gameObject.SetActive(true);
 
-            ChangeScene(PHASE.SPLASH);
+            AS.Stop();
+
+            ChangePhase(PHASE.SPLASH);
 
         }
 
@@ -228,7 +233,7 @@ public class TitleController : MonoBehaviour {
         if (currentRemainTime <= 0f)
         {
             //GameObject.Destroy(gameObject);
-            ChangeScene(PHASE.STARFISH);
+            ChangePhase(PHASE.STARFISH);
             
         }
 
@@ -298,7 +303,7 @@ public class TitleController : MonoBehaviour {
         }
         else
         {
-            ChangeScene(PHASE.FIREWORKS);
+            ChangePhase(PHASE.FIREWORKS);
 
             Debug.Log("destroy");
         }
@@ -325,7 +330,7 @@ public class TitleController : MonoBehaviour {
 
     }
 
-    private void ChangeScene(PHASE p)
+    private void ChangePhase(PHASE p)
     {
         now_phase = p;
 
@@ -340,6 +345,8 @@ public class TitleController : MonoBehaviour {
     {
         _cam1.gameObject.SetActive(!_cam1.gameObject.activeSelf);
         _cam2.gameObject.SetActive(!_cam2.gameObject.activeSelf);
+
+        AS.Stop();
 
         whiteback.gameObject.SetActive(true);
     }

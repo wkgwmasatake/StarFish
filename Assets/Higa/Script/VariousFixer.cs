@@ -6,6 +6,7 @@ public class VariousFixer : MonoBehaviour {
 
     [SerializeField] bool Scale;            // ヒトデから生成するエフェクトのみオン
     [SerializeField] bool FireWorks;        // 最後の爆発（花火）だけオン
+    [SerializeField] bool ArmBomb;          // ヒトデの足の爆発だけオン
 
     private ParticleSystem ps;
     
@@ -22,9 +23,10 @@ public class VariousFixer : MonoBehaviour {
         if(Scale)
             ScaleFix();
 
-        AutoDelete();
+        if (!ArmBomb)
+            ParentCut();
 
-        ParentCut();
+        AutoDelete();
 
         SetSortingLayer(transform);
 	}
