@@ -17,3 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Kadena/Stage_Select.unity
     guid: 3ec8de7b15563fd4399eb9a220e804c0
+  - enabled: 1
+    path: Assets/Kadena/Option_Scene.unity
+    guid: dc6820e26275c2440a75c7ec5b023666
