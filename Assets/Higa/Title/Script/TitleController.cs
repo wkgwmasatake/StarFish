@@ -273,24 +273,46 @@ public class TitleController : MonoBehaviour {
 
         if (moveflg2 == false)
         {
-            var _waterdrop = Instantiate(waterdrop);
-            Rigidbody2D rb = _waterdrop.GetComponent<Rigidbody2D>();
+            //var _waterdrop = Instantiate(waterdrop);
+            //Rigidbody2D rb = _waterdrop.GetComponent<Rigidbody2D>();
 
-            Vector2 force = new Vector2(2f, 5f * Random.Range(0.8f, 1.2f));
-            rb.AddForce(force, ForceMode2D.Impulse);
-            rb.AddTorque(-2f, ForceMode2D.Impulse);
+            //Vector2 force = new Vector2(2f, 5f * Random.Range(0.8f, 1.2f));
+            //rb.AddForce(force, ForceMode2D.Impulse);
+            //rb.AddTorque(-2f, ForceMode2D.Impulse);
+
+            //var _waterdrop1 = Instantiate(waterdrop);
+            //Rigidbody2D rb1 = _waterdrop.GetComponent<Rigidbody2D>();
+
+            //Vector2 force1 = new Vector2(-2f, 5f * Random.Range(0.8f, 1.2f));
+            //rb.AddForce(force, ForceMode2D.Impulse);
+            //rb.AddTorque(2f, ForceMode2D.Impulse);
+
+            for (float i = 1.5f; i <= 2.5f; i += 0.1f)
+            {
+                var _waterdrop = Instantiate(waterdrop);
+                Rigidbody2D rb = _waterdrop.GetComponent<Rigidbody2D>();
+
+                Vector2 force = new Vector2( i , 5f * Random.Range(0.8f, 1.2f));
+                rb.AddForce(force, ForceMode2D.Impulse);
+                rb.AddTorque( -i , ForceMode2D.Impulse);
+            }
+            for (float i = -1.5f; i >= -2.5f; i -= 0.1f)
+            {
+                var _waterdrop = Instantiate(waterdrop);
+                Rigidbody2D rb = _waterdrop.GetComponent<Rigidbody2D>();
+
+                Vector2 force = new Vector2( i , 5f * Random.Range(0.8f, 1.2f));
+                rb.AddForce(force, ForceMode2D.Impulse);
+                rb.AddTorque( -i , ForceMode2D.Impulse);
+            }
+
 
             moveflg2 = true;
         }
 
         if (moveflg3 == false)
         {
-            var _waterdrop = Instantiate(waterdrop);
-            Rigidbody2D rb = _waterdrop.GetComponent<Rigidbody2D>();
-
-            Vector2 force = new Vector2(-2f, 5f * Random.Range(0.8f, 1.2f));
-            rb.AddForce(force, ForceMode2D.Impulse);
-            rb.AddTorque(2f, ForceMode2D.Impulse);
+            
 
             moveflg3 = true;
         }
