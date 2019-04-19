@@ -23,6 +23,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     private int armNumber;
 
     private int _distance;
+    private int _startDistance;
 
     private bool pauseFlg;
 
@@ -43,10 +44,13 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
         //現在のシーンがメインなら
         if(SceneManager.GetActiveScene().name == SceneName) DistanceText = disTex.GetComponent<Text>();
+
+        _startDistance = ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y);
+
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update ()
     {
         if(goalLine == null)
         {
@@ -125,6 +129,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     //distanceのゲッター・セッター
     public int GetDistance { get { return _distance; } }
     public int SetDistance { set { _distance = value; } }
+    public int GetStartDistance { get{ return _startDistance; } }
 
     //ポーズフラグのゲッター・セッター
     public bool SetPauseFlg { set { pauseFlg = value; } }
