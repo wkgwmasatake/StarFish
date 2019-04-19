@@ -20,8 +20,6 @@ public class TitleController : MonoBehaviour {
     [SerializeField] GameObject _cam1;
     [SerializeField] GameObject _cam2;
 
-    [SerializeField] AudioSource AS;
-
     [SerializeField] GameObject bubble1;
     [SerializeField] GameObject bubble2;
     [SerializeField] GameObject bubble3;
@@ -38,6 +36,10 @@ public class TitleController : MonoBehaviour {
     [SerializeField] GameObject cloud3;
 
     [SerializeField] GameObject fireworks;
+
+    [SerializeField] AudioSource se_bubble;
+    [SerializeField] AudioSource se_rising;
+    [SerializeField] AudioSource se_splash;
 
 
     private PHASE now_phase;
@@ -134,8 +136,8 @@ public class TitleController : MonoBehaviour {
     private void StartProcess()
     {
 
-        AS.Play();
-        AS.pitch = 1f;
+        se_bubble.Play();
+        se_bubble.pitch = 1f;
 
     }
 
@@ -167,6 +169,7 @@ public class TitleController : MonoBehaviour {
             ChangePhase(PHASE.RISING);
         }
 
+        se_bubble.volume -= 0.01f;
     }
 
 
@@ -182,6 +185,8 @@ public class TitleController : MonoBehaviour {
             pos.z = 10f;
             effect.transform.position = pos;
 
+            se_rising.Play();
+
             pawnflg1 = true;
         }
 
@@ -196,9 +201,9 @@ public class TitleController : MonoBehaviour {
 
             _cam1.transform.position = pos;
 
-            AS.pitch += speed / 2;
+            //se_bubble.pitch += speed / 3;
 
-            Debug.Log(AS.pitch);
+            Debug.Log(se_bubble.pitch);
         }
         else
         {
@@ -207,7 +212,7 @@ public class TitleController : MonoBehaviour {
 
             whiteback.gameObject.SetActive(true);
 
-            AS.Stop();
+            se_bubble.Stop();
 
             ChangePhase(PHASE.SPLASH);
 
@@ -287,7 +292,7 @@ public class TitleController : MonoBehaviour {
             //rb.AddForce(force, ForceMode2D.Impulse);
             //rb.AddTorque(2f, ForceMode2D.Impulse);
 
-            for (float i = 1.5f; i <= 2.5f; i += 0.1f)
+            for (float i = 1.5f; i <= 2.5f; i += 0.2f)
             {
                 var _waterdrop = Instantiate(waterdrop);
                 Rigidbody2D rb = _waterdrop.GetComponent<Rigidbody2D>();
@@ -296,7 +301,7 @@ public class TitleController : MonoBehaviour {
                 rb.AddForce(force, ForceMode2D.Impulse);
                 rb.AddTorque( -i , ForceMode2D.Impulse);
             }
-            for (float i = -1.5f; i >= -2.5f; i -= 0.1f)
+            for (float i = -1.5f; i >= -2.5f; i -= 0.2f)
             {
                 var _waterdrop = Instantiate(waterdrop);
                 Rigidbody2D rb = _waterdrop.GetComponent<Rigidbody2D>();
@@ -305,6 +310,8 @@ public class TitleController : MonoBehaviour {
                 rb.AddForce(force, ForceMode2D.Impulse);
                 rb.AddTorque( -i , ForceMode2D.Impulse);
             }
+
+            se_splash.Play();
 
 
             moveflg2 = true;
@@ -351,6 +358,7 @@ public class TitleController : MonoBehaviour {
     {
 
     }
+    
 
     private void ChangePhase(PHASE p)
     {
@@ -363,12 +371,14 @@ public class TitleController : MonoBehaviour {
 
     }
 
+
     private void SkipProcess()
     {
         _cam1.gameObject.SetActive(!_cam1.gameObject.activeSelf);
         _cam2.gameObject.SetActive(!_cam2.gameObject.activeSelf);
 
-        AS.Stop();
+        se_bubble.Stop();
+        se_rising.Stop();
 
         whiteback.gameObject.SetActive(true);
     }
