@@ -26,7 +26,6 @@ public class Distance_Gage : MonoBehaviour
         _slider.maxValue = GameDirector.Instance.GetStartDistance;
 
         pos = GameDirector.Instance.GetStartDistance - GameDirector.Instance.GetDistance;
-        Debug.Log("pos : " + pos);
 
         if(pos > _slider.maxValue)
         {

@@ -33,8 +33,19 @@ public class DrawRecord : MonoBehaviour {
 
         roupNmber = loadcsv.BinaryLoad();
 
-        //軌跡のオブジェクトを格納する親オブジェクト
-        GhostParent = GameObject.Find("Trajectory").transform;
+        // Trajectoryがなければ生成
+        if (GameObject.Find("Trajectory") != null)
+        {
+            //軌跡のオブジェクトを格納する親オブジェクト
+            GhostParent = GameObject.Find("Trajectory").transform;
+        }
+        else
+        {
+            //軌跡のオブジェクトを格納する親オブジェクト
+            GameObject Trajectory = new GameObject();
+            Trajectory.name = "Trajectory";
+            GhostParent = Trajectory.transform;
+        }
     }
 	
 	// Update is called once per frame
