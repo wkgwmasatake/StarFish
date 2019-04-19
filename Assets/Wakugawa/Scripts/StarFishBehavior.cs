@@ -51,9 +51,6 @@ public class StarFishBehavior : MonoBehaviour {
             LegSpriteRenderer[i] = transform.GetChild(i).GetComponent<SpriteRenderer>();
         }
 
-        transform.GetChild(0).GetComponent<Transform>().localScale = new Vector3(1.5f, 1.5f, 1.5f);     // 最初の腕の表示を1.5倍に拡大
-        LegSpriteRenderer[0].sprite = LegImages[1];                     // 最初の腕を選択時の腕に画像を変更
-
         ArrowObject.SetActive(false);                                   // 非アクティブに設定
 
         position = new Vector2[100];        // 100個分の配列を確保
@@ -81,7 +78,7 @@ public class StarFishBehavior : MonoBehaviour {
                 }
             }
 
-            if (Input.GetMouseButton(0) && GameDirector.Instance.GetArmNumber() > 1 && GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1)     // 最初のタップと最後のタップ以外
+            if (GameDirector.Instance.GetArmNumber() > 1 && GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1)     // 最初のタップと最後のタップ以外
             {
                 Presstime += Time.deltaTime;        // 長押ししている時間を計測
                 if (Presstime > ArrowDisplayTime)   // 一定時間長押ししたら
@@ -147,6 +144,10 @@ public class StarFishBehavior : MonoBehaviour {
                     Vector2 force = new Vector2(-5.0f * bombPower / 20, 5.0f * bombPower / 20);                // 力を設定
                     rb.AddTorque(0.8f, ForceMode2D.Impulse);                // 一瞬のみ回転を加える
                     rb.AddForce(force, ForceMode2D.Impulse);                // 一瞬のみ力を加える
+
+                    transform.GetChild(0).GetComponent<Transform>().localScale = new Vector3(1.5f, 1.5f, 1.5f);     // 最初の腕の表示を1.5倍に拡大
+                    LegSpriteRenderer[0].sprite = LegImages[1];                     // 最初の腕を選択時の腕に画像を変更
+
                     GameDirector.Instance.SetArmNumber(GameDirector.Instance.GetArmNumber() - 1);               // 腕の本数を1減算
                 }
                 else                // 最後の花火

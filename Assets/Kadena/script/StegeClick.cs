@@ -11,10 +11,10 @@ public class StegeClick : MonoBehaviour {
     [SerializeField] private float move_time = 0.6f;
     private bool touch_left = false;
     private bool touch_right = false;
-
+    private AudioSource  tap_SE;
     void Start()
     {
-
+        tap_SE = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -33,6 +33,7 @@ public class StegeClick : MonoBehaviour {
     {
         if (gameObject.name == "Left_arrow" && touch_left == false && StageDirector.Instance.GetNumStage() > 0)
         {
+            tap_SE.PlayOneShot(tap_SE.clip);
             StageDirector.Instance.SetNumStage(-1);
             touch_left = true;
             StartCoroutine(Change_left());
@@ -43,6 +44,7 @@ public class StegeClick : MonoBehaviour {
     {
         if (gameObject.name == "Right_arrow" && touch_right == false && StageDirector.Instance.GetNumStage() < 2)
         {
+            tap_SE.PlayOneShot(tap_SE.clip);
             StageDirector.Instance.SetNumStage(1);
             touch_right = true;
             StartCoroutine(Change_right());
@@ -70,5 +72,4 @@ public class StegeClick : MonoBehaviour {
         yield return new WaitForSeconds(move_time);
         touch_right = false;
     }
-
 }

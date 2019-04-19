@@ -25,7 +25,10 @@ public class StarFishOriginal : MonoBehaviour {
     byte i = 0;                     // 海星の座標を取得する際の要素番号
     Vector2[] position;             // 一定時間経過後に海星の座標を一時保存しておく変数
     float[] angle;                  // 一定時間経過後に海星の角度を一時保存しておく変数
-    float rotatePower = 0;              // 海星本体の回転量
+    float rotatePower = 0;          // 海星本体の回転量
+    Vector2 armPos;
+    float ParticleAngle;
+    byte FlameCount = 0;
 
     SpriteRenderer[] LegSpriteRenderer; // 腕のスプライトレンダラー
 
@@ -48,9 +51,6 @@ public class StarFishOriginal : MonoBehaviour {
             LegSpriteRenderer[i] = transform.GetChild(i).GetComponent<SpriteRenderer>();
         }
 
-        transform.GetChild(0).GetComponent<Transform>().localScale = new Vector3(1.5f, 1.5f, 1.5f);     // 最初の腕の表示を1.5倍に拡大
-        LegSpriteRenderer[0].sprite = LegImages[1];             // 最初の腕を選択時の腕に画像を変更
-
         ArrowObject.SetActive(false);                           // 非アクティブに設定
 
         position = new Vector2[100];        // 100個分の配列を確保
@@ -69,29 +69,52 @@ public class StarFishOriginal : MonoBehaviour {
                 angle[i] = this.transform.localEulerAngles.z;   // 現在の角度を取得
                 i++;                                            // 保存する配列の要素番号を1つ加算
             }
+
+            if(FlameCount++ < 1 && GameDirector.Instance.GetArmNumber() <= _MAX_TAP && GameDirector.Instance.GetArmNumber() > 0)
+            {
+                var effect01 = Instantiate(ParticleList[(int)PARTICLE.BOMB]); // 泡のパーティクルを生成
+                effect01.transform.position = transform.position;             // 生成したパーティクルを腕の位置に設定
+                VariousFixer vf01 = effect01.GetComponent<VariousFixer>();      // スクリプトを取得
+                vf01.RotationY(ParticleAngle);                                // 角度を変更
+
+                var effect02 = Instantiate(ParticleList[(int)PARTICLE.BOMB]);
+                effect02.transform.position = transform.position;
+                VariousFixer vf02 = effect02.GetComponent<VariousFixer>();
+                vf02.RotationY(ParticleAngle + 15.0f);
+
+                var effect03 = Instantiate(ParticleList[(int)PARTICLE.BOMB]);
+                effect03.transform.position = transform.position;
+                VariousFixer vf03 = effect03.GetComponent<VariousFixer>();
+                vf03.RotationY(ParticleAngle - 15.0f);
+            }
+
             if (GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1)
             {
-                rotatePower *= 0.985f;                               // 回転力を減衰
-                if (rotatePower < 1.5f && rotatePower > 0)
+                rotatePower *= 0.97f;                               // 回転力を減衰
+                if (rotatePower < 4.0f && rotatePower > 0)
                 {
-                    rotatePower = 1.5f;
+                    rotatePower = 4.0f;
                 }
-                else if (rotatePower > -1.5f && rotatePower < 0)
+                else if (rotatePower > -4.0f && rotatePower < 0)
                 {
-                    rotatePower = -1.5f;
+                    rotatePower = -4.0f;
                 }
             }
 
-            if (Input.GetMouseButton(0) && GameDirector.Instance.GetArmNumber() > 1 && GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1)
+            if (GameDirector.Instance.GetArmNumber() > 1 && GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1)   // 最初のタップと最後のタップ以外
             {
-                Presstime += Time.deltaTime;        // 長押ししている時間を計測
-                if (Presstime > ArrowDisplayTime)   // 一定時間長押ししたら
-                    ArrowObject.SetActive(true);    // アクティブに設定
+                Presstime += Time.deltaTime;        // 前回のタップから経過した時間を計測
+                if (Presstime > ArrowDisplayTime)   // 一定時間経過したら
+                    ArrowObject.SetActive(true);    // 矢印を表示
             }
 
             if (Input.GetMouseButtonUp(0) && GameDirector.Instance.GetArmNumber() > 0)   // 左クリックしたとき、かつタップの最大数以下の時
             {
-                Presstime = 0;          // 長押しの時間を初期化
+                Presstime = 0;          // 経過時間を初期化
+                FlameCount = 0;
+
+                Rigidbody2D rb = GetComponent<Rigidbody2D>();       // 海星のRigidbodyを取得
+                rb.velocity = Vector2.zero;                         // 重力加速度をリセット
 
                 if (GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1 && GameDirector.Instance.GetArmNumber() > 1)        // 最初のタップと最後のタップ以外の時
                 {
@@ -111,18 +134,23 @@ public class StarFishOriginal : MonoBehaviour {
                     ArrowObject.GetComponent<ArrowDirector>().SetArrowPos(transform.GetChild(selectArm + 1));      // 次の腕に応じた矢印の位置に設定
                     ArrowObject.SetActive(false);       // 非アクティブに設定
 
-                    Instantiate(ParticleList[(int)PARTICLE.ARM], transform);    // 海星の子に設定して泡のパーティクルを生成
-                    Vector2 armPos = transform.GetChild(selectArm).position;       // ヒエラルキービューの上から子オブジェクトのワールド座標を取得
+                    armPos = transform.GetChild(selectArm).position;    // ヒエラルキービューの上から子オブジェクトのワールド座標を取得
                     ForceX = transform.position.x - armPos.x;                   // 本体と腕のx座標の差を求める(力を加えるx方向)
                     ForceY = transform.position.y - armPos.y;                   // 本体と腕のy座標の差を求める(力を加えるy方向)
 
-                    if(transform.position.x < armPos.x)     // 本体の右側で腕が爆発したら
+                    var effect = Instantiate(ParticleList[(int)PARTICLE.BOMB]); // 泡のパーティクルを生成
+                    effect.transform.position = armPos;                         // 生成したパーティクルを腕の位置に設定
+                    VariousFixer vf = effect.GetComponent<VariousFixer>();      // スクリプトを取得
+                    ParticleAngle = GetAngle(transform.position, armPos);       // 角度を取得
+                    vf.RotationY(ParticleAngle);                                // 角度を変更
+
+                    if (transform.position.x < armPos.x)    // 本体の右側で腕が爆発したら
                     {
-                        rotatePower = 15f * bombPower;      // 時計回りに回転
+                        rotatePower = 20f * bombPower;      // 時計回りに回転
                     }
                     else                                    // 本体の左側で腕が爆発したら
                     {
-                        rotatePower = -15f * bombPower;     // 反時計回りに回転
+                        rotatePower = -20f * bombPower;     // 反時計回りに回転
                     }
 
                     LegSpriteRenderer[selectArm].sprite = LegImages[2];        // 現在の腕を爆発後の腕の画像に変更
@@ -140,9 +168,13 @@ public class StarFishOriginal : MonoBehaviour {
                 else if(GameDirector.Instance.GetArmNumber() > _MAX_TAP)        // 最初のタップ
                 {
                     GameDirector.Instance.SetArmNumber(GameDirector.Instance.GetArmNumber() - 1);               // 腕の本数を1減算
-                    rotatePower = 12f * bombPower;
-                    ForceX = -0.07f;
-                    ForceY = 0.1f;
+                    rotatePower = 12f * bombPower;      // 回転を設定
+                    // 左上に力を加える
+                    ForceX = -0.1f;
+                    ForceY = 0.15f;
+
+                    transform.GetChild(0).GetComponent<Transform>().localScale = new Vector3(1.5f, 1.5f, 1.5f);     // 最初の腕の表示を1.5倍に拡大
+                    LegSpriteRenderer[0].sprite = LegImages[1];             // 最初の腕を選択時の腕に画像を変更
                 }
                 else                                                            // 最後の花火
                 {
@@ -156,8 +188,8 @@ public class StarFishOriginal : MonoBehaviour {
             transform.Rotate(new Vector3(0, 0, rotatePower));   // 海星を回転
             transform.Translate(ForceX * bombPower, ForceY * bombPower, 0, Space.World);         // 爆発の威力に応じて移動
 
-            ForceX *= 0.98f;
-            ForceY *= 0.98f;
+            ForceX *= 0.95f;
+            ForceY *= 0.95f;
         }
     }
 
@@ -170,7 +202,6 @@ public class StarFishOriginal : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();           // Rigidbodyを取得
         if (col.collider.tag == "Rock")
         {
             Vector3 hitPos;
@@ -188,15 +219,15 @@ public class StarFishOriginal : MonoBehaviour {
             {
                 rotatePower = 7.0f;             // 時計回りに回転
                 // 右上に力を加える
-                ForceX = 0.07f;
-                ForceY = 0.07f;
+                ForceX = 0.1f;
+                ForceY = 0.1f;
             }
             else
             {
                 rotatePower = -7.0f;            // 反時計回りに回転
                 // 左上に力を加える
-                ForceX = -0.07f;
-                ForceY = 0.07f;
+                ForceX = -0.1f;
+                ForceY = 0.1f;
             }
         }
         else if (col.collider.tag == "Wall")
@@ -221,15 +252,15 @@ public class StarFishOriginal : MonoBehaviour {
             Instantiate(ParticleList[(int)PARTICLE.WALLTOUTCH], transform);
             if (transform.position.x < 0)        // 画面の左側で岩にあたった場合
             {
-                rotatePower = 5.0f;
-                ForceX = 0.07f;
-                ForceY = 0.07f;
+                rotatePower = 7.0f;
+                ForceX = 0.1f;
+                ForceY = 0.1f;
             }
             else
             {
-                rotatePower = -5.0f;
-                ForceX = -0.07f;
-                ForceY = 0.07f;
+                rotatePower = -7.0f;
+                ForceX = -0.1f;
+                ForceY = 0.1f;
             }
 
         }
@@ -249,5 +280,4 @@ public class StarFishOriginal : MonoBehaviour {
 
         return degree;
     }
-
 }

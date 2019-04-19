@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour {
+public class TitleController : MonoBehaviour {
 
     enum PHASE
     {
@@ -20,6 +20,8 @@ public class CameraController : MonoBehaviour {
     [SerializeField] GameObject _cam1;
     [SerializeField] GameObject _cam2;
 
+    [SerializeField] AudioSource AS;
+
     [SerializeField] GameObject bubble1;
     [SerializeField] GameObject bubble2;
     [SerializeField] GameObject bubble3;
@@ -31,7 +33,12 @@ public class CameraController : MonoBehaviour {
     [SerializeField] GameObject starfish;
     [SerializeField] GameObject waterdrop;
 
+    [SerializeField] GameObject cloud1;
+    [SerializeField] GameObject cloud2;
+    [SerializeField] GameObject cloud3;
+
     [SerializeField] GameObject fireworks;
+
 
     private PHASE now_phase;
     private float speed;
@@ -67,7 +74,7 @@ public class CameraController : MonoBehaviour {
         //bubble2.SetActive(false);
         //bubble3.SetActive(false);
 
-        now_phase = PHASE.START;
+        now_phase = PHASE.BUBBLE;
         speed = 0f;
         time = 0f;
 
@@ -85,7 +92,13 @@ public class CameraController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        switch (now_phase)
+        if (Input.GetMouseButtonDown(0) && now_phase < PHASE.SPLASH)
+        {
+            SkipProcess();
+            now_phase = PHASE.SPLASH;
+        }
+
+            switch (now_phase)
         {
             case PHASE.START:
                 StartProcess();
@@ -120,10 +133,9 @@ public class CameraController : MonoBehaviour {
 
     private void StartProcess()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            ChangeScene(PHASE.BUBBLE);
-        }
+
+        AS.Play();
+        AS.pitch = 1f;
 
     }
 
@@ -152,7 +164,7 @@ public class CameraController : MonoBehaviour {
 
         if(pawnflg1 && pawnflg2 && pawnflg3 && time > 1.5f)
         {
-            ChangeScene(PHASE.RISING);
+            ChangePhase(PHASE.RISING);
         }
 
     }
@@ -184,16 +196,20 @@ public class CameraController : MonoBehaviour {
 
             _cam1.transform.position = pos;
 
-            //Debug.Log(pos.y);
+            AS.pitch += speed / 2;
+
+            Debug.Log(AS.pitch);
         }
         else
         {
             _cam1.gameObject.SetActive(!_cam1.gameObject.activeSelf);
             _cam2.gameObject.SetActive(!_cam2.gameObject.activeSelf);
 
-            whiteback.gameObject.SetActive(!whiteback.gameObject.activeSelf);
+            whiteback.gameObject.SetActive(true);
 
-            ChangeScene(PHASE.SPLASH);
+            AS.Stop();
+
+            ChangePhase(PHASE.SPLASH);
 
         }
 
@@ -202,13 +218,22 @@ public class CameraController : MonoBehaviour {
 
     private void SplashProcess()
     {
+        if (pawnflg1 == false)
+        {
+            Instantiate(cloud1);
+            Instantiate(cloud2);
+            Instantiate(cloud3);
+
+            pawnflg1 = true;
+        }
+
         // 残り時間を更新
         currentRemainTime -= Time.deltaTime;
 
         if (currentRemainTime <= 0f)
         {
             //GameObject.Destroy(gameObject);
-            ChangeScene(PHASE.STARFISH);
+            ChangePhase(PHASE.STARFISH);
             
         }
 
@@ -230,6 +255,8 @@ public class CameraController : MonoBehaviour {
         //    Rigidbody2D rb = _starfish.GetComponent<Rigidbody2D>();
         //    pawnflg1 = true;
         //}
+
+
         
 
         if (moveflg1 == false)
@@ -276,7 +303,7 @@ public class CameraController : MonoBehaviour {
         }
         else
         {
-            ChangeScene(PHASE.FIREWORKS);
+            ChangePhase(PHASE.FIREWORKS);
 
             Debug.Log("destroy");
         }
@@ -303,7 +330,7 @@ public class CameraController : MonoBehaviour {
 
     }
 
-    private void ChangeScene(PHASE p)
+    private void ChangePhase(PHASE p)
     {
         now_phase = p;
 
@@ -312,6 +339,16 @@ public class CameraController : MonoBehaviour {
         moveflg1 = moveflg2 = moveflg3 = false;
 
 
+    }
+
+    private void SkipProcess()
+    {
+        _cam1.gameObject.SetActive(!_cam1.gameObject.activeSelf);
+        _cam2.gameObject.SetActive(!_cam2.gameObject.activeSelf);
+
+        AS.Stop();
+
+        whiteback.gameObject.SetActive(true);
     }
 
 }
