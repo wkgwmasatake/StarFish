@@ -19,6 +19,8 @@ public class DrawRecord : MonoBehaviour {
 
     private int roupNmber;
 
+    private Transform GhostParent;
+
     private int i;
 
     // Use this for initialization
@@ -31,6 +33,8 @@ public class DrawRecord : MonoBehaviour {
 
         roupNmber = loadcsv.BinaryLoad();
 
+        //軌跡のオブジェクトを格納する親オブジェクト
+        GhostParent = GameObject.Find("Trajectory").transform;
     }
 	
 	// Update is called once per frame
@@ -57,6 +61,6 @@ public class DrawRecord : MonoBehaviour {
     void CreateObj(int i)
     {
         //Ghost生成
-        Instantiate(ghost, new Vector3(loadcsv.LoadPos[i, 0], loadcsv.LoadPos[i, 1], 1), new Quaternion(0, 0, loadcsv.LoadAngle[i], 1));
+        Instantiate(ghost, new Vector3(loadcsv.LoadPos[i, 0], loadcsv.LoadPos[i, 1], 1), new Quaternion(0, 0, loadcsv.LoadAngle[i], 1)).transform.parent = GhostParent;
     }
 }
