@@ -112,7 +112,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -217,6 +217,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Scale: 1
+  FireWorks: 0
+  ArmBomb: 0
 --- !u!169 &169486445496156136
 AudioLowPassFilter:
   m_ObjectHideFlags: 1

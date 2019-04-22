@@ -38,8 +38,13 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     private GameObject goalLine;
     private Text DistanceText;
 
-    //最大ステージ数
+    //各エリア最大ステージ数
     private const int STAGE_MAX = 2;
+
+    //各ステージのクリアフラグ
+    private int StageClear_Flg = -1;
+    //各エリアのクリアフラグ
+    private int AreaClear_Flg = -1;
 
     // Use this for initialization
     void Start ()
@@ -77,8 +82,6 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
             //位置判定メソッド
             SelectLoadScene(_distance);
         }
-
-        Debug.Log("nowScene" + nowScene);
 
     }
 
@@ -160,6 +163,20 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     {
         set { nowScene = value; }
     }
+
+    //各エリアの最大ステージ数
+    public int GetSTAGE_MAX
+    {
+        get { return STAGE_MAX; }
+    }
+
+    //各エリアのクリア情報
+    public int GetAreaClear_Flg { get { return AreaClear_Flg; } }
+    public int SetAreaClear_Flg { set { AreaClear_Flg = value; } }
+
+    //各ステージのクリア情報
+    public int GetStageClear_Flg { get { return StageClear_Flg; } }
+    public int SetStageClear_Flg { set { StageClear_Flg = value; } }
 
     #endregion
 
