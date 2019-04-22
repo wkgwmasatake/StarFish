@@ -78,8 +78,6 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
             SelectLoadScene(_distance);
         }
 
-        Debug.Log("nowScene" + nowScene);
-
     }
 
     void SelectLoadScene(int distance)
@@ -159,6 +157,11 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     public string SetSceneName
     {
         set { nowScene = value; }
+    }
+
+    public int GetSTAGE_MAX
+    {
+        get { return STAGE_MAX; }
     }
 
     #endregion
