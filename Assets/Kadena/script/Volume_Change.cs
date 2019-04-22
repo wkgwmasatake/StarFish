@@ -11,6 +11,9 @@ public class Volume_Change : MonoBehaviour {
     private AudioSource SE_Tap;
     private bool bgm_flg = true;//再生中か否か true:再生中 false:停止中
     private bool se_flg = true;
+    //float型変数取得用の変数
+    private float get_bgm;
+    private float get_se;
     [SerializeField] private GameObject volume;
 
     // Use this for initialization
@@ -20,13 +23,49 @@ public class Volume_Change : MonoBehaviour {
         se_volume = max_vol;
     }
 
-    void Start () {
+    void Start()
+    {
         SE_Tap = GetComponent<AudioSource>();
-	}
-	
+        if (OptionDirector.Instance.GetBGMvolume() == min_vol)
+        {
+            bgm_flg = false;
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(false);//ロック状態を示す画像を表示   
+            }
+
+        }
+        else if (OptionDirector.Instance.GetBGMvolume() == max_vol)
+        {
+            bgm_flg = true;
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(true);//ロック状態を示す画像を表示   
+            }
+
+        }
+        if (OptionDirector.Instance.GetSEvolume() == min_vol)
+        {
+            se_flg = false;
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(false);//ロック状態を示す画像を表示   
+            }
+
+        }
+        else if (OptionDirector.Instance.GetSEvolume() == max_vol)
+        {
+            se_flg = true;
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(true);//ロック状態を示す画像を表示   
+            }
+
+        }
+    }
     public void ClickBGM()
     {
-       if (bgm_flg == true)
+        if (bgm_flg == true)
         {
             OptionDirector.Instance.SetBGMvolume(min_vol);
             bgm_flg = false;
@@ -35,7 +74,6 @@ public class Volume_Change : MonoBehaviour {
                 child.gameObject.SetActive(false);//ロック状態を示す画像を表示   
             }
         }
-
         else
         {
             OptionDirector.Instance.SetBGMvolume(max_vol);

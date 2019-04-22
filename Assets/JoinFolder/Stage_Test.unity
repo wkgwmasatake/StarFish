@@ -1177,26 +1177,6 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 688195236}
-    - target: {fileID: 114471106991709810, guid: c62f113ca1bd4c54285b9f91aac2b9e8,
-        type: 2}
-      propertyPath: ArmTex
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114471106991709810, guid: c62f113ca1bd4c54285b9f91aac2b9e8,
-        type: 2}
-      propertyPath: disTex
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114471106991709810, guid: c62f113ca1bd4c54285b9f91aac2b9e8,
-        type: 2}
-      propertyPath: GameResultScene.m_SceneName
-      value: Result
-      objectReference: {fileID: 0}
-    - target: {fileID: 114471106991709810, guid: c62f113ca1bd4c54285b9f91aac2b9e8,
-        type: 2}
-      propertyPath: GameOverScene.m_SceneName
-      value: GameOrver
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c62f113ca1bd4c54285b9f91aac2b9e8, type: 2}
   m_IsPrefabParent: 0

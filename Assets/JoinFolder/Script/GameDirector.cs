@@ -16,6 +16,10 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
     [SerializeField] private GameObject player;
 
+    //各メインシーンの名前格納
+    [SerializeField] private string[] StageSceneName;
+
+
     public int StageStatus;     // ステージのクリア状況
     public int AreaStatus;      // エリアの制覇状況
     public int PearlStatus;     // 真珠の取得状況
@@ -30,11 +34,12 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
     private bool _particleFlg;
 
-    private string SceneName = "Stage_Test";
-
     private Camera cam;          // メインカメラ
     private GameObject goalLine;
     private Text DistanceText;
+
+    //最大ステージ数
+    private const int STAGE_MAX = 2;
 
     // Use this for initialization
     void Start ()
@@ -42,11 +47,14 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         goalLine = GameObject.Find("GoalLine");
 
-        //現在のシーンがメインなら
-        if (SceneManager.GetActiveScene().name == SceneName)
+        for (int i = 0; i < STAGE_MAX; i++)
         {
-            nowScene = SceneManager.GetActiveScene().name;
-            _startDistance = ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y);
+            //現在のシーンがメインなら
+            if (SceneManager.GetActiveScene().name == StageSceneName[i])
+            {
+                nowScene = SceneManager.GetActiveScene().name;
+                _startDistance = ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y);
+            }
         }
     }
 

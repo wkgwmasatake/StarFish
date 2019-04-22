@@ -15,8 +15,12 @@ public class AreaButton : MonoBehaviour {
     Button area_1;
     Button area_2;
     Button area_3;
+    Button coButton;// ボタンのコンポーネントを取得
 
-    public enum StateNum// エリアの状態
+    public const string preKeyAreaStatus = "AreaStatus_";
+    public string Namearea;
+
+    private enum StateNum// エリアの状態
     {
         Unlocked = 0, // 選択可能かつ未選択
         Locked = 1,// 選択不可能
@@ -25,25 +29,64 @@ public class AreaButton : MonoBehaviour {
     
     void Awake()
     {
-        GetObj();//canvas-> Parent_area-> object取得
-      
-        Button coButton = GetComponent<UnityEngine.UI.Button>();// ボタンのコンポーネントを取得
-
-        if(flg_firstarea == false)//最初のエリア以外をクリック出来ないようにする
-        {       
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(true);//ロック状態を示す画像を表示   
-            }
-            coButton.enabled = false;
-        }        
+        Init();
     }
 
     // Use this for initialization
     void Start () {
         SE_Taped = GetComponent<AudioSource>();
 	}
-	
+
+    private void Init()
+    {
+        GetObj();//canvas-> Parent_area-> object取得
+        string KeyAreaStatus = preKeyAreaStatus + Namearea;
+
+        if (flg_firstarea == true)//1ステージ目以外をlockedに設定する
+        {
+            PlayerPrefs.SetInt(KeyAreaStatus, (int)StateNum.Selected);
+        }
+        else
+        {
+            PlayerPrefs.SetInt(KeyAreaStatus, (int)StateNum.Locked);
+        }
+
+        int now_status = PlayerPrefs.GetInt(KeyAreaStatus);
+        coButton = GetComponent<UnityEngine.UI.Button>();// ボタンのコンポーネントを取得
+
+        if (now_status == (int)StateNum.Locked)
+        {
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(true);//ロック状態を示す画像を表示   
+            }
+            coButton.enabled = false;
+        }
+        else
+        {
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(false);//ロック状態を示す画像を表示
+            }
+            coButton.enabled = true;
+        }
+        if (gameObject.name == "Area_1")
+        {
+            int getnum = PlayerPrefs.GetInt(KeyAreaStatus);
+            AreaDirector.Instance.SetStateArea(0, getnum);
+        }
+        else if (gameObject.name == "Area_2")
+        {
+            int getnum = PlayerPrefs.GetInt(KeyAreaStatus);
+            AreaDirector.Instance.SetStateArea(1, getnum);
+        }
+        else if (gameObject.name == "Area_3")
+        {
+            int getnum = PlayerPrefs.GetInt(KeyAreaStatus);
+            AreaDirector.Instance.SetStateArea(2, getnum);
+        }
+    }
+
     public void ButtonArea()//クリックした時
     {
         SE_Taped.PlayOneShot(SE_Taped.clip);//効果音再生

@@ -100,7 +100,16 @@ public class UI_Director : SingletonMonoBehaviour<UI_Director>
     //確認用ボタン
     public void CheckButton_YES()
     {
-        Debug.Log("Load Scene!");
+        //メニューシーンがアタッチされていたら
+        if (SceneMenu != null)
+        {
+            SceneManager.LoadScene(SceneMenu);
+        }
+        //いなければ
+        else
+        {
+            Debug.Log("Not SceneMenu");
+        }
     }
     public void CheckButton_NO()
     {
