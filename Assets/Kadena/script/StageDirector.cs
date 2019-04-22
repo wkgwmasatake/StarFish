@@ -41,7 +41,7 @@ public class StageDirector : SingletonMonoBehaviour<StageDirector>
         StageName = GameObject.Find("Stage_Text").GetComponent<Text>();
         StageName.text = "ステージ " + (START_NUM + 1);
     }
-   
+
     private void Init_Stage_Select()//シーン開始時の処理　エリアのクリアフラグ読み取りもここで行うこと
     {
         stage = new int[STAGE_MAX + 1];
@@ -76,8 +76,8 @@ public class StageDirector : SingletonMonoBehaviour<StageDirector>
 
     public void SetChangeIcon()
     {
-        icon_1.GetComponent<StageIconManager>().CheckState();
-        icon_2.GetComponent<StageIconManager>().CheckState();
-        icon_3.GetComponent<StageIconManager>().CheckState();
+        icon_1.GetComponent<IconManager>().CheckState();
+        icon_2.GetComponent<IconManager>().CheckState();
+        icon_3.GetComponent<IconManager>().CheckState();
     }
 }
