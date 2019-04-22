@@ -9,17 +9,17 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1314375629306284}
+  m_RootGameObject: {fileID: 1403005164553668}
   m_IsPrefabParent: 1
---- !u!1 &1314375629306284
+--- !u!1 &1403005164553668
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4797219453737932}
-  - component: {fileID: 212735756294517180}
+  - component: {fileID: 4995235390504290}
+  - component: {fileID: 212569554914139564}
   m_Layer: 0
   m_Name: moon
   m_TagString: Untagged
@@ -27,16 +27,15 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1355752002590484
+--- !u!1 &1719177045158114
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4130774199132684}
-  - component: {fileID: 108150999229824814}
-  - component: {fileID: 114207913314396508}
+  - component: {fileID: 4475196533606330}
+  - component: {fileID: 108534486032414650}
   m_Layer: 0
   m_Name: Point light
   m_TagString: Untagged
@@ -44,45 +43,45 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4130774199132684
+--- !u!4 &4475196533606330
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1355752002590484}
+  m_GameObject: {fileID: 1719177045158114}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.03679785, y: -0.110394485, z: -8.537114}
-  m_LocalScale: {x: 3.6797888, y: 3.6797905, z: 3.6797905}
+  m_LocalPosition: {x: -0.43, y: -0.21, z: -24.105865}
+  m_LocalScale: {x: 2.78676, y: 2.7867584, z: 2.7867584}
   m_Children: []
-  m_Father: {fileID: 4797219453737932}
+  m_Father: {fileID: 4995235390504290}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4797219453737932
+--- !u!4 &4995235390504290
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1314375629306284}
+  m_GameObject: {fileID: 1403005164553668}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.78, y: 4.34, z: 0}
-  m_LocalScale: {x: 0.27175474, y: 0.27175462, z: 0.27175462}
+  m_LocalPosition: {x: -1.98, y: 4.22, z: 0}
+  m_LocalScale: {x: 0.35883963, y: 0.35883984, z: 0.35883984}
   m_Children:
-  - {fileID: 4130774199132684}
+  - {fileID: 4475196533606330}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!108 &108150999229824814
+--- !u!108 &108534486032414650
 Light:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1355752002590484}
+  m_GameObject: {fileID: 1719177045158114}
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 20
-  m_Range: 3
+  m_Intensity: 18.68
+  m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -107,26 +106,12 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114207913314396508
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1355752002590484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1b258ec0822ebe488458cb6dcda4309, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inteMin: 15
-  inteMax: 20
-  speed: 0.05
---- !u!212 &212735756294517180
+--- !u!212 &212569554914139564
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1314375629306284}
+  m_GameObject: {fileID: 1403005164553668}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -154,13 +139,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -3
-  m_Sprite: {fileID: 21300000, guid: bbcfd4e53e101854081f5c3007c38a89, type: 3}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 47f517206f6cc7648ad63e1228670623, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.76, y: 2.8}
+  m_Size: {x: 1.72, y: 1.98}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
