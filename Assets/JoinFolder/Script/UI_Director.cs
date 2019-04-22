@@ -58,8 +58,6 @@ public class UI_Director : SingletonMonoBehaviour<UI_Director>
             //TimeScaleを元に戻す
             Time.timeScale = 1;
             GameDirector.Instance.SetPauseFlg = false;
-
-            Debug.Log("Play");
         }
         else
         {
@@ -78,10 +76,9 @@ public class UI_Director : SingletonMonoBehaviour<UI_Director>
         {
             SceneManager.LoadScene(SceneMenu);
         }
+        //それ以外なら
         else
         {
-            Debug.Log("aaaa1");
-
             //UI_Pause02アクティブ化
             UI_Pause02.SetActive(true);
 
@@ -102,7 +99,7 @@ public class UI_Director : SingletonMonoBehaviour<UI_Director>
         //いなければ
         else
         {
-            Debug.Log("Not SceneMenu");
+            Debug.LogError("Not SceneMenu");
         }
     }
     public void CheckButton_NO()
@@ -125,7 +122,7 @@ public class UI_Director : SingletonMonoBehaviour<UI_Director>
         //いなければ
         else
         {
-            Debug.Log("Not SceneNext");
+            Debug.LogError("Not SceneNext");
         }
     }
 

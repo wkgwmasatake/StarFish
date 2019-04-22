@@ -24,17 +24,15 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     public int AreaStatus;      // エリアの制覇状況
     public int PearlStatus;     // 真珠の取得状況
 
-    private Vector2 position;
     private int armNumber;
-
     private int _distance;
     private int _startDistance;
 
     private bool pauseFlg;
-
     private bool _particleFlg;
 
     private Camera cam;          // メインカメラ
+    private Vector2 position;
     private GameObject goalLine;
     private Text DistanceText;
 
@@ -52,6 +50,13 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         goalLine = GameObject.Find("GoalLine");
 
+        //GoalLineがなければ
+        if (goalLine == null)
+        {
+            Debug.LogError("not goalline");
+        }
+
+
         for (int i = 0; i < STAGE_MAX; i++)
         {
             //現在のシーンがメインなら
@@ -66,13 +71,10 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     // Update is called once per frame
     void Update ()
     {
-        if (goalLine == null)
-        {
-            Debug.Log("not goalline");
-        }
-
+        //Playerがシーン上にいたら
         if (player != null)
         {
+            //ゴールからPlayerの位置を取得
             _distance = ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y);
         }
 
@@ -82,7 +84,6 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
             //位置判定メソッド
             SelectLoadScene(_distance);
         }
-
     }
 
     void SelectLoadScene(int distance)
@@ -119,24 +120,12 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     #region Getter/Setter
 
     //ポジションのゲッター・セッター
-    public void SetPosition(Vector2 posi)
-    {
-        position = posi;
-    }
-    public Vector2 GetPosition()
-    {
-        return position;
-    }
+    public void SetPosition(Vector2 posi) { position = posi; }
+    public Vector2 GetPosition() { return position; }
 
     //ArmNumberのゲッター・セッター
-    public void SetArmNumber(int num)
-    {
-        armNumber = num;
-    }
-    public int GetArmNumber()
-    {
-        return armNumber;
-    }
+    public void SetArmNumber(int num) { armNumber = num; }
+    public int GetArmNumber() { return armNumber; }
 
     //distanceのゲッター・セッター
     public int GetDistance { get { return _distance; } }
@@ -155,20 +144,11 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     }
 
     // 現在のステージシーン
-    public string GetSceneName
-    {
-        get { return nowScene; }
-    }
-    public string SetSceneName
-    {
-        set { nowScene = value; }
-    }
+    public string GetSceneName { get { return nowScene; } }
+    public string SetSceneName { set { nowScene = value; } }
 
     //各エリアの最大ステージ数
-    public int GetSTAGE_MAX
-    {
-        get { return STAGE_MAX; }
-    }
+    public int GetSTAGE_MAX { get { return STAGE_MAX; } }
 
     //各エリアのクリア情報
     public int GetAreaClear_Flg { get { return AreaClear_Flg; } }
