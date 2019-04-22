@@ -262,8 +262,44 @@ public class StarFishOriginal : MonoBehaviour {
                 ForceX = -0.1f;
                 ForceY = 0.1f;
             }
-
         }
+        else if (col.collider.tag == "RightWall")
+        {
+            Vector3 hitPos;
+            foreach (ContactPoint2D point in col.contacts)
+            {
+                hitPos = point.point;                                                   // 衝突した座標を取得
+                var effect = Instantiate(ParticleList[(int)PARTICLE.WALLTOUTCH]);       // エフェクト生成
+                effect.transform.position = hitPos;                                     // エフェクトを衝突した座標に移動
+                VariousFixer vf = effect.GetComponent<VariousFixer>();                  // スクリプト取得
+                vf.RotationY(GetAngle(transform.position, hitPos));                      // スクリプト内の関数で角度を修正
+            }
+
+            rotatePower = -7.0f;            // 反時計回りに回転
+
+            // 左上に力を加える
+            ForceX = -0.1f;
+            ForceY = 0.1f;
+        }
+        else if (col.collider.tag == "LeftWall")
+        {
+            Vector3 hitPos;
+            foreach (ContactPoint2D point in col.contacts)
+            {
+                hitPos = point.point;                                                   // 衝突した座標を取得
+                var effect = Instantiate(ParticleList[(int)PARTICLE.WALLTOUTCH]);       // エフェクト生成
+                effect.transform.position = hitPos;                                     // エフェクトを衝突した座標に移動
+                VariousFixer vf = effect.GetComponent<VariousFixer>();                  // スクリプト取得
+                vf.RotationY(GetAngle(transform.position, hitPos));                      // スクリプト内の関数で角度を修正
+            }
+
+            rotatePower = 7.0f;            // 時計回りに回転
+
+            // 右上に力を加える
+            ForceX = 0.1f;
+            ForceY = 0.1f;
+        }
+
     }
 
     private float GetAngle(Vector2 start, Vector2 target)
