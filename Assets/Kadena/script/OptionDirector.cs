@@ -5,6 +5,8 @@ using UnityEngine;
 public class OptionDirector : SingletonMonoBehaviour<OptionDirector> {
     private float BGM_vol;
     private float SE_vol;
+    private bool BGM_flg;
+    private bool SE_flg;
 
     public void SetBGMvolume(float num)
     {
@@ -29,4 +31,5 @@ public class OptionDirector : SingletonMonoBehaviour<OptionDirector> {
         SE_vol = PlayerPrefs.GetFloat("SE_Volume");
         return SE_vol;
     }
+    
 }
