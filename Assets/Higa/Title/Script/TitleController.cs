@@ -40,6 +40,7 @@ public class TitleController : MonoBehaviour {
     [SerializeField] AudioSource se_bubble;
     [SerializeField] AudioSource se_rising;
     [SerializeField] AudioSource se_splash;
+    [SerializeField] AudioSource bgm_title;
 
 
     private PHASE now_phase;
@@ -167,6 +168,7 @@ public class TitleController : MonoBehaviour {
         if(pawnflg1 && pawnflg2 && pawnflg3 && time > 1.5f)
         {
             ChangePhase(PHASE.RISING);
+            time = 0f;
         }
 
         se_bubble.volume -= 0.01f;
@@ -328,13 +330,13 @@ public class TitleController : MonoBehaviour {
         if(bufposY <= _starfish.transform.position.y)       // 最大高度まで上がったらヒトデを消す
         {
             bufposY = _starfish.transform.position.y;
-            Debug.Log(bufposY);
+            //Debug.Log(bufposY);
         }
         else
         {
             ChangePhase(PHASE.FIREWORKS);
 
-            Debug.Log("destroy");
+            //Debug.Log("destroy");
         }
     }
 
@@ -349,7 +351,11 @@ public class TitleController : MonoBehaviour {
 
             Destroy(_starfish);
 
+            
+
             pawnflg1 = true;
+
+            ChangePhase(PHASE.END);
         }
     }
 
@@ -357,6 +363,14 @@ public class TitleController : MonoBehaviour {
     private void EndProcess()
     {
 
+        if (pawnflg1 == false && GameDirector.Instance.ParticleFlg == true)
+        {
+            bgm_title.Play();
+            //Debug.Log("bgm_play");
+            pawnflg1 = true;
+        }
+
+        
     }
     
 
