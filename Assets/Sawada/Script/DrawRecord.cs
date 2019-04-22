@@ -12,7 +12,7 @@ public class DrawRecord : MonoBehaviour {
 
     //time変数
     [SerializeField] private float span;
-    private float time;
+    private float time = 0;
 
     //描画する画像
     [SerializeField] private Sprite pos;
@@ -21,14 +21,11 @@ public class DrawRecord : MonoBehaviour {
 
     private Transform GhostParent;
 
-    private int i;
+    private int i = 0;
 
     // Use this for initialization
     void Start ()
     {
-        i = 0;
-        time = 0;
-
         loadcsv = LoadCSV_Obj.GetComponent<LoadCSV>();
 
         roupNmber = loadcsv.BinaryLoad();

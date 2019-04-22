@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
-
-    //背景のオブジェクト格納
+    //背景オブジェクト格納
     [SerializeField] private GameObject BGPre;
 
+    //Playerオブジェクト格納
     [SerializeField] private GameObject player;
 
+    //タグの名前設定（インスペクターから変更可）
     [SerializeField] private string TagName;
 
     //背景オブジェクトの情報格納
     private BackGround BG;
 
     //カメラの余白分
-    private int MARGIN = 5;
+    private const int MARGIN = 5;
 
     //コリジョンのサイズ
     private Vector2 SIZE = new Vector2(1, 10);
@@ -27,6 +28,7 @@ public class CameraMove : MonoBehaviour
         //背景オブジェクトの情報参照
         BG = BGPre.GetComponent<BackGround>();
 
+        //コリジョン生成
         CreateCollision();
     }
 
@@ -41,6 +43,7 @@ public class CameraMove : MonoBehaviour
         transform.position = new Vector3(player_pos.x, player_pos.y, player_pos.z);
     }
 
+    //左側の壁生成
     Vector3 getScreenTopLeft()
     {
         //画面の左上を取得
@@ -50,7 +53,7 @@ public class CameraMove : MonoBehaviour
         topleft.Scale(new Vector3(1, -1, 1));
         return topleft;
     }
-
+    //右側の壁生成
     Vector3 getScreenBottomRight()
     {
         //画面の右下を取得
@@ -59,7 +62,7 @@ public class CameraMove : MonoBehaviour
         bottomRight.Scale(new Vector3(1, -1, 1));
         return bottomRight;
     }
-
+    //当たり判定生成
     void CreateCollision()
     {
         ////空のオブジェクト生成
