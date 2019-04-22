@@ -20,5 +20,11 @@ public class CloudMove : MonoBehaviour {
 
         this.transform.position = pos;
 
+        if(this.transform.position.x < -6.0f)
+        {
+            pos.x = 5.0f;
+            this.transform.position = pos;
+        }
+
 	}
 }

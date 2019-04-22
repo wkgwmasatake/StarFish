@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TitleController : MonoBehaviour {
 
@@ -40,7 +41,10 @@ public class TitleController : MonoBehaviour {
     [SerializeField] AudioSource se_bubble;
     [SerializeField] AudioSource se_rising;
     [SerializeField] AudioSource se_splash;
+    [SerializeField] AudioSource se_start;
     [SerializeField] AudioSource bgm_title;
+
+    [SerializeField] private SceneObject nextScene;
 
 
     private PHASE now_phase;
@@ -64,7 +68,7 @@ public class TitleController : MonoBehaviour {
     private GameObject _starfish;
     private float bufposY;
 
-
+    private bool startFlg;
 
     // Use this for initialization
     void Start () {
@@ -95,13 +99,26 @@ public class TitleController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetMouseButtonDown(0) && now_phase < PHASE.SPLASH)
+        if (Input.GetMouseButtonDown(0))
         {
-            SkipProcess();
-            now_phase = PHASE.SPLASH;
+
+            if(now_phase < PHASE.SPLASH)
+            {
+                SkipProcess();
+                ChangePhase(PHASE.SPLASH);
+            }
+            else if(startFlg == false)
+            {
+                se_start.Play();
+                startFlg = true;
+
+                Invoke("LoadScene", 1.5f);
+                //SceneManager.LoadScene(nextScene);
+            }
+
         }
 
-            switch (now_phase)
+        switch (now_phase)
         {
             case PHASE.START:
                 StartProcess();
@@ -194,7 +211,7 @@ public class TitleController : MonoBehaviour {
 
         speed += 0.005f;
 
-        if (_cam1.transform.position.y + speed < 20)
+        if (_cam1.transform.position.y + speed < 30)
         {
 
             Vector3 pos = _cam1.transform.position;
@@ -205,7 +222,7 @@ public class TitleController : MonoBehaviour {
 
             //se_bubble.pitch += speed / 3;
 
-            Debug.Log(se_bubble.pitch);
+            //Debug.Log(se_bubble.pitch);
         }
         else
         {
@@ -232,6 +249,8 @@ public class TitleController : MonoBehaviour {
             Instantiate(cloud3);
 
             pawnflg1 = true;
+
+            Debug.Log(pawnflg1);
         }
 
         // 残り時間を更新
@@ -255,17 +274,6 @@ public class TitleController : MonoBehaviour {
     private void StarfishProcess()
     {
 
-
-        //if (pawnflg1 == false)
-        //{
-        //    var _starfish = Instantiate(starfish);
-        //    Rigidbody2D rb = _starfish.GetComponent<Rigidbody2D>();
-        //    pawnflg1 = true;
-        //}
-
-
-        
-
         if (moveflg1 == false)
         {
             _starfish = Instantiate(starfish);
@@ -280,19 +288,6 @@ public class TitleController : MonoBehaviour {
 
         if (moveflg2 == false)
         {
-            //var _waterdrop = Instantiate(waterdrop);
-            //Rigidbody2D rb = _waterdrop.GetComponent<Rigidbody2D>();
-
-            //Vector2 force = new Vector2(2f, 5f * Random.Range(0.8f, 1.2f));
-            //rb.AddForce(force, ForceMode2D.Impulse);
-            //rb.AddTorque(-2f, ForceMode2D.Impulse);
-
-            //var _waterdrop1 = Instantiate(waterdrop);
-            //Rigidbody2D rb1 = _waterdrop.GetComponent<Rigidbody2D>();
-
-            //Vector2 force1 = new Vector2(-2f, 5f * Random.Range(0.8f, 1.2f));
-            //rb.AddForce(force, ForceMode2D.Impulse);
-            //rb.AddTorque(2f, ForceMode2D.Impulse);
 
             for (float i = 1.5f; i <= 2.5f; i += 0.2f)
             {
@@ -321,8 +316,6 @@ public class TitleController : MonoBehaviour {
 
         if (moveflg3 == false)
         {
-            
-
             moveflg3 = true;
         }
 
@@ -351,8 +344,6 @@ public class TitleController : MonoBehaviour {
 
             Destroy(_starfish);
 
-            
-
             pawnflg1 = true;
 
             ChangePhase(PHASE.END);
@@ -363,14 +354,19 @@ public class TitleController : MonoBehaviour {
     private void EndProcess()
     {
 
-        if (pawnflg1 == false && GameDirector.Instance.ParticleFlg == true)
+        if(GameDirector.Instance.ParticleFlg == true)
         {
-            bgm_title.Play();
-            //Debug.Log("bgm_play");
-            pawnflg1 = true;
+            if(pawnflg1 == false)
+            {
+                bgm_title.Play();
+                //Debug.Log("bgm_play");
+                pawnflg1 = true;
+            }
+            //if (Input.GetMouseButtonDown(0))
+            //{
+            //    SceneManager.LoadScene(nextScene);
+            //}
         }
-
-        
     }
     
 
@@ -381,7 +377,6 @@ public class TitleController : MonoBehaviour {
         pawnflg1 = pawnflg2 = pawnflg3 = false;
 
         moveflg1 = moveflg2 = moveflg3 = false;
-
 
     }
 
@@ -395,6 +390,11 @@ public class TitleController : MonoBehaviour {
         se_rising.Stop();
 
         whiteback.gameObject.SetActive(true);
+    }
+
+    private void LoadScene()
+    {
+        SceneManager.LoadScene(nextScene);
     }
 
 }

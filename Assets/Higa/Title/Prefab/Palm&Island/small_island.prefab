@@ -35,6 +35,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4061160242417376}
+  - component: {fileID: 114657011006192228}
   m_Layer: 0
   m_Name: leaf_parent2
   m_TagString: Untagged
@@ -50,6 +51,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4440032225387928}
+  - component: {fileID: 114332295703302092}
   m_Layer: 0
   m_Name: leaf_parent3
   m_TagString: Untagged
@@ -81,6 +83,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4969528237131862}
+  - component: {fileID: 114002794293708944}
   m_Layer: 0
   m_Name: leaf_parent1
   m_TagString: Untagged
@@ -112,6 +115,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4930949997345418}
+  - component: {fileID: 114874427676177010}
   m_Layer: 0
   m_Name: palm_tree_parent
   m_TagString: Untagged
@@ -215,7 +219,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1330682289235542}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.74, y: -3.45, z: 0}
+  m_LocalPosition: {x: 1.74, y: -3.35, z: 0}
   m_LocalScale: {x: 0.3667447, y: 0.36674467, z: 0.36674467}
   m_Children:
   - {fileID: 4930949997345418}
@@ -276,6 +280,62 @@ Transform:
   m_Father: {fileID: 4440495726950004}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114002794293708944
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1403112112355324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56f123b36738f494688058c821527ccd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angleMin: 1
+  angleMax: 8
+  speed: 0.03
+--- !u!114 &114332295703302092
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1248690259001472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56f123b36738f494688058c821527ccd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angleMin: 1
+  angleMax: 6
+  speed: 0.03
+--- !u!114 &114657011006192228
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1132611667480878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56f123b36738f494688058c821527ccd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angleMin: 1
+  angleMax: 7
+  speed: 0.03
+--- !u!114 &114874427676177010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1642133237430402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56f123b36738f494688058c821527ccd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angleMin: 1
+  angleMax: 3
+  speed: 0.02
 --- !u!212 &212234260677629934
 SpriteRenderer:
   m_ObjectHideFlags: 1
