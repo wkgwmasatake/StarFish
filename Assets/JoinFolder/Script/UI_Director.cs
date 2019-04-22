@@ -5,17 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class UI_Director : SingletonMonoBehaviour<UI_Director>
 {
-    //シーンメイン
-    [SerializeField] private SceneObject SceneMain;
-
     //シーンメニュー
     [SerializeField] private SceneObject SceneMenu;
-
     //シーンネクスト
     [SerializeField] private SceneObject SceneNext;
 
+    //UI表示
     [SerializeField] private GameObject UI_Pause01;
     [SerializeField] private GameObject UI_Pause02;
+
+    //シーンゲームオーバー
+    [SerializeField] private SceneObject SceneGameOrver;
+    //シーンリザルト
+    [SerializeField] private SceneObject SceneResult;
 
     #region UI
 
@@ -66,34 +68,25 @@ public class UI_Director : SingletonMonoBehaviour<UI_Director>
 
         //UI_Pause01を非アクティブ化
         UI_Pause01.SetActive(false);
-
     }
 
     //メニュー
     public void MenuButton()
     {
-        //現在のシーンがメインなら
-        if(SceneManager.GetActiveScene().name == SceneMain)
+        //シーンがゲームオーバーかリザルトなら
+        if(SceneManager.GetActiveScene().name == SceneGameOrver || SceneManager.GetActiveScene().name == SceneResult)
         {
+            SceneManager.LoadScene(SceneMenu);
+        }
+        else
+        {
+            Debug.Log("aaaa1");
+
             //UI_Pause02アクティブ化
             UI_Pause02.SetActive(true);
 
             //UI_Pause01非アクティブ化
             UI_Pause01.SetActive(false);
-        }
-        //それ以外なら
-        else
-        {
-            //メニューシーンがアタッチされていたら
-            if(SceneMenu != null)
-            {
-                SceneManager.LoadScene(SceneMenu);
-            }
-            //いなければ
-            else
-            {
-                Debug.Log("Not SceneMenu");
-            }
         }
     }
 
@@ -103,6 +96,7 @@ public class UI_Director : SingletonMonoBehaviour<UI_Director>
         //メニューシーンがアタッチされていたら
         if (SceneMenu != null)
         {
+            if (Time.timeScale <= 0) Time.timeScale = 1;
             SceneManager.LoadScene(SceneMenu);
         }
         //いなければ

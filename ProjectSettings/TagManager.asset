@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Rock
   - Wall
+  - Floor
+  - RightWall
+  - LeftWall
   layers:
   - Default
   - TransparentFX
