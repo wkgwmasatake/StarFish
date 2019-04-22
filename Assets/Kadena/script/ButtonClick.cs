@@ -43,6 +43,8 @@ public class ButtonClick : MonoBehaviour {
             AreaDirector.Instance.SetNumArea(1);
             touch_right = true;
             StartCoroutine(Change_right());
+            
+
         }
     }
 

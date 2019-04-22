@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
 
     [SerializeField] private int[] area;//現在選択している配列の位置 0:左端 AREA_MAX:右端
-    [SerializeField] private GameObject areatext;
+    //[SerializeField] private GameObject areatext;
     [SerializeField] private GameObject icon_1;
     [SerializeField] private GameObject icon_2;
     [SerializeField] private GameObject icon_3;
@@ -18,12 +18,11 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
         Selected = 2,// 選択可能かつ選択中
     }
 
-    private int AREA_MAX = 2;//エリアの総数を２と仮定
+    private int AREA_MAX = 2;//エリアの総数を3と仮定
     
     private int START_NUM = 0;
     private int num_area;//配列areaの変数受け入れ用
     private Text AreaName;
-    private int test = 0;
 
     //0, // 選択可能かつ未選択
     //1,// 選択不可能
@@ -40,23 +39,15 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
     void Start()//他オブジェクトを参照する場合はこちらで行う
     {
         AreaName = GameObject.Find("Area_Text").GetComponent<Text>();
+        Debug.Log(AreaName);
         AreaName.text = "エリア " + (START_NUM + 1);
-    }
-
-    void Update () {
-            
     }
 
     private void Init_Area_Select()//シーン開始時の処理　エリアのクリアフラグ読み取りもここで行うこと
     {
         area = new int[AREA_MAX + 1];
         num_area = START_NUM;
-        Area_state = new int[AREA_MAX + 1];
-        
-        //仮のクリア状況
-        Area_state[0] = 0;
-        Area_state[1] = 1;
-        Area_state[2] = 1;
+        Area_state = new int[AREA_MAX + 1];           
     }
 
     public void SetNumArea(int num)//外部からエリア配列の要素数を変更する処理
