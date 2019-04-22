@@ -134,8 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab86fe89c4c074447a5b3502a056df75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scale: 0
+  Scale: 1
   FireWorks: 0
+  ArmBomb: 0
 --- !u!198 &198752657916541514
 ParticleSystem:
   m_ObjectHideFlags: 1

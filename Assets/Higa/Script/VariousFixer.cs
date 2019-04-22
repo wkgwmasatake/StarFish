@@ -6,6 +6,7 @@ public class VariousFixer : MonoBehaviour {
 
     [SerializeField] bool Scale;            // ヒトデから生成するエフェクトのみオン
     [SerializeField] bool FireWorks;        // 最後の爆発（花火）だけオン
+    [SerializeField] bool ArmBomb;          // ヒトデの足の爆発だけオン
 
     private ParticleSystem ps;
     
@@ -22,9 +23,13 @@ public class VariousFixer : MonoBehaviour {
         if(Scale)
             ScaleFix();
 
-        AutoDelete();
+        if (!ArmBomb)
+            ParentCut();
 
-        ParentCut();
+        if(FireWorks)
+            Invoke("SetParticleFlg", (float)ps.main.duration-1f);
+
+        AutoDelete();
 
         SetSortingLayer(transform);
 	}
@@ -41,7 +46,6 @@ public class VariousFixer : MonoBehaviour {
 
     private void AutoDelete()                            // パーティクルの Duration で指定した時間で消えるように
     {
-        Invoke("SetParticleFlg", (float)ps.main.duration);
 
         Destroy(gameObject, (float)ps.main.duration);
 
@@ -69,12 +73,15 @@ public class VariousFixer : MonoBehaviour {
 
     void SetParticleFlg()
     {
-        if (FireWorks)
+        if (FireWorks && GameObject.Find("GameDirector") != null)
         {
             GameDirector.Instance.ParticleFlg = true;
             //Debug.Log("finish");
         }
-        
+        else
+        {
+            Debug.Log("Fireworks finished");
+        }
     }
 
     public void RotationY(float y)                      // 指定された分だけ Y軸を回転

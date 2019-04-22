@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class LoadCSV : MonoBehaviour
 {
     private float[,] _LoadPos;
     private float[] _LoadAngle;
+
+    private void Start()
+    {
+        GameDirector.Instance.SetSceneName = SceneManager.GetActiveScene().name;
+    }
 
     public int Load()
     {

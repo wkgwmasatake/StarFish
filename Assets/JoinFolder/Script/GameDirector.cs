@@ -8,12 +8,13 @@ using UnityEngine.SceneManagement;
 
 public class GameDirector : SingletonMonoBehaviour<GameDirector>
 {
+    // 現在のステージシーンを確保
+    [SerializeField] private static string nowScene;
+
     [SerializeField] private SceneObject GameOverScene;
     [SerializeField] private SceneObject GameResultScene;
 
     [SerializeField] private GameObject player;
-
-    [SerializeField] private Text disTex;
 
     public int StageStatus;     // ステージのクリア状況
     public int AreaStatus;      // エリアの制覇状況
@@ -23,6 +24,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     private int armNumber;
 
     private int _distance;
+    private int _startDistance;
 
     private bool pauseFlg;
 
@@ -37,18 +39,21 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     // Use this for initialization
     void Start ()
     {
-
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         goalLine = GameObject.Find("GoalLine");
 
         //現在のシーンがメインなら
-        if(SceneManager.GetActiveScene().name == SceneName) DistanceText = disTex.GetComponent<Text>();
+        if (SceneManager.GetActiveScene().name == SceneName)
+        {
+            nowScene = SceneManager.GetActiveScene().name;
+            _startDistance = ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y);
+        }
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update ()
     {
-        if(goalLine == null)
+        if (goalLine == null)
         {
             Debug.Log("not goalline");
         }
@@ -56,9 +61,6 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         if (player != null)
         {
             _distance = ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y);
-
-            //現在のシーンがメインなら
-            if(SceneManager.GetActiveScene().name == SceneName) DistanceText.text = "地上まで \n" + GetDistance.ToString() + "m";
         }
 
         //残りの足の本数がなくなり、パーティクルが削除されたら
@@ -67,6 +69,9 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
             //位置判定メソッド
             SelectLoadScene(_distance);
         }
+
+        Debug.Log("nowScene" + nowScene);
+
     }
 
     void SelectLoadScene(int distance)
@@ -125,6 +130,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     //distanceのゲッター・セッター
     public int GetDistance { get { return _distance; } }
     public int SetDistance { set { _distance = value; } }
+    public int GetStartDistance { get{ return _startDistance; } }
 
     //ポーズフラグのゲッター・セッター
     public bool SetPauseFlg { set { pauseFlg = value; } }
@@ -135,6 +141,16 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     {
         get { return _particleFlg; }
         set { _particleFlg = value; }
+    }
+
+    // 現在のステージシーン
+    public string GetSceneName
+    {
+        get { return nowScene; }
+    }
+    public string SetSceneName
+    {
+        set { nowScene = value; }
     }
 
     #endregion

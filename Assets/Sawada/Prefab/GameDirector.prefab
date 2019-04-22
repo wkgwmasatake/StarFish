@@ -51,11 +51,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e786cbe9b133e0c4ca446b74148de6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scene:
+    m_SceneName: 
   GameOverScene:
-    m_SceneName: GameOver_Test
+    m_SceneName: 
   GameResultScene:
-    m_SceneName: Result_Test
+    m_SceneName: 
   player: {fileID: 0}
+  disTex: {fileID: 0}
   StageStatus: 0
   AreaStatus: 0
   PearlStatus: 0

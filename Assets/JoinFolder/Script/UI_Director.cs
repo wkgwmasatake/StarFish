@@ -41,17 +41,10 @@ public class UI_Director : SingletonMonoBehaviour<UI_Director>
         if (Time.timeScale <= 0) Time.timeScale = 1;
         GameDirector.Instance.SetPauseFlg = false;
 
-        //シーンメインがアタッチされていたら
-        if(SceneMain != null)
-        {
-            // Sceneの読み直し
-            SceneManager.LoadScene(SceneMain);
-        }
-        //されていれば
-        else
-        {
-            Debug.Log("Not SceneMain");
-        }
+        Debug.Log(GameDirector.Instance.GetSceneName);
+
+        // 前回プレイしたシーンを読み込み
+        SceneManager.LoadScene(GameDirector.Instance.GetSceneName);
     }
 
     //再開

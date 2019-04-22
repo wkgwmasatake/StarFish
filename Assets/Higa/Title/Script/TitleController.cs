@@ -37,6 +37,10 @@ public class TitleController : MonoBehaviour {
 
     [SerializeField] GameObject fireworks;
 
+    [SerializeField] AudioSource se_bubble;
+    [SerializeField] AudioSource se_rising;
+    [SerializeField] AudioSource se_splash;
+
 
     private PHASE now_phase;
     private float speed;
@@ -131,10 +135,9 @@ public class TitleController : MonoBehaviour {
 
     private void StartProcess()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            ChangeScene(PHASE.BUBBLE);
-        }
+
+        se_bubble.Play();
+        se_bubble.pitch = 1f;
 
     }
 
@@ -163,9 +166,10 @@ public class TitleController : MonoBehaviour {
 
         if(pawnflg1 && pawnflg2 && pawnflg3 && time > 1.5f)
         {
-            ChangeScene(PHASE.RISING);
+            ChangePhase(PHASE.RISING);
         }
 
+        se_bubble.volume -= 0.01f;
     }
 
 
@@ -181,6 +185,8 @@ public class TitleController : MonoBehaviour {
             pos.z = 10f;
             effect.transform.position = pos;
 
+            se_rising.Play();
+
             pawnflg1 = true;
         }
 
@@ -195,7 +201,9 @@ public class TitleController : MonoBehaviour {
 
             _cam1.transform.position = pos;
 
-            //Debug.Log(pos.y);
+            //se_bubble.pitch += speed / 3;
+
+            Debug.Log(se_bubble.pitch);
         }
         else
         {
@@ -204,7 +212,9 @@ public class TitleController : MonoBehaviour {
 
             whiteback.gameObject.SetActive(true);
 
-            ChangeScene(PHASE.SPLASH);
+            se_bubble.Stop();
+
+            ChangePhase(PHASE.SPLASH);
 
         }
 
@@ -228,7 +238,7 @@ public class TitleController : MonoBehaviour {
         if (currentRemainTime <= 0f)
         {
             //GameObject.Destroy(gameObject);
-            ChangeScene(PHASE.STARFISH);
+            ChangePhase(PHASE.STARFISH);
             
         }
 
@@ -268,24 +278,48 @@ public class TitleController : MonoBehaviour {
 
         if (moveflg2 == false)
         {
-            var _waterdrop = Instantiate(waterdrop);
-            Rigidbody2D rb = _waterdrop.GetComponent<Rigidbody2D>();
+            //var _waterdrop = Instantiate(waterdrop);
+            //Rigidbody2D rb = _waterdrop.GetComponent<Rigidbody2D>();
 
-            Vector2 force = new Vector2(2f, 5f * Random.Range(0.8f, 1.2f));
-            rb.AddForce(force, ForceMode2D.Impulse);
-            rb.AddTorque(-2f, ForceMode2D.Impulse);
+            //Vector2 force = new Vector2(2f, 5f * Random.Range(0.8f, 1.2f));
+            //rb.AddForce(force, ForceMode2D.Impulse);
+            //rb.AddTorque(-2f, ForceMode2D.Impulse);
+
+            //var _waterdrop1 = Instantiate(waterdrop);
+            //Rigidbody2D rb1 = _waterdrop.GetComponent<Rigidbody2D>();
+
+            //Vector2 force1 = new Vector2(-2f, 5f * Random.Range(0.8f, 1.2f));
+            //rb.AddForce(force, ForceMode2D.Impulse);
+            //rb.AddTorque(2f, ForceMode2D.Impulse);
+
+            for (float i = 1.5f; i <= 2.5f; i += 0.2f)
+            {
+                var _waterdrop = Instantiate(waterdrop);
+                Rigidbody2D rb = _waterdrop.GetComponent<Rigidbody2D>();
+
+                Vector2 force = new Vector2( i , 5f * Random.Range(0.8f, 1.2f));
+                rb.AddForce(force, ForceMode2D.Impulse);
+                rb.AddTorque( -i , ForceMode2D.Impulse);
+            }
+            for (float i = -1.5f; i >= -2.5f; i -= 0.2f)
+            {
+                var _waterdrop = Instantiate(waterdrop);
+                Rigidbody2D rb = _waterdrop.GetComponent<Rigidbody2D>();
+
+                Vector2 force = new Vector2( i , 5f * Random.Range(0.8f, 1.2f));
+                rb.AddForce(force, ForceMode2D.Impulse);
+                rb.AddTorque( -i , ForceMode2D.Impulse);
+            }
+
+            se_splash.Play();
+
 
             moveflg2 = true;
         }
 
         if (moveflg3 == false)
         {
-            var _waterdrop = Instantiate(waterdrop);
-            Rigidbody2D rb = _waterdrop.GetComponent<Rigidbody2D>();
-
-            Vector2 force = new Vector2(-2f, 5f * Random.Range(0.8f, 1.2f));
-            rb.AddForce(force, ForceMode2D.Impulse);
-            rb.AddTorque(2f, ForceMode2D.Impulse);
+            
 
             moveflg3 = true;
         }
@@ -298,7 +332,7 @@ public class TitleController : MonoBehaviour {
         }
         else
         {
-            ChangeScene(PHASE.FIREWORKS);
+            ChangePhase(PHASE.FIREWORKS);
 
             Debug.Log("destroy");
         }
@@ -324,8 +358,9 @@ public class TitleController : MonoBehaviour {
     {
 
     }
+    
 
-    private void ChangeScene(PHASE p)
+    private void ChangePhase(PHASE p)
     {
         now_phase = p;
 
@@ -336,10 +371,14 @@ public class TitleController : MonoBehaviour {
 
     }
 
+
     private void SkipProcess()
     {
         _cam1.gameObject.SetActive(!_cam1.gameObject.activeSelf);
         _cam2.gameObject.SetActive(!_cam2.gameObject.activeSelf);
+
+        se_bubble.Stop();
+        se_rising.Stop();
 
         whiteback.gameObject.SetActive(true);
     }

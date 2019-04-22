@@ -6,23 +6,26 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Sawada/Stage_Test.unity
-    guid: 405f9b229d64af64b8c4cce56b20031c
+    path: Assets/JoinFolder/Title.unity
+    guid: 8d104ee9e9af7234abee69f34c58f912
   - enabled: 1
-    path: Assets/Higa/StageTest_copy.unity
-    guid: 939bd14e0e523894fbfe78a20408b23a
+    path: Assets/JoinFolder/Area_Select.unity
+    guid: 2aa7d68e6952e2845bbfb44d687e75b5
   - enabled: 1
-    path: Assets/Sawada/GameOver_Test.unity
-    guid: 10f0e6b8522b9bc43bc1a523a9e98db7
+    path: Assets/JoinFolder/Stage_Select.unity
+    guid: 41eb63cf4c31c474e97fb070b9e3b671
   - enabled: 1
-    path: Assets/Sawada/Result_Test.unity
-    guid: 68163263499705e429dee1a8c2b3f60f
+    path: Assets/JoinFolder/Option_Scene.unity
+    guid: 99ca5f40f73efe14aaa0542c01b0b2e1
   - enabled: 1
-    path: Assets/Kadena/Area_Select.unity
-    guid: 706f5d34a0a9e31429d0e5034387977e
+    path: Assets/JoinFolder/Stage_Test.unity
+    guid: 289aa4fe94fa9a54491729ac8a39de19
   - enabled: 1
-    path: Assets/Kadena/Stage_Select.unity
-    guid: 3ec8de7b15563fd4399eb9a220e804c0
+    path: Assets/JoinFolder/TestStage3.unity
+    guid: c47307f39c9ed6249840d242178cf981
   - enabled: 1
-    path: Assets/Kadena/Option_Scene.unity
-    guid: dc6820e26275c2440a75c7ec5b023666
+    path: Assets/JoinFolder/Result.unity
+    guid: 738f997198b426c48a5d629f74831496
+  - enabled: 1
+    path: Assets/JoinFolder/GameOrver.unity
+    guid: c85ae99ef6e2413479d55de542f1d011
