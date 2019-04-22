@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Distance_Gage : MonoBehaviour
 {
-    private GameObject player;
     private Slider _slider;
 
     private float pos = 0;
@@ -13,9 +12,6 @@ public class Distance_Gage : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        //プレイヤーの情報を取得する
-        player = GameObject.Find("starfish_betaPre");
-
         //スライダーを取得する
         _slider = GameObject.Find("Gage").GetComponent<Slider>();
 	}
