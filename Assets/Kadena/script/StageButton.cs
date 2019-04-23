@@ -16,9 +16,10 @@ public class StageButton : MonoBehaviour {
     Button stage_2;
     Button stage_3;
     Button coButton;
-
+    //inspector上からステージ名を入力出来るようにするpublic
+    public string NAME;
     public const string preKeyStageStatus = "StageStatus_";
-    public string Namestage;
+    private string Namestage;
     private enum StateNum// ステージのクリア状況
     {
         Unlocked = 0, // 選択可能かつ未選択
@@ -39,28 +40,9 @@ public class StageButton : MonoBehaviour {
 
     private　void init()
     {
-        GetObj();//canvas-> Parent_stage-> object取得
+        //GetObj();//canvas-> Parent_stage-> object取得
         string KeyStageStatus = preKeyStageStatus + Namestage;
 
-        ////directorから情報を取得して反映する
-        //if (gameObject.name == "Stage_1")
-        //{
-        //    int getnum = StageDirector.Instance.GetStateStage(0);
-        //    PlayerPrefs.SetInt( KeyStageStatus, getnum);
-        //}
-        //else if (gameObject.name == "Stage_2")
-        //{
-        //    int getnum = StageDirector.Instance.GetStateStage(1);
-        //    PlayerPrefs.SetInt( KeyStageStatus, getnum);
-        //}
-        //else if (gameObject.name == "Stage_3")
-        //{
-        //    int getnum = StageDirector.Instance.GetStateStage(2);
-        //    PlayerPrefs.SetInt( KeyStageStatus, getnum);
-        //}
-        
-        //if (PlayerPrefs.HasKey( KeyStageStatus) == false)//インストール直後の場合
-        //{
             if (flg_firststage == true)//1ステージ目以外をlockedに設定する
             {
                 PlayerPrefs.SetInt( KeyStageStatus, (int)StateNum.Selected);
@@ -69,7 +51,6 @@ public class StageButton : MonoBehaviour {
             {
                 PlayerPrefs.SetInt( KeyStageStatus, (int)StateNum.Locked);
             }
-        //}
 
         int now_status = PlayerPrefs.GetInt( KeyStageStatus);
         coButton = GetComponent<UnityEngine.UI.Button>();// ボタンのコンポーネントを取得
@@ -122,24 +103,18 @@ public class StageButton : MonoBehaviour {
     {
         SE_Taped.PlayOneShot(SE_Taped.clip);//効果音再生
 
-        if (gameObject.name == "stage_1")
-        {
-            SceneManager.LoadScene("Stage_Test");//ゲームメインの読み込み
-            //テスト処理
-            StageDirector.Instance.SetStateStage(0, (int)StateNum.Unlocked);
-            StageDirector.Instance.SetStateStage(1, (int)StateNum.Selected);
-            SetChangeStage(stage_2);
-            init();
-            //テスト処理ここまで        
-        }
+        string name = "";
+        name = NAME;
+        SceneManager.LoadScene(name);
+        Debug.Log(name);
     }
 
-    private void GetObj()
-    {
-        stage_1 = GameObject.Find("Stage/Parent_stage/stage_1").GetComponent<Button>();
-        stage_2 = GameObject.Find("Stage/Parent_stage/stage_2").GetComponent<Button>();
-        stage_3 = GameObject.Find("Stage/Parent_stage/stage_3").GetComponent<Button>();
-    }
+    //private void GetObj()
+    //{
+    //    stage_1 = GameObject.Find("Stage/Parent_stage/Stage_Test").GetComponent<Button>();
+    //    stage_2 = GameObject.Find("Stage/Parent_stage/stage_2").GetComponent<Button>();
+    //    stage_3 = GameObject.Find("Stage/Parent_stage/stage_3").GetComponent<Button>();
+    //}
 
     private void SetChangeStage(Button obj)//サムネイルのロック→非ロック処理
     {

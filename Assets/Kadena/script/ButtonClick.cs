@@ -69,5 +69,5 @@ public class ButtonClick : MonoBehaviour {
         yield return new WaitForSeconds(move_time);
         touch_right = false;
     }
-    
+    //public float height { get{ return height; } }//ゲッターセッター
 }

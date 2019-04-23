@@ -836,6 +836,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flg_firstarea: 1
   Director: {fileID: 0}
+  Namearea: 
 --- !u!114 &114267355287685070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -982,6 +983,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flg_firstarea: 0
   Director: {fileID: 0}
+  Namearea: 
 --- !u!114 &114572760522249120
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -995,6 +997,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flg_firstarea: 0
   Director: {fileID: 0}
+  Namearea: 
 --- !u!114 &114657250801052490
 MonoBehaviour:
   m_ObjectHideFlags: 1

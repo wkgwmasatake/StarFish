@@ -7,15 +7,14 @@ public class TitleController : MonoBehaviour {
 
     enum PHASE
     {
-        START,
-
         BUBBLE,
         RISING,
-        SPLASH,
+        FADE,
         STARFISH,
         FIREWORKS,
 
         END,
+        READY,
     }
 
     [SerializeField] GameObject _cam1;
@@ -56,6 +55,7 @@ public class TitleController : MonoBehaviour {
     private bool pawnflg1;
     private bool pawnflg2;
     private bool pawnflg3;
+    private bool pawnflg4;
 
     private float fadetime;
 
@@ -64,14 +64,11 @@ public class TitleController : MonoBehaviour {
 
     Vector3 startPos;
 
-    private bool moveflg1;
-    private bool moveflg2;
-    private bool moveflg3;
-
     private GameObject _starfish;
     private float bufposY;
 
     private bool startFlg;
+    private bool logoFlg;
 
     // Use this for initialization
     void Start () {
@@ -79,10 +76,6 @@ public class TitleController : MonoBehaviour {
         startPos = _cam1.transform.position;
         _cam1.SetActive(true);
         _cam2.SetActive(false);
-        
-        //bubble1.SetActive(false);
-        //bubble2.SetActive(false);
-        //bubble3.SetActive(false);
 
         now_phase = PHASE.BUBBLE;
         speed = 0f;
@@ -94,8 +87,6 @@ public class TitleController : MonoBehaviour {
         currentRemainTime = fadetime;
         spRenderer = whiteback.GetComponent<SpriteRenderer>();
 
-        moveflg1 = moveflg2 = moveflg3 = false;
-
         bufposY = -6f;
 
         // フェードアウト
@@ -103,7 +94,9 @@ public class TitleController : MonoBehaviour {
         var color = titleLogo.color;
         color.a = alpha;
         titleLogo.color = color;
-        
+
+        startFlg = false;
+        logoFlg = false;
 	}
 	
 	// Update is called once per frame
@@ -112,12 +105,12 @@ public class TitleController : MonoBehaviour {
         if (Input.GetMouseButtonDown(0))
         {
 
-            if(now_phase < PHASE.SPLASH)
+            if (now_phase < PHASE.READY)
             {
                 SkipProcess();
-                ChangePhase(PHASE.SPLASH);
+                ChangePhase(PHASE.READY);
             }
-            else if(startFlg == false)
+            else if (startFlg == false && logoFlg == true)
             {
                 se_start.Play();
                 startFlg = true;
@@ -130,10 +123,6 @@ public class TitleController : MonoBehaviour {
 
         switch (now_phase)
         {
-            case PHASE.START:
-                StartProcess();
-                break;
-
             case PHASE.BUBBLE:
                 BubbleProcess();
                 break;
@@ -142,8 +131,8 @@ public class TitleController : MonoBehaviour {
                 RisingProcess();
                 break;
 
-            case PHASE.SPLASH:
-                SplashProcess();
+            case PHASE.FADE:
+                FadeProcess();
                 break;
 
             case PHASE.STARFISH:
@@ -161,20 +150,14 @@ public class TitleController : MonoBehaviour {
 
 	}
 
-    private void StartProcess()
-    {
-
-        se_bubble.Play();
-        se_bubble.pitch = 1f;
-
-    }
-
 
     private void BubbleProcess()
     {
         time += Time.deltaTime;
 
-        if(pawnflg1 == false)
+        se_bubble.volume -= 0.01f;
+
+        if (pawnflg1 == false)
         {
             Instantiate(bubble1);
             pawnflg1 = true;
@@ -198,7 +181,7 @@ public class TitleController : MonoBehaviour {
             time = 0f;
         }
 
-        se_bubble.volume -= 0.01f;
+        
     }
 
 
@@ -230,8 +213,6 @@ public class TitleController : MonoBehaviour {
 
             _cam1.transform.position = pos;
 
-            //se_bubble.pitch += speed / 3;
-
             //Debug.Log(se_bubble.pitch);
         }
         else
@@ -242,35 +223,25 @@ public class TitleController : MonoBehaviour {
             whiteback.gameObject.SetActive(true);
 
             se_bubble.Stop();
+            se_rising.Stop();
 
-            ChangePhase(PHASE.SPLASH);
+            ChangePhase(PHASE.FADE);
 
         }
 
     }
 
 
-    private void SplashProcess()
+    private void FadeProcess()
     {
-        if (pawnflg1 == false)
-        {
-            Instantiate(cloud1);
-            Instantiate(cloud2);
-            Instantiate(cloud3);
-
-            pawnflg1 = true;
-
-            //Debug.Log(pawnflg1);
-        }
 
         // 残り時間を更新
         currentRemainTime -= Time.deltaTime;
 
         if (currentRemainTime <= 0f)
         {
-            //GameObject.Destroy(gameObject);
             ChangePhase(PHASE.STARFISH);
-            
+            whiteback.SetActive(false);
         }
 
         // フェードアウト
@@ -278,13 +249,15 @@ public class TitleController : MonoBehaviour {
         var color = spRenderer.color;
         color.a = alpha;
         spRenderer.color = color;
+
+        //Debug.Log(color.a);
     }
 
 
     private void StarfishProcess()
     {
 
-        if (moveflg1 == false)
+        if (pawnflg1 == false)
         {
             _starfish = Instantiate(starfish);
             Rigidbody2D rb = _starfish.GetComponent<Rigidbody2D>();
@@ -293,10 +266,10 @@ public class TitleController : MonoBehaviour {
             rb.AddForce(force, ForceMode2D.Impulse);
             rb.AddTorque(5f, ForceMode2D.Impulse);
 
-            moveflg1 = true;
+            pawnflg1 = true;
         }
 
-        if (moveflg2 == false)
+        if (pawnflg2 == false)
         {
 
             for (float i = 1.5f; i <= 2.5f; i += 0.2f)
@@ -321,42 +294,34 @@ public class TitleController : MonoBehaviour {
             se_splash.Play();
 
 
-            moveflg2 = true;
+            pawnflg2 = true;
         }
 
-        if (moveflg3 == false)
-        {
-            moveflg3 = true;
-        }
+        ChangePhase(PHASE.FIREWORKS);
+    }
 
-        
-        if(bufposY <= _starfish.transform.position.y)       // 最大高度まで上がったらヒトデを消す
+
+    private void FireWorksProcess()
+    {
+        if (bufposY <= _starfish.transform.position.y)       // 最大高度まで上がったらヒトデを消す
         {
             bufposY = _starfish.transform.position.y;
             //Debug.Log(bufposY);
         }
         else
         {
-            ChangePhase(PHASE.FIREWORKS);
+            if (pawnflg1 == false)
+            {
+                var effect = Instantiate(fireworks);
+                var pos = _starfish.transform.position;
+                effect.transform.position = pos;
 
-            //Debug.Log("destroy");
-        }
-    }
+                Destroy(_starfish);
 
+                pawnflg1 = true;
 
-    private void FireWorksProcess()
-    {
-        if (pawnflg1 == false)
-        {
-            var effect = Instantiate(fireworks);
-            var pos = _starfish.transform.position;
-            effect.transform.position = pos;
-
-            Destroy(_starfish);
-
-            pawnflg1 = true;
-
-            ChangePhase(PHASE.END);
+                ChangePhase(PHASE.END);
+            }
         }
     }
 
@@ -372,10 +337,6 @@ public class TitleController : MonoBehaviour {
                 //Debug.Log("bgm_play");
                 pawnflg1 = true;
             }
-            //if (Input.GetMouseButtonDown(0))
-            //{
-            //    SceneManager.LoadScene(nextScene);
-            //}
 
             // フェードアウト
             time += Time.deltaTime;
@@ -383,6 +344,12 @@ public class TitleController : MonoBehaviour {
             var color = titleLogo.color;
             color.a += alpha;
             titleLogo.color = color;
+
+            if (logoFlg == false && color.a >= 1.0f)
+            {
+                logoFlg = true;
+                ChangePhase(PHASE.READY);
+            }
         }
 
         
@@ -395,20 +362,47 @@ public class TitleController : MonoBehaviour {
 
         pawnflg1 = pawnflg2 = pawnflg3 = false;
 
-        moveflg1 = moveflg2 = moveflg3 = false;
-
     }
 
 
     private void SkipProcess()
     {
-        _cam1.gameObject.SetActive(!_cam1.gameObject.activeSelf);
-        _cam2.gameObject.SetActive(!_cam2.gameObject.activeSelf);
-
         se_bubble.Stop();
         se_rising.Stop();
 
-        whiteback.gameObject.SetActive(true);
+        if(_cam2.gameObject.activeSelf == false)
+        {
+            _cam1.gameObject.SetActive(!_cam1.gameObject.activeSelf);
+            _cam2.gameObject.SetActive(!_cam2.gameObject.activeSelf);
+        }
+
+        whiteback.gameObject.SetActive(false);
+
+        if (_starfish != null)
+        {
+            Destroy(_starfish);
+        }
+
+        //while (GameObject.Find("water_drop(Clone)") != null)
+        //{
+        //    //Destroy(GameObject.Find("water_drop(Clone)"));
+        //    Debug.Log("Delete");
+        //}
+
+        se_splash.Stop();
+
+        if (GameObject.Find("Fireworks_parent(Clone)"))
+        {
+            Destroy(GameObject.Find("Fireworks_parent(Clone)"));
+        }
+
+        var color = titleLogo.color;
+        color.a = 1;
+        titleLogo.color = color;
+
+        logoFlg = true;
+
+        bgm_title.Play();
     }
 
     private void LoadScene()
