@@ -105,7 +105,6 @@ public class LoadCSV : MonoBehaviour
                 _LoadAngle = new float[100];
                 while ((line = sr.ReadLine()) != null)
                 {
-                    Debug.Log(line);
                     if (i++ % 2 == 0)
                     {
                         string[] Spritline = line.Trim('(', ')').Split(',');  //読み込んだ１行に含まれている中かっこを取り除き、カンマで区切って読み込む
