@@ -67,150 +67,154 @@ public class StarFishOriginal : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         
-        if (!GameDirector.Instance.GetPauseFlg)      // ポーズ中でなければ通常通り実行
+        switch(Status)
         {
-            TimeCount += Time.deltaTime;                 // 1フレーム間の時間を加算
-            if (TimeCount > SavePosTime && i < 100)      // 一定時間経過後
-            {
-                TimeCount = 0;                                  // タイムカウンタをリセット
-                position[i] = this.transform.position;          // 現在の座標を取得
-                angle[i] = this.transform.localEulerAngles.z;   // 現在の角度を取得
-                i++;                                            // 保存する配列の要素番号を1つ加算
-            }
-
-            if (GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1)
-            {
-                rotatePower *= 0.97f;                               // 回転力を減衰
-
-                // 回転力が一定以下なら最低値を設定
-                if (rotatePower < 4.0f && rotatePower > 0)
+            case (byte)GAME_STATUS._PLAY:
+                if (!GameDirector.Instance.GetPauseFlg)      // ポーズ中でなければ通常通り実行
                 {
-                    rotatePower = 4.0f;
-                }
-                else if (rotatePower > -4.0f && rotatePower < 0)
-                {
-                    rotatePower = -4.0f;
-                }
-            }
-
-            if (GameDirector.Instance.GetArmNumber() > 1 && GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1)   // 最初のタップと最後のタップ以外
-            {
-                Presstime += Time.deltaTime;        // 前回のタップから経過した時間を計測
-                if (Presstime > ArrowDisplayTime)   // 一定時間経過したら
-                    ArrowObject.SetActive(true);    // 矢印を表示
-            }
-
-            if (Input.GetMouseButtonUp(0) && GameDirector.Instance.GetArmNumber() > 0)   // 左クリックしたとき、かつタップの最大数以下の時
-            {
-                Presstime = 0;          // 経過時間を初期化
-
-                Rigidbody2D rb = GetComponent<Rigidbody2D>();       // 海星のRigidbodyを取得
-                rb.velocity = Vector2.zero;                         // 重力加速度をリセット
-
-                if (GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1 && GameDirector.Instance.GetArmNumber() > 1)        // 最初のタップと最後のタップ以外の時
-                {
-                    if (i < 100)
+                    TimeCount += Time.deltaTime;                 // 1フレーム間の時間を加算
+                    if (TimeCount > SavePosTime && i < 100)      // 一定時間経過後
                     {
                         TimeCount = 0;                                  // タイムカウンタをリセット
-                        position[i] = this.transform.position;          // 爆発したときも座標を取得
+                        position[i] = this.transform.position;          // 現在の座標を取得
                         angle[i] = this.transform.localEulerAngles.z;   // 現在の角度を取得
                         i++;                                            // 保存する配列の要素番号を1つ加算
                     }
 
-                    if (!ArrowObject.activeSelf)         // 非アクティブ状態なら
+                    if (GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1)
                     {
-                        ArrowObject.SetActive(true);    // アクティブ状態に設定
+                        rotatePower *= 0.97f;                               // 回転力を減衰
+
+                        // 回転力が一定以下なら最低値を設定
+                        if (rotatePower < 4.0f && rotatePower > 0)
+                        {
+                            rotatePower = 4.0f;
+                        }
+                        else if (rotatePower > -4.0f && rotatePower < 0)
+                        {
+                            rotatePower = -4.0f;
+                        }
                     }
 
-                    ArrowObject.GetComponent<ArrowDirector>().SetArrowPos(transform.GetChild(selectArm + 1));      // 次の腕に応じた矢印の位置に設定
-                    ArrowObject.SetActive(false);       // 非アクティブに設定
-
-                    armPos = transform.GetChild(selectArm).position;    // ヒエラルキービューの上から子オブジェクトのワールド座標を取得
-                    ForceX = transform.position.x - armPos.x;                   // 本体と腕のx座標の差を求める(力を加えるx方向)
-                    ForceY = transform.position.y - armPos.y;                   // 本体と腕のy座標の差を求める(力を加えるy方向)
-
-                    var effect = Instantiate(ParticleList[(int)PARTICLE.BOMB]); // 1個目の泡のパーティクルを生成
-                    effect.transform.position = armPos;                         // 生成したパーティクルを腕の位置に設定
-                    VariousFixer vf = effect.GetComponent<VariousFixer>();      // スクリプトを取得
-                    ParticleAngle = GetAngle(transform.position, armPos);       // 角度を取得
-                    vf.RotationY(ParticleAngle);                                // 角度を変更
-
-                    var effect02 = Instantiate(ParticleList[(int)PARTICLE.BOMB]);   // 2個目の泡のパーティクルを生成
-                    effect02.transform.position = transform.position;
-                    VariousFixer vf02 = effect02.GetComponent<VariousFixer>();
-                    vf02.RotationY(ParticleAngle + 15.0f);
-
-                    var effect03 = Instantiate(ParticleList[(int)PARTICLE.BOMB]);   // 3個目の泡のパーティクルを生成
-                    effect03.transform.position = transform.position;
-                    VariousFixer vf03 = effect03.GetComponent<VariousFixer>();
-                    vf03.RotationY(ParticleAngle - 15.0f);
-
-                    if (transform.position.x < armPos.x)    // 本体の右側で腕が爆発したら
+                    if (GameDirector.Instance.GetArmNumber() > 1 && GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1)   // 最初のタップと最後のタップ以外
                     {
-                        rotatePower = 20f * bombPower;      // 時計回りに回転
-                    }
-                    else                                    // 本体の左側で腕が爆発したら
-                    {
-                        rotatePower = -20f * bombPower;     // 反時計回りに回転
+                        Presstime += Time.deltaTime;        // 前回のタップから経過した時間を計測
+                        if (Presstime > ArrowDisplayTime)   // 一定時間経過したら
+                            ArrowObject.SetActive(true);    // 矢印を表示
                     }
 
-                    LegSpriteRenderer[selectArm].sprite = LegImages[2];        // 現在の腕を爆発後の腕の画像に変更
-                    transform.GetChild(selectArm).GetComponent<Transform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);     // 現在の腕の表示を標準に変更
-
-                    if (selectArm < _MAX_LEG - 1)                              // 現在の腕が最後の腕じゃなかったら
+                    if (Input.GetMouseButtonUp(0) && GameDirector.Instance.GetArmNumber() > 0)   // 左クリックしたとき、かつタップの最大数以下の時
                     {
-                        LegSpriteRenderer[selectArm + 1].sprite = LegImages[1];// 次の腕を選択時の腕の画像に変更
-                        transform.GetChild(selectArm + 1).GetComponent<Transform>().localScale = new Vector3(1.5f, 1.5f, 1.5f);     // 次の腕の表示を1.5倍に拡大
-                    }
-                    selectArm++;                                               // 次の腕へ
-                    GameDirector.Instance.SetArmNumber(GameDirector.Instance.GetArmNumber() - 1);               // 腕の本数を1減算
+                        Presstime = 0;          // 経過時間を初期化
 
+                        Rigidbody2D rb = GetComponent<Rigidbody2D>();       // 海星のRigidbodyを取得
+                        rb.velocity = Vector2.zero;                         // 重力加速度をリセット
+
+                        if (GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1 && GameDirector.Instance.GetArmNumber() > 1)        // 最初のタップと最後のタップ以外の時
+                        {
+                            if (i < 100)
+                            {
+                                TimeCount = 0;                                  // タイムカウンタをリセット
+                                position[i] = this.transform.position;          // 爆発したときも座標を取得
+                                angle[i] = this.transform.localEulerAngles.z;   // 現在の角度を取得
+                                i++;                                            // 保存する配列の要素番号を1つ加算
+                            }
+
+                            if (!ArrowObject.activeSelf)         // 非アクティブ状態なら
+                            {
+                                ArrowObject.SetActive(true);    // アクティブ状態に設定
+                            }
+
+                            ArrowObject.GetComponent<ArrowDirector>().SetArrowPos(transform.GetChild(selectArm + 1));      // 次の腕に応じた矢印の位置に設定
+                            ArrowObject.SetActive(false);       // 非アクティブに設定
+
+                            armPos = transform.GetChild(selectArm).position;    // ヒエラルキービューの上から子オブジェクトのワールド座標を取得
+                            ForceX = transform.position.x - armPos.x;                   // 本体と腕のx座標の差を求める(力を加えるx方向)
+                            ForceY = transform.position.y - armPos.y;                   // 本体と腕のy座標の差を求める(力を加えるy方向)
+
+                            var effect = Instantiate(ParticleList[(int)PARTICLE.BOMB]); // 1個目の泡のパーティクルを生成
+                            effect.transform.position = armPos;                         // 生成したパーティクルを腕の位置に設定
+                            VariousFixer vf = effect.GetComponent<VariousFixer>();      // スクリプトを取得
+                            ParticleAngle = GetAngle(transform.position, armPos);       // 角度を取得
+                            vf.RotationY(ParticleAngle);                                // 角度を変更
+
+                            var effect02 = Instantiate(ParticleList[(int)PARTICLE.BOMB]);   // 2個目の泡のパーティクルを生成
+                            effect02.transform.position = transform.position;
+                            VariousFixer vf02 = effect02.GetComponent<VariousFixer>();
+                            vf02.RotationY(ParticleAngle + 15.0f);
+
+                            var effect03 = Instantiate(ParticleList[(int)PARTICLE.BOMB]);   // 3個目の泡のパーティクルを生成
+                            effect03.transform.position = transform.position;
+                            VariousFixer vf03 = effect03.GetComponent<VariousFixer>();
+                            vf03.RotationY(ParticleAngle - 15.0f);
+
+                            if (transform.position.x < armPos.x)    // 本体の右側で腕が爆発したら
+                            {
+                                rotatePower = 20f * bombPower;      // 時計回りに回転
+                            }
+                            else                                    // 本体の左側で腕が爆発したら
+                            {
+                                rotatePower = -20f * bombPower;     // 反時計回りに回転
+                            }
+
+                            LegSpriteRenderer[selectArm].sprite = LegImages[2];        // 現在の腕を爆発後の腕の画像に変更
+                            transform.GetChild(selectArm).GetComponent<Transform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);     // 現在の腕の表示を標準に変更
+
+                            if (selectArm < _MAX_LEG - 1)                              // 現在の腕が最後の腕じゃなかったら
+                            {
+                                LegSpriteRenderer[selectArm + 1].sprite = LegImages[1];// 次の腕を選択時の腕の画像に変更
+                                transform.GetChild(selectArm + 1).GetComponent<Transform>().localScale = new Vector3(1.5f, 1.5f, 1.5f);     // 次の腕の表示を1.5倍に拡大
+                            }
+                            selectArm++;                                               // 次の腕へ
+                            GameDirector.Instance.SetArmNumber(GameDirector.Instance.GetArmNumber() - 1);               // 腕の本数を1減算
+
+                        }
+                        else if (GameDirector.Instance.GetArmNumber() > _MAX_TAP)        // 最初のタップ
+                        {
+                            GameDirector.Instance.SetArmNumber(GameDirector.Instance.GetArmNumber() - 1);               // 腕の本数を1減算
+                            rotatePower = 12f * bombPower;      // 回転を設定
+                                                                // 左上に力を加える
+                            ForceX = -0.1f;
+                            ForceY = 0.15f;
+
+                            transform.GetChild(0).GetComponent<Transform>().localScale = new Vector3(1.5f, 1.5f, 1.5f);     // 最初の腕の表示を1.5倍に拡大
+                            LegSpriteRenderer[0].sprite = LegImages[1];             // 最初の腕を選択時の腕に画像を変更
+                        }
+                        else                                                            // 最後の花火
+                        {
+                            //Instantiate(ParticleList[(int)PARTICLE.FIREWORK], transform);   // 海星の子に設定して花火のパーティクルを生成
+                            //SaveCSV SavePos = this.GetComponent<SaveCSV>();               // スクリプトを取得
+                            //SavePos.BinarySavePos(position, angle, i);                    // ユーザーの見えない場所に座標と角度を保存 
+                            //StartCoroutine("DestroyObject");                                // 1フレーム後に自分自身を非アクティブに設定
+                        }
+                    }
+
+                    transform.Rotate(new Vector3(0, 0, rotatePower));   // 海星を回転
+
+                    transform.Translate(ForceX * bombPower, ForceY * bombPower, 0, Space.World);         // 爆発の威力に応じて移動
+                    if (transform.position.y < START_Y)                      // 海星のY座標がスタートの座標より下にいるなら
+                    {
+                        Vector2 pos = transform.position;                   // 海星の座標を保存
+                        transform.position = new Vector2(pos.x, START_Y);   // x座標はそのままでY座標をスタートの座標に変更
+                    }
+
+                    // 力を減衰
+                    ForceX *= 0.95f;
+                    ForceY *= 0.95f;
+
+                    // ゴールラインを超えたら
+                    if (GameDirector.Instance.GetDistance < 0)
+                    {
+                        GameDirector.Instance.LoadResult();     // リザルト画面へ
+                    }
+
+                    // 残りの可能タップ数が1以下になった時かつ、Yに対する力が0.0001f未満になった時に
+                    if (GameDirector.Instance.GetArmNumber() <= 1 && ForceY < 0.0001f)
+                    {
+                        GameDirector.Instance.LoadGameOrver();            // ゲームオーバー画面へ
+                    }
                 }
-                else if(GameDirector.Instance.GetArmNumber() > _MAX_TAP)        // 最初のタップ
-                {
-                    GameDirector.Instance.SetArmNumber(GameDirector.Instance.GetArmNumber() - 1);               // 腕の本数を1減算
-                    rotatePower = 12f * bombPower;      // 回転を設定
-                    // 左上に力を加える
-                    ForceX = -0.1f;
-                    ForceY = 0.15f;
-
-                    transform.GetChild(0).GetComponent<Transform>().localScale = new Vector3(1.5f, 1.5f, 1.5f);     // 最初の腕の表示を1.5倍に拡大
-                    LegSpriteRenderer[0].sprite = LegImages[1];             // 最初の腕を選択時の腕に画像を変更
-                }
-                else                                                            // 最後の花火
-                {
-                    //Instantiate(ParticleList[(int)PARTICLE.FIREWORK], transform);   // 海星の子に設定して花火のパーティクルを生成
-                    //SaveCSV SavePos = this.GetComponent<SaveCSV>();               // スクリプトを取得
-                    //SavePos.BinarySavePos(position, angle, i);                    // ユーザーの見えない場所に座標と角度を保存 
-                    //StartCoroutine("DestroyObject");                                // 1フレーム後に自分自身を非アクティブに設定
-                }
-            }
-
-            transform.Rotate(new Vector3(0, 0, rotatePower));   // 海星を回転
-
-            transform.Translate(ForceX * bombPower, ForceY * bombPower, 0, Space.World);         // 爆発の威力に応じて移動
-            if(transform.position.y < START_Y)                      // 海星のY座標がスタートの座標より下にいるなら
-            {
-                Vector2 pos = transform.position;                   // 海星の座標を保存
-                transform.position = new Vector2(pos.x, START_Y);   // x座標はそのままでY座標をスタートの座標に変更
-            }
-
-            // 力を減衰
-            ForceX *= 0.95f;
-            ForceY *= 0.95f;
-
-            // ゴールラインを超えたら
-            if(GameDirector.Instance.GetDistance < 0)
-            {
-                GameDirector.Instance.LoadResult();     // リザルト画面へ
-            }
-
-            // 残りの可能タップ数が1以下になった時かつ、Yに対する力が0.0001f未満になった時に
-            if(GameDirector.Instance.GetArmNumber() <= 1 && ForceY < 0.0001f)
-            {
-                GameDirector.Instance.LoadGameOrver();            // ゲームオーバー画面へ
-            }
-
+                break;
         }
 
 
