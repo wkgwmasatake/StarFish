@@ -10,6 +10,9 @@ public class UI_Director : SingletonMonoBehaviour<UI_Director>
     //シーンネクスト
     [SerializeField] private SceneObject SceneNext;
 
+    //遷移するシーン名
+    [SerializeField] private string NextSceneName;
+
     //UI表示
     [SerializeField] private GameObject UI_Pause01;
     [SerializeField] private GameObject UI_Pause02;
@@ -18,6 +21,15 @@ public class UI_Director : SingletonMonoBehaviour<UI_Director>
     [SerializeField] private SceneObject SceneGameOrver;
     //シーンリザルト
     [SerializeField] private SceneObject SceneResult;
+
+    private int Number = 1;
+
+    private void Start()
+    {
+        NextSceneName = NextSceneName + Number.ToString();
+        Number++;
+        Debug.Log(NextSceneName);
+    }
 
     #region UI
 
@@ -117,7 +129,7 @@ public class UI_Director : SingletonMonoBehaviour<UI_Director>
         //次のシーンがアタッチされていたら
         if(SceneNext != null)
         {
-            SceneManager.LoadScene(SceneNext);
+            SceneManager.LoadScene(NextSceneName);
         }
         //いなければ
         else
