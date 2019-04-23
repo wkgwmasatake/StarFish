@@ -5,17 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class UI_Director : SingletonMonoBehaviour<UI_Director>
 {
-    //シーンメイン
-    [SerializeField] private SceneObject SceneMain;
-
     //シーンメニュー
     [SerializeField] private SceneObject SceneMenu;
-
     //シーンネクスト
     [SerializeField] private SceneObject SceneNext;
 
+    //遷移するシーン名
+    [SerializeField] private string NextSceneName;
+
+    //UI表示
     [SerializeField] private GameObject UI_Pause01;
     [SerializeField] private GameObject UI_Pause02;
+
+    //シーンゲームオーバー
+    [SerializeField] private SceneObject SceneGameOrver;
+    //シーンリザルト
+    [SerializeField] private SceneObject SceneResult;
+
+    private int Number = 1;
+
+    private void Start()
+    {
+        NextSceneName = NextSceneName + Number.ToString();
+        Number++;
+        Debug.Log(NextSceneName);
+    }
 
     #region UI
 
@@ -56,8 +70,6 @@ public class UI_Director : SingletonMonoBehaviour<UI_Director>
             //TimeScaleを元に戻す
             Time.timeScale = 1;
             GameDirector.Instance.SetPauseFlg = false;
-
-            Debug.Log("Play");
         }
         else
         {
@@ -66,14 +78,18 @@ public class UI_Director : SingletonMonoBehaviour<UI_Director>
 
         //UI_Pause01を非アクティブ化
         UI_Pause01.SetActive(false);
-
     }
 
     //メニュー
     public void MenuButton()
     {
-        //現在のシーンがメインなら
-        if(SceneManager.GetActiveScene().name == SceneMain)
+        //シーンがゲームオーバーかリザルトなら
+        if(SceneManager.GetActiveScene().name == SceneGameOrver || SceneManager.GetActiveScene().name == SceneResult)
+        {
+            SceneManager.LoadScene(SceneMenu);
+        }
+        //それ以外なら
+        else
         {
             //UI_Pause02アクティブ化
             UI_Pause02.SetActive(true);
@@ -81,26 +97,22 @@ public class UI_Director : SingletonMonoBehaviour<UI_Director>
             //UI_Pause01非アクティブ化
             UI_Pause01.SetActive(false);
         }
-        //それ以外なら
-        else
-        {
-            //メニューシーンがアタッチされていたら
-            if(SceneMenu != null)
-            {
-                SceneManager.LoadScene(SceneMenu);
-            }
-            //いなければ
-            else
-            {
-                Debug.Log("Not SceneMenu");
-            }
-        }
     }
 
     //確認用ボタン
     public void CheckButton_YES()
     {
-        Debug.Log("Load Scene!");
+        //メニューシーンがアタッチされていたら
+        if (SceneMenu != null)
+        {
+            if (Time.timeScale <= 0) Time.timeScale = 1;
+            SceneManager.LoadScene(SceneMenu);
+        }
+        //いなければ
+        else
+        {
+            Debug.LogError("Not SceneMenu");
+        }
     }
     public void CheckButton_NO()
     {
@@ -117,12 +129,12 @@ public class UI_Director : SingletonMonoBehaviour<UI_Director>
         //次のシーンがアタッチされていたら
         if(SceneNext != null)
         {
-            SceneManager.LoadScene(SceneNext);
+            SceneManager.LoadScene(NextSceneName);
         }
         //いなければ
         else
         {
-            Debug.Log("Not SceneNext");
+            Debug.LogError("Not SceneNext");
         }
     }
 

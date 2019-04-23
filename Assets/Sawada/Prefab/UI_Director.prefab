@@ -23,7 +23,7 @@ GameObject:
   m_Layer: 0
   m_Name: UI_Director
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -33,8 +33,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1789880004256578}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 72.71214, y: 119.69743, z: 1.5}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -51,7 +51,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a578a290f4576e41a9073e6a73b4079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Menu:
+  SceneMenu:
+    m_SceneName: Stage_Select
+  SceneNext:
     m_SceneName: 
-  UI_Pause01: {fileID: 0}
-  UI_Pause02: {fileID: 0}
+  NextSceneName: TestStage
+  UI_Pause01: {fileID: 1039380904196230, guid: 112ec05a36d56d44aa9cf2b8cf780e0a, type: 2}
+  UI_Pause02: {fileID: 1725852807538050, guid: 85b4f6217f1412c4d8fde3dba602fb1a, type: 2}
+  SceneGameOrver:
+    m_SceneName: GameOrver
+  SceneResult:
+    m_SceneName: Result

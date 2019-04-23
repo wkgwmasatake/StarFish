@@ -1401,6 +1401,7 @@ MonoBehaviour:
   se_bubble: {fileID: 1614786580}
   se_rising: {fileID: 1614786582}
   se_splash: {fileID: 1614786581}
+  bgm_title: {fileID: 0}
 --- !u!4 &1614786579
 Transform:
   m_ObjectHideFlags: 0
