@@ -59,6 +59,8 @@ MonoBehaviour:
   StageSceneName:
   - Stage_Test
   - TestStage3
+  - TestStage4
+  - TestStage6
   StageStatus: 0
   AreaStatus: 0
   PearlStatus: 0
