@@ -149,7 +149,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1624357606720078}
   m_LocalRotation: {x: 0, y: 0, z: -0.86602545, w: 0.49999994}
-  m_LocalPosition: {x: 1.45, y: -23.55, z: 0}
+  m_LocalPosition: {x: 1.65, y: -23.55, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children:
   - {fileID: 4315450068489674}
@@ -297,7 +297,6 @@ MonoBehaviour:
   ParticleList:
   - {fileID: 198861506279918614, guid: f7b81c9bb55ab974489d7d249a63a327, type: 2}
   - {fileID: 198133501705242498, guid: fcbaf8fb83e6c8c41a0968c76611a5b0, type: 2}
-  - {fileID: 198633304363806112, guid: 93f28a2fbd4df1f45b8d32fac1cd913c, type: 2}
   - {fileID: 198752657916541514, guid: 43fc9d5eb8fb612429f35fad65560ca3, type: 2}
   ArrowObject: {fileID: 1318261444269638}
   bombPower: 0.6
@@ -307,6 +306,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9cbf11b37aadb8c4abbc2bfc27be4a02, type: 3}
   - {fileID: 21300000, guid: b6527a2b04933c6438cd5a643dceabe6, type: 3}
   - {fileID: 21300000, guid: 5f75b004ee01a31469147763241e7eb3, type: 3}
+  ChangeScene: {fileID: 0}
 --- !u!212 &212112091075790300
 SpriteRenderer:
   m_ObjectHideFlags: 1

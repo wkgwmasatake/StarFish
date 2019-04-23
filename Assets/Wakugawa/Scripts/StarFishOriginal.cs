@@ -8,8 +8,14 @@ public class StarFishOriginal : MonoBehaviour {
     {
         ARM,
         BOMB,
-        FIREWORK,
         WALLTOUTCH
+    }
+
+    enum GAME_STATUS
+    {
+        _PLAY,
+        _CLEAR,
+        _OVER
     }
 
     const byte _MAX_TAP = 5;        // タップできる最大数
@@ -38,7 +44,8 @@ public class StarFishOriginal : MonoBehaviour {
     [SerializeField] float ArrowDisplayTime;            // 矢印を表示させるまでの時間
     [SerializeField] float SavePosTime;                 // 座標を保存する間隔
 
-    public Sprite[] LegImages;      // 腕の画像(0.. 通常時、1.. 選択時、2、3.. 爆発後)
+    public Sprite[] LegImages;          // 腕の画像(0.. 通常時、1.. 選択時、2、3.. 爆発後)
+    public GameDirector ChangeScene;    // シーン切り替え用変数
 
     // Use this for initialization
     void Start () {
@@ -59,6 +66,8 @@ public class StarFishOriginal : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        
         if (!GameDirector.Instance.GetPauseFlg)      // ポーズ中でなければ通常通り実行
         {
             TimeCount += Time.deltaTime;                 // 1フレーム間の時間を加算
@@ -171,10 +180,10 @@ public class StarFishOriginal : MonoBehaviour {
                 }
                 else                                                            // 最後の花火
                 {
-                    Instantiate(ParticleList[(int)PARTICLE.FIREWORK], transform);   // 海星の子に設定して花火のパーティクルを生成
-                    SaveCSV SavePos = this.GetComponent<SaveCSV>();               // スクリプトを取得
-                    SavePos.BinarySavePos(position, angle, i);                    // ユーザーの見えない場所に座標と角度を保存 
-                    StartCoroutine("DestroyObject");                                // 1フレーム後に自分自身を非アクティブに設定
+                    //Instantiate(ParticleList[(int)PARTICLE.FIREWORK], transform);   // 海星の子に設定して花火のパーティクルを生成
+                    //SaveCSV SavePos = this.GetComponent<SaveCSV>();               // スクリプトを取得
+                    //SavePos.BinarySavePos(position, angle, i);                    // ユーザーの見えない場所に座標と角度を保存 
+                    //StartCoroutine("DestroyObject");                                // 1フレーム後に自分自身を非アクティブに設定
                 }
             }
 
@@ -190,6 +199,18 @@ public class StarFishOriginal : MonoBehaviour {
             // 力を減衰
             ForceX *= 0.95f;
             ForceY *= 0.95f;
+
+            // ゴールラインを超えたら
+            if(GameDirector.Instance.GetDistance < 0)
+            {
+                ChangeScene.LoadResult();   // リザルト画面へ
+            }
+
+            // 残りの可能タップ数が1以下になった時かつ、Yに対する力が0.0001f未満になった時に
+            if(GameDirector.Instance.GetArmNumber() <= 1 && ForceY < 0.0001f)
+            {
+                ChangeScene.LoadGameOrver();        // ゲームオーバー画面へ
+            }
         }
     }
 
