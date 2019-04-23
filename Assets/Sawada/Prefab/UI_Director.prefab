@@ -56,8 +56,8 @@ MonoBehaviour:
   SceneNext:
     m_SceneName: 
   NextSceneName: TestStage
-  UI_Pause01: {fileID: 1039380904196230, guid: 112ec05a36d56d44aa9cf2b8cf780e0a, type: 2}
-  UI_Pause02: {fileID: 1725852807538050, guid: 85b4f6217f1412c4d8fde3dba602fb1a, type: 2}
+  UI_Pause01: {fileID: 0}
+  UI_Pause02: {fileID: 0}
   SceneGameOrver:
     m_SceneName: GameOrver
   SceneResult:

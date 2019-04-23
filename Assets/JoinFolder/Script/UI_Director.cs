@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UI_Director : SingletonMonoBehaviour<UI_Director>
+public class UI_Director : MonoBehaviour
 {
     //シーンメニュー
     [SerializeField] private SceneObject SceneMenu;
@@ -28,7 +28,6 @@ public class UI_Director : SingletonMonoBehaviour<UI_Director>
     {
         NextSceneName = NextSceneName + Number.ToString();
         Number++;
-        Debug.Log(NextSceneName);
     }
 
     #region UI
