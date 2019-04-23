@@ -5,34 +5,34 @@ using UnityEngine.SceneManagement;
 
 public class UI_Director : MonoBehaviour
 {
-    //シーンメニュー
-    [SerializeField] private SceneObject SceneMenu;
-    //シーンネクスト
-    [SerializeField] private SceneObject SceneNext;
 
-    //遷移するシーン名
-    [SerializeField] private string NextSceneName;
+    /// <summary>
+    /// 情報格納用変数
+    /// </summary>
+    [SerializeField] private SceneObject SceneMenu;　    //シーンメニュー
+    [SerializeField] private SceneObject SceneNext;　    //シーンネクスト
+    [SerializeField] private string NextSceneName;     //遷移するシーン名
+    [SerializeField] private SceneObject SceneGameOrver;　    //シーンゲームオーバー
+    [SerializeField] private SceneObject SceneResult;    　　 //シーンリザルト
 
-    //UI表示
+
+
+    /// <summary>
+    /// UI関連変数
+    /// </summary>
     [SerializeField] private GameObject UI_Pause01;
     [SerializeField] private GameObject UI_Pause02;
 
-    //シーンゲームオーバー
-    [SerializeField] private SceneObject SceneGameOrver;
-    //シーンリザルト
-    [SerializeField] private SceneObject SceneResult;
 
-    private int Number = 1;
+    #region UI関連メソッド（Button用）
 
-    private void Start()
-    {
-        NextSceneName = NextSceneName + Number.ToString();
-        Number++;
-    }
 
-    #region UI
 
-    //一時停止
+    /// <summary>
+    /// 
+    ///  　　　一時停止
+    ///  
+    /// </summary>
     public void PauseButton()
     {
         //ポーズが呼ばれたか →　一度でも呼ばれていると入らない
@@ -47,7 +47,13 @@ public class UI_Director : MonoBehaviour
         }
     }
 
-    //リトライ
+
+
+    /// <summary>
+    /// 
+    /// 　　　リトライ
+    /// 
+    /// </summary>
     public void RetryButton()
     {
         //TimeScaleが０なら元に戻す
@@ -60,7 +66,13 @@ public class UI_Director : MonoBehaviour
         SceneManager.LoadScene(GameDirector.Instance.GetSceneName);
     }
 
-    //再開
+
+
+    /// <summary>
+    /// 
+    ///      　再開
+    /// 
+    /// </summary>
     public void PlayButton()
     {
         //TimeScaleが０なら元に戻す
@@ -79,7 +91,13 @@ public class UI_Director : MonoBehaviour
         UI_Pause01.SetActive(false);
     }
 
-    //メニュー
+
+
+    /// <summary>
+    /// 
+    ///     メニュー
+    /// 
+    /// </summary>
     public void MenuButton()
     {
         //シーンがゲームオーバーかリザルトなら
@@ -98,7 +116,13 @@ public class UI_Director : MonoBehaviour
         }
     }
 
-    //確認用ボタン
+
+
+    /// <summary>
+    /// 
+    ///     YES/NO 
+    /// 
+    /// </summary>
     public void CheckButton_YES()
     {
         //メニューシーンがアタッチされていたら
@@ -122,11 +146,18 @@ public class UI_Director : MonoBehaviour
         UI_Pause01.SetActive(true);
     }
 
-    //Nextボタン
+
+
+
+    /// <summary>
+    /// 
+    ///     ネクスト
+    /// 
+    /// </summary>
     public void NextButton()
     {
         //次のシーンがアタッチされていたら
-        if(SceneNext != null)
+        if (SceneNext != null)
         {
             SceneManager.LoadScene(NextSceneName);
         }
@@ -136,6 +167,8 @@ public class UI_Director : MonoBehaviour
             Debug.LogError("Not SceneNext");
         }
     }
+
+
 
     #endregion
 }
