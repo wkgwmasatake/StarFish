@@ -22,6 +22,8 @@ public class StarFishOriginal : MonoBehaviour {
     const byte _MAX_LEG = 5;        // 腕の最大数
     const float START_Y = -23.55f;  // 海星のスタートのy座標
 
+    byte Status = 0;
+
     byte selectArm = 0;             // 現在の腕
     float Presstime = 0;            // 画面を長押ししている時間
 
@@ -35,7 +37,6 @@ public class StarFishOriginal : MonoBehaviour {
     float rotatePower = 0;          // 海星本体の回転量
     Vector2 armPos;
     float ParticleAngle;
-
     SpriteRenderer[] LegSpriteRenderer; // 腕のスプライトレンダラー
 
     [SerializeField] ParticleSystem[] ParticleList;     // パーティクルリスト(0.. 腕のパーティクル、1.. 爆発のパーティクル、2.. 花火のパーティクル)
@@ -45,7 +46,6 @@ public class StarFishOriginal : MonoBehaviour {
     [SerializeField] float SavePosTime;                 // 座標を保存する間隔
 
     public Sprite[] LegImages;          // 腕の画像(0.. 通常時、1.. 選択時、2、3.. 爆発後)
-    public GameDirector ChangeScene;    // シーン切り替え用変数
 
     // Use this for initialization
     void Start () {
@@ -66,7 +66,6 @@ public class StarFishOriginal : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
         
         if (!GameDirector.Instance.GetPauseFlg)      // ポーズ中でなければ通常通り実行
         {
@@ -203,15 +202,18 @@ public class StarFishOriginal : MonoBehaviour {
             // ゴールラインを超えたら
             if(GameDirector.Instance.GetDistance < 0)
             {
-                ChangeScene.LoadResult();   // リザルト画面へ
+                GameDirector.Instance.LoadResult();     // リザルト画面へ
             }
 
             // 残りの可能タップ数が1以下になった時かつ、Yに対する力が0.0001f未満になった時に
             if(GameDirector.Instance.GetArmNumber() <= 1 && ForceY < 0.0001f)
             {
-                ChangeScene.LoadGameOrver();        // ゲームオーバー画面へ
+                GameDirector.Instance.LoadGameOrver();            // ゲームオーバー画面へ
             }
+
         }
+
+
     }
 
     private IEnumerator DestroyObject()
