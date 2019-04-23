@@ -8,46 +8,70 @@ using UnityEngine.SceneManagement;
 
 public class GameDirector : SingletonMonoBehaviour<GameDirector>
 {
-    // 現在のステージシーンを確保
-    [SerializeField] private static string nowScene;
-
-    [SerializeField] private SceneObject GameOverScene;
-    [SerializeField] private SceneObject GameResultScene;
-
-    [SerializeField] private GameObject player;
-
-    //各メインシーンの名前格納
-    [SerializeField] private string[] StageSceneName;
 
 
+    /// <summary>
+    /// 情報格納用変数
+    /// </summary>
+    [SerializeField] private static string nowScene;       //現在のシーンの情報格納
+    [SerializeField] private SceneObject GameOverScene;    //ゲームオーバーの情報格納
+    [SerializeField] private SceneObject GameResultScene;  //ゲームリザルトの情報格納
+    [SerializeField] private GameObject player;            //プレイヤーの情報格納
+    [SerializeField] private string[] StageSceneName;      //各メインシーンの名前格納
+
+
+
+    /// <summary>
+    /// 各ステータス
+    /// </summary>
     public int StageStatus;     // ステージのクリア状況
     public int AreaStatus;      // エリアの制覇状況
     public int PearlStatus;     // 真珠の取得状況
 
-    private int armNumber;
+
+
+    /// <summary>
+    /// 距離変数
+    /// </summary>
     private int _distance;
     private int _startDistance;
 
-    private bool pauseFlg;
-    private bool _particleFlg;
 
+
+    /// <summary>
+    /// 定数
+    /// </summary>
+    private const int STAGE_MAX = 4;     //各エリア最大ステージ数
+    private const int AREA_MAX = 2;      //最大エリア数
+
+
+
+    /// <summary>
+    /// フラグ
+    /// </summary>
+    private int StageClear_Flg = -1;     //各ステージのクリアフラグ
+    private int AreaClear_Flg = -1;      //各エリアのクリアフラグ
+    private bool pauseFlg;               //ポーズフラグ
+    private bool _particleFlg;           //パーティクルフラグ
+
+
+
+    private int _SceneNumber = 1;      //シーンナンバー
+
+
+
+    /// <summary>
+    ///　その他変数
+    /// </summary>
     private Camera cam;          // メインカメラ
-    private Vector2 position;
-    private GameObject goalLine;
-    private Text DistanceText;
+    private Vector2 position;　　// 位置
+    private GameObject goalLine; //ゴールライン
+    private int _armNumber;
 
-    //各エリア最大ステージ数
-    private const int STAGE_MAX = 4;
-    //最大エリア数
-    private const int AREA_MAX = 2;
 
-    //各ステージのクリアフラグ
-    private int StageClear_Flg = -1;
-    //各エリアのクリアフラグ
-    private int AreaClear_Flg = -1;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         goalLine = GameObject.Find("GoalLine");
@@ -57,7 +81,6 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         {
             Debug.LogError("not goalline");
         }
-
 
         for (int i = 0; i < STAGE_MAX; i++)
         {
@@ -71,7 +94,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     }
 
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
         //Playerがシーン上にいたら
         if (player != null)
@@ -81,14 +104,17 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         }
 
         //残りの足の本数がなくなり、パーティクルが削除されたら
-        if (armNumber == 1 && _particleFlg == true)
-        {
-            //位置判定メソッド
-            SelectLoadScene(_distance);
-        }
+        //if (armNumber == 1 && _particleFlg == true)
+        //{
+        //    //位置判定メソッド
+        //    SelectLoadScene(_distance);
+        //}
     }
 
 
+    /// <summary>
+    /// シーン遷移用メソッド
+    /// </summary>
     public void LoadResult()
     {
         SceneManager.LoadScene(GameResultScene);
@@ -99,55 +125,59 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     }
 
 
-    void SelectLoadScene(int distance)
-    {
-        //Playerの位置判定
-        if (distance <= 0)
-        {
-            //GameResultがアタッチされていたら
-            if(GameResultScene != null)
-            {
-                SceneManager.LoadScene(GameResultScene);
-            }
-            //されていなければ
-            else
-            {
-                Debug.LogError("Not GameResultScene");
-            }
-        }
-        else
-        {
-            //GameOrverがアタッチされていたら
-            if(GameOverScene != null)
-            {
-                SceneManager.LoadScene(GameOverScene);
-            }
-            //されていなければ
-            else
-            {
-                Debug.LogError("Not GameOrverScene");
-            }
-        }
-    }
 
+
+    //void SelectLoadScene(int distance)
+    //{
+    //    //Playerの位置判定
+    //    if (distance <= 0)
+    //    {
+    //        //GameResultがアタッチされていたら
+    //        if (GameResultScene != null)
+    //        {
+    //            SceneManager.LoadScene(GameResultScene);
+    //        }
+    //        //されていなければ
+    //        else
+    //        {
+    //            Debug.LogError("Not GameResultScene");
+    //        }
+    //    }
+    //    else
+    //    {
+    //        //GameOrverがアタッチされていたら
+    //        if (GameOverScene != null)
+    //        {
+    //            SceneManager.LoadScene(GameOverScene);
+    //        }
+    //        //されていなければ
+    //        else
+    //        {
+    //            Debug.LogError("Not GameOrverScene");
+    //        }
+    //    }
+    //}
+
+
+    
     #region Getter/Setter
 
     //ポジションのゲッター・セッター
     public void SetPosition(Vector2 posi) { position = posi; }
     public Vector2 GetPosition() { return position; }
 
-    //ArmNumberのゲッター・セッター
-    public void SetArmNumber(int num) { armNumber = num; }
-    public int GetArmNumber() { return armNumber; }
+    //足の本数
+    public int GetArmNumber() { return _armNumber; }
+    public void SetArmNumber(int n) { _armNumber = n; }
 
     //distanceのゲッター・セッター
     public int GetDistance { get { return _distance; } }
     public int SetDistance { set { _distance = value; } }
-    public int GetStartDistance { get{ return _startDistance; } }
+    public int GetStartDistance { get { return _startDistance; } }
 
     //ポーズフラグのゲッター・セッター
     public bool SetPauseFlg { set { pauseFlg = value; } }
-    public bool GetPauseFlg { get { return pauseFlg;  } }
+    public bool GetPauseFlg { get { return pauseFlg; } }
 
     //パーティクルの削除判定
     public bool ParticleFlg
@@ -171,6 +201,10 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     public int GetStageClear_Flg { get { return StageClear_Flg; } }
     public int SetStageClear_Flg { set { StageClear_Flg = value; } }
 
+    //シーンナンバー
+    public int GetSceneNumber { get { return _SceneNumber; } }
+    public int AddSceneNumber { set { _SceneNumber += value; } }
+    
     #endregion
 
 }
