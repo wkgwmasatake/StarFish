@@ -57,7 +57,8 @@ MonoBehaviour:
     m_SceneName: Result
   player: {fileID: 0}
   StageSceneName:
-  - Stage_Test
+  - TestStage1
+  - TestStage2
   - TestStage3
   - TestStage4
   - TestStage6

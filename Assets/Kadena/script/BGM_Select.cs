@@ -23,8 +23,8 @@ public class BGM_Select : MonoBehaviour {
     //        //最初のシーンでないなら、すでに存在しているため破棄  
     //        Destroy(gameObject);
     //    }
-    //}
-
+    //
+    
     void Start()
     {
         bgmAS = GetComponent<AudioSource>();
