@@ -6,6 +6,7 @@ public class StegeClick : MonoBehaviour {
 
     [SerializeField] private float TOUCH_SPEED = 300f;//378f;
     [SerializeField] private GameObject Parent_stage;
+    private GameObject test_obj;
     [SerializeField] private GameObject Parent_icon;
     [SerializeField] private GameObject Director;
     [SerializeField] private float move_time = 0.6f;
@@ -15,6 +16,7 @@ public class StegeClick : MonoBehaviour {
     void Start()
     {
         tap_SE = GetComponent<AudioSource>();
+
     }
 
     void Update()
