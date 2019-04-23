@@ -44,6 +44,8 @@ public class TitleController : MonoBehaviour {
     [SerializeField] AudioSource se_start;
     [SerializeField] AudioSource bgm_title;
 
+    [SerializeField] SpriteRenderer titleLogo;
+
     [SerializeField] private SceneObject nextScene;
 
 
@@ -56,6 +58,7 @@ public class TitleController : MonoBehaviour {
     private bool pawnflg3;
 
     private float fadetime;
+
     private float currentRemainTime;
     private SpriteRenderer spRenderer;
 
@@ -94,6 +97,13 @@ public class TitleController : MonoBehaviour {
         moveflg1 = moveflg2 = moveflg3 = false;
 
         bufposY = -6f;
+
+        // フェードアウト
+        float alpha = 0;
+        var color = titleLogo.color;
+        color.a = alpha;
+        titleLogo.color = color;
+        
 	}
 	
 	// Update is called once per frame
@@ -250,7 +260,7 @@ public class TitleController : MonoBehaviour {
 
             pawnflg1 = true;
 
-            Debug.Log(pawnflg1);
+            //Debug.Log(pawnflg1);
         }
 
         // 残り時間を更新
@@ -366,7 +376,16 @@ public class TitleController : MonoBehaviour {
             //{
             //    SceneManager.LoadScene(nextScene);
             //}
+
+            // フェードアウト
+            time += Time.deltaTime;
+            float alpha = 1 / (60 * fadetime);
+            var color = titleLogo.color;
+            color.a += alpha;
+            titleLogo.color = color;
         }
+
+        
     }
     
 
