@@ -213,7 +213,7 @@ public class StarFishOriginal : MonoBehaviour {
                     }
 
                     // 残りの可能タップ数が1以下になった時かつ、Yに対する力が0.0001f未満になった時に
-                    if (GameDirector.Instance.GetArmNumber() <= 1 && ForceY < 0.0001f)
+                    if (GameDirector.Instance.GetArmNumber() <= 1 && ForceY < 0.001f)
                     {
                         //GameDirector.Instance.LoadGameOrver();            // ゲームオーバー画面へ
                         Status = (byte)GAME_STATUS._OVER;      // ゲームオーバー処理へ
@@ -273,7 +273,7 @@ public class StarFishOriginal : MonoBehaviour {
 
         while(!over.isDone)                                 // リザルトシーンの読み込みがまだの時かつ、フェード処理が終わってない時
         {
-            if(FadeImage.transform.position.y < 389)
+            if(FadeImage.rectTransform.position.y < 0)
             {
                 FadeImage.transform.position = new Vector2(FadeImage.transform.position.x, FadeImage.transform.position.y + 12);     // フェード画像のy座標を1上げる
             }
