@@ -1062,7 +1062,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BGPre: {fileID: 279416646}
   player: {fileID: 1231457363}
-  TagName: Rock
+  TagName: Wall
 --- !u!81 &966606832
 AudioListener:
   m_ObjectHideFlags: 0

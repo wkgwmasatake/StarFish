@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StarFishOriginal : MonoBehaviour {
 
@@ -44,6 +45,7 @@ public class StarFishOriginal : MonoBehaviour {
     [SerializeField] float bombPower;                   // 爆発の大きさ
     [SerializeField] float ArrowDisplayTime;            // 矢印を表示させるまでの時間
     [SerializeField] float SavePosTime;                 // 座標を保存する間隔
+    [SerializeField] Image FadeImage;                   // フェード画像
 
     public Sprite[] LegImages;          // 腕の画像(0.. 通常時、1.. 選択時、2、3.. 爆発後)
 
@@ -69,17 +71,9 @@ public class StarFishOriginal : MonoBehaviour {
         
         switch(Status)
         {
-            case (byte)GAME_STATUS._PLAY:
+            case (byte)GAME_STATUS._PLAY:   // ゲームプレイ時
                 if (!GameDirector.Instance.GetPauseFlg)      // ポーズ中でなければ通常通り実行
                 {
-                    TimeCount += Time.deltaTime;                 // 1フレーム間の時間を加算
-                    if (TimeCount > SavePosTime && i < 100)      // 一定時間経過後
-                    {
-                        TimeCount = 0;                                  // タイムカウンタをリセット
-                        position[i] = this.transform.position;          // 現在の座標を取得
-                        angle[i] = this.transform.localEulerAngles.z;   // 現在の角度を取得
-                        i++;                                            // 保存する配列の要素番号を1つ加算
-                    }
 
                     if (GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1)
                     {
@@ -101,6 +95,15 @@ public class StarFishOriginal : MonoBehaviour {
                         Presstime += Time.deltaTime;        // 前回のタップから経過した時間を計測
                         if (Presstime > ArrowDisplayTime)   // 一定時間経過したら
                             ArrowObject.SetActive(true);    // 矢印を表示
+
+                        TimeCount += Time.deltaTime;                 // 1フレーム間の時間を加算
+                        if (TimeCount > SavePosTime && i < 100)      // 一定時間経過後
+                        {
+                            TimeCount = 0;                                  // タイムカウンタをリセット
+                            position[i] = this.transform.position;          // 現在の座標を取得
+                            angle[i] = this.transform.localEulerAngles.z;   // 現在の角度を取得
+                            i++;                                            // 保存する配列の要素番号を1つ加算
+                        }
                     }
 
                     if (Input.GetMouseButtonUp(0) && GameDirector.Instance.GetArmNumber() > 0)   // 左クリックしたとき、かつタップの最大数以下の時
@@ -205,58 +208,86 @@ public class StarFishOriginal : MonoBehaviour {
                     // ゴールラインを超えたら
                     if (GameDirector.Instance.GetDistance < 0)
                     {
-                        GameDirector.Instance.LoadResult();     // リザルト画面へ
+                        //GameDirector.Instance.LoadResult();     // リザルト画面へ
+                        Status = (byte)GAME_STATUS._CLEAR;      // クリア処理へ
                     }
 
                     // 残りの可能タップ数が1以下になった時かつ、Yに対する力が0.0001f未満になった時に
                     if (GameDirector.Instance.GetArmNumber() <= 1 && ForceY < 0.0001f)
                     {
-                        GameDirector.Instance.LoadGameOrver();            // ゲームオーバー画面へ
+                        //GameDirector.Instance.LoadGameOrver();            // ゲームオーバー画面へ
+                        Status = (byte)GAME_STATUS._OVER;      // ゲームオーバー処理へ
                     }
                 }
+                break;
+
+            case (byte)GAME_STATUS._CLEAR:      // クリア処理
+                GetComponent<SaveCSV>().SavePos(position, angle, i);    // 保存した位置と角度をファイルに書き込み
+                StartCoroutine("LoadResult");                           // コルーチンでリザルトシーンを読み込む
+                Status = 99;
+                break;
+
+            case (byte)GAME_STATUS._OVER:
+                GetComponent<SaveCSV>().SavePos(position, angle, i);    // 保存した位置と角度をファイルに書き込み
+
+                FadeImage.transform.position = new Vector2(FadeImage.transform.position.x, -(FadeImage.transform.position.y));  // 画像の位置を下に移動
+
+                FadeImage.transform.localScale = new Vector3(1, -1, 1); // Yスケールを-1に設定することで画像の上下を逆転させる
+
+                Image FadeChild = FadeImage.transform.GetChild(0).GetComponent<Image>();
+                FadeImage.color = new Color(0, 0, 0);                   // 親の色を黒に設定
+                FadeChild.color = new Color(0, 0, 0);                   // 子の色を黒に設定
+                
+                StartCoroutine("LoadOver");                             // コルーチンでゲームオーバーシーンを読み込む
+
+                Status = 99;
                 break;
         }
 
 
     }
 
-    private IEnumerator DestroyObject()
+    private IEnumerator LoadResult()
     {
-        // 1フレーム後に自分自身を非アクティブに設定
-        yield return null;
-        gameObject.SetActive(false);
+        AsyncOperation result = GameDirector.Instance.LoadResult();     // リザルトシーンを非同期で読み込む
+        result.allowSceneActivation = false;                            // フェード処理が終わるまではシーン遷移を許可しない(注意点としてallowSceneActivationがfalseのままだとisDoneはfalseのまま)
+
+        while(!result.isDone)                               // リザルトシーンの読み込みがまだの時かつ、フェード処理が終わってない時
+        {
+            if (FadeImage.transform.position.y > 423)       // フェード処理が終わってない場合
+            {
+                FadeImage.transform.position = new Vector2(FadeImage.transform.position.x, FadeImage.transform.position.y - 12);     // フェード画像のy座標を1下げる
+            }
+            else                                            // フェード処理が終わったら
+            {
+                result.allowSceneActivation = true;         // シーン遷移を許可
+            }
+            yield return null;
+        }
+    }
+
+    private IEnumerator LoadOver()
+    {
+        AsyncOperation over = GameDirector.Instance.LoadGameOrver();    // ゲームオーバーシーンを非同期で読み込む
+        over.allowSceneActivation = false;                              // フェード処理が終わるまではシーン遷移を許可しない(注意点としてallowSceneActivationがfalseのままだとisDoneはfalseのまま)
+
+        while(!over.isDone)                                 // リザルトシーンの読み込みがまだの時かつ、フェード処理が終わってない時
+        {
+            if(FadeImage.transform.position.y < 389)
+            {
+                FadeImage.transform.position = new Vector2(FadeImage.transform.position.x, FadeImage.transform.position.y + 12);     // フェード画像のy座標を1上げる
+            }
+            else                                        // フェード処理が終わったら
+            {
+                over.allowSceneActivation = true;       // シーン遷移を許可
+            }
+            yield return null;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.collider.tag == "Rock")
-        {
-            Vector3 hitPos;
-            foreach (ContactPoint2D point in col.contacts)
-            {
-                hitPos = point.point;                                                   // 衝突した座標を取得
-                var effect = Instantiate(ParticleList[(int)PARTICLE.WALLTOUTCH]);       // エフェクト生成
-                effect.transform.position = hitPos;                                     // エフェクトを衝突した座標に移動
-                VariousFixer vf = effect.GetComponent<VariousFixer>();                  // スクリプト取得
-                vf.RotationY(GetAngle(transform.position, hitPos));                      // スクリプト内の関数で角度を修正
-            }
-
-            if (transform.position.x < 0)       // 画面の左側で岩にあたった場合
-            {
-                rotatePower = 7.0f;             // 時計回りに回転
-                // 右上に力を加える
-                ForceX = 0.1f;
-                ForceY = 0.1f;
-            }
-            else
-            {
-                rotatePower = -7.0f;            // 反時計回りに回転
-                // 左上に力を加える
-                ForceX = -0.1f;
-                ForceY = 0.1f;
-            }
-        }
-        else if (col.collider.tag == "Wall")
+        if (col.collider.tag == "Wall")
         {
             Vector3 hitPos;
             foreach (ContactPoint2D point in col.contacts)
