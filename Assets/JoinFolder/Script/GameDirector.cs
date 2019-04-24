@@ -115,13 +115,17 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     /// <summary>
     /// シーン遷移用メソッド
     /// </summary>
-    public void LoadResult()
+    public AsyncOperation LoadResult()
     {
-        SceneManager.LoadScene(GameResultScene);
+        //SceneManager.LoadScene(GameResultScene);
+
+        return SceneManager.LoadSceneAsync(GameResultScene);
     }
-    public void LoadGameOrver()
+    public AsyncOperation LoadGameOrver()
     {
-        SceneManager.LoadScene(GameOverScene);
+        //SceneManager.LoadScene(GameOverScene);
+
+        return SceneManager.LoadSceneAsync(GameOverScene);
     }
 
 
