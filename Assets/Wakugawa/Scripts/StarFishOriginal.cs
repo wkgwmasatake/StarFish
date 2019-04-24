@@ -224,7 +224,7 @@ public class StarFishOriginal : MonoBehaviour {
             case (byte)GAME_STATUS._CLEAR:      // クリア処理
                 GetComponent<SaveCSV>().SavePos(position, angle, i);    // 保存した位置と角度をファイルに書き込み
                 StartCoroutine("LoadResult");                           // コルーチンでリザルトシーンを読み込む
-                Status = 99;
+                Status = 99;                                            // シーンの2度読み防止
                 break;
 
             case (byte)GAME_STATUS._OVER:
@@ -240,7 +240,7 @@ public class StarFishOriginal : MonoBehaviour {
                 
                 StartCoroutine("LoadOver");                             // コルーチンでゲームオーバーシーンを読み込む
 
-                Status = 99;
+                Status = 99;                                            // シーンの2度読み防止
                 break;
         }
 
