@@ -9,9 +9,9 @@ public class UI_Director : MonoBehaviour
     /// <summary>
     /// 情報格納用変数
     /// </summary>
-    [SerializeField] private SceneObject SceneMenu;　    //シーンメニュー
-    [SerializeField] private SceneObject SceneNext;　    //シーンネクスト
-    [SerializeField] private string NextSceneName;     //遷移するシーン名
+    [SerializeField] private SceneObject SceneMenu;　         //シーンメニュー
+    [SerializeField] private SceneObject SceneNext;　         //シーンネクスト
+    [SerializeField] private string NextSceneName;            //遷移するシーン名
     [SerializeField] private SceneObject SceneGameOrver;　    //シーンゲームオーバー
     [SerializeField] private SceneObject SceneResult;    　　 //シーンリザルト
 
@@ -44,6 +44,10 @@ public class UI_Director : MonoBehaviour
 
             //UI_Pause01アクティブ化
             UI_Pause01.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("PauseFlgError");
         }
     }
 

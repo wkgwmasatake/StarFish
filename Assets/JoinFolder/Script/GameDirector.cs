@@ -82,12 +82,16 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
             Debug.LogError("not goalline");
         }
 
+        // STAGE_MAX分回す
         for (int i = 0; i < STAGE_MAX; i++)
         {
             //現在のシーンがメインなら
             if (SceneManager.GetActiveScene().name == StageSceneName[i])
             {
+                // nowSceneに現在のステージシーンの名前を保存
                 nowScene = SceneManager.GetActiveScene().name;
+
+                // 最初のゴールまでの距離
                 _startDistance = ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y);
             }
         }
@@ -117,14 +121,10 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     /// </summary>
     public AsyncOperation LoadResult()
     {
-        //SceneManager.LoadScene(GameResultScene);
-
         return SceneManager.LoadSceneAsync(GameResultScene);
     }
     public AsyncOperation LoadGameOrver()
     {
-        //SceneManager.LoadScene(GameOverScene);
-
         return SceneManager.LoadSceneAsync(GameOverScene);
     }
 
