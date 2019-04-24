@@ -129,38 +129,6 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
 
 
-    //void SelectLoadScene(int distance)
-    //{
-    //    //Playerの位置判定
-    //    if (distance <= 0)
-    //    {
-    //        //GameResultがアタッチされていたら
-    //        if (GameResultScene != null)
-    //        {
-    //            SceneManager.LoadScene(GameResultScene);
-    //        }
-    //        //されていなければ
-    //        else
-    //        {
-    //            Debug.LogError("Not GameResultScene");
-    //        }
-    //    }
-    //    else
-    //    {
-    //        //GameOrverがアタッチされていたら
-    //        if (GameOverScene != null)
-    //        {
-    //            SceneManager.LoadScene(GameOverScene);
-    //        }
-    //        //されていなければ
-    //        else
-    //        {
-    //            Debug.LogError("Not GameOrverScene");
-    //        }
-    //    }
-    //}
-
-
     
     #region Getter/Setter
 

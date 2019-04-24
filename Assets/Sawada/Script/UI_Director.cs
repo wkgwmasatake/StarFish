@@ -92,8 +92,6 @@ public class UI_Director : MonoBehaviour
             CountDown.SetActive(true);
 
             StartCoroutine("CountDownCorutine");
-            //TimeScaleを元に戻す
-            Time.timeScale = 1;
 
         }
         else
@@ -105,14 +103,15 @@ public class UI_Director : MonoBehaviour
     IEnumerator CountDownCorutine()
     {
         CountDown.GetComponent<Text>().text = "3";
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSecondsRealtime(1);
         CountDown.GetComponent<Text>().text = "2";
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSecondsRealtime(1);
         CountDown.GetComponent<Text>().text = "1";
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSecondsRealtime(1);
         GameDirector.Instance.SetPauseFlg = false;
         CountDown.SetActive(false);
-        yield return new WaitForSeconds(1);
+        //TimeScaleを元に戻す
+        Time.timeScale = 1;
     }
 
 
