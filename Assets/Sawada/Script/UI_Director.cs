@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class UI_Director : MonoBehaviour
@@ -22,6 +23,9 @@ public class UI_Director : MonoBehaviour
     /// </summary>
     [SerializeField] private GameObject UI_Pause01;
     [SerializeField] private GameObject UI_Pause02;
+    [SerializeField] private float time;
+    [SerializeField] private GameObject CountDown;
+
 
 
     #region UI関連メソッド（Button用）
@@ -79,20 +83,36 @@ public class UI_Director : MonoBehaviour
     /// </summary>
     public void PlayButton()
     {
+        //UI_Pause01を非アクティブ化
+        UI_Pause01.SetActive(false);
+
         //TimeScaleが０なら元に戻す
         if (Time.timeScale <= 0)
         {
+            CountDown.SetActive(true);
+
+            StartCoroutine("CountDownCorutine");
             //TimeScaleを元に戻す
             Time.timeScale = 1;
-            GameDirector.Instance.SetPauseFlg = false;
+
         }
         else
         {
             Debug.LogError("NotPlay!");
         }
-
-        //UI_Pause01を非アクティブ化
-        UI_Pause01.SetActive(false);
+    }
+    // コルーチン
+    IEnumerator CountDownCorutine()
+    {
+        CountDown.GetComponent<Text>().text = "3";
+        yield return new WaitForSeconds(1);
+        CountDown.GetComponent<Text>().text = "2";
+        yield return new WaitForSeconds(1);
+        CountDown.GetComponent<Text>().text = "1";
+        yield return new WaitForSeconds(1);
+        GameDirector.Instance.SetPauseFlg = false;
+        CountDown.SetActive(false);
+        yield return new WaitForSeconds(1);
     }
 
 

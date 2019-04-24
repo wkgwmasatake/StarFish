@@ -1,10 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.PostProcessing;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
 
 public class GameDirector : SingletonMonoBehaviour<GameDirector>
 {
