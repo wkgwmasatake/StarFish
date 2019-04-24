@@ -51,6 +51,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     private int AreaClear_Flg = -1;      //各エリアのクリアフラグ
     private bool pauseFlg;               //ポーズフラグ
     private bool _particleFlg;           //パーティクルフラグ
+    private bool _chaceFlg = true;      //カメラの追跡フラグ
 
 
 
@@ -104,14 +105,9 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
             //ゴールからPlayerの位置を取得
             _distance = ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y);
         }
-
-        //残りの足の本数がなくなり、パーティクルが削除されたら
-        //if (armNumber == 1 && _particleFlg == true)
-        //{
-        //    //位置判定メソッド
-        //    SelectLoadScene(_distance);
-        //}
     }
+
+
 
 
     /// <summary>
@@ -119,14 +115,14 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     /// </summary>
     public AsyncOperation LoadResult()
     {
+        _chaceFlg = false;
         return SceneManager.LoadSceneAsync(GameResultScene);
     }
     public AsyncOperation LoadGameOrver()
     {
+        _chaceFlg = false;
         return SceneManager.LoadSceneAsync(GameOverScene);
     }
-
-
 
 
     
@@ -174,6 +170,9 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     //シーンナンバー
     public int GetSceneNumber { get { return _SceneNumber; } }
     public int AddSceneNumber { set { _SceneNumber += value; } }
+
+    //カメラ追跡フラグゲッター・セッター
+    public bool GetChaceFlg { get { return _chaceFlg; } }
     
     #endregion
 
