@@ -9,6 +9,44 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
 
     /// <summary>
+    /// ステージの列挙体
+    /// </summary>
+    public enum EStage
+    {
+        _STAGE01,
+        _STAGE02,
+        _STAGE03,
+        _STAGE04,
+        _STAGE05,
+        _STAGE06,
+
+        _STAGE_MAX,
+    };
+
+    EStage[] stage;
+
+    /// <summary>
+    /// 定数
+    /// </summary>
+    private const int STAGE_MAX = 4;     //各エリア最大ステージ数
+    private const int AREA_MAX = 2;      //最大エリア数
+
+
+
+
+
+    /// <summary>
+    /// エリア配列（とりあえず１エリアのみ）
+    /// </summary>
+    private readonly int[] AreaIndex =
+    {
+        STAGE_MAX,
+    };
+    
+
+
+
+    /// <summary>
     /// 情報格納用変数
     /// </summary>
     [SerializeField] private static string nowScene;       //現在のシーンの情報格納
@@ -36,11 +74,6 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
 
 
-    /// <summary>
-    /// 定数
-    /// </summary>
-    private const int STAGE_MAX = 4;     //各エリア最大ステージ数
-    private const int AREA_MAX = 2;      //最大エリア数
 
 
 
@@ -173,6 +206,8 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
     //カメラ追跡フラグゲッター・セッター
     public bool GetChaceFlg { get { return _chaceFlg; } }
+
+    public int[] GetAreaIndex { get { return AreaIndex; } }
     
     #endregion
 
