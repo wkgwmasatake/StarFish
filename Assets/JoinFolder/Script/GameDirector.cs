@@ -1,13 +1,49 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-//using UnityEngine.PostProcessing;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-
 public class GameDirector : SingletonMonoBehaviour<GameDirector>
 {
+
+
+    /// <summary>
+    /// ステージの列挙体
+    /// </summary>
+    public enum EStage
+    {
+        _STAGE01,
+        _STAGE02,
+        _STAGE03,
+        _STAGE04,
+        _STAGE05,
+        _STAGE06,
+
+        _STAGE_MAX,
+    };
+
+    EStage[] stage;
+
+    /// <summary>
+    /// 定数
+    /// </summary>
+    private const int STAGE_MAX = 4;     //各エリア最大ステージ数
+    private const int AREA_MAX = 2;      //最大エリア数
+
+
+
+
+
+    /// <summary>
+    /// エリア配列（とりあえず１エリアのみ）
+    /// </summary>
+    private readonly int[] AreaIndex =
+    {
+        STAGE_MAX,
+    };
+    
+
 
 
     /// <summary>
@@ -38,11 +74,6 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
 
 
-    /// <summary>
-    /// 定数
-    /// </summary>
-    private const int STAGE_MAX = 4;     //各エリア最大ステージ数
-    private const int AREA_MAX = 2;      //最大エリア数
 
 
 
@@ -53,6 +84,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     private int AreaClear_Flg = -1;      //各エリアのクリアフラグ
     private bool pauseFlg;               //ポーズフラグ
     private bool _particleFlg;           //パーティクルフラグ
+    private bool _chaceFlg = true;      //カメラの追跡フラグ
 
 
 
@@ -106,14 +138,9 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
             //ゴールからPlayerの位置を取得
             _distance = ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y);
         }
-
-        //残りの足の本数がなくなり、パーティクルが削除されたら
-        //if (armNumber == 1 && _particleFlg == true)
-        //{
-        //    //位置判定メソッド
-        //    SelectLoadScene(_distance);
-        //}
     }
+
+
 
 
     /// <summary>
@@ -121,46 +148,14 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     /// </summary>
     public AsyncOperation LoadResult()
     {
+        _chaceFlg = false;
         return SceneManager.LoadSceneAsync(GameResultScene);
     }
     public AsyncOperation LoadGameOrver()
     {
+        _chaceFlg = false;
         return SceneManager.LoadSceneAsync(GameOverScene);
     }
-
-
-
-
-    //void SelectLoadScene(int distance)
-    //{
-    //    //Playerの位置判定
-    //    if (distance <= 0)
-    //    {
-    //        //GameResultがアタッチされていたら
-    //        if (GameResultScene != null)
-    //        {
-    //            SceneManager.LoadScene(GameResultScene);
-    //        }
-    //        //されていなければ
-    //        else
-    //        {
-    //            Debug.LogError("Not GameResultScene");
-    //        }
-    //    }
-    //    else
-    //    {
-    //        //GameOrverがアタッチされていたら
-    //        if (GameOverScene != null)
-    //        {
-    //            SceneManager.LoadScene(GameOverScene);
-    //        }
-    //        //されていなければ
-    //        else
-    //        {
-    //            Debug.LogError("Not GameOrverScene");
-    //        }
-    //    }
-    //}
 
 
     
@@ -208,6 +203,11 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     //シーンナンバー
     public int GetSceneNumber { get { return _SceneNumber; } }
     public int AddSceneNumber { set { _SceneNumber += value; } }
+
+    //カメラ追跡フラグゲッター・セッター
+    public bool GetChaceFlg { get { return _chaceFlg; } }
+
+    public int[] GetAreaIndex { get { return AreaIndex; } }
     
     #endregion
 

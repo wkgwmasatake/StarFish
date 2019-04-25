@@ -39,6 +39,7 @@ public class StarFishOriginal : MonoBehaviour {
     Vector2 armPos;
     float ParticleAngle;
     SpriteRenderer[] LegSpriteRenderer; // 腕のスプライトレンダラー
+    Rigidbody2D rb;
 
     [SerializeField] ParticleSystem[] ParticleList;     // パーティクルリスト(0.. 腕のパーティクル、1.. 爆発のパーティクル、2.. 花火のパーティクル)
     [SerializeField] GameObject ArrowObject;            // 矢印のゲームオブジェクト
@@ -61,6 +62,8 @@ public class StarFishOriginal : MonoBehaviour {
         }
 
         ArrowObject.SetActive(false);                           // 非アクティブに設定
+
+        rb = GetComponent<Rigidbody2D>();   // Rigidbody2Dを取得
 
         position = new Vector2[100];        // 100個分の配列を確保
         angle = new float[100];             // 100個分の配列を確保
@@ -110,7 +113,6 @@ public class StarFishOriginal : MonoBehaviour {
                     {
                         Presstime = 0;          // 経過時間を初期化
 
-                        Rigidbody2D rb = GetComponent<Rigidbody2D>();       // 海星のRigidbodyを取得
                         rb.velocity = Vector2.zero;                         // 重力加速度をリセット
 
                         if (GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1 && GameDirector.Instance.GetArmNumber() > 1)        // 最初のタップと最後のタップ以外の時
@@ -201,10 +203,16 @@ public class StarFishOriginal : MonoBehaviour {
                         transform.position = new Vector2(pos.x, START_Y);   // x座標はそのままでY座標をスタートの座標に変更
                     }
 
+                    if(rb.velocity.y < -1.0f)                   // 重力加速度がy方向に-1.0以上かかっていたら
+                    {
+                        rb.velocity = new Vector2(0, -1.0f);    // 重力加速度を-1.0に戻す
+                    }
+
                     // 力を減衰
                     ForceX *= 0.95f;
                     ForceY *= 0.95f;
 
+                    
                     // ゴールラインを超えたら
                     if (GameDirector.Instance.GetDistance < 0)
                     {
@@ -230,7 +238,8 @@ public class StarFishOriginal : MonoBehaviour {
             case (byte)GAME_STATUS._OVER:
                 GetComponent<SaveCSV>().SavePos(position, angle, i);    // 保存した位置と角度をファイルに書き込み
 
-                FadeImage.transform.position = new Vector2(FadeImage.transform.position.x, -(FadeImage.transform.position.y));  // 画像の位置を下に移動
+                FadeImage.rectTransform.anchoredPosition = 
+                    new Vector2(FadeImage.rectTransform.anchoredPosition.x, -(FadeImage.rectTransform.anchoredPosition.y));  // 画像の位置を下に移動
 
                 FadeImage.transform.localScale = new Vector3(1, -1, 1); // Yスケールを-1に設定することで画像の上下を逆転させる
 
@@ -243,8 +252,6 @@ public class StarFishOriginal : MonoBehaviour {
                 Status = 99;                                            // シーンの2度読み防止
                 break;
         }
-
-
     }
 
     private IEnumerator LoadResult()
@@ -252,16 +259,22 @@ public class StarFishOriginal : MonoBehaviour {
         AsyncOperation result = GameDirector.Instance.LoadResult();     // リザルトシーンを非同期で読み込む
         result.allowSceneActivation = false;                            // フェード処理が終わるまではシーン遷移を許可しない(注意点としてallowSceneActivationがfalseのままだとisDoneはfalseのまま)
 
-        while(!result.isDone)                               // リザルトシーンの読み込みがまだの時かつ、フェード処理が終わってない時
+        while(!result.isDone)                               // リザルトシーンの読み込みがまだの時かAつ、フェード処理が終わってない時
         {
-            if (FadeImage.transform.position.y > 423)       // フェード処理が終わってない場合
+            if (FadeImage.rectTransform.anchoredPosition.y > 0)       // フェード処理が終わってない場合
             {
-                FadeImage.transform.position = new Vector2(FadeImage.transform.position.x, FadeImage.transform.position.y - 12);     // フェード画像のy座標を1下げる
+                FadeImage.rectTransform.anchoredPosition = 
+                    new Vector2(FadeImage.rectTransform.anchoredPosition.x, FadeImage.rectTransform.anchoredPosition.y - 50);     // フェード画像のy座標を50下げる
             }
             else                                            // フェード処理が終わったら
             {
                 result.allowSceneActivation = true;         // シーン遷移を許可
             }
+
+            transform.Rotate(new Vector3(0, 0, rotatePower));   // 海星を回転
+
+            transform.Translate(ForceX * bombPower, ForceY * bombPower, 0, Space.World);         // 爆発の威力に応じて移動
+
             yield return null;
         }
     }
@@ -273,14 +286,20 @@ public class StarFishOriginal : MonoBehaviour {
 
         while(!over.isDone)                                 // リザルトシーンの読み込みがまだの時かつ、フェード処理が終わってない時
         {
-            if(FadeImage.rectTransform.position.y < 0)
+            if(FadeImage.rectTransform.anchoredPosition.y < 0)
             {
-                FadeImage.transform.position = new Vector2(FadeImage.transform.position.x, FadeImage.transform.position.y + 12);     // フェード画像のy座標を1上げる
+                FadeImage.rectTransform.anchoredPosition = 
+                    new Vector2(FadeImage.rectTransform.anchoredPosition.x, FadeImage.rectTransform.anchoredPosition.y + 50);     // フェード画像のy座標を50上げる
             }
             else                                        // フェード処理が終わったら
             {
                 over.allowSceneActivation = true;       // シーン遷移を許可
             }
+
+            transform.Rotate(new Vector3(0, 0, rotatePower));   // 海星を回転
+
+            transform.Translate(ForceX * bombPower, ForceY * bombPower, 0, Space.World);         // 爆発の威力に応じて移動
+
             yield return null;
         }
     }
