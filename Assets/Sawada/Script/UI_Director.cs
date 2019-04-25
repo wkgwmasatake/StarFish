@@ -7,12 +7,12 @@ using UnityEngine.SceneManagement;
 public class UI_Director : MonoBehaviour
 {
 
+
     /// <summary>
     /// 情報格納用変数
     /// </summary>
     [SerializeField] private SceneObject SceneMenu;　         //シーンメニュー
     [SerializeField] private SceneObject SceneNext;　         //シーンネクスト
-    [SerializeField] private string NextSceneName;            //遷移するシーン名
     [SerializeField] private SceneObject SceneGameOrver;　    //シーンゲームオーバー
     [SerializeField] private SceneObject SceneResult;    　　 //シーンリザルト
 
@@ -26,7 +26,8 @@ public class UI_Director : MonoBehaviour
     [SerializeField] private float time;
     [SerializeField] private GameObject CountDown;
 
-
+    // 各ステージ共通NAME
+    private const string STAGE_NAME = "TestStage";
 
     #region UI関連メソッド（Button用）
 
@@ -179,10 +180,11 @@ public class UI_Director : MonoBehaviour
     /// </summary>
     public void NextButton()
     {
+        Debug.Log(GameDirector.Instance.GetSceneNumber);
         //次のシーンがアタッチされていたら
         if (SceneNext != null)
         {
-            SceneManager.LoadScene(NextSceneName);
+            SceneManager.LoadScene(STAGE_NAME + GameDirector.Instance.GetSceneNumber.ToString());
         }
         //いなければ
         else

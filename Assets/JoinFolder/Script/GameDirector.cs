@@ -7,31 +7,11 @@ using UnityEngine.SceneManagement;
 public class GameDirector : SingletonMonoBehaviour<GameDirector>
 {
 
-
-    /// <summary>
-    /// ステージの列挙体
-    /// </summary>
-    public enum EStage
-    {
-        _STAGE01,
-        _STAGE02,
-        _STAGE03,
-        _STAGE04,
-        _STAGE05,
-        _STAGE06,
-
-        _STAGE_MAX,
-    };
-
-    EStage[] stage;
-
     /// <summary>
     /// 定数
     /// </summary>
-    private const int STAGE_MAX = 4;     //各エリア最大ステージ数
+    private const int STAGE_MAX = 6;     //各エリア最大ステージ数
     private const int AREA_MAX = 2;      //最大エリア数
-
-
 
 
 
@@ -75,20 +55,15 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
 
 
-
-
     /// <summary>
     /// フラグ
     /// </summary>
     private int StageClear_Flg = -1;     //各ステージのクリアフラグ
     private int AreaClear_Flg = -1;      //各エリアのクリアフラグ
-    private bool pauseFlg;               //ポーズフラグ
+    private bool pauseFlg = false;               //ポーズフラグ
     private bool _particleFlg;           //パーティクルフラグ
     private bool _chaceFlg = true;      //カメラの追跡フラグ
 
-
-
-    private int _SceneNumber = 1;      //シーンナンバー
 
 
 
@@ -99,6 +74,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     private Vector2 position;　　// 位置
     private GameObject goalLine; //ゴールライン
     private int _armNumber;
+    private static int _SceneNumber;      //シーンナンバー
 
 
 
@@ -108,12 +84,6 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         goalLine = GameObject.Find("GoalLine");
 
-        //GoalLineがなければ
-        if (goalLine == null)
-        {
-            Debug.LogError("not goalline");
-        }
-
         // STAGE_MAX分回す
         for (int i = 0; i < STAGE_MAX; i++)
         {
@@ -122,6 +92,10 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
             {
                 // nowSceneに現在のステージシーンの名前を保存
                 nowScene = SceneManager.GetActiveScene().name;
+
+                _SceneNumber = i + 2;
+
+                Debug.Log("_sceneNumber : " + _SceneNumber);
 
                 // 最初のゴールまでの距離
                 _startDistance = ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y);
@@ -202,7 +176,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
     //シーンナンバー
     public int GetSceneNumber { get { return _SceneNumber; } }
-    public int AddSceneNumber { set { _SceneNumber += value; } }
+    public int SetSceneNumber { set { _SceneNumber = value; } }
 
     //カメラ追跡フラグゲッター・セッター
     public bool GetChaceFlg { get { return _chaceFlg; } }

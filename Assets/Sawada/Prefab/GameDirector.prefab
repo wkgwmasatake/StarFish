@@ -61,6 +61,7 @@ MonoBehaviour:
   - TestStage2
   - TestStage3
   - TestStage4
+  - TestStage5
   - TestStage6
   StageStatus: 0
   AreaStatus: 0
