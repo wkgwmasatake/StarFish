@@ -38,8 +38,7 @@ GameObject:
   - component: {fileID: 4486351211792858}
   - component: {fileID: 198271986459444408}
   - component: {fileID: 199824180668251924}
-  - component: {fileID: 114199663681276574}
-  - component: {fileID: 114226695509252440}
+  - component: {fileID: 114531691458428032}
   m_Layer: 0
   m_Name: Get_Paerl
   m_TagString: Untagged
@@ -74,7 +73,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114199663681276574
+--- !u!114 &114531691458428032
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -82,20 +81,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1691451838998114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d06f620c2bd79d04197741b42fec93d1, type: 3}
+  m_Script: {fileID: 11500000, guid: ab86fe89c4c074447a5b3502a056df75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114226695509252440
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1691451838998114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0ca0bff972fac640baca6d1ceb3dd26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  Scale: 0
+  FireWorks: 0
+  ArmBomb: 0
 --- !u!198 &198271986459444408
 ParticleSystem:
   m_ObjectHideFlags: 1

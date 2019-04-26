@@ -1553,11 +1553,6 @@ Prefab:
       propertyPath: CountDown
       value: 
       objectReference: {fileID: 1865504337}
-    - target: {fileID: 114480551906871326, guid: 4bc5cb9adad7a724380d3afd40b40c65,
-        type: 2}
-      propertyPath: time
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4bc5cb9adad7a724380d3afd40b40c65, type: 2}
   m_IsPrefabParent: 0
