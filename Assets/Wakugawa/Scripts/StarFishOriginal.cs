@@ -230,6 +230,7 @@ public class StarFishOriginal : MonoBehaviour {
                 break;
 
             case (byte)GAME_STATUS._CLEAR:      // クリア処理
+                GetComponent<SaveStageInfo>().SaveSatageClearInfo(GameDirector.Instance.GetSceneNumber - 1);
                 GetComponent<SaveCSV>().BinarySavePos(position, angle, i);    // 保存した位置と角度をファイルに書き込み
                 StartCoroutine("LoadResult");                           // コルーチンでリザルトシーンを読み込む
                 Status = 99;                                            // シーンの2度読み防止
