@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4470275878359700}
   - component: {fileID: 114480551906871326}
+  - component: {fileID: 82827320140285422}
   m_Layer: 0
   m_Name: UI_Director
   m_TagString: Untagged
@@ -40,6 +41,86 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &82827320140285422
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1789880004256578}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114480551906871326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53,12 +134,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneMenu:
     m_SceneName: Stage_Select
-  SceneNext:
-    m_SceneName: 
-  NextSceneName: TestStage
-  UI_Pause01: {fileID: 0}
-  UI_Pause02: {fileID: 0}
   SceneGameOrver:
     m_SceneName: GameOrver
   SceneResult:
     m_SceneName: Result
+  UI_Pause01: {fileID: 0}
+  UI_Pause02: {fileID: 0}
+  time: 3
+  CountDown: {fileID: 0}
+  SE:
+  - {fileID: 8300000, guid: 40dd956c809d1db4b996c071788ba571, type: 3}
+  - {fileID: 8300000, guid: 310ed5be107dfdb4ca9e153c16694cea, type: 3}
+  - {fileID: 8300000, guid: 45077866914194f4aac625389020e325, type: 3}
