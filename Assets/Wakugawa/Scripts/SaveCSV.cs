@@ -67,7 +67,8 @@ public class SaveCSV : MonoBehaviour {
             filePass = Application.dataPath + "/Resources/";  // Resourcesフォルダ直下に保存
         }
 
-        string combinedPath = Path.Combine(filePass, "Ghost_Record.csv");       // ファイルパスとファイル名を結合
+        string combinedPath = Path.Combine(filePass, "Ghost_Record" + (GameDirector.Instance.GetSceneNumber - 1).ToString() + ".csv");       // ファイルパスとファイル名を結合
+        Debug.Log(combinedPath);
 
         try
         {

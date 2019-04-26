@@ -230,13 +230,13 @@ public class StarFishOriginal : MonoBehaviour {
                 break;
 
             case (byte)GAME_STATUS._CLEAR:      // クリア処理
-                GetComponent<SaveCSV>().SavePos(position, angle, i);    // 保存した位置と角度をファイルに書き込み
+                GetComponent<SaveCSV>().BinarySavePos(position, angle, i);    // 保存した位置と角度をファイルに書き込み
                 StartCoroutine("LoadResult");                           // コルーチンでリザルトシーンを読み込む
                 Status = 99;                                            // シーンの2度読み防止
                 break;
 
             case (byte)GAME_STATUS._OVER:
-                GetComponent<SaveCSV>().SavePos(position, angle, i);    // 保存した位置と角度をファイルに書き込み
+                GetComponent<SaveCSV>().BinarySavePos(position, angle, i);    // 保存した位置と角度をファイルに書き込み
 
                 FadeImage.rectTransform.anchoredPosition = 
                     new Vector2(FadeImage.rectTransform.anchoredPosition.x, -(FadeImage.rectTransform.anchoredPosition.y));  // 画像の位置を下に移動
@@ -251,6 +251,12 @@ public class StarFishOriginal : MonoBehaviour {
 
                 Status = 99;                                            // シーンの2度読み防止
                 break;
+        }
+
+        if (transform.position.y < START_Y)                      // 海星のY座標がスタートの座標より下にいるなら
+        {
+            Vector2 pos = transform.position;                   // 海星の座標を保存
+            transform.position = new Vector2(pos.x, START_Y);   // x座標はそのままでY座標をスタートの座標に変更
         }
     }
 
