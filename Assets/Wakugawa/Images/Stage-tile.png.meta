@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 429665ddbbf7f0b4394b161db1a7bc5f
-timeCreated: 1555550183
+guid: 2357cf5794c671844aed41c1d7ccaaad
+timeCreated: 1556246888
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -36,6 +36,14 @@ TextureImporter:
     21300058: Stage-tile_29
     21300060: Stage-tile_30
     21300062: Stage-tile_31
+    21300064: Stage-tile_32
+    21300066: Stage-tile_33
+    21300068: Stage-tile_34
+    21300070: Stage-tile_35
+    21300072: Stage-tile_36
+    21300074: Stage-tile_37
+    21300076: Stage-tile_38
+    21300078: Stage-tile_39
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -248,8 +256,8 @@ TextureImporter:
       name: Stage-tile_9
       rect:
         serializedVersion: 2
-        x: 0
-        y: 512
+        x: 576
+        y: 576
         width: 64
         height: 64
       alignment: 0
@@ -262,7 +270,7 @@ TextureImporter:
       name: Stage-tile_10
       rect:
         serializedVersion: 2
-        x: 64
+        x: 0
         y: 512
         width: 64
         height: 64
@@ -276,7 +284,7 @@ TextureImporter:
       name: Stage-tile_11
       rect:
         serializedVersion: 2
-        x: 128
+        x: 64
         y: 512
         width: 64
         height: 64
@@ -290,7 +298,7 @@ TextureImporter:
       name: Stage-tile_12
       rect:
         serializedVersion: 2
-        x: 192
+        x: 128
         y: 512
         width: 64
         height: 64
@@ -304,7 +312,7 @@ TextureImporter:
       name: Stage-tile_13
       rect:
         serializedVersion: 2
-        x: 256
+        x: 192
         y: 512
         width: 64
         height: 64
@@ -318,7 +326,7 @@ TextureImporter:
       name: Stage-tile_14
       rect:
         serializedVersion: 2
-        x: 320
+        x: 256
         y: 512
         width: 64
         height: 64
@@ -332,7 +340,7 @@ TextureImporter:
       name: Stage-tile_15
       rect:
         serializedVersion: 2
-        x: 384
+        x: 320
         y: 512
         width: 64
         height: 64
@@ -346,7 +354,7 @@ TextureImporter:
       name: Stage-tile_16
       rect:
         serializedVersion: 2
-        x: 448
+        x: 384
         y: 512
         width: 64
         height: 64
@@ -360,7 +368,7 @@ TextureImporter:
       name: Stage-tile_17
       rect:
         serializedVersion: 2
-        x: 512
+        x: 448
         y: 512
         width: 64
         height: 64
@@ -374,8 +382,8 @@ TextureImporter:
       name: Stage-tile_18
       rect:
         serializedVersion: 2
-        x: 0
-        y: 448
+        x: 512
+        y: 512
         width: 64
         height: 64
       alignment: 0
@@ -388,8 +396,8 @@ TextureImporter:
       name: Stage-tile_19
       rect:
         serializedVersion: 2
-        x: 64
-        y: 448
+        x: 576
+        y: 512
         width: 64
         height: 64
       alignment: 0
@@ -402,7 +410,7 @@ TextureImporter:
       name: Stage-tile_20
       rect:
         serializedVersion: 2
-        x: 128
+        x: 0
         y: 448
         width: 64
         height: 64
@@ -416,7 +424,7 @@ TextureImporter:
       name: Stage-tile_21
       rect:
         serializedVersion: 2
-        x: 320
+        x: 64
         y: 448
         width: 64
         height: 64
@@ -430,7 +438,7 @@ TextureImporter:
       name: Stage-tile_22
       rect:
         serializedVersion: 2
-        x: 384
+        x: 128
         y: 448
         width: 64
         height: 64
@@ -444,8 +452,8 @@ TextureImporter:
       name: Stage-tile_23
       rect:
         serializedVersion: 2
-        x: 0
-        y: 384
+        x: 512
+        y: 448
         width: 64
         height: 64
       alignment: 0
@@ -458,8 +466,8 @@ TextureImporter:
       name: Stage-tile_24
       rect:
         serializedVersion: 2
-        x: 64
-        y: 384
+        x: 576
+        y: 448
         width: 64
         height: 64
       alignment: 0
@@ -472,7 +480,7 @@ TextureImporter:
       name: Stage-tile_25
       rect:
         serializedVersion: 2
-        x: 128
+        x: 0
         y: 384
         width: 64
         height: 64
@@ -486,7 +494,7 @@ TextureImporter:
       name: Stage-tile_26
       rect:
         serializedVersion: 2
-        x: 384
+        x: 64
         y: 384
         width: 64
         height: 64
@@ -500,8 +508,8 @@ TextureImporter:
       name: Stage-tile_27
       rect:
         serializedVersion: 2
-        x: 0
-        y: 320
+        x: 128
+        y: 384
         width: 64
         height: 64
       alignment: 0
@@ -514,8 +522,8 @@ TextureImporter:
       name: Stage-tile_28
       rect:
         serializedVersion: 2
-        x: 64
-        y: 320
+        x: 320
+        y: 384
         width: 64
         height: 64
       alignment: 0
@@ -528,8 +536,8 @@ TextureImporter:
       name: Stage-tile_29
       rect:
         serializedVersion: 2
-        x: 128
-        y: 320
+        x: 384
+        y: 384
         width: 64
         height: 64
       alignment: 0
@@ -543,7 +551,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 256
+        y: 320
         width: 64
         height: 64
       alignment: 0
@@ -557,6 +565,118 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Stage-tile_32
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Stage-tile_33
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Stage-tile_34
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Stage-tile_35
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Stage-tile_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Stage-tile_37
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Stage-tile_38
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Stage-tile_39
+      rect:
+        serializedVersion: 2
+        x: 384
         y: 256
         width: 64
         height: 64
