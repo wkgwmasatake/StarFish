@@ -15,13 +15,7 @@ public class FishController : MonoBehaviour
 
 	// Use this for initialization
 	void Start ()
-    {
-        // タグ設定
-        this.tag = "Fish";
-
-        // レイヤー設定
-        this.gameObject.layer = LayerMask.NameToLayer("Fish");
-
+    { 
 		// 生成された場所によってベクトル変更
         if(transform.position.x < 0)
         {

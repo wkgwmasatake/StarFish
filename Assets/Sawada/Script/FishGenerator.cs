@@ -5,7 +5,7 @@ using UnityEngine;
 public class FishGenerator : MonoBehaviour
 {
 
-    [SerializeField] private Sprite fish;
+    [SerializeField] private GameObject fish;
     [SerializeField] private float span;
     [SerializeField] private float speed;
 
@@ -17,7 +17,11 @@ public class FishGenerator : MonoBehaviour
 
     private void Start()
     {
+        // 親オブジェクト生成
         PARENT = new GameObject("Fish_Parent");
+
+        // 最初の生成
+        CreateObj();
     }
 
     // Update is called once per frame
@@ -30,20 +34,7 @@ public class FishGenerator : MonoBehaviour
             time = 0;
 
             // オブジェクト生成
-            GameObject fish = CreateObj();
-
-            // 位置リセット
-            fish.transform.position = Vector2.zero;
-
-            // 親設定  
-            fish.transform.parent = PARENT.transform;
-
-            // 生成される場所設定
-            fish.transform.position = transform.position;
-            if (fish.transform.position.x > 0) fish.transform.localScale = new Vector2(-1, 1);
-
-            // コライダー設定
-            CreateCollider(fish);
+            CreateObj();
         }
     }
 
@@ -53,35 +44,24 @@ public class FishGenerator : MonoBehaviour
     /// 　　　オブジェクト生成
     /// 
     /// </summary>
-    private GameObject CreateObj()
+    private void CreateObj()
     {
-        // オブジェクト生成
-        GameObject Fish = new GameObject("FishObj");
+        // 魚プレハブ生成
+        GameObject obj = Instantiate(fish) as GameObject;
 
-        // スプライトレンダラー追加・スプライト追加
-        Fish.AddComponent<SpriteRenderer>().sprite = fish;
-        // レイヤー設定
-        Fish.GetComponent<SpriteRenderer>().sortingOrder = 2;
+        // 位置ゼロリセット
+        obj.transform.position = Vector2.zero;
 
-        // スクリプト設定
-        Fish.AddComponent<FishController>();
-        // 移動速度設定
-        Fish.GetComponent<FishController>().SetSpeed = speed;
+        // 親設定
+        obj.transform.parent = PARENT.transform;
 
-        return Fish;
-    }
+        // 生成される場所設定
+        obj.transform.position = transform.position;
 
+        // 速さ設定
+        obj.GetComponent<FishController>().SetSpeed = speed;
 
-
-    /// <summary>
-    /// 
-    ///      コライダー生成
-    /// 
-    /// </summary>
-    /// <param name="obj"></param>
-    void CreateCollider(GameObject obj)
-    {
-        // ポリゴンコライダー追加
-        obj.AddComponent<PolygonCollider2D>();
+        // 位置により反転
+        if (obj.transform.position.x > 0) obj.transform.localScale = new Vector2(-1, 1);
     }
 }
