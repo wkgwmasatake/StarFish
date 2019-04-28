@@ -5,11 +5,9 @@ using UnityEngine;
 public class LoadStageInfo : MonoBehaviour {
 
     // ステージのクリア状況を取得する際に呼び出す関数
-    public int LoadStageClear()
+    public int LoadStageClear(int StageStatus)
     {
-        int StageStatus = GameDirector.Instance.GetStageClear_Flg;      // ステージのクリア状況を取得
-
-        // ステージのクリア状況が取得できなければ-1を返す
+        // ステージもしくはエリアのクリア状況が取得できなければ-1を返す
         if(StageStatus <= 0)
         {
             return -1;
@@ -21,12 +19,12 @@ public class LoadStageInfo : MonoBehaviour {
         StageStatus = ((StageStatus & 0xCCCC) != 0) ? StageStatus & 0xCCCC : StageStatus;
         StageStatus = ((StageStatus & 0xAAAA) != 0) ? StageStatus & 0xAAAA : StageStatus;
 
-        // ステージをどこまでクリアしたかを取得し、その値がステージの最大数より大きければ-1を返す
+        // ステージ、もしくはエリアをどこまでクリアしたかを取得し、その値がステージの最大数より大きければ-1を返す
         if(Mathf.Log(StageStatus, 2) > GameDirector.Instance.GetSTAGE_MAX)
         {
             return -1;
         }
 
-        return (int)Mathf.Log(StageStatus, 2);      // 求めた値の2の何乗かを出すことでどのステージまでクリアしているかを出すことができる。
+        return ((int)Mathf.Log(StageStatus, 2)) + 1;      // 求めた値の2の何乗か + 1を出すことでどのステージ、エリアまで解放しているかを出すことができる。
     }
 }
