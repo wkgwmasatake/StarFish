@@ -48,6 +48,10 @@ public class StarFishOriginal : MonoBehaviour {
     [SerializeField] float SavePosTime;                 // 座標を保存する間隔
     [SerializeField] Image FadeImage;                   // フェード画像
 
+    //------- デバッグ用 -------//
+    [SerializeField] bool flag;
+    //--------------------------//
+
     public Sprite[] LegImages;          // 腕の画像(0.. 通常時、1.. 選択時、2、3.. 爆発後)
 
     // Use this for initialization
@@ -216,27 +220,29 @@ public class StarFishOriginal : MonoBehaviour {
                     // ゴールラインを超えたら
                     if (GameDirector.Instance.GetDistance < 0)
                     {
-                        //GameDirector.Instance.LoadResult();     // リザルト画面へ
                         Status = (byte)GAME_STATUS._CLEAR;      // クリア処理へ
                     }
 
                     // 残りの可能タップ数が1以下になった時かつ、Yに対する力が0.0001f未満になった時に
                     if (GameDirector.Instance.GetArmNumber() <= 1 && ForceY < 0.001f)
                     {
-                        //GameDirector.Instance.LoadGameOrver();            // ゲームオーバー画面へ
                         Status = (byte)GAME_STATUS._OVER;      // ゲームオーバー処理へ
                     }
                 }
                 break;
 
             case (byte)GAME_STATUS._CLEAR:      // クリア処理
-                GetComponent<SaveStageInfo>().SaveSatageClearInfo(GameDirector.Instance.GetSceneNumber - 1);
+                if (ForceY < 0.25f)     // Y方向への力がクリア時に足りなければ
+                {
+                    ForceY += 0.1f;     // 力を加算する
+                }
+                GetComponent<SaveStageInfo>().SaveSatageClearInfo(GameDirector.Instance.GetSceneNumber - 1);        // ステージクリアを保存
                 GetComponent<SaveCSV>().BinarySavePos(position, angle, i);    // 保存した位置と角度をファイルに書き込み
                 StartCoroutine("LoadResult");                           // コルーチンでリザルトシーンを読み込む
                 Status = 99;                                            // シーンの2度読み防止
                 break;
 
-            case (byte)GAME_STATUS._OVER:
+            case (byte)GAME_STATUS._OVER:       // ゲームオーバー処理
                 GetComponent<SaveCSV>().BinarySavePos(position, angle, i);    // 保存した位置と角度をファイルに書き込み
 
                 FadeImage.rectTransform.anchoredPosition = 
@@ -382,6 +388,32 @@ public class StarFishOriginal : MonoBehaviour {
             // 右上に力を加える
             ForceX = 0.1f;
             ForceY = 0.1f;
+        }
+
+        // 魚にあたった時
+        if(col.collider.tag == "Fish")
+        {
+            if (flag)
+            {
+                // 魚の上からあたった時
+                if (col.transform.position.y < this.transform.position.y)
+                {
+                    ForceY = 0.5f;      // 力を上に加える
+                }
+                // 魚の下からあたった時
+                else
+                {
+                    // ベクトルを反転させる
+                    ForceX *= -1;
+                    ForceY *= -1;
+                }
+            }
+            else
+            {
+                // 移動ベクトルを反転させる
+                ForceX *= -1;
+                ForceY *= -1;
+            }
         }
 
     }
