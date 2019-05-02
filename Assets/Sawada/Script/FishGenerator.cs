@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FishGenerator : MonoBehaviour
 {
-
+    [SerializeField] private GameObject BGPre;
     [SerializeField] private GameObject fish;
     [SerializeField] private float span;
     [SerializeField] private float speed;
