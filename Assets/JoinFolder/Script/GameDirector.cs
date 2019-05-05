@@ -182,6 +182,9 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     public bool GetChaceFlg { get { return _chaceFlg; } }
 
     public int[] GetAreaIndex { get { return AreaIndex; } }
+
+    // 最大エリア数ゲッター
+    public int GetAreaMax { get { return AREA_MAX; } }
     
     #endregion
 
