@@ -48,7 +48,7 @@ public class LoadCSV : MonoBehaviour
             filePass = Application.dataPath + "/Resources/";    //ファイルパスとファイル名を結合
         }
 
-        string combinedPath = Path.Combine(filePass, "Ghost_Record.csv");   //ファイルパスとファイル名を結合
+        string combinedPath = Path.Combine(filePass, "Ghost_Record" + (GameDirector.Instance.GetSceneNumber - 1).ToString() + ".csv");       // ファイルパスとファイル名を結合
 
         string line;
         int i = 0;

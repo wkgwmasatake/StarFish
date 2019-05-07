@@ -59,7 +59,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     /// フラグ
     /// </summary>
     private int StageClear_Flg = 0;     //各ステージのクリアフラグ
-    private int AreaClear_Flg = -1;      //各エリアのクリアフラグ
+    private int AreaClear_Flg = 0;      //各エリアのクリアフラグ
     private bool pauseFlg = false;               //ポーズフラグ
     private bool _particleFlg;           //パーティクルフラグ
     private bool _chaceFlg = true;      //カメラの追跡フラグ
@@ -182,6 +182,9 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     public bool GetChaceFlg { get { return _chaceFlg; } }
 
     public int[] GetAreaIndex { get { return AreaIndex; } }
+
+    // 最大エリア数ゲッター
+    public int GetAreaMax { get { return AREA_MAX; } }
     
     #endregion
 

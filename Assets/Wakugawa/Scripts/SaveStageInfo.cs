@@ -7,7 +7,7 @@ public class SaveStageInfo : MonoBehaviour {
     // ステージをクリアした際に呼び出す関数。引数にはステージ番号を持たせる。
     public void SaveSatageClearInfo(int stageNo)
     {
-        if(stageNo - 1 < 0)
+        if(stageNo < 1)
         {
             return;
         }
@@ -18,7 +18,7 @@ public class SaveStageInfo : MonoBehaviour {
         {
             return;
         }
-        StageStatus = StageStatus | (int)Mathf.Pow(2, stageNo - 1);     // クリアしたステージの番号の2乗と現在のステージの和をステージのクリア状況として変数に格納
+        StageStatus = StageStatus | (int)Mathf.Pow(2, stageNo);         // クリアしたステージの番号の2乗と現在のステージの和をステージのクリア状況として変数に格納
 
         GameDirector.Instance.SetStageClear_Flg = StageStatus;          // 更新したステージのクリア状況をディレクターに渡す
     }
