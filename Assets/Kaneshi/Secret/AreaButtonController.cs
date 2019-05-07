@@ -6,13 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class AreaButtonController : MonoBehaviour
 {
-    [SerializeField] public int areaNumber;
+    [SerializeField] private int areaNumber;
     [SerializeField] private Sprite[] unlockSprite;     //解放時の画像
     [SerializeField] private Sprite lockSprite;     //未解放時の画像
 
     private byte releaseflg;        //解放しているかどうかのフラグ
 
-    private enum LOCKSTATE
+    public enum LOCKSTATE
     {
         LOCK,
         UNLOCK
@@ -33,8 +33,13 @@ public class AreaButtonController : MonoBehaviour
 
     }
 
-    void SetReleaseFlg(byte value)
+    public void SetReleaseFlg(byte value)
     {
         releaseflg = value;
+    }
+
+    public void SetAreaNumber(int value)
+    {
+        areaNumber = value;
     }
 }
