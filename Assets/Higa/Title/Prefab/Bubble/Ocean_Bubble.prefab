@@ -54,6 +54,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Scale: 0
+  FireWorks: 0
+  ArmBomb: 0
 --- !u!198 &198497196870655498
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -3386,7 +3388,7 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: 93da8991b7556374cbc0ce6a395a42e2, type: 2}
+  - {fileID: 2100000, guid: 76b27aecc535b06488b3700d1b215bb8, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
