@@ -654,12 +654,12 @@ Prefab:
     - target: {fileID: 224762254014486258, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 150.5
+      value: 107
       objectReference: {fileID: 0}
     - target: {fileID: 224762254014486258, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 267.5
+      value: 190
       objectReference: {fileID: 0}
     - target: {fileID: 224762254014486258, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
         type: 2}
@@ -744,7 +744,7 @@ Prefab:
     - target: {fileID: 224973775866858836, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: -250
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224762254014486258, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
         type: 2}
@@ -1509,6 +1509,11 @@ Prefab:
     - target: {fileID: 1186801868448598, guid: 092c163132127db4682497227d05ceb9, type: 2}
       propertyPath: m_Name
       value: Fisth_Generator (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114319038304954094, guid: 092c163132127db4682497227d05ceb9,
+        type: 2}
+      propertyPath: span
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 092c163132127db4682497227d05ceb9, type: 2}
