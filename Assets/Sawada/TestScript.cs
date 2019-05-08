@@ -6,11 +6,13 @@ public class TestScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
-	}
+	void Update ()
+    {
+        Debug.Log(transform.position.normalized);
+
+    }
 }
