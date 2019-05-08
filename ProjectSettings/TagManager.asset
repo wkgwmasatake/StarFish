@@ -11,6 +11,12 @@ TagManager:
   - LeftWall
   - Fish
   - Ocean
+  - OceanUp
+  - OceanDown
+  - OceanLeft
+  - OceanRight
+  - Top
+  - Under
   layers:
   - Default
   - TransparentFX

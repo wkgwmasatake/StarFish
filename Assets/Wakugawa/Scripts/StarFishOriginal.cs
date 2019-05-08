@@ -40,6 +40,7 @@ public class StarFishOriginal : MonoBehaviour {
     float ParticleAngle;
     SpriteRenderer[] LegSpriteRenderer; // 腕のスプライトレンダラー
     Rigidbody2D rb;
+    bool OceanFlag;                 // 海流に入った際に使うフラグ
 
     [SerializeField] ParticleSystem[] ParticleList;     // パーティクルリスト(0.. 腕のパーティクル、1.. 爆発のパーティクル、2.. 花火のパーティクル)
     [SerializeField] GameObject ArrowObject;            // 矢印のゲームオブジェクト
@@ -75,8 +76,15 @@ public class StarFishOriginal : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
-        switch(Status)
+
+        //------- デバッグ用 -------//
+        if(Input.GetMouseButtonDown(1))
+        {
+            Debug.Log(ForceY);
+        }
+        //--------------------------//
+
+        switch (Status)
         {
             case (byte)GAME_STATUS._PLAY:   // ゲームプレイ時
                 if (!GameDirector.Instance.GetPauseFlg)      // ポーズ中でなければ通常通り実行
@@ -115,6 +123,8 @@ public class StarFishOriginal : MonoBehaviour {
 
                     if (Input.GetMouseButtonUp(0) && GameDirector.Instance.GetArmNumber() > 0)   // 左クリックしたとき、かつタップの最大数以下の時
                     {
+                        OceanFlag = true;       // 海流にそって加速するように変更
+
                         Presstime = 0;          // 経過時間を初期化
 
                         rb.velocity = Vector2.zero;                         // 重力加速度をリセット
@@ -216,7 +226,19 @@ public class StarFishOriginal : MonoBehaviour {
                     ForceX *= 0.95f;
                     ForceY *= 0.95f;
 
-                    
+                    // X方向への力が一定以下になったら0にする
+                    if (ForceX < 0.001f && ForceX > -0.001f)
+                    {
+                        ForceX = 0;
+                    }
+
+                    // Y方向への力が一定以下になったら0にして、海流のフラグをfalseにする
+                    if (ForceY < 0.001f && ForceY > -0.001f)
+                    {
+                        OceanFlag = false;
+                        ForceY = 0;
+                    }
+
                     // ゴールラインを超えたら
                     if (GameDirector.Instance.GetDistance < 0)
                     {
@@ -263,7 +285,7 @@ public class StarFishOriginal : MonoBehaviour {
         if (transform.position.y < START_Y)                      // 海星のY座標がスタートの座標より下にいるなら
         {
             Vector2 pos = transform.position;                   // 海星の座標を保存
-            transform.position = new Vector2(pos.x, START_Y);   // x座標はそのままでY座標をスタートの座標に変更
+            transform.position = new Vector2(pos.x, START_Y);   // X座標はそのままでY座標をスタートの座標に変更
         }
     }
 
@@ -390,32 +412,72 @@ public class StarFishOriginal : MonoBehaviour {
             ForceY = 0.1f;
         }
 
-        // 魚にあたった時
-        if(col.collider.tag == "Fish")
+        // クラゲの頭の部分にあたった時
+        if(col.collider.tag == "Top")
         {
-            if (flag)
+            // クラゲ本体の座標と頭の位置の差を取得
+            Vector2 distance = col.gameObject.GetComponent<JellyfishScript>().GetDistance();
+            
+            // クラゲが向いている方向に力を加える
+            ForceX = distance.x * 0.8f;
+            ForceY = distance.y * 0.8f;
+
+            Debug.Log(ForceX + ": X");
+            Debug.Log(ForceY + ": Y");
+        }
+
+    }
+
+    private void OnTriggerStay2D(Collider2D col)
+    {
+        // クラゲの足に入った場合
+        if(col.tag == "Under")
+        {
+            ForceX *= 0.5f;
+            ForceY *= 0.5f;
+            
+        }
+
+        // 海流に入った時
+        if (col.tag == "OceanUp")
+        {
+            if(OceanFlag)               // フラグがtrueなら
             {
-                // 魚の上からあたった時
-                if (col.transform.position.y < this.transform.position.y)
-                {
-                    ForceY = 0.5f;      // 力を上に加える
-                }
-                // 魚の下からあたった時
-                else
-                {
-                    // ベクトルを反転させる
-                    ForceX *= -1;
-                    ForceY *= -1;
-                }
+                ForceY += 0.007f;        // 海星を上方向に加速させる
             }
             else
             {
-                // 移動ベクトルを反転させる
-                ForceX *= -1;
-                ForceY *= -1;
+                rb.velocity = new Vector2(0, rb.velocity.y + 0.03f);     // 重力加速度を減衰
+                Debug.Log(rb.velocity.y);
+                if (rb.velocity.y >= 0) // 重力加速度が0以上になったら
+                {
+                    OceanFlag = true;       // フラグをtrueにする
+                    ForceY += 0.007f;
+                }
             }
         }
+        else if(col.tag == "OceanDown")
+        {
+            if (!OceanFlag)                 // フラグがfalseなら
+            {
+                ForceY -= 0.005f;            // 海星を下方向に加速させる
+            }
+            else
+            {
+                rb.velocity = new Vector2(0, rb.velocity.y - 0.02f);    // 重力加速度を加速
 
+                if (rb.velocity.y <= 0.1f)
+                    OceanFlag = false;
+            }
+        }
+        else if(col.tag == "OceanLeft")
+        {
+            ForceX -= 0.0025f;
+        }
+        else if(col.tag == "OceanRight")
+        {
+            ForceX += 0.0025f;
+        }
     }
 
     private float GetAngle(Vector2 start, Vector2 target)

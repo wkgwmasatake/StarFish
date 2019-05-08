@@ -34,8 +34,6 @@ public class SaveCSV : MonoBehaviour {
         }
 
         sw.Close();
-
-        Debug.Log("Save CSV");
     }
 
     // ユーザーが見えない場所に保存
@@ -53,12 +51,10 @@ public class SaveCSV : MonoBehaviour {
                 using (var getFilesDir = currentActivity.Call<AndroidJavaObject>("getFilesDir"))
                 {
                     filePass = getFilesDir.Call<string>("getCanonicalPath");    // ユーザーから見えない場所のパスを取得
-                    //testText.text = filePass.ToString();
                 }
             }
             catch
             {
-                //testText.text = ("パス取得失敗");
                 return;
             }
         }
@@ -68,7 +64,6 @@ public class SaveCSV : MonoBehaviour {
         }
 
         string combinedPath = Path.Combine(filePass, "Ghost_Record" + (GameDirector.Instance.GetSceneNumber - 1).ToString() + ".csv");       // ファイルパスとファイル名を結合
-        Debug.Log(combinedPath);
 
         try
         {
@@ -83,10 +78,7 @@ public class SaveCSV : MonoBehaviour {
         }
         catch
         {
-            //testText.text = "書き込み失敗";
             return;
         }
-        //testText.text = "書き込み完了";
-        //testText.text = combinedPath;
     }
 }

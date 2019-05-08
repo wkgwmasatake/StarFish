@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LoadStageInfo : MonoBehaviour {
 
-    // ステージのクリア状況を取得する際に呼び出す関数
+    // ステージもしくはエリアのクリア状況を取得する際に呼び出す関数
     public int LoadStageClear(int StageStatus)
     {
         // ステージもしくはエリアのクリア状況が取得できなければ-1を返す
