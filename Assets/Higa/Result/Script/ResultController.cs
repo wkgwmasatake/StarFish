@@ -10,6 +10,7 @@ public class ResultController : MonoBehaviour {
         FADE,
         STARFISH,
         FIREWORKS,
+        BLESSING,
 
         END,
     }
@@ -20,9 +21,11 @@ public class ResultController : MonoBehaviour {
     [SerializeField] GameObject starfish;
     [SerializeField] Sprite LegImages;
     [SerializeField] GameObject waterdrop;
+    [SerializeField] GameObject beStar;
     [SerializeField] GameObject fireworks_L;
     [SerializeField] GameObject fireworks_M;
     [SerializeField] GameObject fireworks_S;
+    [SerializeField] GameObject ShootingStar;
 
     [SerializeField] AudioSource se_splash;
 
@@ -43,6 +46,9 @@ public class ResultController : MonoBehaviour {
 
         LegSpriteRenderer = new SpriteRenderer[_MAX_LEG];       // 腕の本数分配列を確保
 
+        ShootingStar.SetActive(false);
+
+        now_phase = PHASE.FADE;
 
         pawnflg1 = pawnflg2 = pawnflg3 = false;
 	}
@@ -66,7 +72,9 @@ public class ResultController : MonoBehaviour {
                 FireworksProcess();
                 break;
 
-
+            case PHASE.BLESSING:
+                BlessingProcess();
+                break;
 
         }
 
@@ -162,7 +170,11 @@ public class ResultController : MonoBehaviour {
         {
             if (pawnflg1 == false)
             {
-                
+
+                var _beStar = Instantiate(beStar);
+                var star_pos = _starfish.transform.position;
+                _beStar.transform.position = star_pos;
+
                 int armNum = GameDirector.Instance.GetArmNumber();
                 if (armNum == 1)
                 {
@@ -189,8 +201,21 @@ public class ResultController : MonoBehaviour {
 
                 pawnflg1 = true;
 
-                ChangePhase(PHASE.END);
+                ChangePhase(PHASE.BLESSING);
             }
+        }
+
+    }
+
+
+    private void BlessingProcess()
+    {
+
+        if(pawnflg1 == false)
+        {
+            ShootingStar.SetActive(true);
+
+            pawnflg1 = true;
         }
 
     }
