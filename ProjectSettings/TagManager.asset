@@ -15,6 +15,8 @@ TagManager:
   - OceanDown
   - OceanLeft
   - OceanRight
+  - Top
+  - Under
   layers:
   - Default
   - TransparentFX

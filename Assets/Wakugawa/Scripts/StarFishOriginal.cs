@@ -412,27 +412,32 @@ public class StarFishOriginal : MonoBehaviour {
             ForceY = 0.1f;
         }
 
-        // 魚にあたった時
-        if(col.collider.tag == "Fish")
+        // クラゲの頭の部分にあたった時
+        if(col.collider.tag == "Top")
         {
-            // 魚の上からあたった時
-            if (col.transform.position.y < this.transform.position.y)
-            {
-                ForceY = 0.5f;      // 力を上に加える
-            }
-            // 魚の下からあたった時
-            else
-            {
-                // ベクトルを反転させる
-                ForceX *= -0.1f;
-                ForceY *= -0.1f;
-            }
+            // クラゲ本体の座標と頭の位置の差を取得
+            Vector2 distance = col.gameObject.GetComponent<JellyfishScript>().GetDistance();
+            
+            // クラゲが向いている方向に力を加える
+            ForceX = distance.x * 0.8f;
+            ForceY = distance.y * 0.8f;
+
+            Debug.Log(ForceX + ": X");
+            Debug.Log(ForceY + ": Y");
         }
 
     }
 
     private void OnTriggerStay2D(Collider2D col)
     {
+        // クラゲの足に入った場合
+        if(col.tag == "Under")
+        {
+            ForceX *= 0.5f;
+            ForceY *= 0.5f;
+            
+        }
+
         // 海流に入った時
         if (col.tag == "OceanUp")
         {
