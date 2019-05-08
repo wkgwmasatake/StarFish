@@ -35,13 +35,23 @@ public class SecretAreaDirector : MonoBehaviour {
         Debug.Log(areaClear);
 
         //2GameDirector.Instance.AREA_MAX
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < GameDirector.Instance.GetAreaMax; i++)
         {
+            //ボタンの生成、リストに入れていく
             areaButtonList.Add(Instantiate(areaButton) as GameObject);
+
+            //Canvas -> Panelの子供になる
             areaButtonList[i].transform.SetParent(canvasPanel.transform,false);
+
+            //ボタンを配置していく(i * X差分ずれていく)
             areaButtonList[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(i * buttonOffsetX,buttonOffsetY);
+
+            //エリアナンバーを割り振り、ボタン自身に対応した画像をつけてもらう
             areaButtonList[i].GetComponent<AreaButtonController>().SetAreaNumber(i);
 
+
+            //エリアクリア情報よりも大きい数字のエリアは、ロックする
+            //それ以外はアンロックして選べるようにする
             if(areaClear < i)
             {
                 areaButtonList[i].GetComponent<AreaButtonController>().SetReleaseFlg((byte)LOCKSTATE.LOCK);
@@ -52,6 +62,7 @@ public class SecretAreaDirector : MonoBehaviour {
             }
         }
 
+        //もし何処もクリアしていなかったら、エリア1を強制的にアンロックする
         if (areaClear < 0)
         {
             areaButtonList[0].GetComponent<AreaButtonController>().SetReleaseFlg((byte)LOCKSTATE.UNLOCK);
