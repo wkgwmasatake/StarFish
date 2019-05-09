@@ -77,13 +77,6 @@ public class StarFishOriginal : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        //------- デバッグ用 -------//
-        if(Input.GetMouseButtonDown(1))
-        {
-            Debug.Log(ForceY);
-        }
-        //--------------------------//
-
         switch (Status)
         {
             case (byte)GAME_STATUS._PLAY:   // ゲームプレイ時
@@ -245,8 +238,8 @@ public class StarFishOriginal : MonoBehaviour {
                         Status = (byte)GAME_STATUS._CLEAR;      // クリア処理へ
                     }
 
-                    // 残りの可能タップ数が1以下になった時かつ、Yに対する力が0.0001f未満になった時に
-                    if (GameDirector.Instance.GetArmNumber() <= 1 && ForceY < 0.001f)
+                    // 残りの可能タップ数が1以下になった時かつ、Yに対する力が 0.001f ～ -0.001f になった時に
+                    if (GameDirector.Instance.GetArmNumber() <= 1 && ForceY < 0.001f && ForceY > -0.001f)
                     {
                         Status = (byte)GAME_STATUS._OVER;      // ゲームオーバー処理へ
                     }
@@ -421,9 +414,6 @@ public class StarFishOriginal : MonoBehaviour {
             // クラゲが向いている方向に力を加える
             ForceX = distance.x * 0.8f;
             ForceY = distance.y * 0.8f;
-
-            Debug.Log(ForceX + ": X");
-            Debug.Log(ForceY + ": Y");
         }
 
     }
@@ -448,7 +438,6 @@ public class StarFishOriginal : MonoBehaviour {
             else
             {
                 rb.velocity = new Vector2(0, rb.velocity.y + 0.03f);     // 重力加速度を減衰
-                Debug.Log(rb.velocity.y);
                 if (rb.velocity.y >= 0) // 重力加速度が0以上になったら
                 {
                     OceanFlag = true;       // フラグをtrueにする
