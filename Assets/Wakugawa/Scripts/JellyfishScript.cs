@@ -11,8 +11,6 @@ public class JellyfishScript : MonoBehaviour {
         distance.x = this.transform.position.x - this.transform.parent.gameObject.transform.position.x;
         distance.y = this.transform.position.y - this.transform.parent.gameObject.transform.position.y;
 
-        Debug.Log(transform.parent.gameObject.transform.position.y + ":: pY");
-        Debug.Log(this.transform.position.y + ":: cY");
         return distance;
     }
 }
