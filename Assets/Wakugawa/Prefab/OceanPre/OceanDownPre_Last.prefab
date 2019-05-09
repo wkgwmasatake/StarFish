@@ -69,6 +69,7 @@ GameObject:
   - component: {fileID: 4007126428317720}
   - component: {fileID: 61366281343229926}
   - component: {fileID: 95897227714602918}
+  - component: {fileID: 210807880659750828}
   m_Layer: 0
   m_Name: OceanDownPre_Last
   m_TagString: OceanLeft
@@ -173,6 +174,16 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!210 &210807880659750828
+SortingGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1730933503345944}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 2
 --- !u!212 &212159576458332264
 SpriteRenderer:
   m_ObjectHideFlags: 1

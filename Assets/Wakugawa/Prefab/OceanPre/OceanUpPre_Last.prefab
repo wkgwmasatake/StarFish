@@ -53,6 +53,7 @@ GameObject:
   - component: {fileID: 4616147734702096}
   - component: {fileID: 61353731397371590}
   - component: {fileID: 95697038676052280}
+  - component: {fileID: 210058051378671952}
   m_Layer: 0
   m_Name: OceanUpPre_Last
   m_TagString: OceanUp
@@ -173,6 +174,16 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!210 &210058051378671952
+SortingGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1447562764185606}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 2
 --- !u!212 &212082036772590948
 SpriteRenderer:
   m_ObjectHideFlags: 1
