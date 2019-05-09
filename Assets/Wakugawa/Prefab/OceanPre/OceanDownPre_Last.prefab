@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 210807880659750828}
   m_Layer: 0
   m_Name: OceanDownPre_Last
-  m_TagString: OceanLeft
+  m_TagString: OceanDown
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
