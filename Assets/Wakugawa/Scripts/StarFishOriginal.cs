@@ -236,6 +236,15 @@ public class StarFishOriginal : MonoBehaviour {
                     if (GameDirector.Instance.GetDistance < 0)
                     {
                         Status = (byte)GAME_STATUS._CLEAR;      // クリア処理へ
+                        FadeImage.rectTransform.anchoredPosition =
+                            new Vector2(FadeImage.rectTransform.anchoredPosition.x, -(FadeImage.rectTransform.anchoredPosition.y));  // 画像の位置を上に移動
+
+                        FadeImage.transform.localScale = new Vector3(1, 1, 1);  // Yスケールを1に設定することで画像の上下を逆転させる
+
+                        Image FadeChild = FadeImage.transform.GetChild(0).GetComponent<Image>();        // 子のImage情報を取得
+                        FadeImage.color = new Color(255, 255, 255);             // 親の色を白に設定
+                        FadeChild.color = new Color(255, 255, 255);             // 子の色を白に設定
+
                     }
 
                     // 残りの可能タップ数が1以下になった時かつ、Yに対する力が 0.001f ～ -0.001f になった時に
@@ -251,6 +260,7 @@ public class StarFishOriginal : MonoBehaviour {
                 {
                     ForceY += 0.1f;     // 力を加算する
                 }
+
                 GetComponent<SaveStageInfo>().SaveSatageClearInfo(GameDirector.Instance.GetSceneNumber - 1);        // ステージクリアを保存
                 GetComponent<SaveCSV>().BinarySavePos(position, angle, i);    // 保存した位置と角度をファイルに書き込み
                 StartCoroutine("LoadResult");                           // コルーチンでリザルトシーンを読み込む
@@ -259,15 +269,6 @@ public class StarFishOriginal : MonoBehaviour {
 
             case (byte)GAME_STATUS._OVER:       // ゲームオーバー処理
                 GetComponent<SaveCSV>().BinarySavePos(position, angle, i);    // 保存した位置と角度をファイルに書き込み
-
-                FadeImage.rectTransform.anchoredPosition = 
-                    new Vector2(FadeImage.rectTransform.anchoredPosition.x, -(FadeImage.rectTransform.anchoredPosition.y));  // 画像の位置を下に移動
-
-                FadeImage.transform.localScale = new Vector3(1, -1, 1); // Yスケールを-1に設定することで画像の上下を逆転させる
-
-                Image FadeChild = FadeImage.transform.GetChild(0).GetComponent<Image>();
-                FadeImage.color = new Color(0, 0, 0);                   // 親の色を黒に設定
-                FadeChild.color = new Color(0, 0, 0);                   // 子の色を黒に設定
                 
                 StartCoroutine("LoadOver");                             // コルーチンでゲームオーバーシーンを読み込む
 
