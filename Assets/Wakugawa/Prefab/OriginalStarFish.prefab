@@ -74,6 +74,8 @@ GameObject:
   - component: {fileID: 50622211251031660}
   - component: {fileID: 247377611134514680}
   - component: {fileID: 114854495267945912}
+  - component: {fileID: 114925648867413996}
+  - component: {fileID: 114517573272022522}
   m_Layer: 0
   m_Name: OriginalStarFish
   m_TagString: Player
@@ -149,7 +151,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1624357606720078}
   m_LocalRotation: {x: 0, y: 0, z: -0.86602545, w: 0.49999994}
-  m_LocalPosition: {x: 1.45, y: -23.55, z: 0}
+  m_LocalPosition: {x: 1.65, y: -23.55, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children:
   - {fileID: 4315450068489674}
@@ -283,6 +285,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53012cc11766d32489c8f4c1461e61a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114517573272022522
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1624357606720078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8ccc84bc19caa469eb019688ab3ec3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114854495267945912
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -297,16 +310,27 @@ MonoBehaviour:
   ParticleList:
   - {fileID: 198861506279918614, guid: f7b81c9bb55ab974489d7d249a63a327, type: 2}
   - {fileID: 198133501705242498, guid: fcbaf8fb83e6c8c41a0968c76611a5b0, type: 2}
-  - {fileID: 198633304363806112, guid: 93f28a2fbd4df1f45b8d32fac1cd913c, type: 2}
   - {fileID: 198752657916541514, guid: 43fc9d5eb8fb612429f35fad65560ca3, type: 2}
   ArrowObject: {fileID: 1318261444269638}
   bombPower: 0.6
   ArrowDisplayTime: 0.5
   SavePosTime: 0.5
+  FadeImage: {fileID: 0}
   LegImages:
   - {fileID: 21300000, guid: 9cbf11b37aadb8c4abbc2bfc27be4a02, type: 3}
   - {fileID: 21300000, guid: b6527a2b04933c6438cd5a643dceabe6, type: 3}
   - {fileID: 21300000, guid: 5f75b004ee01a31469147763241e7eb3, type: 3}
+--- !u!114 &114925648867413996
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1624357606720078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a29bc4759b2cc143851178cf30027df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212112091075790300
 SpriteRenderer:
   m_ObjectHideFlags: 1

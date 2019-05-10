@@ -2,26 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DrawRecord : MonoBehaviour {
+public class DrawRecord : MonoBehaviour
+{
 
-    //LoadCSV変数
+
+    /// <summary>
+    /// LoadCSV用変数
+    /// </summary>
     [SerializeField] private GameObject LoadCSV_Obj;
     private LoadCSV loadcsv;
 
-    [SerializeField] private GameObject ghost;
 
-    //time変数
+
+    /// <summary>
+    /// Time用変数
+    /// </summary>
     [SerializeField] private float span;
     private float time = 0;
 
-    //描画する画像
+
+    /// <summary>
+    /// 描画する位置を格納する変数
+    /// </summary>
     [SerializeField] private Sprite pos;
 
+
+
+    /// <summary>
+    /// その他変数
+    /// </summary>
     private int roupNmber;
-
     private Transform GhostParent;
-
     private int i = 0;
+    [SerializeField] private GameObject ghost;
+
+
 
     // Use this for initialization
     void Start ()
@@ -45,14 +60,22 @@ public class DrawRecord : MonoBehaviour {
         }
     }
 	
+
+
 	// Update is called once per frame
 	void Update ()
     {
-        //LoadCSVのLoadメソッド呼び出し
-        Draw();
+        Draw();　　　　　　//描画メソッドの呼び出し
     }
 
-    //描画メソッド
+
+
+
+    /// <summary>
+    /// 
+    ///     描画メソッド
+    /// 
+    /// </summary>
     void Draw()
     {
         time += Time.deltaTime;
@@ -65,7 +88,15 @@ public class DrawRecord : MonoBehaviour {
         }
     }
 
-    //オブジェクト生成メソッド
+
+
+
+    /// <summary>
+    /// 
+    ///       オブジェクト生成メソッド
+    /// 
+    /// </summary>
+    /// <param name="i"></param>
     void CreateObj(int i)
     {
         //Ghost生成

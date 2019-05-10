@@ -9,6 +9,14 @@ TagManager:
   - Floor
   - RightWall
   - LeftWall
+  - Fish
+  - Ocean
+  - OceanUp
+  - OceanDown
+  - OceanLeft
+  - OceanRight
+  - Top
+  - Under
   layers:
   - Default
   - TransparentFX
@@ -18,7 +26,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Fish
   - 
   - 
   - 

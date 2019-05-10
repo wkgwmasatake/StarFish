@@ -57,10 +57,21 @@ MonoBehaviour:
     m_SceneName: Result
   player: {fileID: 0}
   StageSceneName:
-  - Stage_Test
+  - TestStage1
+  - TestStage2
   - TestStage3
   - TestStage4
+  - TestStage5
   - TestStage6
+  - TestStage7
+  - TestStage8
+  - TestStage9
+  - TestStage10
+  - TestStage11
+  - TestStage12
+  - TestStage13
+  - TestStage14
+  - TestStage15
   StageStatus: 0
   AreaStatus: 0
   PearlStatus: 0

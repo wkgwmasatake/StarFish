@@ -4,23 +4,37 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
-    //背景オブジェクト格納
+
+    /// <summary>
+    /// オブジェクトの情報格納用変数
+    /// </summary>
     [SerializeField] private GameObject BGPre;
-
-    //Playerオブジェクト格納
     [SerializeField] private GameObject player;
-
-    //タグの名前設定（インスペクターから変更可）
-    [SerializeField] private string TagName;
-
-    //背景オブジェクトの情報格納
     private BackGround BG;
 
-    //カメラの余白分
+
+
+    /// <summary>
+    /// タグ設定用変数
+    /// </summary>
+    [SerializeField] private string TagName;
+
+
+
+    /// <summary>
+    /// 　　余白
+    /// </summary>
     private const int MARGIN = 5;
 
-    //コリジョンのサイズ
+
+
+    /// <summary>
+    /// コリジョンサイズ
+    /// </summary>
     private Vector2 SIZE = new Vector2(1, 10);
+
+
+
 
     // Use this for initialization
     void Start()
@@ -36,14 +50,22 @@ public class CameraMove : MonoBehaviour
     void Update()
     {
         //プレイヤーを追従
-        transform.position = new Vector3(transform.position.x, player.transform.position.y, transform.position.z);
+        if (GameDirector.Instance.GetChaceFlg) transform.position = new Vector3(transform.position.x, player.transform.position.y, transform.position.z);
+        else transform.position = transform.position;
 
         Vector3 player_pos = transform.position;
         player_pos.y = Mathf.Clamp(player_pos.y, -BG.height / 2 + MARGIN, BG.height / 2 + MARGIN);
         transform.position = new Vector3(player_pos.x, player_pos.y, player_pos.z);
     }
 
-    //左側の壁生成
+
+
+    /// <summary>
+    /// 
+    ///     左側の壁生成メソッド
+    /// 
+    /// </summary>
+    /// <returns></returns>
     Vector3 getScreenTopLeft()
     {
         //画面の左上を取得
@@ -53,7 +75,15 @@ public class CameraMove : MonoBehaviour
         topleft.Scale(new Vector3(1, -1, 1));
         return topleft;
     }
-    //右側の壁生成
+
+
+
+    /// <summary>
+    /// 
+    ///     右側の壁生成メソッド
+    /// 
+    /// </summary>
+    /// <returns></returns>
     Vector3 getScreenBottomRight()
     {
         //画面の右下を取得
@@ -62,7 +92,14 @@ public class CameraMove : MonoBehaviour
         bottomRight.Scale(new Vector3(1, -1, 1));
         return bottomRight;
     }
-    //当たり判定生成
+
+
+
+    /// <summary>
+    /// 
+    ///     当たり判定生成メソッド
+    /// 
+    /// </summary>
     void CreateCollision()
     {
         ////空のオブジェクト生成

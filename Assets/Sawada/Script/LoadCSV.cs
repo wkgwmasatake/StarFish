@@ -6,65 +6,22 @@ using UnityEngine.SceneManagement;
 
 public class LoadCSV : MonoBehaviour
 {
+
+
+    /// <summary>
+    /// 　　　軌跡の位置
+    /// 　　　軌跡の角度
+    /// </summary>
     private float[,] _LoadPos;
     private float[] _LoadAngle;
 
-    private void Start()
-    {
-        GameDirector.Instance.SetSceneName = SceneManager.GetActiveScene().name;
-    }
 
-    public int Load()
-    {
-        string filePass;
-
-        //アンドロイドで実行している場合
-        if(Application.platform == RuntimePlatform.Android)
-        {
-            //軌跡データのパスを保存
-            filePass = Application.persistentDataPath + "\\Resources\\Ghost_Record.csv";
-        }
-        else
-        {
-            //軌跡データのパスを保存
-            filePass = Application.dataPath + "\\Resources\\Ghost_Record.csv";
-        }
-
-        StreamReader sr = new StreamReader(filePass);
-
-        // --- 読み込みエラー ---//
-        if (sr == null) return -1;
-
-        _LoadPos = new float[100, 2];
-        _LoadAngle = new float[100];
-
-        string line;
-        int i = 0;
-        int j = 0;
-
-        while((line = sr.ReadLine()) != null)
-        {
-            if (i++ % 2 == 0)
-            {
-                string[] Spritline = line.Trim('(', ')').Split(',');  //読み込んだ１行に含まれている中かっこを取り除き、カンマで区切って読み込む
-                //Debug.Log(Spritline[0]);
-                //Debug.Log(Spritline[1]);
-                _LoadPos[j, 0] = float.Parse(Spritline[0]);  //x座標を抽出
-                _LoadPos[j, 1] = float.Parse(Spritline[1]);  //y座標を抽出
-            }
-            else
-            {
-                _LoadAngle[j] = float.Parse(line);
-                j++;
-            }
-        }
-
-        sr.Close();
-
-        return j;
-    }
-
-    //ユーザーが見えない場所に保存
+    /// <summary>
+    /// 
+    ///      ユーザーが見えない場所に保存するメソッド
+    ///  
+    /// </summary>
+    /// <returns></returns>
     public int BinaryLoad()
     {
         string filePass;
@@ -91,7 +48,7 @@ public class LoadCSV : MonoBehaviour
             filePass = Application.dataPath + "/Resources/";    //ファイルパスとファイル名を結合
         }
 
-        string combinedPath = Path.Combine(filePass, "Ghost_Record.csv");   //ファイルパスとファイル名を結合
+        string combinedPath = Path.Combine(filePass, "Ghost_Record" + (GameDirector.Instance.GetSceneNumber - 1).ToString() + ".csv");       // ファイルパスとファイル名を結合
 
         string line;
         int i = 0;
@@ -105,7 +62,6 @@ public class LoadCSV : MonoBehaviour
                 _LoadAngle = new float[100];
                 while ((line = sr.ReadLine()) != null)
                 {
-                    Debug.Log(line);
                     if (i++ % 2 == 0)
                     {
                         string[] Spritline = line.Trim('(', ')').Split(',');  //読み込んだ１行に含まれている中かっこを取り除き、カンマで区切って読み込む
@@ -131,7 +87,13 @@ public class LoadCSV : MonoBehaviour
 
     }
 
-    //ゲッター
+
+
+    /// <summary>
+    ///    
+    ///      ゲッター・セッター
+    ///     
+    /// </summary>
     public float[,] LoadPos
     {
         get { return _LoadPos; }
