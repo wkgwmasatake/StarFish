@@ -10,14 +10,17 @@ public class AreaButton : MonoBehaviour {
 
     private AudioSource SE_Taped;
     private AudioSource SE_Failed;
+
     private bool first_flg = true;//初回起動であるか否か
 
-    Button area_1;
-    Button area_2;
-    Button area_3;
+    [SerializeField] Button area_1;
+    [SerializeField] Button area_2;
+    [SerializeField] Button area_3;
+    [SerializeField] Button area_4;
+    [SerializeField] Button area_5;
     Button coButton;// ボタンのコンポーネントを取得
 
-    public const string preKeyAreaStatus = "AreaStatus_";
+    private int now_status;
     public string Namearea;
 
     private enum StateNum// エリアの状態
@@ -26,77 +29,66 @@ public class AreaButton : MonoBehaviour {
         Locked = 1,// 選択不可能
         Selected = 2,// 選択可能かつ選択中
     }
-    
-    void Awake()
-    {
-        Init();
-    }
+
+    int num_cleared;
 
     // Use this for initialization
     void Start () {
+        Init();
         SE_Taped = GetComponent<AudioSource>();
 	}
 
     private void Init()
     {
-        GetObj();//canvas-> Parent_area-> object取得
-        string KeyAreaStatus = preKeyAreaStatus + Namearea;
-
-        if (flg_firstarea == true)//1ステージ目以外をlockedに設定する
-        {
-            PlayerPrefs.SetInt(KeyAreaStatus, (int)StateNum.Selected);
-        }
-        else
-        {
-            PlayerPrefs.SetInt(KeyAreaStatus, (int)StateNum.Locked);
-        }
-
-        int now_status = PlayerPrefs.GetInt(KeyAreaStatus);
         coButton = GetComponent<UnityEngine.UI.Button>();// ボタンのコンポーネントを取得
 
-        if (now_status == (int)StateNum.Locked)
+        string name = gameObject.name;
+        switch (name)
         {
-            foreach (Transform child in transform)
+            case "Area_1":
+                now_status = AreaDirector.Instance.GetStateArea(0, 0);
+                break;
+            case "Area_2":
+                now_status = AreaDirector.Instance.GetStateArea(1, 0);
+                break;
+            case "Area_3":
+                now_status = AreaDirector.Instance.GetStateArea(2, 0);
+                break;
+            case "Area_4":
+                now_status = AreaDirector.Instance.GetStateArea(3, 0);
+                break;
+            case "Area_5":
+                now_status = AreaDirector.Instance.GetStateArea(4, 0);
+                break;
+        }
+        Change_SetActive(now_status);
+        //Debug.Log(now_status);
+    }
+
+    private void Change_SetActive(int num)
+    {
+        if (num == (int)StateNum.Locked)
+        {
+            foreach (Transform child in transform)//ロック状態
             {
-                child.gameObject.SetActive(true);//ロック状態を示す画像を表示   
+                child.gameObject.SetActive(true);
             }
             coButton.enabled = false;
         }
         else
         {
-            foreach (Transform child in transform)
+            foreach (Transform child in transform)//非ロック状態
             {
-                child.gameObject.SetActive(false);//ロック状態を示す画像を表示
+                child.gameObject.SetActive(false);
             }
             coButton.enabled = true;
-        }
-        if (gameObject.name == "Area_1")
-        {
-            int getnum = PlayerPrefs.GetInt(KeyAreaStatus);
-            AreaDirector.Instance.SetStateArea(0, getnum);
-        }
-        else if (gameObject.name == "Area_2")
-        {
-            int getnum = PlayerPrefs.GetInt(KeyAreaStatus);
-            AreaDirector.Instance.SetStateArea(1, getnum);
-        }
-        else if (gameObject.name == "Area_3")
-        {
-            int getnum = PlayerPrefs.GetInt(KeyAreaStatus);
-            AreaDirector.Instance.SetStateArea(2, getnum);
         }
     }
 
     public void ButtonArea()//クリックした時
     {
+        PlayerPrefs.SetString("Select_Area", gameObject.name);
         SE_Taped.PlayOneShot(SE_Taped.clip);//効果音再生
         SceneManager.LoadScene("Stage_Select");//ステージの読み込み
-    }
-
-    private void GetObj()
-    {
-        area_1 = GameObject.Find("Area/Parent_area/area_1").GetComponent<Button>();
-        area_2 = GameObject.Find("Area/Parent_area/area_2").GetComponent<Button>();
-        area_3 = GameObject.Find("Area/Parent_area/area_3").GetComponent<Button>();
     }
 }
