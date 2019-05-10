@@ -4,13 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class StageButton : MonoBehaviour {
-    public bool flg_firststage;//一番最初のエリアか否か
-
     [SerializeField] private GameObject Director;
 
     private AudioSource SE_Taped;
     private AudioSource SE_Failed;
-    private bool first_flg = true;//初回起動であるか否か
 
     Button stage_1;
     Button stage_2;

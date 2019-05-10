@@ -702,6 +702,81 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 114234863809686162, guid: 239037c8d6a785f4dba8578e1e5c77dc,
+        type: 2}
+      propertyPath: NAME
+      value: TestStage1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114558340211711994, guid: 239037c8d6a785f4dba8578e1e5c77dc,
+        type: 2}
+      propertyPath: NAME
+      value: TestStage2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114640977023072884, guid: 239037c8d6a785f4dba8578e1e5c77dc,
+        type: 2}
+      propertyPath: NAME
+      value: TestStage3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114075273270444400, guid: 239037c8d6a785f4dba8578e1e5c77dc,
+        type: 2}
+      propertyPath: NAME
+      value: TestStage4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114752102519993204, guid: 239037c8d6a785f4dba8578e1e5c77dc,
+        type: 2}
+      propertyPath: NAME
+      value: TestStage5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114503980870563270, guid: 239037c8d6a785f4dba8578e1e5c77dc,
+        type: 2}
+      propertyPath: NAME
+      value: TestStage6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424656741423838, guid: 239037c8d6a785f4dba8578e1e5c77dc,
+        type: 2}
+      propertyPath: NAME
+      value: TestStage7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114301119774072258, guid: 239037c8d6a785f4dba8578e1e5c77dc,
+        type: 2}
+      propertyPath: NAME
+      value: TestStage8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114809358155176916, guid: 239037c8d6a785f4dba8578e1e5c77dc,
+        type: 2}
+      propertyPath: NAME
+      value: TestStage9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114050941376812332, guid: 239037c8d6a785f4dba8578e1e5c77dc,
+        type: 2}
+      propertyPath: NAME
+      value: TestStage10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114245727025680504, guid: 239037c8d6a785f4dba8578e1e5c77dc,
+        type: 2}
+      propertyPath: NAME
+      value: TestStage11
+      objectReference: {fileID: 0}
+    - target: {fileID: 114278964433009126, guid: 239037c8d6a785f4dba8578e1e5c77dc,
+        type: 2}
+      propertyPath: NAME
+      value: TestStage12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114807266796959812, guid: 239037c8d6a785f4dba8578e1e5c77dc,
+        type: 2}
+      propertyPath: NAME
+      value: TestStage13
+      objectReference: {fileID: 0}
+    - target: {fileID: 114810631432279554, guid: 239037c8d6a785f4dba8578e1e5c77dc,
+        type: 2}
+      propertyPath: NAME
+      value: TestStage14
+      objectReference: {fileID: 0}
+    - target: {fileID: 114820925622083154, guid: 239037c8d6a785f4dba8578e1e5c77dc,
+        type: 2}
+      propertyPath: NAME
+      value: TestStage15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 239037c8d6a785f4dba8578e1e5c77dc, type: 2}
   m_IsPrefabParent: 0
