@@ -4,21 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class StageButton : MonoBehaviour {
-    public bool flg_firststage;//一番最初のエリアか否か
-
     [SerializeField] private GameObject Director;
 
     private AudioSource SE_Taped;
     private AudioSource SE_Failed;
-    private bool first_flg = true;//初回起動であるか否か
 
     Button stage_1;
     Button stage_2;
     Button stage_3;
     Button coButton;
-    //inspector上からステージ名を入力出来るようにするpublic
-    public string NAME;
-    public const string preKeyStageStatus = "StageStatus_";
+
+    private int now_status;
+    
+    public string NAME;//inspector上からステージ名を入力出来るようにする
+
     private string Namestage;
     private enum StateNum// ステージのクリア状況
     {
@@ -27,78 +26,93 @@ public class StageButton : MonoBehaviour {
         Selected = 2,// 選択可能かつ選択中
     }
 
-    void Awake()
-    {
-        init();
-    }
-
     // Use this for initialization
     void Start()
     {
+        init();
         SE_Taped = GetComponent<AudioSource>();
+        
     }
 
     private　void init()
     {
         //GetObj();//canvas-> Parent_stage-> object取得
-        string KeyStageStatus = preKeyStageStatus + Namestage;
-
-            if (flg_firststage == true)//1ステージ目以外をlockedに設定する
-            {
-                PlayerPrefs.SetInt( KeyStageStatus, (int)StateNum.Selected);
-            }
-            else
-            {
-                PlayerPrefs.SetInt( KeyStageStatus, (int)StateNum.Locked);
-            }
-
-        int now_status = PlayerPrefs.GetInt( KeyStageStatus);
         coButton = GetComponent<UnityEngine.UI.Button>();// ボタンのコンポーネントを取得
-
-        if (now_status == (int)StateNum.Locked)
-        {
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(true);//ロック状態を示す画像を表示   
-            }
-            coButton.enabled = false;
-        }
-        else
-        {
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(false);//ロック状態を示す画像を表示
-            }
-            coButton.enabled = true;
-        }
 
         //ステージの状態変更ありの場合
         //directorから情報を取得して反映させたい
-        if (gameObject.name == "Stage_1")
-        {
-            int getnum = PlayerPrefs.GetInt(KeyStageStatus);
-            StageDirector.Instance.SetStateStage(0, getnum);
-            //int agetnum = StageDirector.Instance.GetStateStage(0);
-            //PlayerPrefs.SetInt( KeyStageStatus, getnum);
-        }
-        else if (gameObject.name == "Stage_2")
-        {
-            int getnum = PlayerPrefs.GetInt(KeyStageStatus);
-            StageDirector.Instance.SetStateStage(1, getnum);
 
-            //int getnum = StageDirector.Instance.GetStateStage(1);
-            //PlayerPrefs.SetInt( KeyStageStatus, getnum);
-        }
-        else if (gameObject.name == "Stage_3")
+        string name = gameObject.name;
+        switch (name)
         {
-            int getnum = PlayerPrefs.GetInt(KeyStageStatus);
-            StageDirector.Instance.SetStateStage(2, getnum);
-
-            //int getnum = StageDirector.Instance.GetStateStage(2);
-            //PlayerPrefs.SetInt( KeyStageStatus, getnum);
+            case "Stage1":
+                now_status = StageDirector.Instance.GetStateStage(0, 0);
+                break;
+            case "Stage2":
+                now_status = StageDirector.Instance.GetStateStage(1, 0);
+                break;
+            case "Stage3":
+                now_status = StageDirector.Instance.GetStateStage(2, 0);
+                break;
+            case "Stage4":
+                now_status = StageDirector.Instance.GetStateStage(3, 0);
+                break;        
+            case "Stage5":
+                now_status = StageDirector.Instance.GetStateStage(4, 0);
+                break;
+            case "Stage6":
+                now_status = StageDirector.Instance.GetStateStage(5, 0);
+                break;
+            case "Stage7":
+                now_status = StageDirector.Instance.GetStateStage(6, 0);
+                break;
+            case "Stage8":
+                now_status = StageDirector.Instance.GetStateStage(7, 0);
+                break;
+            case "Stage9":
+                now_status = StageDirector.Instance.GetStateStage(8, 0);
+                break;
+            case "Stage10":
+                now_status = StageDirector.Instance.GetStateStage(9, 0);
+                break;
+            case "Stage11":
+                now_status = StageDirector.Instance.GetStateStage(10, 0);
+                break;
+            case "Stage12":
+                now_status = StageDirector.Instance.GetStateStage(11, 0);
+                break;
+            case "Stage13":
+                now_status = StageDirector.Instance.GetStateStage(12, 0);
+                break;
+            case "Stage14":
+                now_status = StageDirector.Instance.GetStateStage(13, 0);
+                break;
+            case "Stage15":
+                now_status = StageDirector.Instance.GetStateStage(14, 0);
+                break;
         }
+        Change_SetActive(now_status);
+
     }
 
+    private void Change_SetActive(int num)
+    {
+        if (num == (int)StateNum.Locked)
+        {
+            foreach (Transform child in transform)//ロック状態
+            {
+                child.gameObject.SetActive(true);  
+            }
+            coButton.enabled = false;
+        }
+        else        {
+            foreach (Transform child in transform)//非ロック状態
+            {
+                child.gameObject.SetActive(false);
+            }
+            coButton.enabled = true;
+        }
+    }
     public void ButtonStage()//クリックした時
     {
         SE_Taped.PlayOneShot(SE_Taped.clip);//効果音再生
@@ -106,22 +120,5 @@ public class StageButton : MonoBehaviour {
         string name = "";
         name = NAME;
         SceneManager.LoadScene(name);
-        Debug.Log(name);
-    }
-
-    //private void GetObj()
-    //{
-    //    stage_1 = GameObject.Find("Stage/Parent_stage/Stage_Test").GetComponent<Button>();
-    //    stage_2 = GameObject.Find("Stage/Parent_stage/stage_2").GetComponent<Button>();
-    //    stage_3 = GameObject.Find("Stage/Parent_stage/stage_3").GetComponent<Button>();
-    //}
-
-    private void SetChangeStage(Button obj)//サムネイルのロック→非ロック処理
-    {
-        foreach (Transform child in transform)
-        {
-            child.gameObject.SetActive(false);//ロック状態を示す画像を表示
-        }
-        obj.enabled = true;
     }
 }
