@@ -6,47 +6,77 @@ using UnityEngine.SceneManagement;
 public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
 
     [SerializeField] private int[] area;//現在選択している配列の位置 0:左端 AREA_MAX:右端
-    [SerializeField] private GameObject areatext;
     [SerializeField] private GameObject icon_1;
     [SerializeField] private GameObject icon_2;
     [SerializeField] private GameObject icon_3;
+    [SerializeField] private GameObject icon_4;
+    [SerializeField] private GameObject icon_5;
 
-    public enum StateNum// エリアの状態
+    [SerializeField] private int num_cleared;//クリア状況の進行受け取り用
+
+    private enum StateNum// エリアの状態
     {
         Unlocked = 0, // 選択可能かつ未選択
         Locked = 1,// 選択不可能
         Selected = 2,// 選択可能かつ選択中
     }
 
-    private int AREA_MAX = 2;//エリアの総数を3と仮定   
-    private int START_NUM = 0;
+    private GameObject areatext;
+
+    private int AREA_MAX = 5;//エリアの総数を3と仮定   
+    private int START_NUM;
     private int num_area;//配列areaの変数受け入れ用
     private Text AreaName;
 
-    //0, // 選択可能かつ未選択
-    //1,// 選択不可能
-    //2,// 選択可能かつ選択中
-    
-    private int[] Area_state;
+    [SerializeField] private int[] Area_state;
 
     //Awake -> Start -> Update
     void Awake()//オブジェクト本体の起動時処理用　他オブジェクトの参照厳禁
     {
-        Init_Area_Select();//
+        Init_Area_Select();
+        //ゲームディレクターのGetAreaClear_Flgを用いてクリア状況をnum_clearedに代入する
+
+        switch (num_cleared)
+        {
+            case 0:
+                setAll_Stage(0, 1, 1, 1, 1);
+                break;
+            case 1:
+                setAll_Stage(0, 0, 1, 1, 1);
+                break;
+            case 2:
+                setAll_Stage(0, 0, 0, 1, 1);
+                break;
+            case 3:
+                setAll_Stage(0, 0, 0, 0, 1);
+                break;
+            case 4:
+                setAll_Stage(0, 0, 0, 0, 0);
+                break;
+        }
     }
 
     void Start()//他オブジェクトを参照する場合はこちらで行う
     {
         AreaName = GameObject.Find("Area_Text").GetComponent<Text>();
-        Debug.Log(AreaName);
         AreaName.text = "エリア " + (START_NUM + 1);
+        num_area = START_NUM;
+    }
+
+    //1～3番目のエリアのクリア状況初期処理
+    private void setAll_Stage(int num_1, int num_2, int num_3, int num_4, int num_5)
+    {
+        Area_state[0] = num_1;
+        Area_state[1] = num_2;
+        Area_state[2] = num_3;
+        Area_state[3] = num_4;
+        Area_state[4] = num_5;
     }
 
     private void Init_Area_Select()//シーン開始時の処理　エリアのクリアフラグ読み取りもここで行うこと
     {
         area = new int[AREA_MAX + 1];
-        num_area = START_NUM;
-        Area_state = new int[AREA_MAX + 1];           
+        Area_state = new int[AREA_MAX + 1];
     }
 
     public void SetNumArea(int num)//外部からエリア配列の要素数を変更する処理
@@ -64,12 +94,30 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
     public void SetStateArea(int pos_num, int state_num)//要素pos_numの中にクリア状況state_numをセットする
     {
         Area_state[pos_num] = state_num;
+        SetChangeIcon();
     }
 
-    public int GetStateArea(int pos_num)//要素pos_numの変数をget_numに代入して外部に出力する
+    public void SetState_Unlocked(int pos_num, int count)//unlock状態にする
     {
-        int get_num = Area_state[pos_num];       
-        return get_num;
+        Area_state[pos_num + count] = (int)StateNum.Unlocked;
+        SetChangeIcon();
+    }
+
+    public void SetState_Selected(int pos_num, int count)//selected状態にする
+    {
+        Area_state[pos_num + count] = (int)StateNum.Selected;
+        SetChangeIcon();
+    }
+
+    public int GetStateArea(int pos_num, int count)//要素pos_numの変数をget_numに代入して外部に出力する
+    {
+        //Debug.Log(Area_state[pos_num]);
+        return Area_state[pos_num + count];
+    }
+
+    public int GetClearNUM()//クリア状況の取得
+    {
+        return num_cleared;
     }
 
     public void SetChangeIcon()
@@ -77,5 +125,7 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
         icon_1.GetComponent<IconManager>().CheckState();
         icon_2.GetComponent<IconManager>().CheckState();
         icon_3.GetComponent<IconManager>().CheckState();
+        icon_4.GetComponent<IconManager>().CheckState();
+        icon_5.GetComponent<IconManager>().CheckState();
     }
 }

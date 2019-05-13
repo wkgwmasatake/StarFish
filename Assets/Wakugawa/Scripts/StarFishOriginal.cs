@@ -21,6 +21,7 @@ public class StarFishOriginal : MonoBehaviour {
 
     const byte _MAX_TAP = 5;        // タップできる最大数
     const byte _MAX_LEG = 5;        // 腕の最大数
+    const float START_X = 1.65f;    // 海星のスタートのx座標
     const float START_Y = -23.55f;  // 海星のスタートのy座標
 
     byte Status = 0;
@@ -30,8 +31,6 @@ public class StarFishOriginal : MonoBehaviour {
 
     float ForceX = 0, ForceY = 0;   // 力を加える方向
 
-    float TimeCount = 0;            // タイムカウンタ
-
     byte i = 0;                     // 海星の座標を取得する際の要素番号
     Vector2[] position;             // 一定時間経過後に海星の座標を一時保存しておく変数
     float[] angle;                  // 一定時間経過後に海星の角度を一時保存しておく変数
@@ -40,12 +39,13 @@ public class StarFishOriginal : MonoBehaviour {
     float ParticleAngle;
     SpriteRenderer[] LegSpriteRenderer; // 腕のスプライトレンダラー
     Rigidbody2D rb;
+    bool OceanFlag;                 // 海流に入った際に使うフラグ
 
     [SerializeField] ParticleSystem[] ParticleList;     // パーティクルリスト(0.. 腕のパーティクル、1.. 爆発のパーティクル、2.. 花火のパーティクル)
     [SerializeField] GameObject ArrowObject;            // 矢印のゲームオブジェクト
     [SerializeField] float bombPower;                   // 爆発の大きさ
     [SerializeField] float ArrowDisplayTime;            // 矢印を表示させるまでの時間
-    [SerializeField] float SavePosTime;                 // 座標を保存する間隔
+    [SerializeField] float SavePosDistance;                 // 座標を保存する間隔
     [SerializeField] Image FadeImage;                   // フェード画像
 
     //------- デバッグ用 -------//
@@ -75,12 +75,38 @@ public class StarFishOriginal : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
-        switch(Status)
+
+        switch (Status)
         {
             case (byte)GAME_STATUS._PLAY:   // ゲームプレイ時
                 if (!GameDirector.Instance.GetPauseFlg)      // ポーズ中でなければ通常通り実行
                 {
+                    if (i < 100)
+                    {
+                        if (i != 0)  // 座標が1個でも保存されていたら
+                        {
+                            float Distance = Mathf.Abs(Vector2.Distance(position[i - 1], this.transform.position));     // 前回保存した座標と現在の座標の距離を絶対値として保存
+
+                            if (Distance > SavePosDistance)          // 前回保存した座標と現在の座標が規定の距離を超えたら
+                            {
+                                position[i] = this.transform.position;          // 現在の座標を保存
+                                angle[i] = this.transform.localEulerAngles.z;   // 現在の角度を保存
+                                i++;                                            // 次の要素へ
+                            }
+                        }
+                        else        // 座標が1個も保存していなかったら
+                        {
+                            Vector2 START_POS = new Vector2(START_X, START_Y);      // 初期位置を変数に格納
+                            float Distance = Mathf.Abs(Vector2.Distance(START_POS, this.transform.position));    // 初期位置と現在の座標の距離を絶対値として保存
+
+                            if (Distance > SavePosDistance)                 // 初期位置と現在の座標の距離が規定の距離を超えたら
+                            {
+                                position[i] = this.transform.position;              // 現在の座標を保存
+                                angle[i] = this.transform.localEulerAngles.z;       // 現在の角度を保存
+                                i++;                                                // 次の要素へ
+                            }
+                        }
+                    }
 
                     if (GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1)
                     {
@@ -102,19 +128,12 @@ public class StarFishOriginal : MonoBehaviour {
                         Presstime += Time.deltaTime;        // 前回のタップから経過した時間を計測
                         if (Presstime > ArrowDisplayTime)   // 一定時間経過したら
                             ArrowObject.SetActive(true);    // 矢印を表示
-
-                        TimeCount += Time.deltaTime;                 // 1フレーム間の時間を加算
-                        if (TimeCount > SavePosTime && i < 100)      // 一定時間経過後
-                        {
-                            TimeCount = 0;                                  // タイムカウンタをリセット
-                            position[i] = this.transform.position;          // 現在の座標を取得
-                            angle[i] = this.transform.localEulerAngles.z;   // 現在の角度を取得
-                            i++;                                            // 保存する配列の要素番号を1つ加算
-                        }
                     }
 
                     if (Input.GetMouseButtonUp(0) && GameDirector.Instance.GetArmNumber() > 0)   // 左クリックしたとき、かつタップの最大数以下の時
                     {
+                        OceanFlag = true;       // 海流にそって加速するように変更
+
                         Presstime = 0;          // 経過時間を初期化
 
                         rb.velocity = Vector2.zero;                         // 重力加速度をリセット
@@ -123,7 +142,6 @@ public class StarFishOriginal : MonoBehaviour {
                         {
                             if (i < 100)
                             {
-                                TimeCount = 0;                                  // タイムカウンタをリセット
                                 position[i] = this.transform.position;          // 爆発したときも座標を取得
                                 angle[i] = this.transform.localEulerAngles.z;   // 現在の角度を取得
                                 i++;                                            // 保存する配列の要素番号を1つ加算
@@ -216,15 +234,36 @@ public class StarFishOriginal : MonoBehaviour {
                     ForceX *= 0.95f;
                     ForceY *= 0.95f;
 
-                    
+                    // X方向への力が一定以下になったら0にする
+                    if (ForceX < 0.001f && ForceX > -0.001f)
+                    {
+                        ForceX = 0;
+                    }
+
+                    // Y方向への力が一定以下になったら0にして、海流のフラグをfalseにする
+                    if (ForceY < 0.001f && ForceY > -0.001f)
+                    {
+                        OceanFlag = false;
+                        ForceY = 0;
+                    }
+
                     // ゴールラインを超えたら
                     if (GameDirector.Instance.GetDistance < 0)
                     {
                         Status = (byte)GAME_STATUS._CLEAR;      // クリア処理へ
+                        FadeImage.rectTransform.anchoredPosition =
+                            new Vector2(FadeImage.rectTransform.anchoredPosition.x, -(FadeImage.rectTransform.anchoredPosition.y));  // 画像の位置を上に移動
+
+                        FadeImage.transform.localScale = new Vector3(1, 1, 1);  // Yスケールを1に設定することで画像の上下を逆転させる
+
+                        Image FadeChild = FadeImage.transform.GetChild(0).GetComponent<Image>();        // 子のImage情報を取得
+                        FadeImage.color = new Color(255, 255, 255);             // 親の色を白に設定
+                        FadeChild.color = new Color(255, 255, 255);             // 子の色を白に設定
+
                     }
 
-                    // 残りの可能タップ数が1以下になった時かつ、Yに対する力が0.0001f未満になった時に
-                    if (GameDirector.Instance.GetArmNumber() <= 1 && ForceY < 0.001f)
+                    // 残りの可能タップ数が1以下になった時かつ、Yに対する力が 0.001f ～ -0.001f になった時に
+                    if (GameDirector.Instance.GetArmNumber() <= 1 && ForceY < 0.001f && ForceY > -0.001f)
                     {
                         Status = (byte)GAME_STATUS._OVER;      // ゲームオーバー処理へ
                     }
@@ -236,6 +275,7 @@ public class StarFishOriginal : MonoBehaviour {
                 {
                     ForceY += 0.1f;     // 力を加算する
                 }
+
                 GetComponent<SaveStageInfo>().SaveSatageClearInfo(GameDirector.Instance.GetSceneNumber - 1);        // ステージクリアを保存
                 GetComponent<SaveCSV>().BinarySavePos(position, angle, i);    // 保存した位置と角度をファイルに書き込み
                 StartCoroutine("LoadResult");                           // コルーチンでリザルトシーンを読み込む
@@ -244,15 +284,6 @@ public class StarFishOriginal : MonoBehaviour {
 
             case (byte)GAME_STATUS._OVER:       // ゲームオーバー処理
                 GetComponent<SaveCSV>().BinarySavePos(position, angle, i);    // 保存した位置と角度をファイルに書き込み
-
-                FadeImage.rectTransform.anchoredPosition = 
-                    new Vector2(FadeImage.rectTransform.anchoredPosition.x, -(FadeImage.rectTransform.anchoredPosition.y));  // 画像の位置を下に移動
-
-                FadeImage.transform.localScale = new Vector3(1, -1, 1); // Yスケールを-1に設定することで画像の上下を逆転させる
-
-                Image FadeChild = FadeImage.transform.GetChild(0).GetComponent<Image>();
-                FadeImage.color = new Color(0, 0, 0);                   // 親の色を黒に設定
-                FadeChild.color = new Color(0, 0, 0);                   // 子の色を黒に設定
                 
                 StartCoroutine("LoadOver");                             // コルーチンでゲームオーバーシーンを読み込む
 
@@ -263,7 +294,7 @@ public class StarFishOriginal : MonoBehaviour {
         if (transform.position.y < START_Y)                      // 海星のY座標がスタートの座標より下にいるなら
         {
             Vector2 pos = transform.position;                   // 海星の座標を保存
-            transform.position = new Vector2(pos.x, START_Y);   // x座標はそのままでY座標をスタートの座標に変更
+            transform.position = new Vector2(pos.x, START_Y);   // X座標はそのままでY座標をスタートの座標に変更
         }
     }
 
@@ -390,32 +421,71 @@ public class StarFishOriginal : MonoBehaviour {
             ForceY = 0.1f;
         }
 
-        // 魚にあたった時
-        if(col.collider.tag == "Fish")
+        // クラゲの頭の部分にあたった時
+        if(col.collider.tag == "Top")
         {
-            if (flag)
+            // クラゲ本体の座標と頭の位置の差を取得
+            Vector2 distance = col.gameObject.GetComponent<JellyfishScript>().GetDistance();
+            
+            // クラゲが向いている方向に力を加える
+            ForceX = distance.x * 0.8f;
+            ForceY = distance.y * 0.8f;
+
+            var effect = Instantiate(ParticleList[(int)PARTICLE.BOMB], gameObject.transform); // 泡のパーティクルを生成
+            effect.transform.localScale /= 0.4f;        // 大きさを修正
+        }
+
+    }
+
+    private void OnTriggerStay2D(Collider2D col)
+    {
+        // クラゲの足に入った場合
+        if(col.tag == "Under")
+        {
+            ForceX *= 0.5f;
+            ForceY *= 0.5f;
+            
+        }
+
+        // 海流に入った時
+        if (col.tag == "OceanUp")
+        {
+            if(OceanFlag)               // フラグがtrueなら
             {
-                // 魚の上からあたった時
-                if (col.transform.position.y < this.transform.position.y)
-                {
-                    ForceY = 0.5f;      // 力を上に加える
-                }
-                // 魚の下からあたった時
-                else
-                {
-                    // ベクトルを反転させる
-                    ForceX *= -1;
-                    ForceY *= -1;
-                }
+                ForceY += 0.007f;        // 海星を上方向に加速させる
             }
             else
             {
-                // 移動ベクトルを反転させる
-                ForceX *= -1;
-                ForceY *= -1;
+                rb.velocity = new Vector2(0, rb.velocity.y + 0.03f);     // 重力加速度を減衰
+                if (rb.velocity.y >= 0) // 重力加速度が0以上になったら
+                {
+                    OceanFlag = true;       // フラグをtrueにする
+                    ForceY += 0.007f;
+                }
             }
         }
+        else if(col.tag == "OceanDown")
+        {
+            if (!OceanFlag)                 // フラグがfalseなら
+            {
+                ForceY -= 0.005f;            // 海星を下方向に加速させる
+            }
+            else
+            {
+                rb.velocity = new Vector2(0, rb.velocity.y - 0.02f);    // 重力加速度を加速
 
+                if (rb.velocity.y <= 0.1f)
+                    OceanFlag = false;
+            }
+        }
+        else if(col.tag == "OceanLeft")
+        {
+            ForceX -= 0.0025f;
+        }
+        else if(col.tag == "OceanRight")
+        {
+            ForceX += 0.0025f;
+        }
     }
 
     private float GetAngle(Vector2 start, Vector2 target)

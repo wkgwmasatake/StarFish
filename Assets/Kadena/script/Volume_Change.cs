@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Volume_Change : MonoBehaviour {
+public class Volume_Change : MonoBehaviour
+{
     //[SerializeField] private GameObject bgm;
     private float bgm_volume;//初期音量
     private float se_volume;
@@ -29,38 +30,23 @@ public class Volume_Change : MonoBehaviour {
         if (OptionDirector.Instance.GetBGMvolume() == min_vol)
         {
             bgm_flg = false;
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(false);//ロック状態を示す画像を表示   
-            }
-
+            ChangeFalse();
         }
         else if (OptionDirector.Instance.GetBGMvolume() == max_vol)
         {
             bgm_flg = true;
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(true);//ロック状態を示す画像を表示   
-            }
-
+            ChangeTrue();
         }
+
         if (OptionDirector.Instance.GetSEvolume() == min_vol)
         {
             se_flg = false;
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(false);//ロック状態を示す画像を表示   
-            }
-
+            ChangeFalse();
         }
         else if (OptionDirector.Instance.GetSEvolume() == max_vol)
         {
             se_flg = true;
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(true);//ロック状態を示す画像を表示   
-            }
-
+            ChangeTrue();
         }
     }
     public void ClickBGM()
@@ -69,19 +55,13 @@ public class Volume_Change : MonoBehaviour {
         {
             OptionDirector.Instance.SetBGMvolume(min_vol);
             bgm_flg = false;
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(false);//ロック状態を示す画像を表示   
-            }
+            ChangeFalse();
         }
         else
         {
             OptionDirector.Instance.SetBGMvolume(max_vol);
             bgm_flg = true;
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(true);//ロック状態を示す画像を表示   
-            }
+            ChangeTrue();
         }
         float bgm_vol = OptionDirector.Instance.GetBGMvolume();
         volume.GetComponent<BGM_Select>().VolumeChange(bgm_vol);
@@ -92,21 +72,30 @@ public class Volume_Change : MonoBehaviour {
         {
             OptionDirector.Instance.SetSEvolume(min_vol);
             se_flg = false;
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(false);//ロック状態を示す画像を表示   
-            }
+            ChangeFalse();
         }
         else
         {
             OptionDirector.Instance.SetSEvolume(max_vol);
             se_flg = true;
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(true);//ロック状態を示す画像を表示   
-            }
+            ChangeTrue();
         }
         SE_Tap.volume = OptionDirector.Instance.GetSEvolume();
         SE_Tap.PlayOneShot(SE_Tap.clip);
+    }
+
+    private void ChangeTrue()//ロック状態を示す画像を表示   
+    {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(true);
+        }
+    }
+    private void ChangeFalse()//アンロック状態を示す画像を表示   
+    {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+        }
     }
 }

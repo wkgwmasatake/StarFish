@@ -1,128 +1,172 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class IconManager : MonoBehaviour {
     [SerializeField] private Sprite Unlocked;
     [SerializeField] private Sprite Locked;
     [SerializeField] private Sprite Selected;
-    private SpriteRenderer icon_sprite;
-    
+
+    private int get_clear_num;//directorからのクリア状況受け取り用
+    void Start () {
+        CheckState();
+	}
     //Unlocked = 0, // 選択可能かつ未選択
     //Locked = 1,// 選択不可能
     //Selected = 2,// 選択可能かつ選択中
-    
-    // Use this for initialization
-    void Start () {
-        icon_sprite = gameObject.GetComponent<SpriteRenderer>();
-        CheckState();
-	}
-    
+
+    private void objSwitch(int num)
+    {
+        var img = GetComponent<Image>();
+        switch (num)
+        {
+            case 0:
+                img.sprite = Unlocked;
+                break;
+            case 1:
+                img.sprite = Locked;
+                break;
+            case 2:
+                img.sprite = Selected;
+                break;
+        }
+    }
+
     public void CheckState()//エリアのステータスを反映してアイコンを切り替える
     {
-        if(SceneManager.GetActiveScene().name == "Area_Select")
+        string scene_name = SceneManager.GetActiveScene().name;
+        switch (scene_name)
         {
-            if (gameObject.name == "Icon_1")
-            {
-                int icon_1 = AreaDirector.Instance.GetStateArea(0);
-                switch (icon_1)
+            case "Area_Select":
+                string obj_name = gameObject.name;
+                switch (obj_name)
                 {
-                    case 0:
-                        icon_sprite.sprite = Unlocked;
+                    case "Icon_1":
+                        int icon_1 = AreaDirector.Instance.GetStateArea(0, 0);
+                        objSwitch(icon_1);
                         break;
-                    case 1:
-                        icon_sprite.sprite = Locked;
+                    case "Icon_2":
+                        int icon_2 = AreaDirector.Instance.GetStateArea(1, 0);
+                        objSwitch(icon_2);
                         break;
-                    case 2:
-                        icon_sprite.sprite = Selected;
+                    case "Icon_3":
+                        int icon_3 = AreaDirector.Instance.GetStateArea(2, 0);
+                        objSwitch(icon_3);
+                        break;
+                    case "Icon_4":
+                        int icon_4 = AreaDirector.Instance.GetStateArea(3, 0);
+                        objSwitch(icon_4);
+                        break;
+                    case "Icon_5":
+                        int icon_5 = AreaDirector.Instance.GetStateArea(4, 0);
+                        objSwitch(icon_5);
                         break;
                 }
-            }
-            else if (gameObject.name == "Icon_2")
-            {
-                int icon_2 = AreaDirector.Instance.GetStateArea(1);
-                switch (icon_2)
-                {
-                    case 0:
-                        icon_sprite.sprite = Unlocked;
-                        break;
-                    case 1:
-                        icon_sprite.sprite = Locked;
-                        break;
-                    case 2:
-                        icon_sprite.sprite = Selected;
-                        break;
-                }
-            }
-            else if (gameObject.name == "Icon_3")
-            {
-                int icon_3 = AreaDirector.Instance.GetStateArea(2);
-                switch (icon_3)
-                {
-                    case 0:
-                        icon_sprite.sprite = Unlocked;
-                        break;
-                    case 1:
-                        icon_sprite.sprite = Locked;
-                        break;
-                    case 2:
-                        icon_sprite.sprite = Selected;
-                        break;
-                }
-            }
+                break;
+            case "Stage_Select":
+                get_clear_num = StageDirector.Instance.GetClearNUM();
+                string name = gameObject.name;
 
-        }
-        else if(SceneManager.GetActiveScene().name == "Stage_Select")
-        {
-            if (gameObject.name == "Icon_1")
-            {
-                int icon_1 = StageDirector.Instance.GetStateStage(0);
-                switch (icon_1)
+                switch (get_clear_num)
                 {
                     case 0:
-                        icon_sprite.sprite = Unlocked;
-                        break;
                     case 1:
-                        icon_sprite.sprite = Locked;
-                        break;
                     case 2:
-                        icon_sprite.sprite = Selected;
+                        switch (name)
+                        {
+                            case "Icon_1":
+                                int icon_1 = StageDirector.Instance.GetStateStage(0, 0);
+                                objSwitch(icon_1);
+                                break;
+                            case "Icon_2":
+                                int icon_2 = StageDirector.Instance.GetStateStage(1, 0);
+                                objSwitch(icon_2);
+                                break;
+                            case "Icon_3":
+                                int icon_3 = StageDirector.Instance.GetStateStage(2, 0);
+                                objSwitch(icon_3);
+                                break;
+                        }
+                        break;
+                    case 3:
+                    case 4:
+                    case 5:
+                        switch (name)
+                        {
+                            case "Icon_1":
+                                int icon_1 = StageDirector.Instance.GetStateStage(3, 0);
+                                objSwitch(icon_1);
+                                break;
+                            case "Icon_2":
+                                int icon_2 = StageDirector.Instance.GetStateStage(4, 0);
+                                objSwitch(icon_2);
+                                break;
+                            case "Icon_3":
+                                int icon_3 = StageDirector.Instance.GetStateStage(5, 0);
+                                objSwitch(icon_3);
+                                break;
+                        }
+                        break;
+                    case 6:
+                    case 7:
+                    case 8:
+                        switch (name)
+                        {
+                            case "Icon_1":
+                                int icon_1 = StageDirector.Instance.GetStateStage(6, 0);
+                                objSwitch(icon_1);
+                                break;
+                            case "Icon_2":
+                                int icon_2 = StageDirector.Instance.GetStateStage(7, 0);
+                                objSwitch(icon_2);
+                                break;
+                            case "Icon_3":
+                                int icon_3 = StageDirector.Instance.GetStateStage(8, 0);
+                                objSwitch(icon_3);
+                                break;
+                        }
+                        break;
+                    case 9:
+                    case 10:
+                    case 11:
+                        switch (name)
+                        {
+                            case "Icon_1":
+                                int icon_1 = StageDirector.Instance.GetStateStage(9, 0);
+                                objSwitch(icon_1);
+                                break;
+                            case "Icon_2":
+                                int icon_2 = StageDirector.Instance.GetStateStage(10, 0);
+                                objSwitch(icon_2);
+                                break;
+                            case "Icon_3":
+                                int icon_3 = StageDirector.Instance.GetStateStage(11, 0);
+                                objSwitch(icon_3);
+                                break;
+                        }
+                        break;
+                    case 12:
+                    case 13:
+                    case 14:
+                        switch (name)
+                        {
+                            case "Icon_1":
+                                int icon_1 = StageDirector.Instance.GetStateStage(12, 0);
+                                objSwitch(icon_1);
+                                break;
+                            case "Icon_2":
+                                int icon_2 = StageDirector.Instance.GetStateStage(13, 0);
+                                objSwitch(icon_2);
+                                break;
+                            case "Icon_3":
+                                int icon_3 = StageDirector.Instance.GetStateStage(14, 0);
+                                objSwitch(icon_3);
+                                break;
+                        }
                         break;
                 }
-            }
-            else if (gameObject.name == "Icon_2")
-            {
-                int icon_2 = StageDirector.Instance.GetStateStage(1);
-                switch (icon_2)
-                {
-                    case 0:
-                        icon_sprite.sprite = Unlocked;
-                        break;
-                    case 1:
-                        icon_sprite.sprite = Locked;
-                        break;
-                    case 2:
-                        icon_sprite.sprite = Selected;
-                        break;
-                }
-            }
-            else if (gameObject.name == "Icon_3")
-            {
-                int icon_3 = StageDirector.Instance.GetStateStage(2);
-                switch (icon_3)
-                {
-                    case 0:
-                        icon_sprite.sprite = Unlocked;
-                        break;
-                    case 1:
-                        icon_sprite.sprite = Locked;
-                        break;
-                    case 2:
-                        icon_sprite.sprite = Selected;
-                        break;
-                }
-            }
-
+                break;
         }
     }
 }

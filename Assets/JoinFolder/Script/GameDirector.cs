@@ -10,18 +10,8 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     /// <summary>
     /// 定数
     /// </summary>
-    private const int STAGE_MAX = 6;     //各エリア最大ステージ数
-    private const int AREA_MAX = 2;      //最大エリア数
-
-
-
-    /// <summary>
-    /// エリア配列（とりあえず１エリアのみ）
-    /// </summary>
-    private readonly int[] AreaIndex =
-    {
-        STAGE_MAX,
-    };
+    private const int STAGE_MAX = 15;     //各エリア最大ステージ数
+    private const int AREA_MAX = 5;      //最大エリア数
     
 
 
@@ -180,8 +170,6 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
     //カメラ追跡フラグゲッター・セッター
     public bool GetChaceFlg { get { return _chaceFlg; } }
-
-    public int[] GetAreaIndex { get { return AreaIndex; } }
 
     // 最大エリア数ゲッター
     public int GetAreaMax { get { return AREA_MAX; } }
