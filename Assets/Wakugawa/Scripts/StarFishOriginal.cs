@@ -425,7 +425,7 @@ public class StarFishOriginal : MonoBehaviour {
         if(col.collider.tag == "Top")
         {
             // クラゲ本体の座標と頭の位置の差を取得
-            Vector2 distance = col.gameObject.GetComponent<Jellyfish_Top>().GetDistance();
+            Vector2 distance = col.gameObject.GetComponent<JellyFish_Top>().GetDistance();
             
             // クラゲが向いている方向に力を加える
             ForceX = distance.x * 0.8f;
