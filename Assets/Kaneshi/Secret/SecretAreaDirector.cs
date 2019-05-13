@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SecretAreaDirector : MonoBehaviour {
+public class SecretAreaDirector : MonoBehaviour
+{
 
     [SerializeField] private GameObject areaButton;
     [SerializeField] private int buttonOffsetX;
     [SerializeField] private int buttonOffsetY;
     [SerializeField] private GameObject canvasPanel;
+
+    private int selectAreaNumber = 0;
 
     private List<GameObject> areaButtonList = new List<GameObject>();
 
@@ -49,7 +52,6 @@ public class SecretAreaDirector : MonoBehaviour {
             //エリアナンバーを割り振り、ボタン自身に対応した画像をつけてもらう
             areaButtonList[i].GetComponent<AreaButtonController>().SetAreaNumber(i);
 
-
             //エリアクリア情報よりも大きい数字のエリアは、ロックする
             //それ以外はアンロックして選べるようにする
             if(areaClear < i)
@@ -70,9 +72,20 @@ public class SecretAreaDirector : MonoBehaviour {
 
     }
 
+    //選択(中央にいる)しているエリア番号を切り替える関数
+    public void ChangeAreaNunber(int changeNumber)
+    {
+        selectAreaNumber += Mathf.Clamp(changeNumber,-1,1);
+        selectAreaNumber = Mathf.Clamp(selectAreaNumber, 0, 4);
+    }
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
+    public int GetSelectAreaNunber()
+    {
+        return selectAreaNumber;
+    }
+
+    public float GetButtonXOffset()
+    {
+        return buttonOffsetX;
+    }
 }
