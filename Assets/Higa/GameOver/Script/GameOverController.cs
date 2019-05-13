@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Animations;
 
 public class GameOverController : MonoBehaviour {
 
@@ -14,19 +15,39 @@ public class GameOverController : MonoBehaviour {
         END,
     }
 
-    [SerializeField] Image blackfade;
+    [SerializeField] Image blackfade1;
+    [SerializeField] Image blackfade2;
     [SerializeField] GameObject starfish;
+    [SerializeField] SpriteRenderer gameover_text;
+
+    private float time;
+    private float fadetime;
 
     private PHASE now_phase;
+
+    private Animator starfish_anim;
 
     private bool pawnflg1, pawnflg2, pawnflg3;
 
 	// Use this for initialization
 	void Start () {
 
-        blackfade.enabled = true;
+        blackfade1.enabled = true;
+        blackfade2.enabled = true;
+        gameover_text.enabled = false;
+
+        time = 0f;
+        fadetime = 1f;
+
+        // フェードアウト
+        float alpha = 0;
+        var color = gameover_text.color;
+        color.a = alpha;
+        gameover_text.color = color;
 
         now_phase = PHASE.FADE;
+
+        starfish_anim = starfish.GetComponent<Animator>();
 
         pawnflg1 = pawnflg2 = pawnflg3 = false;
 	}
@@ -41,25 +62,27 @@ public class GameOverController : MonoBehaviour {
                 break;
 
             case PHASE.STARFISH:
-
+                StarfishProcess();
                 break;
 
             case PHASE.TEXT:
-
+                TextProcess();
                 break;
 
         }
 
+
+        Debug.Log(now_phase);
 	}
 
     private void FadeProcess()
     {
-        blackfade.rectTransform.anchoredPosition =
-                    new Vector2(blackfade.rectTransform.anchoredPosition.x, blackfade.rectTransform.anchoredPosition.y + 50);     // フェード画像のy座標を50下げる
+        blackfade1.rectTransform.anchoredPosition =
+                    new Vector2(blackfade1.rectTransform.anchoredPosition.x, blackfade1.rectTransform.anchoredPosition.y + 50);     // フェード画像のy座標を50下げる
 
-        Debug.Log(blackfade.rectTransform.anchoredPosition);
+        Debug.Log(blackfade1.rectTransform.anchoredPosition);
 
-        if (blackfade.rectTransform.anchoredPosition.y > 2850f)
+        if (blackfade1.rectTransform.anchoredPosition.y > 2850f)
         {
             ChangePhase(PHASE.STARFISH);
         }
@@ -67,12 +90,36 @@ public class GameOverController : MonoBehaviour {
 
     private void StarfishProcess()
     {
+        if (starfish_anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+        {
 
+
+            ChangePhase(PHASE.TEXT);
+        }
     }
 
     private void TextProcess()
     {
+        if(pawnflg1 == false)
+        {
+            gameover_text.enabled = true;
 
+            pawnflg1 = true;
+        }
+
+        // フェードアウト
+        time += Time.deltaTime;
+        float alpha = 1 / (60 * fadetime);
+        var color = gameover_text.color;
+        color.a += alpha;
+        gameover_text.color = color;
+
+        Debug.Log(color.a);
+
+        if(now_phase != PHASE.END && color.a >= 1.0f)
+        {
+            ChangePhase(PHASE.END);
+        }
     }
 
     private void ChangePhase(PHASE p)
