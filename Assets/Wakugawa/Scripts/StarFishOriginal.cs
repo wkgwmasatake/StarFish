@@ -21,6 +21,7 @@ public class StarFishOriginal : MonoBehaviour {
 
     const byte _MAX_TAP = 5;        // タップできる最大数
     const byte _MAX_LEG = 5;        // 腕の最大数
+    const float START_X = 1.65f;    // 海星のスタートのx座標
     const float START_Y = -23.55f;  // 海星のスタートのy座標
 
     byte Status = 0;
@@ -29,8 +30,6 @@ public class StarFishOriginal : MonoBehaviour {
     float Presstime = 0;            // 画面を長押ししている時間
 
     float ForceX = 0, ForceY = 0;   // 力を加える方向
-
-    float TimeCount = 0;            // タイムカウンタ
 
     byte i = 0;                     // 海星の座標を取得する際の要素番号
     Vector2[] position;             // 一定時間経過後に海星の座標を一時保存しておく変数
@@ -46,7 +45,7 @@ public class StarFishOriginal : MonoBehaviour {
     [SerializeField] GameObject ArrowObject;            // 矢印のゲームオブジェクト
     [SerializeField] float bombPower;                   // 爆発の大きさ
     [SerializeField] float ArrowDisplayTime;            // 矢印を表示させるまでの時間
-    [SerializeField] float SavePosTime;                 // 座標を保存する間隔
+    [SerializeField] float SavePosDistance;                 // 座標を保存する間隔
     [SerializeField] Image FadeImage;                   // フェード画像
 
     //------- デバッグ用 -------//
@@ -82,6 +81,32 @@ public class StarFishOriginal : MonoBehaviour {
             case (byte)GAME_STATUS._PLAY:   // ゲームプレイ時
                 if (!GameDirector.Instance.GetPauseFlg)      // ポーズ中でなければ通常通り実行
                 {
+                    if (i < 100)
+                    {
+                        if (i != 0)  // 座標が1個でも保存されていたら
+                        {
+                            float Distance = Mathf.Abs(Vector2.Distance(position[i - 1], this.transform.position));     // 前回保存した座標と現在の座標の距離を絶対値として保存
+
+                            if (Distance > SavePosDistance)          // 前回保存した座標と現在の座標が規定の距離を超えたら
+                            {
+                                position[i] = this.transform.position;          // 現在の座標を保存
+                                angle[i] = this.transform.localEulerAngles.z;   // 現在の角度を保存
+                                i++;                                            // 次の要素へ
+                            }
+                        }
+                        else        // 座標が1個も保存していなかったら
+                        {
+                            Vector2 START_POS = new Vector2(START_X, START_Y);      // 初期位置を変数に格納
+                            float Distance = Mathf.Abs(Vector2.Distance(START_POS, this.transform.position));    // 初期位置と現在の座標の距離を絶対値として保存
+
+                            if (Distance > SavePosDistance)                 // 初期位置と現在の座標の距離が規定の距離を超えたら
+                            {
+                                position[i] = this.transform.position;              // 現在の座標を保存
+                                angle[i] = this.transform.localEulerAngles.z;       // 現在の角度を保存
+                                i++;                                                // 次の要素へ
+                            }
+                        }
+                    }
 
                     if (GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1)
                     {
@@ -103,15 +128,6 @@ public class StarFishOriginal : MonoBehaviour {
                         Presstime += Time.deltaTime;        // 前回のタップから経過した時間を計測
                         if (Presstime > ArrowDisplayTime)   // 一定時間経過したら
                             ArrowObject.SetActive(true);    // 矢印を表示
-
-                        TimeCount += Time.deltaTime;                 // 1フレーム間の時間を加算
-                        if (TimeCount > SavePosTime && i < 100)      // 一定時間経過後
-                        {
-                            TimeCount = 0;                                  // タイムカウンタをリセット
-                            position[i] = this.transform.position;          // 現在の座標を取得
-                            angle[i] = this.transform.localEulerAngles.z;   // 現在の角度を取得
-                            i++;                                            // 保存する配列の要素番号を1つ加算
-                        }
                     }
 
                     if (Input.GetMouseButtonUp(0) && GameDirector.Instance.GetArmNumber() > 0)   // 左クリックしたとき、かつタップの最大数以下の時
@@ -126,7 +142,6 @@ public class StarFishOriginal : MonoBehaviour {
                         {
                             if (i < 100)
                             {
-                                TimeCount = 0;                                  // タイムカウンタをリセット
                                 position[i] = this.transform.position;          // 爆発したときも座標を取得
                                 angle[i] = this.transform.localEulerAngles.z;   // 現在の角度を取得
                                 i++;                                            // 保存する配列の要素番号を1つ加算
@@ -415,6 +430,9 @@ public class StarFishOriginal : MonoBehaviour {
             // クラゲが向いている方向に力を加える
             ForceX = distance.x * 0.8f;
             ForceY = distance.y * 0.8f;
+
+            var effect = Instantiate(ParticleList[(int)PARTICLE.BOMB], gameObject.transform); // 泡のパーティクルを生成
+            effect.transform.localScale /= 0.4f;        // 大きさを修正
         }
 
     }
