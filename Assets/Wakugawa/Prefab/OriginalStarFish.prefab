@@ -314,8 +314,9 @@ MonoBehaviour:
   ArrowObject: {fileID: 1318261444269638}
   bombPower: 0.6
   ArrowDisplayTime: 0.5
-  SavePosTime: 0.5
+  SavePosDistance: 1
   FadeImage: {fileID: 0}
+  flag: 0
   LegImages:
   - {fileID: 21300000, guid: 9cbf11b37aadb8c4abbc2bfc27be4a02, type: 3}
   - {fileID: 21300000, guid: b6527a2b04933c6438cd5a643dceabe6, type: 3}
