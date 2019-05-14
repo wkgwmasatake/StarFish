@@ -48,11 +48,12 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     /// <summary>
     /// フラグ
     /// </summary>
-    private int StageClear_Flg = 0;     //各ステージのクリアフラグ
-    private int AreaClear_Flg = 8;      //各エリアのクリアフラグ
+    private int StageClear_Flg = 1;     //各ステージのクリアフラグ
+    private int AreaClear_Flg = 1;      //各エリアのクリアフラグ
     private bool pauseFlg = false;               //ポーズフラグ
     private bool _particleFlg;           //パーティクルフラグ
     private bool _chaceFlg = true;      //カメラの追跡フラグ
+    private int _Pearl_Flag;           // パール取得フラグ
 
 
 
@@ -173,7 +174,11 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
     // 最大エリア数ゲッター
     public int GetAreaMax { get { return AREA_MAX; } }
-    
+
+    // パールの取得フラグゲッター・セッター
+    public int GetPearlFlag { get { return _Pearl_Flag; } }
+    public int SetPearlFlag { set { _Pearl_Flag = value; } }
+
     #endregion
 
 }

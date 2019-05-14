@@ -40,6 +40,7 @@ public class StarFishOriginal : MonoBehaviour {
     SpriteRenderer[] LegSpriteRenderer; // 腕のスプライトレンダラー
     Rigidbody2D rb;
     bool OceanFlag;                 // 海流に入った際に使うフラグ
+    bool PearlFlag = false;         // 真珠の取得状況フラグ
     bool FadeFlag = true;           // 足のフェードイン、フェードアウトのフラグ(trueでフェードアウト、falseでフェードイン)
     float FadeAlpha = 1.0f;         // 足のアルファ値(0～1)
 
@@ -311,6 +312,12 @@ public class StarFishOriginal : MonoBehaviour {
                 }
 
                 GetComponent<SaveStageInfo>().SaveSatageClearInfo(GameDirector.Instance.GetSceneNumber - 1);        // ステージクリアを保存
+
+                if(PearlFlag)       // 真珠を獲得していた場合
+                {
+                    GetComponent<SaveStageInfo>().SaveGetPearlInfo(GameDirector.Instance.GetSceneNumber - 1);       // 現在のステージの真珠を獲得したことを保存
+                }
+
                 GetComponent<SaveCSV>().BinarySavePos(position, angle, i);    // 保存した位置と角度をファイルに書き込み
                 StartCoroutine("LoadResult");                           // コルーチンでリザルトシーンを読み込む
                 Status = 99;                                            // シーンの2度読み防止
@@ -468,7 +475,15 @@ public class StarFishOriginal : MonoBehaviour {
             var effect = Instantiate(ParticleList[(int)PARTICLE.BOMB], gameObject.transform); // 泡のパーティクルを生成
             effect.transform.localScale /= 0.4f;        // 大きさを修正
         }
+    }
 
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        // 真珠を取得したとき
+        if(col.tag == "Pearl")
+        {
+            PearlFlag = true;   // 獲得フラグを立てる
+        }
     }
 
     private void OnTriggerStay2D(Collider2D col)
