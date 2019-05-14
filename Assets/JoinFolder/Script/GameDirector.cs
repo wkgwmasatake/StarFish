@@ -177,7 +177,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
     // パールの取得フラグゲッター・セッター
     public int GetPearlFlag { get { return _Pearl_Flag; } }
-    public int SetPearlFlg { set { _particleFlg = value; } }
+    public int SetPearlFlag { set { _Pearl_Flag = value; } }
 
     #endregion
 
