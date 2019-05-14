@@ -36,6 +36,15 @@ EditorBuildSettings:
     path: Assets/JoinFolder/Area2/TestStage6.unity
     guid: e5448c984b739214193bbe2f7f08b90b
   - enabled: 1
+    path: Assets/JoinFolder/Area3/TestStage7.unity
+    guid: a300bb1f622995d44a6a540f597af38a
+  - enabled: 1
+    path: Assets/JoinFolder/Area3/TestStage8.unity
+    guid: a46f0acbd3297b541a845504f2cf06a5
+  - enabled: 1
+    path: Assets/JoinFolder/Area3/TestStage9.unity
+    guid: 7c5597017a0e00e49b35276b1130cdaa
+  - enabled: 1
     path: Assets/JoinFolder/Result.unity
     guid: 738f997198b426c48a5d629f74831496
   - enabled: 1
