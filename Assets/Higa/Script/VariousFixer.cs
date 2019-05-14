@@ -5,12 +5,15 @@ using UnityEngine;
 public class VariousFixer : MonoBehaviour {
 
     [SerializeField] bool Scale;            // ヒトデから生成するエフェクトのみオン
+    [SerializeField] bool FireWorks_Shine;  // キラキラ花火だけオン
     [SerializeField] bool FireWorks;        // 最後の爆発（花火）だけオン
     [SerializeField] bool ArmBomb;          // ヒトデの足の爆発だけオン
+    
 
     private ParticleSystem ps;
     
     private string EFFECT_SORTING_LAYER_NAME = "Effect";    // エフェクト用のレイヤー名
+    private string EFFECT_SORTING_LAYER_NAME_2 = "Effect_2";    // エフェクト用のレイヤー名
 
     private void Awake()
     {
@@ -61,7 +64,15 @@ public class VariousFixer : MonoBehaviour {
         //レンダラーがある場合のみレイヤーを設定
         if (parent.GetComponent<Renderer>())
         {
-            parent.GetComponent<Renderer>().sortingLayerName = EFFECT_SORTING_LAYER_NAME;
+            if (FireWorks_Shine == true)
+            {
+                parent.GetComponent<Renderer>().sortingLayerName = EFFECT_SORTING_LAYER_NAME_2;
+            }
+            else
+            {
+                parent.GetComponent<Renderer>().sortingLayerName = EFFECT_SORTING_LAYER_NAME;
+            }
+            
         }
 
         //子がいる場合には、それにも同じ処理を行う
