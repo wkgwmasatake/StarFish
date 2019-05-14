@@ -16,8 +16,8 @@ public class StageDirector : SingletonMonoBehaviour<StageDirector>
     [SerializeField] private GameObject Area4;
     [SerializeField] private GameObject Area5;
 
-    [SerializeField] private int num_cleared;//クリア状況の進行受け取り用
-
+    [SerializeField] private int temporary_num;//進行状況の仮値
+    private int num_cleared;//クリア状況の進行受け取り用
     public enum StateNum// ステージの状態
     {
         Unlocked = 0, // 選択可能かつ未選択
@@ -36,15 +36,16 @@ public class StageDirector : SingletonMonoBehaviour<StageDirector>
     //Awake -> Start -> Update
     void Awake()//オブジェクト本体の起動時処理用　
     {
+
+        //gamedirectorのGetStageClear_Flgを用いてクリア状況をnum_clearedに代入する
         Init_Stage_Select();//
-        //ゲームディレクターのGetStageClear_Flgを用いてクリア状況をnum_clearedに代入する
 
         string area_num = PlayerPrefs.GetString("Select_Area");
 
         switch (area_num)//クリア済のエリアを選択した時
         {
             case "Area_1":
-                if(num_cleared > 2) { num_cleared = 2; }
+                if (num_cleared > 2) { num_cleared = 2; }
                 break;
             case "Area_2":
                 if (num_cleared > 5) { num_cleared = 5; }
@@ -146,6 +147,16 @@ public class StageDirector : SingletonMonoBehaviour<StageDirector>
 
     private void Init_Stage_Select()//シーン開始時の処理　エリアのクリアフラグ読み取りもここで行うこと
     {
+        int clear_stage = GameDirector.Instance.GetStageClear_Flg;
+        int clear_area = GameDirector.Instance.GetAreaClear_Flg;
+
+        num_cleared = (clear_area * 3) + clear_stage;
+
+        int? num_null = null; //nullを格納するためのnull許容型変数
+
+        //GameDirectorからの受け取りに失敗した場合、仮のクリア状況temporary_numを代入する
+        if (num_cleared == num_null) { num_cleared = temporary_num; }
+        
         stage = new int[STAGE_MAX + 1];       
         Stage_state = new int[STAGE_MAX + 1];
     }
@@ -159,15 +170,16 @@ public class StageDirector : SingletonMonoBehaviour<StageDirector>
         Area4.SetActive(fourth);
         Area5.SetActive(fifth);
     }
+
     //1～15番目のステージのクリア状況初期処理
     private void setAll_Stage(int num_1, int num_2, int num_3, int num_4, int num_5, int num_6, int num_7,
     int num_8, int num_9, int num_10, int num_11, int num_12, int num_13, int num_14, int num_15)
     {
-        Stage_state[0] = num_1; Stage_state[1] = num_2; Stage_state[2] = num_3;
-        Stage_state[3] = num_4; Stage_state[4] = num_5; Stage_state[5] = num_6;
-        Stage_state[6] = num_7; Stage_state[7] = num_8; Stage_state[8] = num_9;
-        Stage_state[9] = num_10; Stage_state[10] = num_11; Stage_state[11] = num_12;
-        Stage_state[12] = num_13; Stage_state[13] = num_14; Stage_state[14] = num_15;
+        Stage_state[0] = num_1;     Stage_state[1] = num_2;      Stage_state[2] = num_3;
+        Stage_state[3] = num_4;     Stage_state[4] = num_5;      Stage_state[5] = num_6;
+        Stage_state[6] = num_7;     Stage_state[7] = num_8;      Stage_state[8] = num_9;
+        Stage_state[9] = num_10;    Stage_state[10] = num_11;    Stage_state[11] = num_12;
+        Stage_state[12] = num_13;   Stage_state[13] = num_14;    Stage_state[14] = num_15;
     }
 
     public void SetNumStage(int num)//外部からエリア配列の要素数を変更する処理

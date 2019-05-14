@@ -11,7 +11,7 @@ public class StegeClick : MonoBehaviour
     [SerializeField] private GameObject Director;
     [SerializeField] private float move_time = 0.6f;
 
-
+    private string[] area_name = new string[] { "Area_1", "Area_2", "Area_3", "Area_4", "Area_5" };
     private GameObject now_area;
 
     public enum StateNum// ステージの状態
@@ -32,25 +32,35 @@ public class StegeClick : MonoBehaviour
         rect = GetComponent<RectTransform>();
         tap_SE = GetComponent<AudioSource>();
 
-        if (GameObject.Find("Area_1") == true)
+        int num = StageDirector.Instance.GetClearNUM();
+
+        switch (num)
         {
-            now_area = GameObject.Find("Area_1");
-        }
-        else if (GameObject.Find("Area_2") == true)
-        {
-            now_area = GameObject.Find("Area_2");
-        }
-        else if (GameObject.Find("Area_3") == true)
-        {
-            now_area = GameObject.Find("Area_3");
-        }
-        else if (GameObject.Find("Area_4") == true)
-        {
-            now_area = GameObject.Find("Area_4");
-        }
-        else
-        {
-            now_area = GameObject.Find("Area_5");
+            case 0:
+            case 1:
+            case 2:
+                now_area = GameObject.Find(area_name[0]);
+                break;
+            case 3:
+            case 4:
+            case 5:
+                now_area = GameObject.Find(area_name[1]);
+                break;
+            case 6:
+            case 7:
+            case 8:
+                now_area = GameObject.Find(area_name[2]);
+                break;
+            case 9:
+            case 10:
+            case 11:
+                now_area = GameObject.Find(area_name[3]);
+                break;
+            case 12:
+            case 13:
+            case 14:
+                now_area = GameObject.Find(area_name[4]);
+                break;
         }
     }
 
@@ -70,11 +80,11 @@ public class StegeClick : MonoBehaviour
     {
         int pos = StageDirector.Instance.GetNumStage();
         if(touch_left == false) { 
-            if ( pos > 0 && now_area.name == "Area_1"
-            || pos > 3 && now_area.name == "Area_2"
-            || pos > 6 && now_area.name == "Area_3"
-            || pos > 9 && now_area.name == "Area_4"
-            || pos > 12 && now_area.name == "Area_5")
+            if ( pos > 0 && now_area.name == area_name[0]
+            ||   pos > 3 && now_area.name == area_name[1]
+            ||   pos > 6 && now_area.name == area_name[2]
+            ||   pos > 9 && now_area.name == area_name[3]
+            ||   pos > 12 && now_area.name == area_name[4])
             {
                 int state = StageDirector.Instance.GetStateStage(pos, -1);
                 int now_state = StageDirector.Instance.GetStateStage(pos, 0);
@@ -106,23 +116,24 @@ public class StegeClick : MonoBehaviour
                         StageDirector.Instance.SetState_Unlocked(pos, 0);
                     }
                 }
+                tap_SE.PlayOneShot(tap_SE.clip);
                 StageDirector.Instance.SetNumStage(-1);
-
                 touch_left = true;
                 StartCoroutine(Change_left());
             }
         }
     }
+
     public void Right_Onclick()
     {
         int pos = StageDirector.Instance.GetNumStage();
         if (touch_right == false)
         {
-            if (pos < 2 && now_area.name == "Area_1"
-            || pos < 5 && now_area.name == "Area_2"
-            || pos < 8 && now_area.name == "Area_3"
-            || pos < 11 && now_area.name == "Area_4"
-            || pos < 14 && now_area.name == "Area_5")
+            if (pos < 2 && now_area.name == area_name[0]
+            ||  pos < 5 && now_area.name == area_name[1]
+            ||  pos < 8 && now_area.name == area_name[2]
+            ||  pos < 11 && now_area.name == area_name[3]
+            ||  pos < 14 && now_area.name == area_name[4])
             {
                 int state = StageDirector.Instance.GetStateStage(pos, 1);
                 int now_state = StageDirector.Instance.GetStateStage(pos, 0);
@@ -153,22 +164,13 @@ public class StegeClick : MonoBehaviour
                         StageDirector.Instance.SetState_Unlocked(pos, 0);
                     }
                 }
+                tap_SE.PlayOneShot(tap_SE.clip);
                 StageDirector.Instance.SetNumStage(1);
                 touch_right = true;
                 StartCoroutine(Change_right());
             }
         }
     }
-    //public void Right_Onclick()
-    //{
-    //    if ( touch_right == false && StageDirector.Instance.GetNumStage() < 2 && now_area.name == "Area_1"
-    //        || touch_left == false && StageDirector.Instance.GetNumStage() < 5 && now_area.name == "Area_2")
-    //    {
-    //        StageDirector.Instance.SetNumStage(1);
-    //        touch_right = true;
-    //        StartCoroutine(Change_right());
-    //    }
-    //}
 
     private void Move_Left()
     {
