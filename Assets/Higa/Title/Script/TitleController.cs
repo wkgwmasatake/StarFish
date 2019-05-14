@@ -23,6 +23,7 @@ public class TitleController : MonoBehaviour {
     [SerializeField] GameObject bubble1;
     [SerializeField] GameObject bubble2;
     [SerializeField] GameObject bubble3;
+    [SerializeField] GameObject under_starfish;
 
     [SerializeField] GameObject _speed_effect;
 
@@ -64,6 +65,7 @@ public class TitleController : MonoBehaviour {
 
     Vector3 startPos;
 
+    private GameObject _under_starfish;
     private GameObject _starfish;
     private float bufposY;
 
@@ -175,10 +177,13 @@ public class TitleController : MonoBehaviour {
             time = 0f;
         }
 
+
         if(pawnflg1 && pawnflg2 && pawnflg3 && time > 1.5f)
         {
             ChangePhase(PHASE.RISING);
             time = 0f;
+            
+
         }
 
         
@@ -187,7 +192,9 @@ public class TitleController : MonoBehaviour {
 
     private void RisingProcess()
     {
-        if(pawnflg1 == false)
+        time += Time.deltaTime;
+
+        if (pawnflg1 == false)
         {
             var effect = Instantiate(_speed_effect, _cam1.transform);
             effect.transform.parent = _cam1.transform;
@@ -227,6 +234,18 @@ public class TitleController : MonoBehaviour {
 
             ChangePhase(PHASE.FADE);
 
+        }
+
+        if(pawnflg2 == false && _cam1.transform.position.y > 0)
+        {
+            _under_starfish = Instantiate(under_starfish);
+            Rigidbody2D rb = _under_starfish.GetComponent<Rigidbody2D>();
+
+            Vector2 force = new Vector2(0f, 300f);
+            rb.AddForce(force, ForceMode2D.Impulse);
+            rb.AddTorque(5f, ForceMode2D.Impulse);
+
+            pawnflg2 = true;
         }
 
     }
