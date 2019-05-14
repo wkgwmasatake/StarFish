@@ -110,7 +110,7 @@ public class ResultController : MonoBehaviour {
             {
                 LegSpriteRenderer[i] = _starfish.transform.GetChild(i).GetComponent<SpriteRenderer>();
             }
-            for (int i = _MAX_LEG-1; i > GameDirector.Instance.GetArmNumber()-1; i--)
+            for (int i = _MAX_LEG-1; i > GameDirector.Instance.GetArmNumber()-2; i--)
             {
                 LegSpriteRenderer[i].sprite = LegImages;
             }
