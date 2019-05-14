@@ -147,12 +147,15 @@ public class StageDirector : SingletonMonoBehaviour<StageDirector>
 
     private void Init_Stage_Select()//シーン開始時の処理　エリアのクリアフラグ読み取りもここで行うこと
     {
-        int clear_stage = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetStageClear_Flg);
         int clear_area = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetAreaClear_Flg);
+        int clear_stage = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetStageClear_Flg);
 
-        if (clear_stage== -1) { clear_stage= 0; }
         if (clear_area == -1) { clear_area = 0; }
+        else if (clear_area == 2 || clear_area == 3) { clear_area = 2; }
+        else if (clear_area >= 4 && clear_area < 8) { clear_area = 3; }
+        else if (clear_area >= 8) { clear_area = 4; }
 
+        if (clear_stage == -1) { clear_stage = 0; }
         num_cleared = (clear_area * 3) + clear_stage;
 
         Debug.Log("clear_area " + clear_area);
@@ -217,6 +220,7 @@ public class StageDirector : SingletonMonoBehaviour<StageDirector>
 
     public int GetStateStage(int pos_num, int count)//要素pos_numの変数をget_numに代入して外部に出力する
     {
+        Debug.Log("Director "+pos_num);
         return Stage_state[pos_num + count];       
     }
 

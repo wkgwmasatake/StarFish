@@ -48,8 +48,8 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     /// <summary>
     /// フラグ
     /// </summary>
-    private int StageClear_Flg = 1;     //各ステージのクリアフラグ
-    private int AreaClear_Flg = 1;      //各エリアのクリアフラグ
+    private int StageClear_Flg = 0;     //各ステージのクリアフラグ
+    private int AreaClear_Flg = 8;      //各エリアのクリアフラグ
     private bool pauseFlg = false;               //ポーズフラグ
     private bool _particleFlg;           //パーティクルフラグ
     private bool _chaceFlg = true;      //カメラの追跡フラグ
