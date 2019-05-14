@@ -56,7 +56,7 @@ public class ResultController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-
+        //Debug.Log(GameDirector.Instance.GetArmNumber());
         switch (now_phase)
         {
             case PHASE.FADE:
@@ -87,7 +87,7 @@ public class ResultController : MonoBehaviour {
         whitefade.rectTransform.anchoredPosition =
                     new Vector2(whitefade.rectTransform.anchoredPosition.x, whitefade.rectTransform.anchoredPosition.y - 50);     // フェード画像のy座標を50下げる
 
-        Debug.Log(whitefade.rectTransform.anchoredPosition);
+        //Debug.Log(whitefade.rectTransform.anchoredPosition);
 
         if(whitefade.rectTransform.anchoredPosition.y < -2850f)
         {
@@ -101,7 +101,7 @@ public class ResultController : MonoBehaviour {
 
         if(pawnflg1 == false)
         {
-            GameDirector.Instance.SetArmNumber(1);
+            //GameDirector.Instance.SetArmNumber(1);
 
             _starfish = Instantiate(starfish);
             Rigidbody2D rb = _starfish.GetComponent<Rigidbody2D>();
