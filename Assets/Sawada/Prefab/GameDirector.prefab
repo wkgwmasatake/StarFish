@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameOverScene:
-    m_SceneName: GameOrver
+    m_SceneName: GameOver
   GameResultScene:
     m_SceneName: Result
   player: {fileID: 0}
