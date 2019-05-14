@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab86fe89c4c074447a5b3502a056df75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scale: 1
+  Scale: 0
   FireWorks_Shine: 0
   FireWorks: 0
   ArmBomb: 0
@@ -213,7 +213,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1043639012
+  randomSeed: -601545963
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -261,7 +261,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -1716,7 +1716,7 @@ ParticleSystem:
     magnitude:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -1758,7 +1758,7 @@ ParticleSystem:
     inWorldSpace: 0
     multiplyDragByParticleSize: 1
     multiplyDragByParticleVelocity: 1
-    dampen: 0.1
+    dampen: 0.25
     drag:
       serializedVersion: 2
       minMaxState: 0
@@ -2846,7 +2846,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    minVertexDistance: 0.12
+    minVertexDistance: 0
     textureMode: 0
     worldSpace: 0
     dieWithParticles: 1
@@ -2962,7 +2962,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.709, b: 0.241, a: 1}
+      maxColor: {r: 1, g: 0.518, b: 0.014705896, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 0.07586192, g: 0, b: 1, a: 1}
