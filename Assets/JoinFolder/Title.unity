@@ -281,7 +281,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4103071670296280, guid: aeaf13d7748319444bf39bb719d95fe5, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -28.8
+      value: -36.2
       objectReference: {fileID: 0}
     - target: {fileID: 4103071670296280, guid: aeaf13d7748319444bf39bb719d95fe5, type: 2}
       propertyPath: m_LocalPosition.z
@@ -306,10 +306,6 @@ Prefab:
     - target: {fileID: 4103071670296280, guid: aeaf13d7748319444bf39bb719d95fe5, type: 2}
       propertyPath: m_RootOrder
       value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 1069355206882844, guid: aeaf13d7748319444bf39bb719d95fe5, type: 2}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aeaf13d7748319444bf39bb719d95fe5, type: 2}
@@ -399,6 +395,11 @@ SpriteRenderer:
   m_PrefabParentObject: {fileID: 212747007957334508, guid: 8421ec7e227e27d479171b31f5b44686,
     type: 2}
   m_PrefabInternal: {fileID: 1329484131}
+--- !u!1 &705087397 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1069355206882844, guid: aeaf13d7748319444bf39bb719d95fe5,
+    type: 2}
+  m_PrefabInternal: {fileID: 376465329}
 --- !u!1 &754480627
 GameObject:
   m_ObjectHideFlags: 0
@@ -887,8 +888,7 @@ MonoBehaviour:
   bubble1: {fileID: 1315371414438070, guid: 46338705f07b0de4e8e7e7535846732e, type: 2}
   bubble2: {fileID: 1335568067113156, guid: 5791a36b0acd8464780a2a1993827263, type: 2}
   bubble3: {fileID: 1100753918941534, guid: 8813c69c5b8869d40be4f2728239cd13, type: 2}
-  under_starfish: {fileID: 1069355206882844, guid: aeaf13d7748319444bf39bb719d95fe5,
-    type: 2}
+  under_starfish: {fileID: 705087397}
   _speed_effect: {fileID: 1995990235853298, guid: 6e89e2f268cd33740915b5e1bb98427b,
     type: 2}
   whiteback: {fileID: 1096379316}

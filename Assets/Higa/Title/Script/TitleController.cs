@@ -236,14 +236,22 @@ public class TitleController : MonoBehaviour {
 
         }
 
-        if(pawnflg2 == false && _cam1.transform.position.y > 0)
+        if(under_starfish.transform.position.y < 40.0f)
         {
-            _under_starfish = Instantiate(under_starfish);
-            Rigidbody2D rb = _under_starfish.GetComponent<Rigidbody2D>();
+            //_under_starfish = Instantiate(under_starfish);
+            //Rigidbody2D rb = _under_starfish.GetComponent<Rigidbody2D>();
 
-            Vector2 force = new Vector2(0f, 300f);
-            rb.AddForce(force, ForceMode2D.Impulse);
-            rb.AddTorque(5f, ForceMode2D.Impulse);
+            //Vector2 force = new Vector2(0f, 300f);
+            //rb.AddForce(force, ForceMode2D.Impulse);
+            //rb.AddTorque(5f, ForceMode2D.Impulse);
+
+            Vector2 pos = under_starfish.transform.position;
+            pos.y += speed * 1.2f;
+
+            under_starfish.transform.position = pos;
+
+            float angle = 12f;
+            under_starfish.transform.Rotate(new Vector3(0, 0, under_starfish.transform.rotation.z + angle)); ;
 
             pawnflg2 = true;
         }

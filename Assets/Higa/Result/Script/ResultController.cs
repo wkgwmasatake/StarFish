@@ -110,9 +110,17 @@ public class ResultController : MonoBehaviour {
             {
                 LegSpriteRenderer[i] = _starfish.transform.GetChild(i).GetComponent<SpriteRenderer>();
             }
-            for (int i = _MAX_LEG-1; i > GameDirector.Instance.GetArmNumber()-2; i--)
+            try
             {
-                LegSpriteRenderer[i].sprite = LegImages;
+                for (int i = _MAX_LEG - 1; i > GameDirector.Instance.GetArmNumber() - 2; i--)
+                {
+                    LegSpriteRenderer[i].sprite = LegImages;
+                    //Debug.Log(GameDirector.Instance.GetArmNumber());
+                }
+            }
+            catch
+            {
+
             }
 
             Vector2 force = new Vector2(0f, 15f);
