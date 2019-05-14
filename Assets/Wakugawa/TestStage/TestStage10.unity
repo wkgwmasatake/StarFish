@@ -129,7 +129,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 2.2867699}
+  m_Offset: {x: 0, y: 2.8584633}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -140,7 +140,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.284, y: 4.857541}
+  m_Size: {x: 1.284, y: 6.000926}
   m_EdgeRadius: 0
 --- !u!1 &71528399
 GameObject:
@@ -301,12 +301,12 @@ Prefab:
     - target: {fileID: 198494826244674524, guid: 38685c1f74d0e1c48a092c2d765fe77c,
         type: 2}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 198494826244674524, guid: 38685c1f74d0e1c48a092c2d765fe77c,
         type: 2}
       propertyPath: randomSeed
-      value: -962640868
+      value: 1918513097
       objectReference: {fileID: 0}
     - target: {fileID: 198494826244674524, guid: 38685c1f74d0e1c48a092c2d765fe77c,
         type: 2}
@@ -1114,12 +1114,12 @@ Prefab:
     - target: {fileID: 198494826244674524, guid: 38685c1f74d0e1c48a092c2d765fe77c,
         type: 2}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 198494826244674524, guid: 38685c1f74d0e1c48a092c2d765fe77c,
         type: 2}
       propertyPath: randomSeed
-      value: 909659702
+      value: -883206162
       objectReference: {fileID: 0}
     - target: {fileID: 198494826244674524, guid: 38685c1f74d0e1c48a092c2d765fe77c,
         type: 2}
@@ -1242,7 +1242,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 779629875}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.53, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 1619818994}
@@ -1776,7 +1776,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 2.2867699}
+  m_Offset: {x: 0, y: 2.8584633}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1787,7 +1787,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.284, y: 4.857541}
+  m_Size: {x: 1.284, y: 6.000926}
   m_EdgeRadius: 0
 --- !u!1 &1515131252 stripped
 GameObject:
@@ -1806,7 +1806,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 2.2867699}
+  m_Offset: {x: 0, y: 2.8584633}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1817,7 +1817,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.284, y: 4.857541}
+  m_Size: {x: 1.284, y: 6.000926}
   m_EdgeRadius: 0
 --- !u!1 &1619818992
 GameObject:
@@ -1867,7 +1867,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1619818992}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.62, z: 0}
+  m_LocalPosition: {x: 0, y: -4.49, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 779629876}
@@ -1954,8 +1954,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1893841964}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -8.91, z: 0}
-  m_LocalScale: {x: 1, y: 0.21870813, z: 1}
+  m_LocalPosition: {x: 0, y: -5.629, z: 0}
+  m_LocalScale: {x: 1, y: 0.4750447, z: 1}
   m_Children: []
   m_Father: {fileID: 530814470}
   m_RootOrder: 5
@@ -2050,12 +2050,12 @@ Prefab:
     - target: {fileID: 198494826244674524, guid: 38685c1f74d0e1c48a092c2d765fe77c,
         type: 2}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 198494826244674524, guid: 38685c1f74d0e1c48a092c2d765fe77c,
         type: 2}
       propertyPath: randomSeed
-      value: 909659702
+      value: 1688505983
       objectReference: {fileID: 0}
     - target: {fileID: 198494826244674524, guid: 38685c1f74d0e1c48a092c2d765fe77c,
         type: 2}
