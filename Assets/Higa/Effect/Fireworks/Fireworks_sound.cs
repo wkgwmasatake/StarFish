@@ -5,6 +5,7 @@ using UnityEngine;
 public class Fireworks_sound : MonoBehaviour {
 
     [SerializeField] AudioSource[] AS;
+    [SerializeField] float time;
 
     private int array_n;
 
@@ -12,7 +13,7 @@ public class Fireworks_sound : MonoBehaviour {
 	void Start () {
         array_n = AS.Length;
         //Debug.Log(AS.Length);
-        Invoke("PlaySound", 0.6f);
+        Invoke("PlaySound", time);
 	}
 	
 	// Update is called once per frame

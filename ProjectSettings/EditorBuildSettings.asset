@@ -60,5 +60,5 @@ EditorBuildSettings:
     path: Assets/JoinFolder/Result.unity
     guid: 738f997198b426c48a5d629f74831496
   - enabled: 1
-    path: Assets/JoinFolder/GameOrver.unity
-    guid: c85ae99ef6e2413479d55de542f1d011
+    path: Assets/JoinFolder/GameOver.unity
+    guid: 04dd5941008b6034bb5e101398f4dd16
