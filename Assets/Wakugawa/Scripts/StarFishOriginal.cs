@@ -75,7 +75,6 @@ public class StarFishOriginal : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
         switch (Status)
         {
             case (byte)GAME_STATUS._PLAY:   // ゲームプレイ時
@@ -452,7 +451,7 @@ public class StarFishOriginal : MonoBehaviour {
         {
             if(OceanFlag)               // フラグがtrueなら
             {
-                ForceY += 0.007f;        // 海星を上方向に加速させる
+                ForceY += 0.015f;        // 海星を上方向に加速させる
             }
             else
             {
@@ -480,11 +479,11 @@ public class StarFishOriginal : MonoBehaviour {
         }
         else if(col.tag == "OceanLeft")
         {
-            ForceX -= 0.0025f;
+            ForceX -= 0.005f;
         }
         else if(col.tag == "OceanRight")
         {
-            ForceX += 0.0025f;
+            ForceX += 0.005f;
         }
     }
 

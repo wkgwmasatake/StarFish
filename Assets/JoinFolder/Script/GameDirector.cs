@@ -48,8 +48,8 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     /// <summary>
     /// フラグ
     /// </summary>
-    private int StageClear_Flg = 0;     //各ステージのクリアフラグ
-    private int AreaClear_Flg = 0;      //各エリアのクリアフラグ
+    private int StageClear_Flg = 1;     //各ステージのクリアフラグ
+    private int AreaClear_Flg = 1;      //各エリアのクリアフラグ
     private bool pauseFlg = false;               //ポーズフラグ
     private bool _particleFlg;           //パーティクルフラグ
     private bool _chaceFlg = true;      //カメラの追跡フラグ
@@ -63,7 +63,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     private Camera cam;          // メインカメラ
     private Vector2 position;　　// 位置
     private GameObject goalLine; //ゴールライン
-    private int _armNumber;
+    private static int _armNumber;
     private static int _SceneNumber;      //シーンナンバー
 
 
