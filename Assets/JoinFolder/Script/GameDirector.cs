@@ -63,7 +63,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     private Camera cam;          // メインカメラ
     private Vector2 position;　　// 位置
     private GameObject goalLine; //ゴールライン
-    private int _armNumber;
+    private static int _armNumber;
     private static int _SceneNumber;      //シーンナンバー
 
 
