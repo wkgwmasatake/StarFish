@@ -25,6 +25,7 @@ public class ResultController : MonoBehaviour {
     [SerializeField] GameObject fireworks_L;
     [SerializeField] GameObject fireworks_M;
     [SerializeField] GameObject fireworks_S;
+    [SerializeField] GameObject fireworks_star;
     [SerializeField] GameObject ShootingStar;
 
     [SerializeField] AudioSource se_splash;
@@ -184,7 +185,7 @@ public class ResultController : MonoBehaviour {
                 _beStar.transform.position = star_pos;
 
                 int armNum = GameDirector.Instance.GetArmNumber();
-                Debug.Log(armNum);
+                //Debug.Log(armNum);
                 if (armNum == 1)
                 {
                     var effect = Instantiate(fireworks_S);
@@ -204,8 +205,15 @@ public class ResultController : MonoBehaviour {
                     effect.transform.position = pos;
                 }
 
-                
-
+                LoadStageInfo lsi = new LoadStageInfo();
+                if (lsi.LoadPearlFlag(GameDirector.Instance.GetSceneNumber))
+                {
+                    var effect = Instantiate(fireworks_star);
+                    var pos = _starfish.transform.position;
+                    effect.transform.position = pos;
+                }
+                Debug.Log(lsi.LoadPearlFlag(GameDirector.Instance.GetSceneNumber));
+                //Debug.Log(GameDirector.Instance.GetSceneNumber);
                 Destroy(_starfish);
 
                 pawnflg1 = true;

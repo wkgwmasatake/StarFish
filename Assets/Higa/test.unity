@@ -4248,7 +4248,7 @@ MonoBehaviour:
     type: 2}
   fw_red: {fileID: 198463706551058700, guid: 08c1092ccff275d4d8b7ef0cc90b05bb, type: 2}
   fw_green: {fileID: 198367845247550064, guid: d119ba4c2a97e6f4197ecf490999e5e9, type: 2}
-  fw_blue: {fileID: 0}
+  fw_blue: {fileID: 198585786990749044, guid: 4983ff22e5788a1458665f93713cf148, type: 2}
   fw_yellow: {fileID: 0}
   _camera: {fileID: 727649819}
 --- !u!4 &1769943864
