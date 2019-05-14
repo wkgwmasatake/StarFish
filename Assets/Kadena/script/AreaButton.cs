@@ -37,9 +37,9 @@ public class AreaButton : MonoBehaviour {
         Init();
         SE_Taped = GetComponent<AudioSource>();
 	}
-
     private void Init()
     {
+
         coButton = GetComponent<UnityEngine.UI.Button>();// ボタンのコンポーネントを取得
 
         string name = gameObject.name;

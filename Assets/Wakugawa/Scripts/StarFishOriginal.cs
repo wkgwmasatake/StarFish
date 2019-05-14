@@ -425,7 +425,7 @@ public class StarFishOriginal : MonoBehaviour {
         if(col.collider.tag == "Top")
         {
             // クラゲ本体の座標と頭の位置の差を取得
-            Vector2 distance = col.gameObject.GetComponent<JellyfishScript>().GetDistance();
+            Vector2 distance = col.gameObject.GetComponent<JellyFish_Top>().GetDistance();
             
             // クラゲが向いている方向に力を加える
             ForceX = distance.x * 0.8f;
@@ -452,7 +452,7 @@ public class StarFishOriginal : MonoBehaviour {
         {
             if(OceanFlag)               // フラグがtrueなら
             {
-                ForceY += 0.007f;        // 海星を上方向に加速させる
+                ForceY += 0.015f;        // 海星を上方向に加速させる
             }
             else
             {
@@ -480,11 +480,11 @@ public class StarFishOriginal : MonoBehaviour {
         }
         else if(col.tag == "OceanLeft")
         {
-            ForceX -= 0.0025f;
+            ForceX -= 0.005f;
         }
         else if(col.tag == "OceanRight")
         {
-            ForceX += 0.0025f;
+            ForceX += 0.005f;
         }
     }
 

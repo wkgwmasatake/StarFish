@@ -8,8 +8,10 @@ public class ButtonClick : MonoBehaviour {
     [SerializeField] private GameObject Parent_icon;
     [SerializeField] private GameObject Director;
     [SerializeField] private float move_time;
+
     private bool touch_left = false;
     private bool touch_right = false;
+    private AudioSource tap_SE;
 
     public enum StateNum// ステージの状態
     {
@@ -23,6 +25,8 @@ public class ButtonClick : MonoBehaviour {
     void Start()
     {
         rect = GetComponent<RectTransform>();
+        tap_SE = GetComponent<AudioSource>();
+
     }
 
     void Update()
@@ -71,6 +75,7 @@ public class ButtonClick : MonoBehaviour {
             //    }
             //}
 
+            tap_SE.PlayOneShot(tap_SE.clip);
             AreaDirector.Instance.SetNumArea(-1);
             touch_left = true;
             StartCoroutine(Change_left());
@@ -113,6 +118,8 @@ public class ButtonClick : MonoBehaviour {
             //        AreaDirector.Instance.SetState_Unlocked(pos, 0);
             //    }
             //}
+
+            tap_SE.PlayOneShot(tap_SE.clip);
             AreaDirector.Instance.SetNumArea(1);
             touch_right = true;
             StartCoroutine(Change_right());

@@ -12,7 +12,8 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
     [SerializeField] private GameObject icon_4;
     [SerializeField] private GameObject icon_5;
 
-    [SerializeField] private int num_cleared;//クリア状況の進行受け取り用
+    [SerializeField] private int temporary_num;//進行状況の仮値
+    private int num_cleared;//クリア状況の進行受け取り用
 
     private enum StateNum// エリアの状態
     {
@@ -33,8 +34,8 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
     //Awake -> Start -> Update
     void Awake()//オブジェクト本体の起動時処理用　他オブジェクトの参照厳禁
     {
+        //num_cleared = temporary_num;
         Init_Area_Select();
-        //ゲームディレクターのGetAreaClear_Flgを用いてクリア状況をnum_clearedに代入する
 
         switch (num_cleared)
         {
@@ -63,6 +64,7 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
         num_area = START_NUM;
     }
 
+
     //1～3番目のエリアのクリア状況初期処理
     private void setAll_Stage(int num_1, int num_2, int num_3, int num_4, int num_5)
     {
@@ -75,6 +77,17 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
 
     private void Init_Area_Select()//シーン開始時の処理　エリアのクリアフラグ読み取りもここで行うこと
     {
+        //ゲームディレクターのGetAreaClear_Flgを用いてクリア状況をnum_clearedに代入する
+        int clear_stage = GameDirector.Instance.GetStageClear_Flg;
+        int clear_area = GameDirector.Instance.GetAreaClear_Flg;
+
+        num_cleared = (clear_area * 3) + clear_stage;
+
+        int? num_null = null; //nullを格納するためのnull許容型変数
+
+        //GameDirectorからの受け取りに失敗した場合、仮のクリア状況temporary_numを代入する
+        if (num_cleared == num_null) { num_cleared = temporary_num; }
+
         area = new int[AREA_MAX + 1];
         Area_state = new int[AREA_MAX + 1];
     }
