@@ -40,6 +40,8 @@ public class StarFishOriginal : MonoBehaviour {
     SpriteRenderer[] LegSpriteRenderer; // 腕のスプライトレンダラー
     Rigidbody2D rb;
     bool OceanFlag;                 // 海流に入った際に使うフラグ
+    bool FadeFlag = true;           // 足のフェードイン、フェードアウトのフラグ(trueでフェードアウト、falseでフェードイン)
+    float FadeAlpha = 1.0f;         // 足のアルファ値(0～1)
 
     [SerializeField] ParticleSystem[] ParticleList;     // パーティクルリスト(0.. 腕のパーティクル、1.. 爆発のパーティクル、2.. 花火のパーティクル)
     [SerializeField] GameObject ArrowObject;            // 矢印のゲームオブジェクト
@@ -127,6 +129,30 @@ public class StarFishOriginal : MonoBehaviour {
                         Presstime += Time.deltaTime;        // 前回のタップから経過した時間を計測
                         if (Presstime > ArrowDisplayTime)   // 一定時間経過したら
                             ArrowObject.SetActive(true);    // 矢印を表示
+
+                        if(FadeFlag)        // フェードアウト処理
+                        {
+                            FadeAlpha -= 0.05f;
+
+                            if(FadeAlpha <= 0)
+                            {
+                                FadeAlpha = 0;
+                                FadeFlag = false;
+                            }
+                        }
+                        else                // フェードイン処理
+                        {
+                            FadeAlpha += 0.05f;
+
+                            if(FadeAlpha >= 1)
+                            {
+                                FadeAlpha = 1;
+                                FadeFlag = true;
+                            }
+                        }
+
+                        Color fadecolor = gameObject.transform.GetChild(selectArm).GetComponent<SpriteRenderer>().color;
+                        gameObject.transform.GetChild(selectArm).GetComponent<SpriteRenderer>().color = new Color(fadecolor.r, FadeAlpha, FadeAlpha);
                     }
 
                     if (Input.GetMouseButtonUp(0) && GameDirector.Instance.GetArmNumber() > 0)   // 左クリックしたとき、かつタップの最大数以下の時
@@ -191,6 +217,7 @@ public class StarFishOriginal : MonoBehaviour {
                                 LegSpriteRenderer[selectArm + 1].sprite = LegImages[1];// 次の腕を選択時の腕の画像に変更
                                 transform.GetChild(selectArm + 1).GetComponent<Transform>().localScale = new Vector3(1.5f, 1.5f, 1.5f);     // 次の腕の表示を1.5倍に拡大
                             }
+
                             selectArm++;                                               // 次の腕へ
                             GameDirector.Instance.SetArmNumber(GameDirector.Instance.GetArmNumber() - 1);               // 腕の本数を1減算
 
@@ -205,6 +232,10 @@ public class StarFishOriginal : MonoBehaviour {
 
                             transform.GetChild(0).GetComponent<Transform>().localScale = new Vector3(1.5f, 1.5f, 1.5f);     // 最初の腕の表示を1.5倍に拡大
                             LegSpriteRenderer[0].sprite = LegImages[1];             // 最初の腕を選択時の腕に画像を変更
+
+                            FadeAlpha = 1.0f;
+                            FadeFlag = true;
+
                         }
                         else                                                            // 最後の花火
                         {
@@ -259,6 +290,10 @@ public class StarFishOriginal : MonoBehaviour {
                         FadeImage.color = new Color(255, 255, 255);             // 親の色を白に設定
                         FadeChild.color = new Color(255, 255, 255);             // 子の色を白に設定
 
+                        if(ArrowObject.activeSelf)
+                        {
+                            ArrowObject.SetActive(false);
+                        }
                     }
 
                     // 残りの可能タップ数が1以下になった時かつ、Yに対する力が 0.001f ～ -0.001f になった時に
