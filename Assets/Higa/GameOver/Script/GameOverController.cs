@@ -72,7 +72,7 @@ public class GameOverController : MonoBehaviour {
         }
 
 
-        Debug.Log(now_phase);
+        //Debug.Log(now_phase);
 	}
 
     private void FadeProcess()

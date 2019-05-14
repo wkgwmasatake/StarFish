@@ -75,7 +75,6 @@ public class StarFishOriginal : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
         switch (Status)
         {
             case (byte)GAME_STATUS._PLAY:   // ゲームプレイ時
