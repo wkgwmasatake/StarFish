@@ -81,6 +81,10 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
         int clear_area = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetAreaClear_Flg);
 
         if (clear_area == -1) { clear_area = 0; }
+        else if (clear_area == 2 || clear_area == 3) { clear_area = 2; }
+        else if (clear_area >= 4 && clear_area < 8) { clear_area = 3; }
+        else if (clear_area >= 8) { clear_area = 4; }
+
         num_cleared = clear_area;
 
         Debug.Log("area " + clear_area);
@@ -122,7 +126,7 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
 
     public int GetStateArea(int pos_num, int count)//要素pos_numの変数をget_numに代入して外部に出力する
     {
-        //Debug.Log(Area_state[pos_num]);
+        Debug.Log(Area_state[pos_num + count]);
         return Area_state[pos_num + count];
     }
 

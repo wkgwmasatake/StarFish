@@ -53,6 +53,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     private bool pauseFlg = false;               //ポーズフラグ
     private bool _particleFlg;           //パーティクルフラグ
     private bool _chaceFlg = true;      //カメラの追跡フラグ
+    private bool _Pearl_Flag;           // パール取得フラグ
 
 
 
@@ -173,7 +174,11 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
     // 最大エリア数ゲッター
     public int GetAreaMax { get { return AREA_MAX; } }
-    
+
+    // パールの取得フラグゲッター・セッター
+    public bool GetPearlFlag { get { return _Pearl_Flag; } }
+    public bool SetPearlFlg { set { _particleFlg = value; } }
+
     #endregion
 
 }
