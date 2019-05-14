@@ -147,16 +147,17 @@ public class StageDirector : SingletonMonoBehaviour<StageDirector>
 
     private void Init_Stage_Select()//シーン開始時の処理　エリアのクリアフラグ読み取りもここで行うこと
     {
-        int clear_stage = GameDirector.Instance.GetStageClear_Flg;
-        int clear_area = GameDirector.Instance.GetAreaClear_Flg;
+        int clear_stage = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetStageClear_Flg);
+        int clear_area = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetAreaClear_Flg);
+
+        if (clear_stage== -1) { clear_stage= 0; }
+        if (clear_area == -1) { clear_area = 0; }
 
         num_cleared = (clear_area * 3) + clear_stage;
 
-        int? num_null = null; //nullを格納するためのnull許容型変数
-
-        //GameDirectorからの受け取りに失敗した場合、仮のクリア状況temporary_numを代入する
-        if (num_cleared == num_null) { num_cleared = temporary_num; }
-        
+        Debug.Log("clear_area " + clear_area);
+        Debug.Log("clear_stage " + clear_stage);
+        Debug.Log(num_cleared);
         stage = new int[STAGE_MAX + 1];       
         Stage_state = new int[STAGE_MAX + 1];
     }
