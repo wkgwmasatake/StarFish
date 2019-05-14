@@ -24,7 +24,7 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
 
     private GameObject areatext;
 
-    private int AREA_MAX = 5;//エリアの総数を3と仮定   
+    private int AREA_MAX = 5;//エリアの総数   
     private int START_NUM;
     private int num_area;//配列areaの変数受け入れ用
     private Text AreaName;
@@ -78,15 +78,13 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
     private void Init_Area_Select()//シーン開始時の処理　エリアのクリアフラグ読み取りもここで行うこと
     {
         //ゲームディレクターのGetAreaClear_Flgを用いてクリア状況をnum_clearedに代入する
-        int clear_stage = GameDirector.Instance.GetStageClear_Flg;
-        int clear_area = GameDirector.Instance.GetAreaClear_Flg;
+        int clear_area = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetAreaClear_Flg);
 
-        num_cleared = (clear_area * 3) + clear_stage;
+        if (clear_area == -1) { clear_area = 0; }
+        num_cleared = clear_area;
 
-        int? num_null = null; //nullを格納するためのnull許容型変数
-
-        //GameDirectorからの受け取りに失敗した場合、仮のクリア状況temporary_numを代入する
-        if (num_cleared == num_null) { num_cleared = temporary_num; }
+        Debug.Log("area " + clear_area);
+        Debug.Log(num_cleared);
 
         area = new int[AREA_MAX + 1];
         Area_state = new int[AREA_MAX + 1];

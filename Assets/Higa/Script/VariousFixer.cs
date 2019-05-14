@@ -29,8 +29,12 @@ public class VariousFixer : MonoBehaviour {
         if (!ArmBomb)
             ParentCut();
 
-        if(FireWorks)
-            Invoke("SetParticleFlg", (float)ps.main.duration-1f);
+        if (FireWorks)
+        {
+            Invoke("SetParticleFlg", (float)ps.main.duration - 1f);
+            
+        }
+           
 
         AutoDelete();
 

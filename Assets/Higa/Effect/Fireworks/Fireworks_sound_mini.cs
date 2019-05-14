@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class particle_test : MonoBehaviour {
+public class Fireworks_sound_mini : MonoBehaviour {
 
     [SerializeField] AudioSource AS;
     [SerializeField] AudioClip se_f_mini;
@@ -23,22 +23,14 @@ public class particle_test : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-        if(emitflg == false && ps.isPlaying)
-        {
-            //se_f_mini.Play();
-
-            emitflg = true;
-        }
-        //Debug.Log(ps.isEmitting);
-        Debug.Log(getSubEmitterParticleNum());
         if (psnum < getSubEmitterParticleNum())
         {
             psnum = getSubEmitterParticleNum();
         }
         else if(psnum > getSubEmitterParticleNum())
         {
-            AS.PlayOneShot(se_f_mini);
-            //AS.Play();
+            Invoke("PlaySound",1.0f);
+            //AS.PlayOneShot(se_f_mini);
             psnum = getSubEmitterParticleNum();
         }
         
@@ -55,5 +47,10 @@ public class particle_test : MonoBehaviour {
 
         //Debug.Log(ptNum);
         return ptNum;
+    }
+
+    private void PlaySound()
+    {
+        AS.PlayOneShot(se_f_mini);
     }
 }
