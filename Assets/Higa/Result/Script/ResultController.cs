@@ -176,6 +176,7 @@ public class ResultController : MonoBehaviour {
                 _beStar.transform.position = star_pos;
 
                 int armNum = GameDirector.Instance.GetArmNumber();
+                
                 if (armNum == 1)
                 {
                     var effect = Instantiate(fireworks_S);
