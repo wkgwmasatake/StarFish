@@ -311,7 +311,14 @@ public class StarFishOriginal : MonoBehaviour {
                     ForceY += 0.1f;     // 力を加算する
                 }
 
-                GetComponent<SaveStageInfo>().SaveSatageClearInfo(GameDirector.Instance.GetSceneNumber - 1);        // ステージクリアを保存
+                int StageNum = GameDirector.Instance.GetSceneNumber - 1;        // 現在のステージ番号を取得
+
+                GetComponent<SaveStageInfo>().SaveSatageClearInfo(StageNum);    // ステージクリアを保存
+
+                if(StageNum % 3 == 0)               // 各エリアの最終ステージなら
+                {
+                    GetComponent<SaveStageInfo>().SaveAreaClearInfo(StageNum / 3);  // エリアのクリアを保存
+                }
 
                 if(PearlFlag)       // 真珠を獲得していた場合
                 {

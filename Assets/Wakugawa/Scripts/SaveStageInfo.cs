@@ -18,9 +18,29 @@ public class SaveStageInfo : MonoBehaviour {
         {
             return;
         }
+
         StageStatus = StageStatus | (int)Mathf.Pow(2, stageNo);         // クリアしたステージの番号の2乗と現在のステージの和をステージのクリア状況として変数に格納
 
         GameDirector.Instance.SetStageClear_Flg = StageStatus;          // 更新したステージのクリア状況をディレクターに渡す
+    }
+
+    public void SaveAreaClearInfo(int areaNo)
+    {
+        if(areaNo < 1)
+        {
+            return;
+        }
+
+        int AreaStatus = GameDirector.Instance.GetAreaClear_Flg;        // エリアのクリア状況を取得
+
+        if(AreaStatus < 0)
+        {
+            return;
+        }
+
+        AreaStatus = AreaStatus | (int)Mathf.Pow(2, areaNo);            // 制覇したステージの番号の2乗と現在のエリアの和をエリアのクリア状況として変数に格納
+
+        GameDirector.Instance.SetAreaClear_Flg = AreaStatus;            // 更新したエリアのクリア状況をディレクターに渡す
     }
 
     // それぞれのステージをクリアした際に真珠の獲得状況を保存する関数
