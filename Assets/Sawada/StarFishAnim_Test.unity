@@ -451,12 +451,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!114 &930872512 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114471106991709810, guid: c62f113ca1bd4c54285b9f91aac2b9e8,
-    type: 2}
-  m_PrefabInternal: {fileID: 51680552}
-  m_Script: {fileID: 11500000, guid: e786cbe9b133e0c4ca446b74148de6e8, type: 3}
 --- !u!1 &971228328
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,7 +1049,7 @@ Prefab:
     - target: {fileID: 224973775866858836, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: -250
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224762254014486258, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
         type: 2}
@@ -1275,7 +1269,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4164479904683848, guid: 49b7b47df3808f54bb900891d3fc030a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 11.86
+      value: 1.69
       objectReference: {fileID: 0}
     - target: {fileID: 4164479904683848, guid: 49b7b47df3808f54bb900891d3fc030a, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1307,18 +1301,9 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114854495267945912, guid: 49b7b47df3808f54bb900891d3fc030a,
         type: 2}
-      propertyPath: ChangeScene
-      value: 
-      objectReference: {fileID: 930872512}
-    - target: {fileID: 114854495267945912, guid: 49b7b47df3808f54bb900891d3fc030a,
-        type: 2}
       propertyPath: FadeImage
       value: 
       objectReference: {fileID: 249784083}
-    - target: {fileID: 1318261444269638, guid: 49b7b47df3808f54bb900891d3fc030a, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 49b7b47df3808f54bb900891d3fc030a, type: 2}
   m_IsPrefabParent: 0

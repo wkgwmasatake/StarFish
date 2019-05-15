@@ -27,7 +27,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1339278691223584
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 114854495267945912}
   - component: {fileID: 114925648867413996}
   - component: {fileID: 114517573272022522}
+  - component: {fileID: 95080038569073480}
   m_Layer: 0
   m_Name: OriginalStarFish
   m_TagString: Player
@@ -151,7 +152,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1624357606720078}
   m_LocalRotation: {x: 0, y: 0, z: -0.86602545, w: 0.49999994}
-  m_LocalPosition: {x: 1.65, y: -23.55, z: 0}
+  m_LocalPosition: {x: 1.69, y: -23.55, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children:
   - {fileID: 4315450068489674}
@@ -263,6 +264,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.4
+--- !u!95 &95080038569073480
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1624357606720078}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 235995339c731924aae5cd3e6c13b216, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114161532352662638
 MonoBehaviour:
   m_ObjectHideFlags: 1
