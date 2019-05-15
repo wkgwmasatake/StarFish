@@ -9,7 +9,8 @@ public class StarFishOriginal : MonoBehaviour {
     {
         ARM,
         BOMB,
-        WALLTOUTCH
+        WALLTOUTCH,
+        GOAL
     }
 
     enum GAME_STATUS
@@ -45,7 +46,7 @@ public class StarFishOriginal : MonoBehaviour {
     bool FadeFlag = true;           // 足のフェードイン、フェードアウトのフラグ(trueでフェードアウト、falseでフェードイン)
     float FadeAlpha = 1.0f;         // 足のアルファ値(0～1)
 
-    [SerializeField] ParticleSystem[] ParticleList;     // パーティクルリスト(0.. 腕のパーティクル、1.. 爆発のパーティクル、2.. 花火のパーティクル)
+    [SerializeField] ParticleSystem[] ParticleList;     // パーティクルリスト(0.. 腕のパーティクル、1.. 爆発のパーティクル、2.. 壁にあたった時のパーティクル、3.. ゴールラインを超えたときのパーティクル)
     [SerializeField] GameObject ArrowObject;            // 矢印のゲームオブジェクト
     [SerializeField] float bombPower;                   // 爆発の大きさ
     [SerializeField] float ArrowDisplayTime;            // 矢印を表示させるまでの時間
@@ -359,6 +360,7 @@ public class StarFishOriginal : MonoBehaviour {
                     if(FadeAlpha <= 0)
                     {
                         Status = (byte)GAME_STATUS._CLEAR;
+                        Instantiate(ParticleList[(int)PARTICLE.GOAL], gameObject.transform);
                     }
                 }
 
@@ -368,10 +370,8 @@ public class StarFishOriginal : MonoBehaviour {
                 break;
 
             case (byte)GAME_STATUS._CLEAR:      // クリア処理
-                if (ForceY < 0.25f)     // Y方向への力がクリア時に足りなければ
-                {
-                    ForceY += 0.1f;     // 力を加算する
-                }
+
+                ForceY = 0.4f;
 
                 int StageNum = GameDirector.Instance.GetSceneNumber - 1;        // 現在のステージ番号を取得
 

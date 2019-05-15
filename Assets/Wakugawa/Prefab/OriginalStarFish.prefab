@@ -341,6 +341,7 @@ MonoBehaviour:
   - {fileID: 198861506279918614, guid: f7b81c9bb55ab974489d7d249a63a327, type: 2}
   - {fileID: 198133501705242498, guid: fcbaf8fb83e6c8c41a0968c76611a5b0, type: 2}
   - {fileID: 198752657916541514, guid: 43fc9d5eb8fb612429f35fad65560ca3, type: 2}
+  - {fileID: 198103830263094328, guid: e27ce2bd53a6a4c4d9c5b09e9fd3561d, type: 2}
   ArrowObject: {fileID: 1318261444269638}
   bombPower: 0.6
   ArrowDisplayTime: 0.5

@@ -530,12 +530,12 @@ Prefab:
     - target: {fileID: 224762254014486258, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 720
+      value: 67
       objectReference: {fileID: 0}
     - target: {fileID: 224762254014486258, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1280
+      value: 119
       objectReference: {fileID: 0}
     - target: {fileID: 224762254014486258, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
         type: 2}
@@ -1372,7 +1372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3641078f1903b1a49aaeefb932e12639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BGPre: {fileID: 0}
+  BGPre: {fileID: 1948152804}
   player: {fileID: 1427623933}
   TagName: Wall
 --- !u!81 &1463979933
@@ -1825,6 +1825,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a9457aa7248680941a906fa8875766c8, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1948152804 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1153206887753042, guid: a9457aa7248680941a906fa8875766c8,
+    type: 2}
+  m_PrefabInternal: {fileID: 1948152803}
 --- !u!1001 &2062205039
 Prefab:
   m_ObjectHideFlags: 0

@@ -13,7 +13,12 @@ public class StartStage : MonoBehaviour
         GetComponent<Text>().text = StageName_Configuration();
         GetComponent<Animation>().Play();
 	}
-	
+
+    private void Update()
+    {
+        
+    }
+
     string StageName_Configuration()
     {
         stageName = GameDirector.Instance.GetSceneName;
