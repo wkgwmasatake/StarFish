@@ -62,10 +62,11 @@ public class GameOverController : MonoBehaviour {
                 break;
 
             case PHASE.STARFISH:
-                StarfishProcess();
-                break;
-
             case PHASE.TEXT:
+                StarfishProcess();
+                //break;
+
+            
                 TextProcess();
                 break;
 
