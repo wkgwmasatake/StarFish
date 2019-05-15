@@ -19,7 +19,6 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     /// <summary>
     /// 情報格納用変数
     /// </summary>
-    [SerializeField] private static string nowScene;       //現在のシーンの情報格納
     [SerializeField] private SceneObject GameOverScene;    //ゲームオーバーの情報格納
     [SerializeField] private SceneObject GameResultScene;  //ゲームリザルトの情報格納
     [SerializeField] private GameObject player;            //プレイヤーの情報格納
@@ -66,11 +65,10 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     private GameObject goalLine; //ゴールライン
     private static int _armNumber;
     private static int _SceneNumber;      //シーンナンバー
+    private static string nowScene;       //現在のシーンの情報格納
 
 
-
-    // Use this for initialization
-    void Start()
+    private void Awake()
     {
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         goalLine = GameObject.Find("GoalLine");
@@ -82,7 +80,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
             if (SceneManager.GetActiveScene().name == StageSceneName[i])
             {
                 // nowSceneに現在のステージシーンの名前を保存
-                nowScene = SceneManager.GetActiveScene().name;
+                SetSceneName = SceneManager.GetActiveScene().name;
 
                 _SceneNumber = i + 2;
 
@@ -92,6 +90,11 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
                 _startDistance = ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y);
             }
         }
+    }
+
+    // Use this for initialization
+    void Start()
+    {
     }
 
     // Update is called once per frame
