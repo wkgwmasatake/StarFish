@@ -10,6 +10,8 @@ public class StegeClick : MonoBehaviour
     [SerializeField] private GameObject Parent_icon;
     [SerializeField] private GameObject Director;
     [SerializeField] private float move_time = 0.6f;
+    [SerializeField] private GameObject Left;
+    [SerializeField] private GameObject Right;
 
     private string[] area_name = new string[] { "Area_1", "Area_2", "Area_3", "Area_4", "Area_5" };
     private GameObject now_area;
@@ -31,7 +33,6 @@ public class StegeClick : MonoBehaviour
     {
         rect = GetComponent<RectTransform>();
         tap_SE = GetComponent<AudioSource>();
-
         int num = StageDirector.Instance.GetClearNUM();
 
         switch (num)
@@ -62,6 +63,7 @@ public class StegeClick : MonoBehaviour
                 now_area = GameObject.Find(area_name[4]);
                 break;
         }
+
     }
 
     void Update()
@@ -186,11 +188,47 @@ public class StegeClick : MonoBehaviour
     {
         yield return new WaitForSeconds(move_time);
         touch_left = false;
+        int num = StageDirector.Instance.GetNumStage();
+        switch (num)
+        {
+            case 0:
+            case 3:
+            case 6:
+            case 9:
+            case 12:
+                this.gameObject.SetActive(false);
+                break;
+            case 1:
+            case 4:
+            case 7:
+            case 10:
+            case 13:
+                Right.gameObject.SetActive(true);
+                break;
+        }        
     }
 
     IEnumerator Change_right()
     {
         yield return new WaitForSeconds(move_time);
         touch_right = false;
-    }    
+        int num = StageDirector.Instance.GetNumStage();
+        switch (num)
+        {
+            case 2:
+            case 5:
+            case 8:
+            case 11:
+            case 14:
+                this.gameObject.SetActive(false);
+                break;
+            case 1:
+            case 4:
+            case 7:
+            case 10:
+            case 13:
+                Left.gameObject.SetActive(true);
+                break;
+        }
+    }
 }

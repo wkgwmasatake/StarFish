@@ -15,6 +15,7 @@ public class StarFishOriginal : MonoBehaviour {
     enum GAME_STATUS
     {
         _PLAY,
+        _CREAR_EFFECT,
         _CLEAR,
         _OVER
     }
@@ -48,7 +49,7 @@ public class StarFishOriginal : MonoBehaviour {
     [SerializeField] GameObject ArrowObject;            // 矢印のゲームオブジェクト
     [SerializeField] float bombPower;                   // 爆発の大きさ
     [SerializeField] float ArrowDisplayTime;            // 矢印を表示させるまでの時間
-    [SerializeField] float SavePosDistance;                 // 座標を保存する間隔
+    [SerializeField] float SavePosDistance;             // 座標を保存する間隔
     [SerializeField] Image FadeImage;                   // フェード画像
 
     //------- デバッグ用 -------//
@@ -281,7 +282,20 @@ public class StarFishOriginal : MonoBehaviour {
                     // ゴールラインを超えたら
                     if (GameDirector.Instance.GetDistance < 0)
                     {
-                        Status = (byte)GAME_STATUS._CLEAR;      // クリア処理へ
+                        Status = (byte)GAME_STATUS._CREAR_EFFECT;       // クリア演出処理へ
+
+                        ForceY = 0.3f;      // Y方向を固定値に変更
+                        FadeAlpha = 1.0f;   // フェード値をリセット
+
+                        if(rotatePower > 0)
+                        {
+                            rotatePower = 0.5f;
+                        }
+                        else
+                        {
+                            rotatePower = -0.5f;
+                        }
+
                         FadeImage.rectTransform.anchoredPosition =
                             new Vector2(FadeImage.rectTransform.anchoredPosition.x, -(FadeImage.rectTransform.anchoredPosition.y));  // 画像の位置を上に移動
 
@@ -303,6 +317,54 @@ public class StarFishOriginal : MonoBehaviour {
                         Status = (byte)GAME_STATUS._OVER;      // ゲームオーバー処理へ
                     }
                 }
+                break;
+
+            case (byte)GAME_STATUS._CREAR_EFFECT:
+                rb.velocity = Vector2.zero;         // 重力を無効化
+
+                if (rotatePower < 10.0f && rotatePower > -10.0f)
+                {
+                    rotatePower *= 2.0f;
+                }
+
+
+                if (ForceY > 0.01f)     // Y方向の力が一定以上なら
+                {
+                    // 力を減衰させる
+                    ForceX *= 0.9f;
+                    ForceY *= 0.9f;
+                }
+                else                    // 一定以下になったら
+                {
+                    if(ForceY != 0)     // Y方向の力が0になっていなかったら
+                    {
+                        // 力を0に変更
+                        ForceX = 0;
+                        ForceY = 0;
+                    }
+
+                    FadeAlpha -= 0.025f;    // アルファ値を減少
+
+                    Color fadecolor = this.gameObject.GetComponent<SpriteRenderer>().color;         // 自分の色を取得
+                    gameObject.GetComponent<SpriteRenderer>().color = new Color(fadecolor.r, fadecolor.g, fadecolor.b, FadeAlpha);      // 減らしたアルファ値を変更
+
+                    for(int i = 0; i < 5; i++)
+                    {
+                        fadecolor = this.gameObject.transform.GetChild(i).GetComponent<SpriteRenderer>().color;
+                        this.gameObject.transform.GetChild(i).GetComponent<SpriteRenderer>().color = new Color(fadecolor.r, fadecolor.g, fadecolor.b, FadeAlpha);
+                    }
+
+                    fadecolor = this.gameObject.transform.GetChild(5).GetComponent<SpriteRenderer>().color;     // 子の星の色を取得
+                    gameObject.transform.GetChild(5).GetComponent<SpriteRenderer>().color = new Color(fadecolor.r, fadecolor.g, fadecolor.b, 1.0f - FadeAlpha);    // 子の星のアルファ値を変更
+                    if(FadeAlpha <= 0)
+                    {
+                        Status = (byte)GAME_STATUS._CLEAR;
+                    }
+                }
+
+                transform.Translate(ForceX * bombPower, ForceY * bombPower, 0, Space.World);         // 爆発の威力に応じて移動
+                transform.Rotate(new Vector3(0, 0, rotatePower));   // 海星を回転
+
                 break;
 
             case (byte)GAME_STATUS._CLEAR:      // クリア処理
