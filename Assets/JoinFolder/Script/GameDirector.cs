@@ -53,7 +53,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     private bool pauseFlg = false;               //ポーズフラグ
     private bool _particleFlg;           //パーティクルフラグ
     private bool _chaceFlg = true;      //カメラの追跡フラグ
-    private int _Pearl_Flag;           // パール取得フラグ
+    private static int _Pearl_Flag;           // パール取得フラグ
 
 
 
