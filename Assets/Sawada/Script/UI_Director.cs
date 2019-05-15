@@ -48,13 +48,25 @@ public class UI_Director : MonoBehaviour
     ButtonState bState;
     [SerializeField] private AudioClip[] SE;
 
+    [SerializeField] private CanvasGroup PanelAlpha;
+    private float alphaPlus = 0.05f;
+
 
     // 各ステージ共通NAME
     private const string STAGE_NAME = "TestStage";
 
+    private void Update()
+    {
+        // 花火が出終わったら
+        if (GameDirector.Instance.ParticleFlg)
+        {
+            PanelAlpha.gameObject.SetActive(true);
+            PanelAlpha.alpha += alphaPlus;
+        }
+    }
+
     #region UI関連メソッド（Button用）
-
-
+    // Use this for initialization
 
     /// <summary>
     /// 

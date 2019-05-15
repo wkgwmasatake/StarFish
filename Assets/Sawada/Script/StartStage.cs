@@ -10,7 +10,6 @@ public class StartStage : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        Debug.Log("aaa");
         GetComponent<Text>().text = StageName_Configuration();
         GetComponent<Animation>().Play();
 	}
