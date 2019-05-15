@@ -150,10 +150,22 @@ public class StageDirector : SingletonMonoBehaviour<StageDirector>
         int clear_area = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetAreaClear_Flg);
         int clear_stage = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetStageClear_Flg);
 
-        if (clear_area == -1) { clear_area = 0; }
-        else if (clear_area == 2 || clear_area == 3) { clear_area = 2; }
-        else if (clear_area >= 4 && clear_area < 8) { clear_area = 3; }
-        else if (clear_area >= 8) { clear_area = 4; }
+        //if (clear_area == -1)
+        //{
+        //    clear_area = 0;
+        //}
+        //else if (clear_area == 2 || clear_area == 3)
+        //{
+        //    clear_area = 2;
+        //}
+        //else if (clear_area >= 4 && clear_area < 8)
+        //{
+        //    clear_area = 3;
+        //}
+        //else if (clear_area >= 8)
+        //{
+        //    clear_area = 4;
+        //}
 
         if (clear_stage == -1) { clear_stage = 0; }
         num_cleared = (clear_area * 3) + clear_stage;

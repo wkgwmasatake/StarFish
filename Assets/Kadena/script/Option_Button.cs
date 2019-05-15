@@ -18,13 +18,31 @@ public class Option_Button : MonoBehaviour {
     public void ButtonArea()//オプションボタン以外へのシーン遷移
     {
         PlayerPrefs.SetString("pre_scene", SceneManager.GetActiveScene().name);
-        if(SceneManager.GetActiveScene().name == "Stage_Select")
+        string name = SceneManager.GetActiveScene().name;
+
+        switch (name)
         {
-            SceneManager.LoadScene("Area_Select");
+            case "Stage_Select":
+                SceneManager.LoadScene("Area_Select");
+                break;
+            case "Option_Scene":
+                SceneManager.LoadScene(pre_scene);
+                break;
+            case "Area_Select":
+                SceneManager.LoadScene("Title");
+                break;
         }
-        else if(SceneManager.GetActiveScene().name == "Option_Scene")
-        {
-            SceneManager.LoadScene(pre_scene);
-        }
+        //if (SceneManager.GetActiveScene().name == "Stage_Select")
+        //{
+        //    SceneManager.LoadScene("Area_Select");
+        //}
+        //else if(SceneManager.GetActiveScene().name == "Option_Scene")
+        //{
+        //    SceneManager.LoadScene(pre_scene);
+        //}
+        //else if(SceneManager.GetActiveScene().name == "Title")
+        //{
+        //    SceneManager.LoadScene("Title");
+        //}
     }
 }

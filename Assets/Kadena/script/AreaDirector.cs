@@ -11,6 +11,8 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
     [SerializeField] private GameObject icon_3;
     [SerializeField] private GameObject icon_4;
     [SerializeField] private GameObject icon_5;
+    [SerializeField] private GameObject Left_arrow;
+    [SerializeField] private GameObject Right_arrow;
 
     [SerializeField] private int temporary_num;//進行状況の仮値
     private int num_cleared;//クリア状況の進行受け取り用
@@ -28,7 +30,7 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
     private int START_NUM;
     private int num_area;//配列areaの変数受け入れ用
     private Text AreaName;
-
+    
     [SerializeField] private int[] Area_state;
 
     //Awake -> Start -> Update
@@ -64,26 +66,28 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
         num_area = START_NUM;
     }
 
-
     //1～3番目のエリアのクリア状況初期処理
-    private void setAll_Stage(int num_1, int num_2, int num_3, int num_4, int num_5)
-    {
-        Area_state[0] = num_1;
-        Area_state[1] = num_2;
-        Area_state[2] = num_3;
-        Area_state[3] = num_4;
-        Area_state[4] = num_5;
-    }
-
     private void Init_Area_Select()//シーン開始時の処理　エリアのクリアフラグ読み取りもここで行うこと
     {
         //ゲームディレクターのGetAreaClear_Flgを用いてクリア状況をnum_clearedに代入する
         int clear_area = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetAreaClear_Flg);
 
-        if (clear_area == -1) { clear_area = 0; }
-        else if (clear_area == 2 || clear_area == 3) { clear_area = 2; }
-        else if (clear_area >= 4 && clear_area < 8) { clear_area = 3; }
-        else if (clear_area >= 8) { clear_area = 4; }
+        //if (clear_area == -1)
+        //{
+        //    clear_area = 0;
+        //}
+        //else if (clear_area == 2 || clear_area == 3)
+        //{
+        //    clear_area = 2;
+        //}
+        //else if (clear_area >= 4 && clear_area < 8)
+        //{
+        //    clear_area = 3;
+        //}
+        //else if (clear_area >= 8)
+        //{
+        //    clear_area = 4;
+        //}
 
         num_cleared = clear_area;
 
@@ -92,6 +96,15 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
 
         area = new int[AREA_MAX + 1];
         Area_state = new int[AREA_MAX + 1];
+    }
+
+    private void setAll_Stage(int num_1, int num_2, int num_3, int num_4, int num_5)
+    {
+        Area_state[0] = num_1;
+        Area_state[1] = num_2;
+        Area_state[2] = num_3;
+        Area_state[3] = num_4;
+        Area_state[4] = num_5;
     }
 
     public void SetNumArea(int num)//外部からエリア配列の要素数を変更する処理

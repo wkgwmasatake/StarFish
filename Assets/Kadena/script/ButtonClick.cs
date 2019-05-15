@@ -8,7 +8,8 @@ public class ButtonClick : MonoBehaviour {
     [SerializeField] private GameObject Parent_icon;
     [SerializeField] private GameObject Director;
     [SerializeField] private float move_time;
-
+    [SerializeField] private GameObject Left;
+    [SerializeField] private GameObject Right;
     private bool touch_left = false;
     private bool touch_right = false;
     private AudioSource tap_SE;
@@ -26,7 +27,8 @@ public class ButtonClick : MonoBehaviour {
     {
         rect = GetComponent<RectTransform>();
         tap_SE = GetComponent<AudioSource>();
-
+        Left.gameObject.SetActive(false); 
+        
     }
 
     void Update()
@@ -140,12 +142,28 @@ public class ButtonClick : MonoBehaviour {
     {
         yield return new WaitForSeconds(move_time);
         touch_left = false;
+        if (AreaDirector.Instance.GetNumArea() == 0 )
+        {
+            this.gameObject.SetActive(false);
+        }
+        else if (AreaDirector.Instance.GetNumArea() == 3)
+        {
+            Right.gameObject.SetActive(true);
+        }
     }
 
     IEnumerator Change_right()
     {
         yield return new WaitForSeconds(move_time);
         touch_right = false;
+        if (AreaDirector.Instance.GetNumArea() == 4 )
+        {
+            this.gameObject.SetActive(false);
+        }
+        else if (AreaDirector.Instance.GetNumArea() == 1)
+        {
+            Left.gameObject.SetActive(true);
+        }
     }
     //public float height { get{ return height; } }//ゲッターセッター
 }
