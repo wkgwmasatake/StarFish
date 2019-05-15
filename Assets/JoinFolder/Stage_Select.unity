@@ -3386,6 +3386,8 @@ MonoBehaviour:
   Parent_icon: {fileID: 272204212}
   Director: {fileID: 690967991}
   move_time: 0.275
+  Left: {fileID: 1591323927}
+  Right: {fileID: 1115305162}
 --- !u!82 &1115305165
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5136,6 +5138,8 @@ MonoBehaviour:
   Parent_icon: {fileID: 272204212}
   Director: {fileID: 690967991}
   move_time: 0.275
+  Left: {fileID: 1591323927}
+  Right: {fileID: 1115305162}
 --- !u!82 &1591323930
 AudioSource:
   m_ObjectHideFlags: 0
