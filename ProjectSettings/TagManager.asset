@@ -18,6 +18,7 @@ TagManager:
   - Top
   - Under
   - Pearl
+  - StageName
   layers:
   - Default
   - TransparentFX
