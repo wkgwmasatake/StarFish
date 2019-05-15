@@ -63,6 +63,12 @@ public class UI_Director : MonoBehaviour
             PanelAlpha.gameObject.SetActive(true);
             PanelAlpha.alpha += alphaPlus;
         }
+
+        if(Input.GetMouseButtonDown(0) && PanelAlpha.alpha < 1)
+        {
+            PanelAlpha.gameObject.SetActive(true);
+            PanelAlpha.alpha = 1;
+        }
     }
 
     #region UI関連メソッド（Button用）
