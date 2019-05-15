@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SeaMove : MonoBehaviour
 {
+    [SerializeField] bool Background_Sky;
     [SerializeField] float speed;
     [SerializeField] float ReStartPosX;     //リスタートする位置(２つ目のの道路の初めの位置)
     [SerializeField] float DeletePosX;      //消すＺ座標
@@ -23,18 +24,22 @@ public class SeaMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GameDirector.Instance.GetPauseFlg)
+        if (!Background_Sky)
         {
-            this.transform.position += new Vector3(speed, 0, 0);
+            if (!GameDirector.Instance.GetPauseFlg)
+            {
+                this.transform.position += new Vector3(speed, 0, 0);
+            }
+
+
+            if (this.transform.position.x > DeletePosX)
+            {
+                PosXdiff = this.transform.position.x - DeletePosX;
+                bufPos = new Vector3(ReStartPosX + PosXdiff, this.transform.position.y, this.transform.position.z);
+                this.transform.position = bufPos;
+            }
         }
         
-
-        if (this.transform.position.x > DeletePosX)
-        {
-            PosXdiff = this.transform.position.x - DeletePosX;
-            bufPos = new Vector3(ReStartPosX + PosXdiff, this.transform.position.y, this.transform.position.z);
-            this.transform.position = bufPos;
-        }
 
     }
 }
