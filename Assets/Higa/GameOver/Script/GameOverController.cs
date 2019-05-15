@@ -80,7 +80,7 @@ public class GameOverController : MonoBehaviour {
         blackfade1.rectTransform.anchoredPosition =
                     new Vector2(blackfade1.rectTransform.anchoredPosition.x, blackfade1.rectTransform.anchoredPosition.y + 50);     // フェード画像のy座標を50下げる
 
-        Debug.Log(blackfade1.rectTransform.anchoredPosition);
+        //Debug.Log(blackfade1.rectTransform.anchoredPosition);
 
         if (blackfade1.rectTransform.anchoredPosition.y > 2850f)
         {
@@ -92,9 +92,9 @@ public class GameOverController : MonoBehaviour {
     {
         if (starfish_anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
         {
-
-
             ChangePhase(PHASE.TEXT);
+            GameDirector.Instance.ParticleFlg = true;
+            Debug.Log("ParticleFlg : " + GameDirector.Instance.ParticleFlg);
         }
     }
 
@@ -114,11 +114,12 @@ public class GameOverController : MonoBehaviour {
         color.a += alpha;
         gameover_text.color = color;
 
-        Debug.Log(color.a);
+        //Debug.Log(color.a);
 
         if(now_phase != PHASE.END && color.a >= 1.0f)
         {
             ChangePhase(PHASE.END);
+            
         }
     }
 
