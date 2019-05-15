@@ -14,13 +14,20 @@ public class SeaMove : MonoBehaviour
     void Start()
     {
 
+        float goal_y = GameObject.Find("GoalLine").gameObject.transform.position.y;
+        Vector3 pos = new Vector3(0, goal_y, 0);
+        this.gameObject.transform.position = pos;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        this.transform.position += new Vector3(speed, 0, 0);
+        if (!GameDirector.Instance.GetPauseFlg)
+        {
+            this.transform.position += new Vector3(speed, 0, 0);
+        }
+        
 
         if (this.transform.position.x > DeletePosX)
         {
