@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 199285547130204910}
   - component: {fileID: 114698304793276366}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: FinishEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
