@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab86fe89c4c074447a5b3502a056df75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scale: 1
+  Scale: 0
   FireWorks_Shine: 0
   FireWorks: 0
   ArmBomb: 0
@@ -117,7 +117,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 2075301124
+  randomSeed: -879397854
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -207,7 +207,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.78537464, g: 0.9485294, b: 0.2092344, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -269,7 +269,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.5
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -582,7 +582,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1.5
+      value: 1
       mode: 0
       spread: 0
       speed:
@@ -3410,7 +3410,7 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: c4e14e295541a5a4781cb4b7057a9a10, type: 2}
+  - {fileID: 2100000, guid: 1c104f196d6540f46bf9a2e331e21795, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0

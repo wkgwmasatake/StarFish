@@ -228,6 +228,8 @@ public class StarFishOriginal : MonoBehaviour {
                         }
                         else if (GameDirector.Instance.GetArmNumber() > _MAX_TAP)        // 最初のタップ
                         {
+                            GetComponent<Animator>().enabled = false;       // アニメーターをオフにする
+
                             GameDirector.Instance.SetArmNumber(GameDirector.Instance.GetArmNumber() - 1);               // 腕の本数を1減算
                             rotatePower = 12f * bombPower;      // 回転を設定
                                                                 // 左上に力を加える
@@ -366,7 +368,8 @@ public class StarFishOriginal : MonoBehaviour {
                     if(FadeAlpha <= 0)
                     {
                         Status = (byte)GAME_STATUS._CLEAR;
-                        Instantiate(ParticleList[(int)PARTICLE.GOAL], gameObject.transform);
+                        var effect = Instantiate(ParticleList[(int)PARTICLE.GOAL]);
+                        effect.transform.position = gameObject.transform.position;
                     }
                 }
 
