@@ -48,6 +48,8 @@ public class UI_Director : MonoBehaviour
     ButtonState bState;
     [SerializeField] private AudioClip[] SE;
 
+    [SerializeField] private GameObject Fade_Down;
+
     [SerializeField] private CanvasGroup PanelAlpha;
     private float alphaPlus = 0.05f;
 
@@ -254,7 +256,11 @@ public class UI_Director : MonoBehaviour
         switch(bState)
         {
             case ButtonState.Retry:
-                GameDirector.Instance.SetPauseFlg = false;
+                //GameDirector.Instance.SetPauseFlg = false;
+                if (Time.timeScale <= 0) Time.timeScale = 1;
+                GameObject child = Instantiate(Fade_Down) as GameObject;
+                child.transform.parent = GameObject.Find("FadePoint").transform;
+                yield return new WaitForSecondsRealtime(2);
                 // 前回プレイしたシーンを読み込み
                 SceneManager.LoadScene(GameDirector.Instance.GetSceneName);
                 break;

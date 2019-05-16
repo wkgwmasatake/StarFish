@@ -18,10 +18,10 @@ public class StartStage : MonoBehaviour
     private void Update()
     {
         // 自分自身のアニメーションが終わったら
-        if(!anim.IsPlaying(anim.name))
+        if(!anim.IsPlaying("StageName_UI"))
         {
-            // プレイヤー側が動けるように
-            GameDirector.Instance.SetPauseFlg = false;
+            Debug.Log("owatta");
+            Destroy(this.gameObject);
         }
     }
 
@@ -30,5 +30,10 @@ public class StartStage : MonoBehaviour
     {
         stageName = GameDirector.Instance.GetSceneName;
         return stageName;
+    }
+
+    private void OnDestroy()
+    {
+        GameDirector.Instance.SetPauseFlg = false;
     }
 }

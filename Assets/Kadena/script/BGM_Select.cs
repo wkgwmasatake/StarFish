@@ -9,29 +9,13 @@ public class BGM_Select : MonoBehaviour {
     AudioSource bgmAS;
     
     //[SerializeField] AudioClip[] clips;
-
-    //void Awake()
-    //{
-    //    if (!bgm_created)
-    //    {
-    //        //これが最初のシーンなら、以降シーン遷移で破棄されないようにする  
-    //        DontDestroyOnLoad(gameObject);
-    //        bgm_created = true;
-    //    }
-    //    else
-    //    {
-    //        //最初のシーンでないなら、すでに存在しているため破棄  
-    //        Destroy(gameObject);
-    //    }
-    //
     
     void Start()
     {
         bgmAS = GetComponent<AudioSource>();
-
- 
-            float vol = OptionDirector.Instance.GetBGMvolume();
-            VolumeChange(vol);           
+        float vol = OptionDirector.Instance.GetBGMvolume();
+        VolumeChange(vol);
+        Debug.Log("BGM "+ vol);
         bgmAS.Play();
     }
 

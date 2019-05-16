@@ -16,7 +16,6 @@ public class StageDirector : SingletonMonoBehaviour<StageDirector>
     [SerializeField] private GameObject Area4;
     [SerializeField] private GameObject Area5;
 
-    [SerializeField] private int temporary_num;//進行状況の仮値
     private int num_cleared;//クリア状況の進行受け取り用
     public enum StateNum// ステージの状態
     {
@@ -60,77 +59,77 @@ public class StageDirector : SingletonMonoBehaviour<StageDirector>
 
         switch (num_cleared)//クリア状況によるエリア表示の切り替え
         {
-            case 0:
+            case 1:
                 setAll_Area(true, false, false, false, false);
                 setAll_Stage(0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 0;
                 break;
-            case 1:
+            case 2:
                 setAll_Area(true, false, false, false, false);
                 setAll_Stage(0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 0;
                 break;
-            case 2:
+            case 3:
                 setAll_Area(true, false, false, false, false);
                 setAll_Stage(0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 0;
                 break;
-            case 3:
+            case 4:
                 setAll_Area(false, true, false, false, false);
                 setAll_Stage(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 3;
                 break;
-            case 4:
+            case 5:
                 setAll_Area(false, true, false, false, false);
                 setAll_Stage(0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 3;
                 break;
-            case 5:
+            case 6:
                 setAll_Area(false, true, false, false, false);
                 setAll_Stage(0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 3;
                 break;
-            case 6:
+            case 7:
                 setAll_Area(false, false, true, false, false);
                 setAll_Stage(0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 6;
                 break;
-            case 7:
+            case 8:
                 setAll_Area(false, false, true, false, false);
                 setAll_Stage(0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 6;
                 break;
-            case 8:
+            case 9:
                 setAll_Area(false, false, true, false, false);
                 setAll_Stage(0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1);
                 START_NUM = 6;
                 break;
-            case 9:
+            case 10:
                 setAll_Area(false, false, false, true, false);
                 setAll_Stage(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1);
                 START_NUM = 9;
                 break;
-            case 10:
+            case 11:
                 setAll_Area(false, false, false, true, false);
                 setAll_Stage(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1);
                 START_NUM = 9;
                 break;
-            case 11:
+            case 12:
                 setAll_Area(false, false, false, true, false);
                 setAll_Stage(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1);
                 START_NUM = 9;
                 break;
-            case 12:
+            case 13:
                 setAll_Area(false, false, false, false, true);
                 setAll_Stage(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1);
                 START_NUM = 12;
                 break;
-            case 13:
+            case 14:
                 setAll_Area(false, false, false, false, true);
                 setAll_Stage(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
                 START_NUM = 12;
                 break;
-            case 14:
+            case 15:
                 setAll_Area(false, false, false, false, true);
                 setAll_Stage(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
                 START_NUM = 12;
@@ -167,12 +166,12 @@ public class StageDirector : SingletonMonoBehaviour<StageDirector>
         //    clear_area = 4;
         //}
 
-        if (clear_stage == -1) { clear_stage = 0; }
-        num_cleared = (clear_area * 3) + clear_stage;
+        
+        num_cleared = ((clear_area - 1)* 3) + clear_stage;
 
-        Debug.Log("clear_area " + clear_area);
-        Debug.Log("clear_stage " + clear_stage);
-        Debug.Log(num_cleared);
+        //Debug.Log("clear_area " + clear_area);
+        //Debug.Log("clear_stage " + clear_stage);
+        //Debug.Log(num_cleared);
         stage = new int[STAGE_MAX + 1];       
         Stage_state = new int[STAGE_MAX + 1];
     }
@@ -232,7 +231,6 @@ public class StageDirector : SingletonMonoBehaviour<StageDirector>
 
     public int GetStateStage(int pos_num, int count)//要素pos_numの変数をget_numに代入して外部に出力する
     {
-        Debug.Log("Director "+pos_num);
         return Stage_state[pos_num + count];       
     }
 
