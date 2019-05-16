@@ -48,13 +48,36 @@ public class UI_Director : MonoBehaviour
     ButtonState bState;
     [SerializeField] private AudioClip[] SE;
 
+    [SerializeField] private GameObject Fade_Down;
+
+    [SerializeField] private CanvasGroup PanelAlpha;
+    private float alphaPlus = 0.05f;
+
 
     // 各ステージ共通NAME
     private const string STAGE_NAME = "TestStage";
 
+    private void Update()
+    {
+        // 花火が出終わったら
+        if (GameDirector.Instance.ParticleFlg)
+        {
+            PanelAlpha.gameObject.SetActive(true);
+            PanelAlpha.alpha += alphaPlus;
+        }
+
+        if (PanelAlpha != null)
+        {
+            if (Input.GetMouseButtonDown(0) && PanelAlpha.alpha < 1)
+            {
+                PanelAlpha.gameObject.SetActive(true);
+                PanelAlpha.alpha = 1;
+            }
+        }
+    }
+
     #region UI関連メソッド（Button用）
-
-
+    // Use this for initialization
 
     /// <summary>
     /// 
@@ -233,7 +256,11 @@ public class UI_Director : MonoBehaviour
         switch(bState)
         {
             case ButtonState.Retry:
-                GameDirector.Instance.SetPauseFlg = false;
+                //GameDirector.Instance.SetPauseFlg = false;
+                if (Time.timeScale <= 0) Time.timeScale = 1;
+                GameObject child = Instantiate(Fade_Down) as GameObject;
+                child.transform.parent = GameObject.Find("FadePoint").transform;
+                yield return new WaitForSecondsRealtime(2);
                 // 前回プレイしたシーンを読み込み
                 SceneManager.LoadScene(GameDirector.Instance.GetSceneName);
                 break;

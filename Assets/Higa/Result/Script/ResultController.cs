@@ -107,22 +107,22 @@ public class ResultController : MonoBehaviour {
             _starfish = Instantiate(starfish);
             Rigidbody2D rb = _starfish.GetComponent<Rigidbody2D>();
 
-            for (int i = 0; i < _MAX_LEG; i++)                       // それぞれの腕のスプライトレンダラーを取得
-            {
-                LegSpriteRenderer[i] = _starfish.transform.GetChild(i).GetComponent<SpriteRenderer>();
-            }
-            try
-            {
-                for (int i = _MAX_LEG - 1; i > GameDirector.Instance.GetArmNumber() - 2; i--)
-                {
-                    LegSpriteRenderer[i].sprite = LegImages;
-                    //Debug.Log(GameDirector.Instance.GetArmNumber());
-                }
-            }
-            catch
-            {
+            //for (int i = 0; i < _MAX_LEG; i++)                       // それぞれの腕のスプライトレンダラーを取得
+            //{
+            //    LegSpriteRenderer[i] = _starfish.transform.GetChild(i).GetComponent<SpriteRenderer>();
+            //}
+            //try
+            //{
+            //    for (int i = _MAX_LEG - 1; i > GameDirector.Instance.GetArmNumber() - 2; i--)
+            //    {
+            //        LegSpriteRenderer[i].sprite = LegImages;
+            //        //Debug.Log(GameDirector.Instance.GetArmNumber());
+            //    }
+            //}
+            //catch
+            //{
 
-            }
+            //}
 
             Vector2 force = new Vector2(0f, 15f);
             rb.AddForce(force, ForceMode2D.Impulse);
