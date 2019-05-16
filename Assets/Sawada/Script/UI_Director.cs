@@ -64,10 +64,13 @@ public class UI_Director : MonoBehaviour
             PanelAlpha.alpha += alphaPlus;
         }
 
-        if(Input.GetMouseButtonDown(0) && PanelAlpha.alpha < 1)
+        if (PanelAlpha != null)
         {
-            PanelAlpha.gameObject.SetActive(true);
-            PanelAlpha.alpha = 1;
+            if (Input.GetMouseButtonDown(0) && PanelAlpha.alpha < 1)
+            {
+                PanelAlpha.gameObject.SetActive(true);
+                PanelAlpha.alpha = 1;
+            }
         }
     }
 
