@@ -48,6 +48,7 @@ public class StarFishOriginal : MonoBehaviour {
 
     [SerializeField] ParticleSystem[] ParticleList;     // パーティクルリスト(0.. 腕のパーティクル、1.. 爆発のパーティクル、2.. 壁にあたった時のパーティクル、3.. ゴールラインを超えたときのパーティクル)
     [SerializeField] GameObject ArrowObject;            // 矢印のゲームオブジェクト
+    [SerializeField] AudioClip[] ClearSound;            // クリア演出の際に流す効果音
     [SerializeField] float bombPower;                   // 爆発の大きさ
     [SerializeField] float ArrowDisplayTime;            // 矢印を表示させるまでの時間
     [SerializeField] float SavePosDistance;             // 座標を保存する間隔
@@ -323,6 +324,11 @@ public class StarFishOriginal : MonoBehaviour {
             case (byte)GAME_STATUS._CREAR_EFFECT:
                 rb.velocity = Vector2.zero;         // 重力を無効化
 
+                if(!this.GetComponent<AudioSource>().isPlaying)
+                {
+                    this.GetComponent<AudioSource>().PlayOneShot(ClearSound[0]);    // 回転音を再生
+                }
+
                 if (rotatePower < 10.0f && rotatePower > -10.0f)
                 {
                     rotatePower *= 2.0f;
@@ -372,6 +378,8 @@ public class StarFishOriginal : MonoBehaviour {
             case (byte)GAME_STATUS._CLEAR:      // クリア処理
 
                 ForceY = 0.4f;
+
+                this.GetComponent<AudioSource>().PlayOneShot(ClearSound[1]);    // 飛んでいく音を再生
 
                 int StageNum = GameDirector.Instance.GetSceneNumber - 1;        // 現在のステージ番号を取得
 
@@ -496,21 +504,24 @@ public class StarFishOriginal : MonoBehaviour {
         }
         else if (col.collider.tag == "RightWall")
         {
-            Vector3 hitPos;
-            foreach (ContactPoint2D point in col.contacts)
+            if (!GameDirector.Instance.GetPauseFlg)         // 開始時のアニメーションの際に入らないようにする
             {
-                hitPos = point.point;                                                   // 衝突した座標を取得
-                var effect = Instantiate(ParticleList[(int)PARTICLE.WALLTOUTCH]);       // エフェクト生成
-                effect.transform.position = hitPos;                                     // エフェクトを衝突した座標に移動
-                VariousFixer vf = effect.GetComponent<VariousFixer>();                  // スクリプト取得
-                vf.RotationY(GetAngle(transform.position, hitPos));                      // スクリプト内の関数で角度を修正
+                Vector3 hitPos;
+                foreach (ContactPoint2D point in col.contacts)
+                {
+                    hitPos = point.point;                                                   // 衝突した座標を取得
+                    var effect = Instantiate(ParticleList[(int)PARTICLE.WALLTOUTCH]);       // エフェクト生成
+                    effect.transform.position = hitPos;                                     // エフェクトを衝突した座標に移動
+                    VariousFixer vf = effect.GetComponent<VariousFixer>();                  // スクリプト取得
+                    vf.RotationY(GetAngle(transform.position, hitPos));                      // スクリプト内の関数で角度を修正
+                }
+
+                rotatePower = -7.0f;            // 反時計回りに回転
+
+                // 左上に力を加える
+                ForceX = -0.1f;
+                ForceY = 0.1f;
             }
-
-            rotatePower = -7.0f;            // 反時計回りに回転
-
-            // 左上に力を加える
-            ForceX = -0.1f;
-            ForceY = 0.1f;
         }
         else if (col.collider.tag == "LeftWall")
         {
