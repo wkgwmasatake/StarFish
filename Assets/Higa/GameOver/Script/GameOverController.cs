@@ -61,7 +61,7 @@ public class GameOverController : MonoBehaviour {
                 FadeProcess();
                 break;
 
-            case PHASE.STARFISH:
+            //case PHASE.STARFISH:
             case PHASE.TEXT:
                 StarfishProcess();
                 //break;
@@ -85,15 +85,16 @@ public class GameOverController : MonoBehaviour {
 
         if (blackfade1.rectTransform.anchoredPosition.y > 2850f)
         {
-            ChangePhase(PHASE.STARFISH);
+            ChangePhase(PHASE.TEXT);
         }
     }
 
     private void StarfishProcess()
     {
+        Debug.Log(starfish_anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
         if (starfish_anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
         {
-            ChangePhase(PHASE.TEXT);
+            //ChangePhase(PHASE.TEXT);
             GameDirector.Instance.ParticleFlg = true;
             Debug.Log("ParticleFlg : " + GameDirector.Instance.ParticleFlg);
         }
@@ -117,7 +118,7 @@ public class GameOverController : MonoBehaviour {
 
         //Debug.Log(color.a);
 
-        if(now_phase != PHASE.END && color.a >= 1.0f)
+        if(now_phase != PHASE.END && color.a >= 1.0f && GameDirector.Instance.ParticleFlg)
         {
             ChangePhase(PHASE.END);
             
