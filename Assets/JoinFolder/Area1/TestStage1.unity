@@ -938,7 +938,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4180600684782944, guid: f13a073637308434cae62849169c2c61, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -175.77435
+      value: -14.4
       objectReference: {fileID: 0}
     - target: {fileID: 4180600684782944, guid: f13a073637308434cae62849169c2c61, type: 2}
       propertyPath: m_LocalPosition.y
@@ -978,6 +978,15 @@ Prefab:
       propertyPath: StartStage
       value: 
       objectReference: {fileID: 1433191046}
+    - target: {fileID: 1469418654774338, guid: f13a073637308434cae62849169c2c61, type: 2}
+      propertyPath: m_Name
+      value: WaterFade_Up
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469418654774338, guid: f13a073637308434cae62849169c2c61, type: 2}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000,
+        type: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f13a073637308434cae62849169c2c61, type: 2}
   m_IsPrefabParent: 0

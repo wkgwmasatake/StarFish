@@ -22,7 +22,7 @@ public class FadeOutAnim : MonoBehaviour
 	void Update ()
     {
         // 自身のアニメーションが終了したら自分自身を削除
-        if (!anim.IsPlaying("Stage_FadeOut"))
+        if (!anim.IsPlaying("Stage_FadeOut_Up"))
         {
             Destroy(this.gameObject);
         }
