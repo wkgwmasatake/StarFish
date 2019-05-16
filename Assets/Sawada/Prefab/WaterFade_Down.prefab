@@ -36,9 +36,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4696757037883054}
   - component: {fileID: 198094728570495256}
+  - component: {fileID: 114922416305457120}
   - component: {fileID: 199147575539727688}
-  - component: {fileID: 114997673188194360}
-  - component: {fileID: 210044123131251684}
   - component: {fileID: 111444326092464690}
   m_Layer: 0
   m_Name: WaterFade_Down
@@ -70,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1100393662354678}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.07, y: -27.24, z: 0}
+  m_LocalPosition: {x: -41.7698, y: -11.708315, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4856190460002464}
@@ -85,7 +84,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1035695577057180}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.19, y: -19.23, z: 0}
+  m_LocalPosition: {x: 0.24, y: -19.01, z: 0}
   m_LocalScale: {x: 0.45273724, y: 0.44804922, z: 1}
   m_Children: []
   m_Father: {fileID: 4696757037883054}
@@ -120,7 +119,7 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &114997673188194360
+--- !u!114 &114922416305457120
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -128,11 +127,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1100393662354678}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af43750ce14ca4147a34a25fd762e4dc, type: 3}
+  m_Script: {fileID: 11500000, guid: 7508ab6e04bc6904b9745c0aaaa3a473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PauseUI: {fileID: 0}
-  StartStage: {fileID: 0}
 --- !u!198 &198094728570495256
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -193,7 +190,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1899896247
+  randomSeed: 1820519104
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3504,16 +3501,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!210 &210044123131251684
-SortingGroup:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1100393662354678}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 11
 --- !u!212 &212137908611585238
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -3547,7 +3534,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 70b6e709d220e6945a4408b359c5410b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -3591,7 +3578,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2a84ccd5c75a2b44194249db611cb22e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FadeOutAnim : MonoBehaviour
+public class FadeOutAnim_Up : MonoBehaviour
 {
     private Animation anim;
 
-    [SerializeField] private GameObject PauseUI;  // UIのポーズオブジェクト
-    [SerializeField] private GameObject StartStage;  // ステージネームを表示するオブジェクト
+    private GameObject PauseUI;  // UIのポーズオブジェクト
+    private GameObject StartStage;  // ステージネームを表示するオブジェクト
 
 	// Use this for initialization
 	void Start ()
     {
         anim = GetComponent<Animation>();
+
+        PauseUI = GameObject.Find("Canvas_beta").transform.GetChild(1).transform.GetChild(1).gameObject;
+        StartStage = GameObject.Find("Canvas_beta").transform.GetChild(2).gameObject;
 
         // プレイヤー側で動かないように
         GameDirector.Instance.SetPauseFlg = true;
@@ -28,7 +31,6 @@ public class FadeOutAnim : MonoBehaviour
         }
 	}
 
-    // 削除される１フレーム前に呼び出される
     private void OnDestroy()
     {
         StartStage.SetActive(true);
