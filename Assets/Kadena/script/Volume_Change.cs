@@ -30,23 +30,23 @@ public class Volume_Change : MonoBehaviour
         if (OptionDirector.Instance.GetBGMvolume() == min_vol)
         {
             bgm_flg = false;
-            ChangeFalse();
+            ChangeIcon(false);
         }
         else if (OptionDirector.Instance.GetBGMvolume() == max_vol)
         {
             bgm_flg = true;
-            ChangeTrue();
+            ChangeIcon(true);
         }
 
         if (OptionDirector.Instance.GetSEvolume() == min_vol)
         {
             se_flg = false;
-            ChangeFalse();
+            ChangeIcon(false);
         }
         else if (OptionDirector.Instance.GetSEvolume() == max_vol)
         {
             se_flg = true;
-            ChangeTrue();
+            ChangeIcon(true);
         }
     }
     public void ClickBGM()
@@ -55,13 +55,13 @@ public class Volume_Change : MonoBehaviour
         {
             OptionDirector.Instance.SetBGMvolume(min_vol);
             bgm_flg = false;
-            ChangeFalse();
+            ChangeIcon(false);
         }
         else
         {
             OptionDirector.Instance.SetBGMvolume(max_vol);
             bgm_flg = true;
-            ChangeTrue();
+            ChangeIcon(true);
         }
         float bgm_vol = OptionDirector.Instance.GetBGMvolume();
         volume.GetComponent<BGM_Select>().VolumeChange(bgm_vol);
@@ -72,30 +72,23 @@ public class Volume_Change : MonoBehaviour
         {
             OptionDirector.Instance.SetSEvolume(min_vol);
             se_flg = false;
-            ChangeFalse();
+            ChangeIcon(false);
         }
         else
         {
             OptionDirector.Instance.SetSEvolume(max_vol);
             se_flg = true;
-            ChangeTrue();
+            ChangeIcon(true);
         }
         SE_Tap.volume = OptionDirector.Instance.GetSEvolume();
         SE_Tap.PlayOneShot(SE_Tap.clip);
     }
 
-    private void ChangeTrue()//ロック状態を示す画像を表示   
+    private void ChangeIcon( bool vol)//ロック状態を示す画像を表示   
     {
         foreach (Transform child in transform)
         {
-            child.gameObject.SetActive(true);
-        }
-    }
-    private void ChangeFalse()//アンロック状態を示す画像を表示   
-    {
-        foreach (Transform child in transform)
-        {
-            child.gameObject.SetActive(false);
+            child.gameObject.SetActive(vol);
         }
     }
 }
