@@ -51,6 +51,8 @@ public class UI_Director : MonoBehaviour
     [SerializeField] private GameObject Fade_Down;
 
     [SerializeField] private CanvasGroup PanelAlpha;
+    [SerializeField] private float downAlpha;
+
     private float alphaPlus = 0.05f;
 
 
@@ -256,13 +258,29 @@ public class UI_Director : MonoBehaviour
         switch(bState)
         {
             case ButtonState.Retry:
-                //GameDirector.Instance.SetPauseFlg = false;
-                if (Time.timeScale <= 0) Time.timeScale = 1;
-                GameObject child = Instantiate(Fade_Down) as GameObject;
-                child.transform.parent = GameObject.Find("FadePoint").transform;
+
+                if (Time.timeScale <= 0) Time.timeScale = 1;                     // タイムスケールを元に戻す
+                GameObject child = Instantiate(Fade_Down) as GameObject;         // Fade_Dwonオブジェクト生成
+                child.transform.parent = GameObject.Find("FadePoint").transform; // FadePointを探してその子に設定
+                
+                GameObject obj_UI = GameObject.Find("Canvas_beta").transform.GetChild(1).transform.GetChild(2).gameObject;
+                GameObject Pause_UI = GameObject.Find("Canvas_beta").transform.GetChild(1).transform.GetChild(1).gameObject;
+                // UI_Pause01がアクティブ状態なら
+                if (obj_UI.activeSelf && Pause_UI.activeSelf)
+                {
+                    while(obj_UI.GetComponent<CanvasGroup>().alpha > 0 && Pause_UI.GetComponent<CanvasGroup>().alpha > 0)
+                    {
+                        obj_UI.GetComponent<CanvasGroup>().alpha -= downAlpha;
+                        Pause_UI.GetComponent<CanvasGroup>().alpha -= downAlpha;
+                        yield return null;
+                    }
+                }
+
                 yield return new WaitForSecondsRealtime(2);
+
                 // 前回プレイしたシーンを読み込み
                 SceneManager.LoadScene(GameDirector.Instance.GetSceneName);
+
                 break;
 
             case ButtonState.Play:

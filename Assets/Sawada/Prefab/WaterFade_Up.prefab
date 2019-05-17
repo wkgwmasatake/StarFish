@@ -43,7 +43,7 @@ GameObject:
   m_Layer: 0
   m_Name: WaterFade_Up
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -130,8 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af43750ce14ca4147a34a25fd762e4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PauseUI: {fileID: 0}
-  StartStage: {fileID: 0}
+  UpAlpha: 0.05
 --- !u!198 &198598748365417158
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -192,7 +191,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1728156872
+  randomSeed: 909506130
   InitialModule:
     serializedVersion: 3
     enabled: 1
