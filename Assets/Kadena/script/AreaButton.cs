@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+
 public class AreaButton : MonoBehaviour {
     public bool flg_firstarea;//一番最初のエリアか否か
 
     [SerializeField] private GameObject Director;
-
+    [SerializeField] private GameObject Fade_Black;
+    [SerializeField] private float size_test;
     private AudioSource SE_Taped;
     private AudioSource SE_Failed;
 
@@ -19,8 +21,11 @@ public class AreaButton : MonoBehaviour {
     [SerializeField] Button area_4;
     [SerializeField] Button area_5;
     Button coButton;// ボタンのコンポーネントを取得
-
+    private bool zoom_flg = false;//ボタンがズームアップ中か否か
     private int now_status;
+
+    private float red, green, blue, alpha;//gameobjectの色を取得するfloat型変数
+
     public string Namearea;
 
     private enum StateNum// エリアの状態
@@ -36,7 +41,11 @@ public class AreaButton : MonoBehaviour {
     void Start () {
         Init();
         SE_Taped = GetComponent<AudioSource>();
-	}
+        red = GetComponent<Image>().color.r;
+        green= GetComponent<Image>().color.g;
+        blue = GetComponent<Image>().color.b;
+        alpha = 1;
+    }
     private void Init()
     {
 
@@ -71,7 +80,11 @@ public class AreaButton : MonoBehaviour {
         {
             foreach (Transform child in transform)//ロック状態
             {
-                child.gameObject.SetActive(true);
+                if(child.gameObject.name == "imagelocked")
+                {
+                    child.gameObject.SetActive(true);
+                }
+                
             }
             coButton.enabled = false;
         }
@@ -79,7 +92,11 @@ public class AreaButton : MonoBehaviour {
         {
             foreach (Transform child in transform)//非ロック状態
             {
-                child.gameObject.SetActive(false);
+                if (child.gameObject.name == "imagelocked")
+                {
+                    child.gameObject.SetActive(false);
+                }
+                    
             }
             coButton.enabled = true;
         }
@@ -89,6 +106,66 @@ public class AreaButton : MonoBehaviour {
     {
         PlayerPrefs.SetString("Select_Area", gameObject.name);
         SE_Taped.PlayOneShot(SE_Taped.clip);//効果音再生
+
+        //if (zoom_flg == false)
+        //{
+        //    StartCoroutine(ZoomUp());
+        //}
+        //else
+        //{
+        //    StartCoroutine(Zoomdown());
+        //}
         SceneManager.LoadScene("Stage_Select");//ステージの読み込み
+    }
+
+    private IEnumerator ZoomUp()
+    {
+        float size = 0f;
+        float speed = 0.05f;
+        while(size <= 1.0f)
+        {
+            this.transform.localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(size_test, size_test, 1), size);
+            size += speed;
+            zoom_flg = true;
+            GetComponent<Image>().color = new Color(red, green, blue, alpha);
+            StartCoroutine(Fade_Black.GetComponent<FadeBlack>().FadeIn());
+            alpha -= speed + 0.01f;
+            yield return null;
+            foreach (Transform child in transform)//非ロック状態
+            {
+                if (child.gameObject.name != "imagelocked")
+                {
+                    child.gameObject.SetActive(true);
+                }
+            }
+        }
+    }
+    private IEnumerator Zoomdown()
+    {
+    
+        float size = 1.0f;
+        float speed = 0.05f;
+
+        while (size >= 0f)
+        {
+            this.transform.localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(size_test, size_test, 1), size);
+            size -= speed;
+            zoom_flg = false;
+            GetComponent<Image>().color = new Color(red, green, blue, alpha);
+            StartCoroutine(Fade_Black.GetComponent<FadeBlack>().FadeIn());
+
+            alpha += speed + 0.01f;
+
+            yield return null;
+            foreach (Transform child in transform)//非ロック状態
+            {
+                if (child.gameObject.name != "imagelocked")
+                {
+                    child.gameObject.SetActive(false);
+                }
+
+            }
+
+        }
     }
 }

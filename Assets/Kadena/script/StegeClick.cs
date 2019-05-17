@@ -80,6 +80,11 @@ public class StegeClick : MonoBehaviour
 
     public void Left_Onclick()
     {
+        if(touch_left == true)
+        {
+            return;
+        }
+
         int pos = StageDirector.Instance.GetNumStage();
         if(touch_left == false) { 
             if ( pos > 0 && now_area.name == area_name[0]
@@ -128,6 +133,11 @@ public class StegeClick : MonoBehaviour
 
     public void Right_Onclick()
     {
+        if(touch_right == true)
+        {
+            return;
+        }
+
         int pos = StageDirector.Instance.GetNumStage();
         if (touch_right == false)
         {

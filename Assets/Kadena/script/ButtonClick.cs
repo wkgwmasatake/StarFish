@@ -27,8 +27,7 @@ public class ButtonClick : MonoBehaviour {
     {
         rect = GetComponent<RectTransform>();
         tap_SE = GetComponent<AudioSource>();
-        Left.gameObject.SetActive(false); 
-        
+        Left.gameObject.SetActive(false);         
     }
 
     void Update()
@@ -43,6 +42,10 @@ public class ButtonClick : MonoBehaviour {
 
     public void Left_Onclick()
     {
+        if(touch_left == true)
+        {
+            return;
+        }
         int pos = AreaDirector.Instance.GetNumArea();
         if (touch_left == false && AreaDirector.Instance.GetNumArea() > 0)
         {
@@ -86,6 +89,10 @@ public class ButtonClick : MonoBehaviour {
 
     public void Right_Onclick()
     {
+        if(touch_right == true)
+        {
+            return;
+        }
         int pos = AreaDirector.Instance.GetNumArea();
 
         if (touch_right == false && AreaDirector.Instance.GetNumArea() < 4)
@@ -130,11 +137,13 @@ public class ButtonClick : MonoBehaviour {
 
     private void Move_Left()
     {
+        //Parent_area.GetComponent<RectTransform>().anchoredPosition += new Vector2(TOUCH_SPEED * Time.deltaTime, 0);
         Parent_area.GetComponent<RectTransform>().localPosition += new Vector3(TOUCH_SPEED * Time.deltaTime, 0, 0);
     }
 
     private void Move_Right()
     {
+        //Parent_area.GetComponent<RectTransform>().anchoredPosition -= new Vector2(TOUCH_SPEED * Time.deltaTime, 0);
         Parent_area.GetComponent<RectTransform>().localPosition -= new Vector3(TOUCH_SPEED * Time.deltaTime, 0, 0);
     }
 

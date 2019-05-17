@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
 
+    [SerializeField] private string[] AREA_NAME;
     [SerializeField] private int[] area;//現在選択している配列の位置 0:左端 AREA_MAX:右端
     [SerializeField] private GameObject icon_1;
     [SerializeField] private GameObject icon_2;
@@ -14,7 +15,6 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
     [SerializeField] private GameObject Left_arrow;
     [SerializeField] private GameObject Right_arrow;
 
-    [SerializeField] private int temporary_num;//進行状況の仮値
     private int num_cleared;//クリア状況の進行受け取り用
 
     private enum StateNum// エリアの状態
@@ -41,19 +41,19 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
 
         switch (num_cleared)
         {
-            case 0:
+            case 1:
                 setAll_Stage(0, 1, 1, 1, 1);
                 break;
-            case 1:
+            case 2:
                 setAll_Stage(0, 0, 1, 1, 1);
                 break;
-            case 2:
+            case 3:
                 setAll_Stage(0, 0, 0, 1, 1);
                 break;
-            case 3:
+            case 4:
                 setAll_Stage(0, 0, 0, 0, 1);
                 break;
-            case 4:
+            case 5:
                 setAll_Stage(0, 0, 0, 0, 0);
                 break;
         }
@@ -62,8 +62,9 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
     void Start()//他オブジェクトを参照する場合はこちらで行う
     {
         AreaName = GameObject.Find("Area_Text").GetComponent<Text>();
-        AreaName.text = "エリア " + (START_NUM + 1);
+        SetName(START_NUM + 1);
         num_area = START_NUM;
+
     }
 
     //1～3番目のエリアのクリア状況初期処理
@@ -91,11 +92,12 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
 
         num_cleared = clear_area;
 
-        Debug.Log("area " + clear_area);
-        Debug.Log(num_cleared);
+        //Debug.Log("area " + clear_area);
+        //Debug.Log(num_cleared);
 
         area = new int[AREA_MAX + 1];
         Area_state = new int[AREA_MAX + 1];
+
     }
 
     private void setAll_Stage(int num_1, int num_2, int num_3, int num_4, int num_5)
@@ -107,11 +109,34 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
         Area_state[4] = num_5;
     }
 
+    public void SetName(int area_num)
+    {
+        switch (area_num)
+        {
+            case 1:
+                AreaName.text = AREA_NAME[0];
+                break;
+            case 2:
+                AreaName.text = AREA_NAME[1];
+                break;
+            case 3:
+                AreaName.text = AREA_NAME[2];
+                break;
+            case 4:
+                AreaName.text = AREA_NAME[3];
+                break;
+            case 5:
+                AreaName.text = AREA_NAME[4];
+                break;
+        }
+    }
+
     public void SetNumArea(int num)//外部からエリア配列の要素数を変更する処理
     {
         num_area += num;//エリア番号の変更
         int add = num_area + 1;//要素数→エリア番号に変換するための加算処理
-        AreaName.text = "エリア " + add;
+        SetName(add);
+        //AreaName.text = "エリア " + add;
     }
 
     public int GetNumArea()//エリア配列の要素数を外部から取得する
@@ -139,13 +164,12 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
 
     public int GetStateArea(int pos_num, int count)//要素pos_numの変数をget_numに代入して外部に出力する
     {
-        Debug.Log(Area_state[pos_num + count]);
         return Area_state[pos_num + count];
     }
 
     public int GetClearNUM()//クリア状況の取得
     {
-        return num_cleared;
+        return num_cleared - 1;//GameDirectorの初期値が1ならnum_cleaned - 1にするべきか
     }
 
     public void SetChangeIcon()
