@@ -34,8 +34,6 @@ public class StarFishOriginal : MonoBehaviour {
     float ForceX = 0, ForceY = 0;   // 力を加える方向
 
     byte i = 0;                     // 海星の座標を取得する際の要素番号
-    Vector2[] position;             // 一定時間経過後に海星の座標を一時保存しておく変数
-    float[] angle;                  // 一定時間経過後に海星の角度を一時保存しておく変数
     float rotatePower = 0;          // 海星本体の回転量
     Vector2 armPos;
     float ParticleAngle;
@@ -48,6 +46,7 @@ public class StarFishOriginal : MonoBehaviour {
 
     [SerializeField] ParticleSystem[] ParticleList;     // パーティクルリスト(0.. 腕のパーティクル、1.. 爆発のパーティクル、2.. 壁にあたった時のパーティクル、3.. ゴールラインを超えたときのパーティクル)
     [SerializeField] GameObject ArrowObject;            // 矢印のゲームオブジェクト
+    [SerializeField] AudioClip[] ClearSound;            // クリア演出の際に流す効果音
     [SerializeField] float bombPower;                   // 爆発の大きさ
     [SerializeField] float ArrowDisplayTime;            // 矢印を表示させるまでの時間
     [SerializeField] float SavePosDistance;             // 座標を保存する間隔
@@ -74,8 +73,6 @@ public class StarFishOriginal : MonoBehaviour {
 
         rb = GetComponent<Rigidbody2D>();   // Rigidbody2Dを取得
 
-        position = new Vector2[100];        // 100個分の配列を確保
-        angle = new float[100];             // 100個分の配列を確保
 	}
 	
 	// Update is called once per frame
@@ -85,32 +82,6 @@ public class StarFishOriginal : MonoBehaviour {
             case (byte)GAME_STATUS._PLAY:   // ゲームプレイ時
                 if (!GameDirector.Instance.GetPauseFlg)      // ポーズ中でなければ通常通り実行
                 {
-                    if (i < 100)
-                    {
-                        if (i != 0)  // 座標が1個でも保存されていたら
-                        {
-                            float Distance = Mathf.Abs(Vector2.Distance(position[i - 1], this.transform.position));     // 前回保存した座標と現在の座標の距離を絶対値として保存
-
-                            if (Distance > SavePosDistance)          // 前回保存した座標と現在の座標が規定の距離を超えたら
-                            {
-                                position[i] = this.transform.position;          // 現在の座標を保存
-                                angle[i] = this.transform.localEulerAngles.z;   // 現在の角度を保存
-                                i++;                                            // 次の要素へ
-                            }
-                        }
-                        else        // 座標が1個も保存していなかったら
-                        {
-                            Vector2 START_POS = new Vector2(START_X, START_Y);      // 初期位置を変数に格納
-                            float Distance = Mathf.Abs(Vector2.Distance(START_POS, this.transform.position));    // 初期位置と現在の座標の距離を絶対値として保存
-
-                            if (Distance > SavePosDistance)                 // 初期位置と現在の座標の距離が規定の距離を超えたら
-                            {
-                                position[i] = this.transform.position;              // 現在の座標を保存
-                                angle[i] = this.transform.localEulerAngles.z;       // 現在の角度を保存
-                                i++;                                                // 次の要素へ
-                            }
-                        }
-                    }
 
                     if (GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1)
                     {
@@ -170,8 +141,6 @@ public class StarFishOriginal : MonoBehaviour {
                         {
                             if (i < 100)
                             {
-                                position[i] = this.transform.position;          // 爆発したときも座標を取得
-                                angle[i] = this.transform.localEulerAngles.z;   // 現在の角度を取得
                                 i++;                                            // 保存する配列の要素番号を1つ加算
                             }
 
@@ -227,6 +196,10 @@ public class StarFishOriginal : MonoBehaviour {
                         }
                         else if (GameDirector.Instance.GetArmNumber() > _MAX_TAP)        // 最初のタップ
                         {
+                            GetComponent<Animator>().enabled = false;       // アニメーターをオフにする
+
+                            GetComponent<CreateEffect>().InstantiateParticle();
+
                             GameDirector.Instance.SetArmNumber(GameDirector.Instance.GetArmNumber() - 1);               // 腕の本数を1減算
                             rotatePower = 12f * bombPower;      // 回転を設定
                                                                 // 左上に力を加える
@@ -318,10 +291,23 @@ public class StarFishOriginal : MonoBehaviour {
                         Status = (byte)GAME_STATUS._OVER;      // ゲームオーバー処理へ
                     }
                 }
+                else
+                {
+                    GameObject canvas = GameObject.Find("Canvas_beta");
+                    if(canvas.transform.GetChild(2).gameObject.activeSelf)
+                    {
+                        gameObject.GetComponent<Animator>().SetTrigger("IdleTrigger");
+                    }
+                }
                 break;
 
             case (byte)GAME_STATUS._CREAR_EFFECT:
                 rb.velocity = Vector2.zero;         // 重力を無効化
+
+                if(!this.GetComponent<AudioSource>().isPlaying)
+                {
+                    this.GetComponent<AudioSource>().PlayOneShot(ClearSound[0]);    // 回転音を再生
+                }
 
                 if (rotatePower < 10.0f && rotatePower > -10.0f)
                 {
@@ -360,7 +346,8 @@ public class StarFishOriginal : MonoBehaviour {
                     if(FadeAlpha <= 0)
                     {
                         Status = (byte)GAME_STATUS._CLEAR;
-                        Instantiate(ParticleList[(int)PARTICLE.GOAL], gameObject.transform);
+                        var effect = Instantiate(ParticleList[(int)PARTICLE.GOAL]);
+                        effect.transform.position = gameObject.transform.position;
                     }
                 }
 
@@ -372,6 +359,8 @@ public class StarFishOriginal : MonoBehaviour {
             case (byte)GAME_STATUS._CLEAR:      // クリア処理
 
                 ForceY = 0.4f;
+
+                this.GetComponent<AudioSource>().PlayOneShot(ClearSound[1]);    // 飛んでいく音を再生
 
                 int StageNum = GameDirector.Instance.GetSceneNumber - 1;        // 現在のステージ番号を取得
 
@@ -387,14 +376,11 @@ public class StarFishOriginal : MonoBehaviour {
                     GetComponent<SaveStageInfo>().SaveGetPearlInfo(GameDirector.Instance.GetSceneNumber - 1);       // 現在のステージの真珠を獲得したことを保存
                 }
 
-                GetComponent<SaveCSV>().BinarySavePos(position, angle, i);    // 保存した位置と角度をファイルに書き込み
                 StartCoroutine("LoadResult");                           // コルーチンでリザルトシーンを読み込む
                 Status = 99;                                            // シーンの2度読み防止
                 break;
 
-            case (byte)GAME_STATUS._OVER:       // ゲームオーバー処理
-                GetComponent<SaveCSV>().BinarySavePos(position, angle, i);    // 保存した位置と角度をファイルに書き込み
-                
+            case (byte)GAME_STATUS._OVER:       // ゲームオーバー処理                
                 StartCoroutine("LoadOver");                             // コルーチンでゲームオーバーシーンを読み込む
 
                 Status = 99;                                            // シーンの2度読み防止
@@ -462,36 +448,40 @@ public class StarFishOriginal : MonoBehaviour {
     {
         if (col.collider.tag == "Wall")
         {
-            Vector3 hitPos;
-            foreach (ContactPoint2D point in col.contacts)
+            if (!GameDirector.Instance.GetPauseFlg)         // 最初のアニメーションでエフェクトを発生させないようにする
             {
-                hitPos = point.point;                                                   // 衝突した座標を取得
-                var effect = Instantiate(ParticleList[(int)PARTICLE.WALLTOUTCH]);       // エフェクト生成
-                effect.transform.position = hitPos;                                     // エフェクトを衝突した座標に移動
-                VariousFixer vf = effect.GetComponent<VariousFixer>();                  // スクリプト取得
-                if (transform.position.x < 0)       // 画面の左側で壁にあたった場合
+
+                Vector3 hitPos;
+                foreach (ContactPoint2D point in col.contacts)
                 {
-                    vf.RotationY(90f);              // エフェクトを右向きに
+                    hitPos = point.point;                                                   // 衝突した座標を取得
+                    var effect = Instantiate(ParticleList[(int)PARTICLE.WALLTOUTCH]);       // エフェクト生成
+                    effect.transform.position = hitPos;                                     // エフェクトを衝突した座標に移動
+                    VariousFixer vf = effect.GetComponent<VariousFixer>();                  // スクリプト取得
+                    if (transform.position.x < 0)       // 画面の左側で壁にあたった場合
+                    {
+                        vf.RotationY(90f);              // エフェクトを右向きに
+                    }
+                    else
+                    {
+                        vf.RotationY(270f);             // エフェクトを左向きに
+                    }
+                }
+
+                if (transform.position.x < 0)        // 画面の左側で岩にあたった場合
+                {
+                    rotatePower = 7.0f;             // 時計回りに回転
+                                                    // 右上に力を加える
+                    ForceX = 0.1f;
+                    ForceY = 0.1f;
                 }
                 else
                 {
-                    vf.RotationY(270f);             // エフェクトを左向きに
+                    rotatePower = -7.0f;            // 反時計回りに回転
+                                                    // 左上に力を加える
+                    ForceX = -0.1f;
+                    ForceY = 0.1f;
                 }
-            }
-
-            if (transform.position.x < 0)        // 画面の左側で岩にあたった場合
-            {
-                rotatePower = 7.0f;             // 時計回りに回転
-                // 右上に力を加える
-                ForceX = 0.1f;
-                ForceY = 0.1f;
-            }
-            else
-            {
-                rotatePower = -7.0f;            // 反時計回りに回転
-                // 左上に力を加える
-                ForceX = -0.1f;
-                ForceY = 0.1f;
             }
         }
         else if (col.collider.tag == "RightWall")
