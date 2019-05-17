@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SeaMove : MonoBehaviour
 {
+    [SerializeField] bool Title;
     [SerializeField] bool Background_Sky;
     [SerializeField] float speed;
     [SerializeField] float ReStartPosX;     //リスタートする位置(２つ目のの道路の初めの位置)
@@ -14,10 +15,13 @@ public class SeaMove : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
-        float goal_y = GameObject.Find("GoalLine").gameObject.transform.position.y;
-        Vector3 pos = new Vector3(0, goal_y, 0);
-        this.gameObject.transform.position = pos;
+        if (!Title)
+        {
+            float goal_y = GameObject.Find("GoalLine").gameObject.transform.position.y;
+            Vector3 pos = new Vector3(0, goal_y, 0);
+            this.gameObject.transform.position = pos;
+        }
+        
 
     }
 
