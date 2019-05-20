@@ -21,6 +21,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     /// </summary>
     [SerializeField] private SceneObject GameOverScene;    //ゲームオーバーの情報格納
     [SerializeField] private SceneObject GameResultScene;  //ゲームリザルトの情報格納
+    [SerializeField] private SceneObject AreaSelectScene;  //エリアセレクトの情報格納
     [SerializeField] private GameObject player;            //プレイヤーの情報格納
     [SerializeField] private string[] StageSceneName;      //各メインシーンの名前格納
 
@@ -125,7 +126,11 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         _chaceFlg = false;
         return SceneManager.LoadSceneAsync(GameOverScene);
     }
-
+    public AsyncOperation LoadAreaSelect()
+    {
+        _chaceFlg = false;
+        return SceneManager.LoadSceneAsync(AreaSelectScene);
+    }
 
     
     #region Getter/Setter
