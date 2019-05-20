@@ -55,6 +55,8 @@ MonoBehaviour:
     m_SceneName: GameOver
   GameResultScene:
     m_SceneName: Result
+  AreaSelectScene:
+    m_SceneName: Area_Select
   player: {fileID: 0}
   StageSceneName:
   - TestStage1
