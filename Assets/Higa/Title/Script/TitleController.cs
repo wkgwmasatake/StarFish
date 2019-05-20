@@ -117,10 +117,6 @@ public class TitleController : MonoBehaviour {
             {
                 //se_start.Play();
                 ChangePhase(PHASE.START);
-                float alpha = 0f;
-                var color = start_text.color;
-                color.a = alpha;
-                start_text.color = color;
                 startFlg = true;
 
                 //area_select = GameDirector.Instance.LoadAreaSelect();
@@ -159,6 +155,15 @@ public class TitleController : MonoBehaviour {
 
     private void FadeInProcess()
     {
+        //blackfade1.rectTransform.anchoredPosition =
+        //    new Vector2(blackfade1.rectTransform.anchoredPosition.x, blackfade1.rectTransform.anchoredPosition.y + 100);     // フェード画像のy座標を50下げる
+
+        ////Debug.Log(blackfade1.rectTransform.anchoredPosition);
+
+        //if (blackfade1.rectTransform.anchoredPosition.y > 0f)
+        //{
+        //    area_select.allowSceneActivation = true;
+        //}
 
         // フェードアウト
         float alpha = 1 / (60 * blackfadetime);
@@ -254,6 +259,25 @@ public class TitleController : MonoBehaviour {
             fadeFlg = false;
         }
 
+    }
+
+
+    private void CameraProcess()
+    {
+        if(pawnflg1 == false)
+        {
+            CameraShake cs = GameObject.Find("Camera").GetComponent<CameraShake>();
+            cs.Shake(shaketime, 0.05f);
+            //Invoke(ChangePhase(PHASE.START),0.5f);
+            pawnflg1 = true;
+        }
+
+        time += Time.deltaTime;
+        if (time >= shaketime)
+        {
+            ChangePhase(PHASE.START);
+        }
+        //Debug.Log(time);
     }
 
 
