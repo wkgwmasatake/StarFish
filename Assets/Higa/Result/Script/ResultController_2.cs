@@ -64,7 +64,7 @@ public class ResultController_2 : MonoBehaviour {
     {
 
         whitefade.rectTransform.anchoredPosition =
-                    new Vector2(whitefade.rectTransform.anchoredPosition.x, whitefade.rectTransform.anchoredPosition.y - 50);     // フェード画像のy座標を50下げる
+                    new Vector2(whitefade.rectTransform.anchoredPosition.x, whitefade.rectTransform.anchoredPosition.y - 100);     // フェード画像のy座標を50下げる
 
         //Debug.Log(whitefade.rectTransform.anchoredPosition);
 
