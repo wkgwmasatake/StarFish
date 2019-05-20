@@ -5,9 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/JoinFolder/Title.unity
+    guid: e6ffb5c5c26dfe448bc95af50dfebfba
   - enabled: 1
     path: Assets/JoinFolder/Area_Select.unity
     guid: 6b6cd518d146d35478a5d9f4a8e22b7e
@@ -57,8 +57,8 @@ EditorBuildSettings:
     path: Assets/JoinFolder/Area5/TestStage13.unity
     guid: 098bf646c7aa6b34f86abdb767995bb0
   - enabled: 1
-    path: 
-    guid: 00000000000000000000000000000000
+    path: Assets/JoinFolder/Result.unity
+    guid: 369c66a5d484a454aab63bf64f48eeb0
   - enabled: 1
     path: Assets/JoinFolder/GameOver.unity
     guid: 04dd5941008b6034bb5e101398f4dd16

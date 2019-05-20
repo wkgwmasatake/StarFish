@@ -70,21 +70,22 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
     private void Awake()
     {
-        cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
-        goalLine = GameObject.Find("GoalLine");
-
         // STAGE_MAX分回す
         for (int i = 0; i < STAGE_MAX; i++)
         {
             //現在のシーンがメインなら
             if (SceneManager.GetActiveScene().name == StageSceneName[i])
             {
+                cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+                goalLine = GameObject.Find("GoalLine");
+
                 // nowSceneに現在のステージシーンの名前を保存
                 SetSceneName = SceneManager.GetActiveScene().name;
 
                 _SceneNumber = i + 2;
 
                 Debug.Log("_sceneNumber : " + _SceneNumber);
+                Debug.Log("SceneName" + GetSceneName);
 
                 // 最初のゴールまでの距離
                 _startDistance = ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y);
