@@ -59,6 +59,11 @@ public class TitleController : MonoBehaviour {
 
     private AsyncOperation area_select;
 
+    private void Awake()
+    {
+        Screen.SetResolution(540, 960, false, 60);
+    }
+
     // Use this for initialization
     void Start () {
 
