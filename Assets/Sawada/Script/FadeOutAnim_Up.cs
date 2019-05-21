@@ -38,4 +38,5 @@ public class FadeOutAnim_Up : MonoBehaviour
         StartStage.SetActive(true);
         PauseUI.SetActive(true);
     }
+
 }
