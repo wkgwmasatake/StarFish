@@ -4831,7 +4831,7 @@ GameObject:
   - component: {fileID: 1590465911}
   - component: {fileID: 1590465910}
   m_Layer: 5
-  m_Name: 8tage8
+  m_Name: Stage8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-public class StageButton : MonoBehaviour {
+
+public class SelectStage : MonoBehaviour {
     [SerializeField] private GameObject Director;
 
     private AudioSource SE_Taped;
@@ -15,7 +16,7 @@ public class StageButton : MonoBehaviour {
     Button coButton;
 
     private int now_status;
-    
+
     public string NAME;//inspector上からステージ名を入力出来るようにする
 
     private string Namestage;
@@ -30,10 +31,10 @@ public class StageButton : MonoBehaviour {
     void Start()
     {
         init();
-        SE_Taped = GetComponent<AudioSource>();   
+        SE_Taped = GetComponent<AudioSource>();
     }
 
-    private　void init()
+    private void init()
     {
         //GetObj();//canvas-> Parent_stage-> object取得
         coButton = GetComponent<UnityEngine.UI.Button>();// ボタンのコンポーネントを取得
@@ -45,49 +46,49 @@ public class StageButton : MonoBehaviour {
         switch (name)
         {
             case "Stage1":
-                now_status = StageDirector.Instance.GetStateStage(0, 0);
+                now_status = SelectDirector.Instance.GetStateStage(0, 0);
                 break;
             case "Stage2":
-                now_status = StageDirector.Instance.GetStateStage(1, 0);
+                now_status = SelectDirector.Instance.GetStateStage(1, 0);
                 break;
             case "Stage3":
-                now_status = StageDirector.Instance.GetStateStage(2, 0);
+                now_status = SelectDirector.Instance.GetStateStage(2, 0);
                 break;
             case "Stage4":
-                now_status = StageDirector.Instance.GetStateStage(3, 0);
-                break;        
+                now_status = SelectDirector.Instance.GetStateStage(3, 0);
+                break;
             case "Stage5":
-                now_status = StageDirector.Instance.GetStateStage(4, 0);
+                now_status = SelectDirector.Instance.GetStateStage(4, 0);
                 break;
             case "Stage6":
-                now_status = StageDirector.Instance.GetStateStage(5, 0);
+                now_status = SelectDirector.Instance.GetStateStage(5, 0);
                 break;
             case "Stage7":
-                now_status = StageDirector.Instance.GetStateStage(6, 0);
+                now_status = SelectDirector.Instance.GetStateStage(6, 0);
                 break;
             case "Stage8":
-                now_status = StageDirector.Instance.GetStateStage(7, 0);
+                now_status = SelectDirector.Instance.GetStateStage(7, 0);
                 break;
             case "Stage9":
-                now_status = StageDirector.Instance.GetStateStage(8, 0);
+                now_status = SelectDirector.Instance.GetStateStage(8, 0);
                 break;
             case "Stage10":
-                now_status = StageDirector.Instance.GetStateStage(9, 0);
+                now_status = SelectDirector.Instance.GetStateStage(9, 0);
                 break;
             case "Stage11":
-                now_status = StageDirector.Instance.GetStateStage(10, 0);
+                now_status = SelectDirector.Instance.GetStateStage(10, 0);
                 break;
             case "Stage12":
-                now_status = StageDirector.Instance.GetStateStage(11, 0);
+                now_status = SelectDirector.Instance.GetStateStage(11, 0);
                 break;
             case "Stage13":
-                now_status = StageDirector.Instance.GetStateStage(12, 0);
+                now_status = SelectDirector.Instance.GetStateStage(12, 0);
                 break;
             case "Stage14":
-                now_status = StageDirector.Instance.GetStateStage(13, 0);
+                now_status = SelectDirector.Instance.GetStateStage(13, 0);
                 break;
             case "Stage15":
-                now_status = StageDirector.Instance.GetStateStage(14, 0);
+                now_status = SelectDirector.Instance.GetStateStage(14, 0);
                 break;
         }
         Change_SetActive(now_status);
@@ -100,11 +101,12 @@ public class StageButton : MonoBehaviour {
         {
             foreach (Transform child in transform)//ロック状態
             {
-                child.gameObject.SetActive(true);  
+                child.gameObject.SetActive(true);
             }
             coButton.enabled = false;
         }
-        else        {
+        else
+        {
             foreach (Transform child in transform)//非ロック状態
             {
                 child.gameObject.SetActive(false);
@@ -112,6 +114,7 @@ public class StageButton : MonoBehaviour {
             coButton.enabled = true;
         }
     }
+
     public void ButtonStage()//クリックした時
     {
         SE_Taped.PlayOneShot(SE_Taped.clip);//効果音再生

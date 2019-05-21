@@ -34,32 +34,36 @@ public class StegeClick : MonoBehaviour
         rect = GetComponent<RectTransform>();
         tap_SE = GetComponent<AudioSource>();
         int num = StageDirector.Instance.GetClearNUM();
+        if(gameObject.name == "Left_arrow")
+        {
+            this.gameObject.SetActive(true);
+        }
 
         switch (num)
         {
-            case 0:
             case 1:
             case 2:
+            case 3:
                 now_area = GameObject.Find(area_name[0]);
                 break;
-            case 3:
             case 4:
             case 5:
+            case 6:
                 now_area = GameObject.Find(area_name[1]);
                 break;
-            case 6:
             case 7:
             case 8:
+            case 9:
                 now_area = GameObject.Find(area_name[2]);
                 break;
-            case 9:
             case 10:
             case 11:
+            case 12:
                 now_area = GameObject.Find(area_name[3]);
                 break;
-            case 12:
             case 13:
             case 14:
+            case 15:
                 now_area = GameObject.Find(area_name[4]);
                 break;
         }

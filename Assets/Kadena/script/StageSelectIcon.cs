@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-public class StageButton : MonoBehaviour {
+
+public class StageSelectIcon : MonoBehaviour {
     [SerializeField] private GameObject Director;
 
     private AudioSource SE_Taped;
@@ -15,7 +16,7 @@ public class StageButton : MonoBehaviour {
     Button coButton;
 
     private int now_status;
-    
+
     public string NAME;//inspector上からステージ名を入力出来るようにする
 
     private string Namestage;
@@ -30,10 +31,10 @@ public class StageButton : MonoBehaviour {
     void Start()
     {
         init();
-        SE_Taped = GetComponent<AudioSource>();   
+        SE_Taped = GetComponent<AudioSource>();
     }
 
-    private　void init()
+    private void init()
     {
         //GetObj();//canvas-> Parent_stage-> object取得
         coButton = GetComponent<UnityEngine.UI.Button>();// ボタンのコンポーネントを取得
@@ -55,7 +56,7 @@ public class StageButton : MonoBehaviour {
                 break;
             case "Stage4":
                 now_status = StageDirector.Instance.GetStateStage(3, 0);
-                break;        
+                break;
             case "Stage5":
                 now_status = StageDirector.Instance.GetStateStage(4, 0);
                 break;
@@ -91,7 +92,6 @@ public class StageButton : MonoBehaviour {
                 break;
         }
         Change_SetActive(now_status);
-
     }
 
     private void Change_SetActive(int num)
@@ -100,11 +100,12 @@ public class StageButton : MonoBehaviour {
         {
             foreach (Transform child in transform)//ロック状態
             {
-                child.gameObject.SetActive(true);  
+                child.gameObject.SetActive(true);
             }
             coButton.enabled = false;
         }
-        else        {
+        else
+        {
             foreach (Transform child in transform)//非ロック状態
             {
                 child.gameObject.SetActive(false);
