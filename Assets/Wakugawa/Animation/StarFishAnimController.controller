@@ -54,7 +54,10 @@ AnimatorStateTransition:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: IdleTrigger
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102568048151552710}
   m_Solo: 0
@@ -206,7 +209,7 @@ AnimatorStateMachine:
     m_Position: {x: 264, y: 216, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102471481789936398}
-    m_Position: {x: 264, y: 384, z: 0}
+    m_Position: {x: 264, y: 408, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102884719293903948}
     m_Position: {x: 264, y: 312, z: 0}

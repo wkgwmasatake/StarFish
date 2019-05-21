@@ -43,6 +43,7 @@ public class StarFishOriginal : MonoBehaviour {
     bool PearlFlag = false;         // 真珠の取得状況フラグ
     bool FadeFlag = true;           // 足のフェードイン、フェードアウトのフラグ(trueでフェードアウト、falseでフェードイン)
     float FadeAlpha = 1.0f;         // 足のアルファ値(0～1)
+    Animator anim;
 
     [SerializeField] ParticleSystem[] ParticleList;     // パーティクルリスト(0.. 腕のパーティクル、1.. 爆発のパーティクル、2.. 壁にあたった時のパーティクル、3.. ゴールラインを超えたときのパーティクル)
     [SerializeField] GameObject ArrowObject;            // 矢印のゲームオブジェクト
@@ -73,10 +74,19 @@ public class StarFishOriginal : MonoBehaviour {
 
         rb = GetComponent<Rigidbody2D>();   // Rigidbody2Dを取得
 
+        anim = GetComponent<Animator>();
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+        if(GameDirector.Instance.GetStarFishFlg)
+        {
+            anim.SetTrigger("IdleTrigger");
+            GameDirector.Instance.SetStarFishFlg = false;
+        }
+
         switch (Status)
         {
             case (byte)GAME_STATUS._PLAY:   // ゲームプレイ時
@@ -283,12 +293,15 @@ public class StarFishOriginal : MonoBehaviour {
                         {
                             ArrowObject.SetActive(false);
                         }
+
+                        GameDirector.Instance.UI_Fade();        // 一時停止ボタンをフェードアウト
                     }
 
                     // 残りの可能タップ数が1以下になった時かつ、Yに対する力が 0.001f ～ -0.001f になった時に
                     if (GameDirector.Instance.GetArmNumber() <= 1 && ForceY < 0.001f && ForceY > -0.001f)
                     {
                         Status = (byte)GAME_STATUS._OVER;      // ゲームオーバー処理へ
+                        GameDirector.Instance.UI_Fade();        // 一時停止ボタンをフェードアウト
                     }
                 }
                 else
