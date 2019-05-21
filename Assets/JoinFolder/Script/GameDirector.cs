@@ -53,6 +53,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     private bool _particleFlg;           //パーティクルフラグ
     private bool _chaceFlg = true;      //カメラの追跡フラグ
     private static int _Pearl_Flag;           // パール取得フラグ
+    private bool _cameraFlg = false;          // カメラのアニメーションフラグ
 
 
 
@@ -182,6 +183,11 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     // パールの取得フラグゲッター・セッター
     public int GetPearlFlag { get { return _Pearl_Flag; } }
     public int SetPearlFlag { set { _Pearl_Flag = value; } }
+
+    // ゲッター・セッター
+    public bool GetCameraAnimFlg { get { return _cameraFlg; } }
+    public bool SetCameraAnimFlg { set { _cameraFlg = value; } }
+
 
     #endregion
 
