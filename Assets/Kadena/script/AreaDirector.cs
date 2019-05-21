@@ -72,32 +72,37 @@ public class AreaDirector : SingletonMonoBehaviour<AreaDirector> {
     {
         //ゲームディレクターのGetAreaClear_Flgを用いてクリア状況をnum_clearedに代入する
         int clear_area = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetAreaClear_Flg);
-
-        //if (clear_area == -1)
-        //{
-        //    clear_area = 0;
-        //}
-        //else if (clear_area == 2 || clear_area == 3)
-        //{
-        //    clear_area = 2;
-        //}
-        //else if (clear_area >= 4 && clear_area < 8)
-        //{
-        //    clear_area = 3;
-        //}
-        //else if (clear_area >= 8)
-        //{
-        //    clear_area = 4;
-        //}
+        //int clear_stage = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetStageClear_Flg);
 
         num_cleared = clear_area;
+        //num_cleared = ((clear_area -1) * 3) + clear_stage;
 
-        //Debug.Log("area " + clear_area);
-        //Debug.Log(num_cleared);
+        //switch (clear_area)
+        //{
+        //    case 1:
+        //        num_cleared = 1;
+        //        break;
+        //    case 2:
+        //        num_cleared = 2;
+        //        break;
+        //    case 3:
+        //        num_cleared = 3;
+        //        break;
+        //    case 4:
+        //        num_cleared = 4;
+        //        break;
+        //    case 5:
+        //        num_cleared = 5;
+        //        break;
+        //}
+        Debug.Log("area " + clear_area);
+        //Debug.Log("clear_stage " + clear_stage);
+
+
+        Debug.Log("num_cleard " + num_cleared);
 
         area = new int[AREA_MAX + 1];
         Area_state = new int[AREA_MAX + 1];
-
     }
 
     private void setAll_Stage(int num_1, int num_2, int num_3, int num_4, int num_5)
