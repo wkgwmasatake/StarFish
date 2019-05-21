@@ -13,10 +13,17 @@ public class ResultController : MonoBehaviour {
         END,
     }
 
+    [SerializeField] Camera camera;
     [SerializeField] Image whitefade;
     [SerializeField] GameObject rising_star;
     [SerializeField] GameObject fade_star;
-    [SerializeField] GameObject ShootingStar;
+    [SerializeField] GameObject shootingStar;
+    [SerializeField] GameObject constellation_line;
+    [SerializeField] GameObject constellation_image;
+    [SerializeField] GameObject[] sheep_stars;
+    [SerializeField] int stage_num;
+    [SerializeField] int now_clear_stage;
+
 
     [SerializeField] AudioSource se_splash;
 
@@ -27,6 +34,8 @@ public class ResultController : MonoBehaviour {
     private GameObject _rising_star;
     private ParticleSystem _star_ps;
     private float time;
+    private int area_num;
+    
 
     private bool pawnflg1, pawnflg2, pawnflg3;
 
@@ -35,11 +44,15 @@ public class ResultController : MonoBehaviour {
 
         whitefade.enabled = true;
 
-        ShootingStar.SetActive(false);
+        //shootingStar.SetActive(false);
 
         now_phase = PHASE.FADE;
 
         pawnflg1 = pawnflg2 = pawnflg3 = false;
+
+        PawnStarCluster();
+
+
 	}
 	
 	// Update is called once per frame
@@ -71,7 +84,7 @@ public class ResultController : MonoBehaviour {
 
         if(whitefade.rectTransform.anchoredPosition.y < -2850f)
         {
-            ChangePhase(PHASE.STAR);
+            //ChangePhase(PHASE.STAR);
         }
     }
 
@@ -126,5 +139,59 @@ public class ResultController : MonoBehaviour {
     private void PawnFadeStar()
     {
         Instantiate(fade_star);
+        GameDirector.Instance.ParticleFlg = true;
+    }
+
+    private void PawnStarCluster()
+    {
+        //for (int i = 0; i < sheep_stars.Length; i++)
+        //{
+        //    sheep_stars[i] = constellation_line.transform.GetChild(i).gameObject;
+        //}
+
+
+        for (int i = 0; i < stage_num; i++)
+        {
+            if (i != now_clear_stage - 1)
+            {
+                var _fade_star = Instantiate(fade_star);
+                _fade_star.transform.position = sheep_stars[i].transform.position;
+                //Destroy(constellation_num[i]);
+
+            }
+            else
+            {
+                var _rising_star = Instantiate(rising_star);
+                Vector3 pos = sheep_stars[i].transform.position;
+                pos.y -= 4.05f + 0.4165f;   // GrayStarとRisingStarの Y軸 の差
+
+                //_rising_star.transform.position = constellation_num[i].transform.position;
+                _rising_star.transform.position = pos;
+
+                //Debug.Log("rising : "+_rising_star.transform.position);
+                //Debug.Log("gray : "+constellation_num[i].transform.position);
+                //Debug.Log("pos : " + pos);
+
+                StartCoroutine(PawnFadeStar(sheep_stars[i].transform.position, 1.0f));
+
+                Vector3 pos1 = sheep_stars[i].transform.position;
+                pos1.z = -10f;
+                camera.transform.position = pos1;
+                camera.orthographicSize = 0.5f;
+            }
+
+        }
+
+    }
+
+    private IEnumerator PawnFadeStar(Vector3 pos, float second)
+    {
+        yield return new WaitForSeconds(second);
+
+        var _fade_star = Instantiate(fade_star);
+        _fade_star.transform.position = pos;
+
+
+        yield return null;
     }
 }
