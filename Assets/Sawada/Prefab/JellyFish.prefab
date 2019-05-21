@@ -285,8 +285,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 5b91eac4eb1899d48a99cd7c5b32e574, type: 3}
+  - {fileID: 8300000, guid: 0b273e3970e5dd440bf8162a66d42d56, type: 3}
 --- !u!114 &114771417002409256
 MonoBehaviour:
   m_ObjectHideFlags: 1

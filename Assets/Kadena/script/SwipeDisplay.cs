@@ -61,17 +61,16 @@ public class SwipeDisplay : MonoBehaviour {
         {
             case "right":
                 //右フリックされた時の処理
-                leftarrow.GetComponent<ButtonClick>().Left_Onclick();
+                leftarrow.GetComponent<ArrowClick>().Left_Onclick();
 
                 Debug.Log("right");
                 break;
 
             case "left":
                 //左フリックされた時の処理
-                rightarrow.GetComponent<ButtonClick>().Right_Onclick();
+                rightarrow.GetComponent<ArrowClick>().Right_Onclick();
                 Debug.Log("left");
                 break;
         }
     }
-
 }

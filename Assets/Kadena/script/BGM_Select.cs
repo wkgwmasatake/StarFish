@@ -15,10 +15,8 @@ public class BGM_Select : MonoBehaviour {
         bgmAS = GetComponent<AudioSource>();
         float vol = OptionDirector.Instance.GetBGMvolume();
         VolumeChange(vol);
-        Debug.Log("BGM "+ vol);
         bgmAS.Play();
     }
-
     //public void BGMPlay(int num)//bgmの再生
     //{
     //    bgmAS.clip = clips[num];
@@ -29,5 +27,11 @@ public class BGM_Select : MonoBehaviour {
     {
         fix_vol = num;
         bgmAS.volume = fix_vol;
+    }
+
+     public IEnumerator FadeOut()
+    {
+
+        yield return null;
     }
 }

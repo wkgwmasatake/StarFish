@@ -9,7 +9,10 @@ public class AreaButton : MonoBehaviour {
 
     [SerializeField] private GameObject Director;
     [SerializeField] private GameObject Fade_Black;
+    [SerializeField] private GameObject Left;
+    [SerializeField] private GameObject Right;
     [SerializeField] private float size_test;
+    
     private AudioSource SE_Taped;
     private AudioSource SE_Failed;
 
@@ -48,10 +51,10 @@ public class AreaButton : MonoBehaviour {
     }
     private void Init()
     {
-
         coButton = GetComponent<UnityEngine.UI.Button>();// ボタンのコンポーネントを取得
 
         string name = gameObject.name;
+
         switch (name)
         {
             case "Area_1":
@@ -70,7 +73,7 @@ public class AreaButton : MonoBehaviour {
                 now_status = AreaDirector.Instance.GetStateArea(4, 0);
                 break;
         }
-        Change_SetActive(now_status);
+        Change_SetActive( now_status);
         //Debug.Log(now_status);
     }
 
@@ -110,6 +113,8 @@ public class AreaButton : MonoBehaviour {
         //if (zoom_flg == false)
         //{
         //    StartCoroutine(ZoomUp());
+        //    Left.gameObject.SetActive(false);
+        //    Right.gameObject.SetActive(false);
         //}
         //else
         //{
@@ -121,51 +126,59 @@ public class AreaButton : MonoBehaviour {
     private IEnumerator ZoomUp()
     {
         float size = 0f;
-        float speed = 0.05f;
-        while(size <= 1.0f)
+        float speed = 0.06f;
+
+        while(size < 1.0f)
         {
             this.transform.localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(size_test, size_test, 1), size);
             size += speed;
             zoom_flg = true;
             GetComponent<Image>().color = new Color(red, green, blue, alpha);
             StartCoroutine(Fade_Black.GetComponent<FadeBlack>().FadeIn());
-            alpha -= speed + 0.01f;
+            alpha -= speed;
             yield return null;
-            foreach (Transform child in transform)//非ロック状態
+        }
+        foreach (Transform child in transform)//非ロック状態
+        {
+            if (child.gameObject.name != "imagelocked")
             {
-                if (child.gameObject.name != "imagelocked")
-                {
-                    child.gameObject.SetActive(true);
-                }
+                child.gameObject.SetActive(true);
+
             }
         }
     }
+
     private IEnumerator Zoomdown()
     {
     
         float size = 1.0f;
-        float speed = 0.05f;
+        float speed = 0.06f;
 
-        while (size >= 0f)
+        while (size > 0f)
         {
             this.transform.localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(size_test, size_test, 1), size);
             size -= speed;
             zoom_flg = false;
             GetComponent<Image>().color = new Color(red, green, blue, alpha);
             StartCoroutine(Fade_Black.GetComponent<FadeBlack>().FadeIn());
-
-            alpha += speed + 0.01f;
-
-            yield return null;
-            foreach (Transform child in transform)//非ロック状態
+            alpha += speed;
+            yield return null;            
+        }
+        foreach (Transform child in transform)//非ロック状態
+        {
+            if (child.gameObject.name != "imagelocked")
             {
-                if (child.gameObject.name != "imagelocked")
-                {
-                    child.gameObject.SetActive(false);
-                }
-
+                child.gameObject.SetActive(false);
             }
-
+        }
+        int num_area = AreaDirector.Instance.GetNumArea();
+        if (num_area != 4)
+        {
+            Right.gameObject.SetActive(true);
+        }
+        if(num_area != 0)
+        {
+            Left.gameObject.SetActive(true);
         }
     }
 }
