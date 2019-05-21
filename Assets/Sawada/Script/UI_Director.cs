@@ -333,6 +333,15 @@ public class UI_Director : MonoBehaviour
                 break;
 
             case ButtonState.Menu:  // メニュー
+
+                GameObject.Find("Main Camera").gameObject.GetComponent<Result_CameraAnim>().StartCoroutine("CameraMove");
+
+                while (Panel_UI.GetComponent<CanvasGroup>().alpha > 0)
+                {
+                    Panel_UI.GetComponent<CanvasGroup>().alpha -= downAlpha;
+                    yield return null;
+                }
+                yield return new WaitForSecondsRealtime(2.0f);
                 SceneManager.LoadScene(SceneMenu);
                 break;
 

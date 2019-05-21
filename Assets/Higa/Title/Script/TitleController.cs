@@ -2,27 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TitleController : MonoBehaviour {
 
     enum PHASE
     {
-
+        FADEIN,
         LOGO,
         READY,
-        CAMERA,
         START,
- 
+        FADEOUT,
     }
 
     [SerializeField] AudioSource se_start;
+    [SerializeField] AudioSource se_titlebreak;
+    [SerializeField] AudioSource se_bigstar;
+    [SerializeField] AudioSource se_vibe;
+    [SerializeField] AudioSource se_falling;
     [SerializeField] AudioSource bgm_title;
 
+    [SerializeField] Image blackfade1;
+    [SerializeField] Image blackfade2;
     [SerializeField] SpriteRenderer titleLogo;
     [SerializeField] SpriteRenderer start_text;
 
     [SerializeField] GameObject constellation;
+    [SerializeField] GameObject big_star;
+    [SerializeField] float TitelBreakTime;
     [SerializeField] GameObject[] star_child;
+    [SerializeField] GameObject vibe_star;
     [SerializeField] GameObject falling_star;
     [SerializeField] GameObject lost_star;
 
@@ -34,7 +43,9 @@ public class TitleController : MonoBehaviour {
     private bool pawnflg1;
     private bool pawnflg2;
     private bool pawnflg3;
+    private bool pawnflg4;
 
+    private float blackfadetime;
     private float fadetime_logo;
     private float fadetime_logo_out;
     private float fadetime_start;
@@ -44,14 +55,27 @@ public class TitleController : MonoBehaviour {
     private bool logoFlg;
     private bool fadeFlg;
 
+    private Explodable explodable;
+
+    private AsyncOperation area_select;
+
+    private void Awake()
+    {
+        Screen.SetResolution(540, 960, false, 60);
+    }
+
     // Use this for initialization
     void Start () {
 
-        now_phase = PHASE.LOGO;
+        blackfade1.enabled = true;
+        blackfade2.enabled = true;
+
+        now_phase = PHASE.FADEIN;
         time = 0f;
 
-        pawnflg1 = pawnflg2 = pawnflg3 = false;
+        pawnflg1 = pawnflg2 = pawnflg3 = pawnflg4 = false;
 
+        blackfadetime = 1.0f;
         fadetime_logo = 2.0f;
         fadetime_logo_out = 0.5f;
         fadetime_start = 1.0f;
@@ -74,10 +98,17 @@ public class TitleController : MonoBehaviour {
             star_child[i] = constellation.transform.GetChild(i).gameObject;
         }
 
-	}
+        area_select = GameDirector.Instance.LoadAreaSelect();
+        area_select.allowSceneActivation = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -89,11 +120,17 @@ public class TitleController : MonoBehaviour {
             }
             else if (startFlg == false && logoFlg == true)
             {
-                se_start.Play();
-                ChangePhase(PHASE.CAMERA);
+                //se_start.Play();
+                ChangePhase(PHASE.START);
+                float alpha = 0f;
+                var color = start_text.color;
+                color.a = alpha;
+                start_text.color = color;
                 startFlg = true;
 
-                Invoke("LoadScene", 2.0f);
+                //area_select = GameDirector.Instance.LoadAreaSelect();
+                //area_select.allowSceneActivation = false;
+                Invoke("LoadScene", 3.5f);
                 //SceneManager.LoadScene(nextScene);
             }
 
@@ -101,6 +138,10 @@ public class TitleController : MonoBehaviour {
 
         switch (now_phase)
         {
+
+            case PHASE.FADEIN:
+                FadeInProcess();
+                break;
 
             case PHASE.LOGO:
                 LogoProcess();
@@ -110,16 +151,46 @@ public class TitleController : MonoBehaviour {
                 ReadyProcess();
                 break;
 
-            case PHASE.CAMERA:
-                CameraProcess();
-                break;
-
             case PHASE.START:
                 StartProcess();
+                break;
+
+            case PHASE.FADEOUT:
+                FadeOutProcess();
                 break;
         }
 
 	}
+
+    private void FadeInProcess()
+    {
+
+        // フェードアウト
+        float alpha = 1 / (60 * blackfadetime);
+        var color = blackfade1.color;
+        color.a -= alpha;
+        blackfade1.color = color;
+
+        if (color.a <= 0f)
+        {
+            ChangePhase(PHASE.LOGO);
+        }
+    }
+
+
+    private void FadeOutProcess()
+    {
+        // フェードアウト
+        float alpha = 1 / (60 * blackfadetime);
+        var color = blackfade1.color;
+        color.a += alpha;
+        blackfade1.color = color;
+
+        if (color.a >= 1f)
+        {
+            area_select.allowSceneActivation = true;
+        }
+    }
 
 
     private void LogoProcess()
@@ -141,11 +212,26 @@ public class TitleController : MonoBehaviour {
     }
     
 
+    private void BigStarProcess()
+    {
+        if (pawnflg1 == false)
+        {
+            Instantiate(big_star);
+
+            ChangePhase(PHASE.START);
+            pawnflg1 = true;
+        }
+
+
+    }
+
+
     private void ReadyProcess()
     {
         if (pawnflg1 == false)
         {
             bgm_title.Play();
+            
             //Debug.Log("bgm_play");
             pawnflg1 = true;
         }
@@ -176,61 +262,49 @@ public class TitleController : MonoBehaviour {
     }
 
 
-    private void CameraProcess()
-    {
-        if(pawnflg1 == false)
-        {
-            CameraShake cs = GameObject.Find("Camera").GetComponent<CameraShake>();
-            cs.Shake(shaketime, 0.05f);
-            //Invoke(ChangePhase(PHASE.START),0.5f);
-            pawnflg1 = true;
-        }
-
-        time += Time.deltaTime;
-        if (time >= shaketime)
-        {
-            ChangePhase(PHASE.START);
-        }
-        //Debug.Log(time);
-    }
-
-
     private void StartProcess()
     {
 
-        
-
-        // フェードアウト
-        float alpha = 1 / (60 * fadetime_logo_out);
-        var color = titleLogo.color;
-        if(color.a > 0)
-        {
-            color.a -= alpha;
-            titleLogo.color = color;
-            bgm_title.volume = alpha;
-        }
-        
-
         if (pawnflg1 == false)
         {
-            Destroy(constellation);
+            explodable = titleLogo.GetComponent<Explodable>();
+            var _big_star = Instantiate(big_star);
+
+            se_bigstar.Play();
+
             pawnflg1 = true;
         }
 
-        if(pawnflg2 == false)
+        if(pawnflg1 == true && pawnflg2 == false) {
+            time += Time.deltaTime;
+            if(time >= TitelBreakTime)
+            {
+                explodable.explode();
+                ExplosionForce ef = GameObject.Find("Force").GetComponent<ExplosionForce>();
+                ef.doExplosion(transform.position);
+
+                se_titlebreak.Play();
+
+                time = 0f;
+                pawnflg2 = true;
+            }
+        }
+
+        if(pawnflg2 == true && pawnflg3 == false)
         {
             for(int i = 0; i < star_child.Length; i++)
             {
-                var _star_child = Instantiate(falling_star);
-                _star_child.transform.position = star_child[i].transform.position;
-
-                var _lost_star = Instantiate(lost_star);
-                _lost_star.transform.position = star_child[i].transform.position;
+                var _vibe_star = Instantiate(vibe_star);
+                _vibe_star.transform.position = star_child[i].transform.position;
             }
 
-            pawnflg2 = true;
-        }
+            Destroy(constellation);
 
+            se_vibe.Play();
+            Invoke("SeFalling",1.5f);
+
+            pawnflg3 = true;
+        }
 
     }
 
@@ -239,7 +313,7 @@ public class TitleController : MonoBehaviour {
     {
         now_phase = p;
 
-        pawnflg1 = pawnflg2 = pawnflg3 = false;
+        pawnflg1 = pawnflg2 = pawnflg3 = pawnflg4 = false;
 
         time = 0f;
     }
@@ -248,19 +322,32 @@ public class TitleController : MonoBehaviour {
     private void SkipProcess()
     {
 
+
         var color = titleLogo.color;
         color.a = 1;
         titleLogo.color = color;
+
+        var color1 = blackfade1.color;
+        color1.a = 0;
+        blackfade1.color = color1;
 
         logoFlg = true;
 
         bgm_title.Play();
     }
 
+
     private void LoadScene()
     {
         SceneManager.LoadScene(nextScene);
     }
 
+    private void SeFalling()
+    {
+        se_vibe.Stop();
+        se_falling.Play();
+
+        ChangePhase(PHASE.FADEOUT);
+    }
 }
 

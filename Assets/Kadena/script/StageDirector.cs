@@ -35,7 +35,6 @@ public class StageDirector : SingletonMonoBehaviour<StageDirector>
     //Awake -> Start -> Update
     void Awake()//オブジェクト本体の起動時処理用　
     {
-
         //gamedirectorのGetStageClear_Flgを用いてクリア状況をnum_clearedに代入する
         Init_Stage_Select();//
 
@@ -44,16 +43,16 @@ public class StageDirector : SingletonMonoBehaviour<StageDirector>
         switch (area_num)//クリア済のエリアを選択した時
         {
             case "Area_1":
-                if (num_cleared > 2) { num_cleared = 2; }
+                if (num_cleared > 3) { num_cleared = 3; }
                 break;
             case "Area_2":
-                if (num_cleared > 5) { num_cleared = 5; }
+                if (num_cleared > 6) { num_cleared = 6; }
                 break;
             case "Area_3":
-                if (num_cleared > 8) { num_cleared = 8; }
+                if (num_cleared > 9) { num_cleared = 9; }
                 break;
             case "Area_4":
-                if (num_cleared > 11) { num_cleared = 11; }
+                if (num_cleared > 12) { num_cleared = 12; }
                 break;
         }
 
@@ -61,77 +60,77 @@ public class StageDirector : SingletonMonoBehaviour<StageDirector>
         {
             case 1:
                 setAll_Area(true, false, false, false, false);
-                setAll_Stage(0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+                setAll_Stage(2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 0;
                 break;
             case 2:
                 setAll_Area(true, false, false, false, false);
-                setAll_Stage(0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+                setAll_Stage(2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 0;
                 break;
             case 3:
                 setAll_Area(true, false, false, false, false);
-                setAll_Stage(0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+                setAll_Stage(2, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 0;
                 break;
             case 4:
                 setAll_Area(false, true, false, false, false);
-                setAll_Stage(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+                setAll_Stage(2, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 3;
                 break;
             case 5:
                 setAll_Area(false, true, false, false, false);
-                setAll_Stage(0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+                setAll_Stage(2, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 3;
                 break;
             case 6:
                 setAll_Area(false, true, false, false, false);
-                setAll_Stage(0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+                setAll_Stage(2, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 3;
                 break;
             case 7:
                 setAll_Area(false, false, true, false, false);
-                setAll_Stage(0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1);
+                setAll_Stage(2, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 6;
                 break;
             case 8:
                 setAll_Area(false, false, true, false, false);
-                setAll_Stage(0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1);
+                setAll_Stage(2, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 6;
                 break;
             case 9:
                 setAll_Area(false, false, true, false, false);
-                setAll_Stage(0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1);
+                setAll_Stage(2, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1);
                 START_NUM = 6;
                 break;
             case 10:
                 setAll_Area(false, false, false, true, false);
-                setAll_Stage(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1);
+                setAll_Stage(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1);
                 START_NUM = 9;
                 break;
             case 11:
                 setAll_Area(false, false, false, true, false);
-                setAll_Stage(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1);
+                setAll_Stage(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1);
                 START_NUM = 9;
                 break;
             case 12:
                 setAll_Area(false, false, false, true, false);
-                setAll_Stage(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1);
+                setAll_Stage(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1);
                 START_NUM = 9;
                 break;
             case 13:
                 setAll_Area(false, false, false, false, true);
-                setAll_Stage(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1);
+                setAll_Stage(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1);
                 START_NUM = 12;
                 break;
             case 14:
                 setAll_Area(false, false, false, false, true);
-                setAll_Stage(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+                setAll_Stage(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
                 START_NUM = 12;
                 break;
             case 15:
                 setAll_Area(false, false, false, false, true);
-                setAll_Stage(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                setAll_Stage(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
                 START_NUM = 12;
                 break;
         }
@@ -146,32 +145,14 @@ public class StageDirector : SingletonMonoBehaviour<StageDirector>
 
     private void Init_Stage_Select()//シーン開始時の処理　エリアのクリアフラグ読み取りもここで行うこと
     {
-        int clear_area = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetAreaClear_Flg);
+        //int clear_area= GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetAreaClear_Flg);
         int clear_stage = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetStageClear_Flg);
 
-        //if (clear_area == -1)
-        //{
-        //    clear_area = 0;
-        //}
-        //else if (clear_area == 2 || clear_area == 3)
-        //{
-        //    clear_area = 2;
-        //}
-        //else if (clear_area >= 4 && clear_area < 8)
-        //{
-        //    clear_area = 3;
-        //}
-        //else if (clear_area >= 8)
-        //{
-        //    clear_area = 4;
-        //}
+        num_cleared = clear_stage;
+        //num_cleared = ((clear_area - 1)* 3) + clear_stage;
 
-        
-        num_cleared = ((clear_area - 1)* 3) + clear_stage;
-
-        //Debug.Log("clear_area " + clear_area);
-        //Debug.Log("clear_stage " + clear_stage);
-        //Debug.Log(num_cleared);
+        Debug.Log("clear_stage " + clear_stage);
+       // Debug.Log("clear_area " + clear_area);
         stage = new int[STAGE_MAX + 1];       
         Stage_state = new int[STAGE_MAX + 1];
     }

@@ -30,8 +30,7 @@ public class StageButton : MonoBehaviour {
     void Start()
     {
         init();
-        SE_Taped = GetComponent<AudioSource>();
-        
+        SE_Taped = GetComponent<AudioSource>();   
     }
 
     private　void init()

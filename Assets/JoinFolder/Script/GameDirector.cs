@@ -21,6 +21,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     /// </summary>
     [SerializeField] private SceneObject GameOverScene;    //ゲームオーバーの情報格納
     [SerializeField] private SceneObject GameResultScene;  //ゲームリザルトの情報格納
+    [SerializeField] private SceneObject AreaSelectScene;  //エリアセレクトの情報格納
     [SerializeField] private GameObject player;            //プレイヤーの情報格納
     [SerializeField] private string[] StageSceneName;      //各メインシーンの名前格納
 
@@ -51,8 +52,10 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     private static int AreaClear_Flg = 1;      //各エリアのクリアフラグ
     private bool pauseFlg = false;               //ポーズフラグ
     private bool _particleFlg;           //パーティクルフラグ
-    private bool _chaceFlg = true;      //カメラの追跡フラグ
+    private bool _chaceFlg = true;       //カメラの追跡フラグ
     private static int _Pearl_Flag;           // パール取得フラグ
+    private bool _cameraFlg = false;          // カメラのアニメーションフラグ
+    private bool _starfishFlg = false;
 
 
 
@@ -125,11 +128,30 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         _chaceFlg = false;
         return SceneManager.LoadSceneAsync(GameOverScene);
     }
+    public AsyncOperation LoadAreaSelect()
+    {
+        _chaceFlg = false;
+        return SceneManager.LoadSceneAsync(AreaSelectScene);
+    }
 
+    public void UI_Fade()
+    {
+        StartCoroutine("PauseUI_Fade");
+    }
+    IEnumerator PauseUI_Fade()
+    {
+        GameObject obj = GameObject.Find("Canvas_beta").transform.GetChild(1).transform.GetChild(1).gameObject;
+        obj.GetComponent<Button>().enabled = false;
+        while(obj.GetComponent<CanvasGroup>().alpha > 0)
+        {
+            obj.GetComponent<CanvasGroup>().alpha -= 0.05f;
+            yield return null;
+        }
+    }
 
     
     #region Getter/Setter
-
+    
     //ポジションのゲッター・セッター
     public void SetPosition(Vector2 posi) { position = posi; }
     public Vector2 GetPosition() { return position; }
@@ -182,6 +204,14 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     // パールの取得フラグゲッター・セッター
     public int GetPearlFlag { get { return _Pearl_Flag; } }
     public int SetPearlFlag { set { _Pearl_Flag = value; } }
+
+    // ゲッター・セッター
+    public bool GetCameraAnimFlg { get { return _cameraFlg; } }
+    public bool SetCameraAnimFlg { set { _cameraFlg = value; } }
+
+    public bool GetStarFishFlg { get { return _starfishFlg; } }
+    public bool SetStarFishFlg { set { _starfishFlg = value; } }
+
 
     #endregion
 

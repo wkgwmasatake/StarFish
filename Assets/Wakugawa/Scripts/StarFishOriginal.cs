@@ -294,7 +294,7 @@ public class StarFishOriginal : MonoBehaviour {
                 else
                 {
                     GameObject canvas = GameObject.Find("Canvas_beta");
-                    if(canvas.transform.GetChild(2).gameObject.activeSelf)
+                    if(canvas.transform.GetChild(2).gameObject.activeSelf && canvas.transform.childCount > 1)
                     {
                         gameObject.GetComponent<Animator>().SetTrigger("IdleTrigger");
                     }
@@ -399,12 +399,12 @@ public class StarFishOriginal : MonoBehaviour {
         AsyncOperation result = GameDirector.Instance.LoadResult();     // リザルトシーンを非同期で読み込む
         result.allowSceneActivation = false;                            // フェード処理が終わるまではシーン遷移を許可しない(注意点としてallowSceneActivationがfalseのままだとisDoneはfalseのまま)
 
-        while(!result.isDone)                               // リザルトシーンの読み込みがまだの時かAつ、フェード処理が終わってない時
+        while(!result.isDone)                               // リザルトシーンの読み込みがまだの時かつ、フェード処理が終わってない時
         {
             if (FadeImage.rectTransform.anchoredPosition.y > 0)       // フェード処理が終わってない場合
             {
                 FadeImage.rectTransform.anchoredPosition = 
-                    new Vector2(FadeImage.rectTransform.anchoredPosition.x, FadeImage.rectTransform.anchoredPosition.y - 50);     // フェード画像のy座標を50下げる
+                    new Vector2(FadeImage.rectTransform.anchoredPosition.x, FadeImage.rectTransform.anchoredPosition.y - 100);     // フェード画像のy座標を50下げる
             }
             else                                            // フェード処理が終わったら
             {

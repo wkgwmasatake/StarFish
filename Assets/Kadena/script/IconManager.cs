@@ -70,9 +70,9 @@ public class IconManager : MonoBehaviour {
 
                 switch (get_clear_num)
                 {
-                    case 0:
                     case 1:
                     case 2:
+                    case 3:
                         switch (name)
                         {
                             case "Icon_1":
@@ -89,9 +89,9 @@ public class IconManager : MonoBehaviour {
                                 break;
                         }
                         break;
-                    case 3:
                     case 4:
                     case 5:
+                    case 6:
                         switch (name)
                         {
                             case "Icon_1":
@@ -108,9 +108,9 @@ public class IconManager : MonoBehaviour {
                                 break;
                         }
                         break;
-                    case 6:
                     case 7:
                     case 8:
+                    case 9:
                         switch (name)
                         {
                             case "Icon_1":
@@ -127,9 +127,9 @@ public class IconManager : MonoBehaviour {
                                 break;
                         }
                         break;
-                    case 9:
                     case 10:
                     case 11:
+                    case 12:
                         switch (name)
                         {
                             case "Icon_1":
@@ -146,9 +146,9 @@ public class IconManager : MonoBehaviour {
                                 break;
                         }
                         break;
-                    case 12:
                     case 13:
                     case 14:
+                    case 15:
                         switch (name)
                         {
                             case "Icon_1":

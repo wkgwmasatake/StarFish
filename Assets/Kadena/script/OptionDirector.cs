@@ -8,6 +8,9 @@ public class OptionDirector : SingletonMonoBehaviour<OptionDirector> {
     private bool BGM_flg;
     private bool SE_flg;
 
+    [SerializeField]private GameObject BGM_select;
+
+    //BGM.SEのゲッターセッター
     public void SetBGMvolume(float num)
     {
         BGM_vol = num;
@@ -31,5 +34,9 @@ public class OptionDirector : SingletonMonoBehaviour<OptionDirector> {
         SE_vol = PlayerPrefs.GetFloat("SE_Volume");
         return SE_vol;
     }
-    
+    //BGMのフェードアウト処理
+    public void startFadeoOutBGM()
+    {
+        StartCoroutine(BGM_select.GetComponent<BGM_Select>().FadeOut());
+    }
 }
