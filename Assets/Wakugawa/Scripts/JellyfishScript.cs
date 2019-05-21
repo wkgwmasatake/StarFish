@@ -11,6 +11,8 @@ public class JellyfishScript : MonoBehaviour
     private JellyFish_Top Top;
     private JellyFish_Down Down;
 
+    private Vector3 nowPos;
+
     // Use this for initialization
     void Start()
     {
@@ -19,6 +21,9 @@ public class JellyfishScript : MonoBehaviour
 
         Top = this.transform.GetChild(0).gameObject.GetComponent<JellyFish_Top>();
         Down = this.transform.GetChild(1).gameObject.GetComponent<JellyFish_Down>();
+
+        // スタート位置を取得
+        nowPos = this.transform.position;
 
         Debug.Log(Top.gameObject.name);
         Debug.Log(Down.gameObject.name);
@@ -33,6 +38,7 @@ public class JellyfishScript : MonoBehaviour
             anim.SetTrigger("JumpTrigger");
             SE.clip = audio[0];
             SE.Play();
+            transform.position = new Vector3(nowPos.x, nowPos.y, 0);
         }
 
         // プレイヤーがDownに当たったら

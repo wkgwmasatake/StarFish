@@ -325,11 +325,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd0e2194d88d70f4fabae822d63e17f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whitefade: {fileID: 1218293631}
-  star: {fileID: 1008400255214598, guid: 49478eba7def44e46ac65040df38f5fb, type: 2}
-  ShootingStar: {fileID: 375211778}
-  se_splash: {fileID: 83896617}
-  RisingTime: 0
 --- !u!4 &83896616
 Transform:
   m_ObjectHideFlags: 0
@@ -970,7 +965,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 132891394
+  randomSeed: -1516926143
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -8494,7 +8489,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1162356370}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2554, z: 0}
+  m_LocalPosition: {x: 0, y: -2565, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1218293633}
@@ -8502,7 +8497,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -2554}
+  m_AnchoredPosition: {x: 0, y: -2565}
   m_SizeDelta: {x: 1440, y: 2560}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1162356372
@@ -12905,7 +12900,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1848780364
+  randomSeed: 114218422
   InitialModule:
     serializedVersion: 3
     enabled: 1
