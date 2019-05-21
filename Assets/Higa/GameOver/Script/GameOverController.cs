@@ -79,7 +79,7 @@ public class GameOverController : MonoBehaviour {
     private void FadeProcess()
     {
         blackfade1.rectTransform.anchoredPosition =
-                    new Vector2(blackfade1.rectTransform.anchoredPosition.x, blackfade1.rectTransform.anchoredPosition.y + 50);     // フェード画像のy座標を50下げる
+                    new Vector2(blackfade1.rectTransform.anchoredPosition.x, blackfade1.rectTransform.anchoredPosition.y + 100);     // フェード画像のy座標を50下げる
 
         //Debug.Log(blackfade1.rectTransform.anchoredPosition);
 

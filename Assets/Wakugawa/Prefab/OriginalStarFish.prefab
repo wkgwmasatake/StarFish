@@ -86,7 +86,6 @@ GameObject:
   - component: {fileID: 4164479904683848}
   - component: {fileID: 212112091075790300}
   - component: {fileID: 58841964035255224}
-  - component: {fileID: 114161532352662638}
   - component: {fileID: 50622211251031660}
   - component: {fileID: 247377611134514680}
   - component: {fileID: 114854495267945912}
@@ -94,6 +93,7 @@ GameObject:
   - component: {fileID: 114517573272022522}
   - component: {fileID: 82848961781651712}
   - component: {fileID: 95510442891550316}
+  - component: {fileID: 114015194653245946}
   m_Layer: 0
   m_Name: OriginalStarFish
   m_TagString: Player
@@ -169,7 +169,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1624357606720078}
   m_LocalRotation: {x: 0, y: 0, z: -0.86602545, w: 0.49999994}
-  m_LocalPosition: {x: 1.69, y: -23.55, z: 0}
+  m_LocalPosition: {x: 5, y: -23.55, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children:
   - {fileID: 4315450068489674}
@@ -392,7 +392,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114161532352662638
+--- !u!114 &114015194653245946
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -400,9 +400,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1624357606720078}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa2283af9daa7c441bc975b92efd5980, type: 3}
+  m_Script: {fileID: 11500000, guid: ea59ca4a082493341a4b981a08cc08d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SmokeParticle: {fileID: 198645931366362870, guid: a5e95c7ed5a88a04789c8ca522ec0f97,
+    type: 2}
 --- !u!114 &114369290451055718
 MonoBehaviour:
   m_ObjectHideFlags: 1

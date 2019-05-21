@@ -21,6 +21,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     /// </summary>
     [SerializeField] private SceneObject GameOverScene;    //ゲームオーバーの情報格納
     [SerializeField] private SceneObject GameResultScene;  //ゲームリザルトの情報格納
+    [SerializeField] private SceneObject AreaSelectScene;  //エリアセレクトの情報格納
     [SerializeField] private GameObject player;            //プレイヤーの情報格納
     [SerializeField] private string[] StageSceneName;      //各メインシーンの名前格納
 
@@ -53,6 +54,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     private bool _particleFlg;           //パーティクルフラグ
     private bool _chaceFlg = true;      //カメラの追跡フラグ
     private static int _Pearl_Flag;           // パール取得フラグ
+    private bool _cameraFlg = false;          // カメラのアニメーションフラグ
 
 
 
@@ -70,21 +72,22 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
     private void Awake()
     {
-        cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
-        goalLine = GameObject.Find("GoalLine");
-
         // STAGE_MAX分回す
         for (int i = 0; i < STAGE_MAX; i++)
         {
             //現在のシーンがメインなら
             if (SceneManager.GetActiveScene().name == StageSceneName[i])
             {
+                cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+                goalLine = GameObject.Find("GoalLine");
+
                 // nowSceneに現在のステージシーンの名前を保存
                 SetSceneName = SceneManager.GetActiveScene().name;
 
                 _SceneNumber = i + 2;
 
                 Debug.Log("_sceneNumber : " + _SceneNumber);
+                Debug.Log("SceneName" + GetSceneName);
 
                 // 最初のゴールまでの距離
                 _startDistance = ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y);
@@ -124,7 +127,11 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         _chaceFlg = false;
         return SceneManager.LoadSceneAsync(GameOverScene);
     }
-
+    public AsyncOperation LoadAreaSelect()
+    {
+        _chaceFlg = false;
+        return SceneManager.LoadSceneAsync(AreaSelectScene);
+    }
 
     
     #region Getter/Setter
@@ -181,6 +188,11 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     // パールの取得フラグゲッター・セッター
     public int GetPearlFlag { get { return _Pearl_Flag; } }
     public int SetPearlFlag { set { _Pearl_Flag = value; } }
+
+    // ゲッター・セッター
+    public bool GetCameraAnimFlg { get { return _cameraFlg; } }
+    public bool SetCameraAnimFlg { set { _cameraFlg = value; } }
+
 
     #endregion
 

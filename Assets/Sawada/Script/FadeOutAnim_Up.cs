@@ -9,6 +9,8 @@ public class FadeOutAnim_Up : MonoBehaviour
     private GameObject PauseUI;  // UIのポーズオブジェクト
     private GameObject StartStage;  // ステージネームを表示するオブジェクト
 
+    [SerializeField] private float UpAlpha;
+
 	// Use this for initialization
 	void Start ()
     {

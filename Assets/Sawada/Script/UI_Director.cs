@@ -51,30 +51,55 @@ public class UI_Director : MonoBehaviour
     [SerializeField] private GameObject Fade_Down;
 
     [SerializeField] private CanvasGroup PanelAlpha;
+    [SerializeField] private float downAlpha;
+    
+    private bool isPlayingCourutin = false;   // Update内のコルーチン用フラグ
+
     private float alphaPlus = 0.05f;
 
+    private GameObject Panel_UI;       // UIのPanel情報格納用変数
 
     // 各ステージ共通NAME
     private const string STAGE_NAME = "TestStage";
 
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().name == SceneGameOrver || SceneManager.GetActiveScene().name == SceneResult)
+        {
+            Panel_UI = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
+        }
+    }
     private void Update()
     {
-        // 花火が出終わったら
-        if (GameDirector.Instance.ParticleFlg)
+        if (SceneManager.GetActiveScene().name == SceneGameOrver || SceneManager.GetActiveScene().name == SceneResult)
         {
-            PanelAlpha.gameObject.SetActive(true);
-            PanelAlpha.alpha += alphaPlus;
-        }
-
-        if (PanelAlpha != null)
-        {
-            if (Input.GetMouseButtonDown(0) && PanelAlpha.alpha < 1)
+            // 花火が出終わったら
+            if (GameDirector.Instance.ParticleFlg)
             {
-                PanelAlpha.gameObject.SetActive(true);
-                PanelAlpha.alpha = 1;
+                StartCoroutine("UI_FadeCourutin");
             }
         }
     }
+    IEnumerator UI_FadeCourutin()
+    {
+        // このコルーチンに一度でも入ったら強制的にbreakで抜ける
+        if (isPlayingCourutin)
+        {
+            yield break;
+        }
+
+        while (Panel_UI.GetComponent<CanvasGroup>().alpha < 1)
+        {
+            Panel_UI.SetActive(true);
+            Panel_UI.GetComponent<CanvasGroup>().alpha += downAlpha;
+
+            yield return null;
+        }
+
+        // 一度目に入ったのでフラグを立てる
+        isPlayingCourutin = true;
+    }
+
 
     #region UI関連メソッド（Button用）
     // Use this for initialization
@@ -215,7 +240,6 @@ public class UI_Director : MonoBehaviour
         StartCoroutine(SECourutin(ButtonState.Next, SEState.SE2));
     }
 
-
     /// <summary>
     ///  再生メソッド
     /// </summary>
@@ -255,17 +279,52 @@ public class UI_Director : MonoBehaviour
         // 各関数で分岐
         switch(bState)
         {
-            case ButtonState.Retry:
-                //GameDirector.Instance.SetPauseFlg = false;
-                if (Time.timeScale <= 0) Time.timeScale = 1;
-                GameObject child = Instantiate(Fade_Down) as GameObject;
-                child.transform.parent = GameObject.Find("FadePoint").transform;
+            case ButtonState.Retry:  // もう一度
+
+                // 現在のシーンがリザルトまたはゲームオーバーのシーンなら
+                if (SceneManager.GetActiveScene().name == SceneGameOrver || SceneManager.GetActiveScene().name == SceneResult)
+                {
+                    //Fade_Downオブジェクト生成
+                   GameObject child = Instantiate(Fade_Down) as GameObject;
+
+                    // アルファ値を０まで下げる
+                    while (Panel_UI.GetComponent<CanvasGroup>().alpha > 0)
+                    {
+                        Panel_UI.GetComponent<CanvasGroup>().alpha -= downAlpha;
+                        yield return null;
+                    }
+                }
+                // それ以外なら
+                else
+                {
+                    if (Time.timeScale <= 0) Time.timeScale = 1;                     // タイムスケールを元に戻す
+                    GameObject child = Instantiate(Fade_Down) as GameObject;         // Fade_Dwonオブジェクト生成
+                    child.transform.parent = GameObject.Find("FadePoint").transform; // FadePointを探してその子に設定
+
+                    GameObject obj_UI = GameObject.Find("Canvas_beta").transform.GetChild(1).transform.GetChild(2).gameObject;
+                    GameObject Pause_UI = GameObject.Find("Canvas_beta").transform.GetChild(1).transform.GetChild(1).gameObject;
+
+                    // UI_Pause01がアクティブ状態なら
+                    if (obj_UI.activeSelf && Pause_UI.activeSelf)
+                    {
+                        // 指定のUIのアルファ値が０になるまで回す
+                        while (obj_UI.GetComponent<CanvasGroup>().alpha > 0 && Pause_UI.GetComponent<CanvasGroup>().alpha > 0)
+                        {
+                            obj_UI.GetComponent<CanvasGroup>().alpha -= downAlpha;
+                            Pause_UI.GetComponent<CanvasGroup>().alpha -= downAlpha;
+                            yield return null;
+                        }
+                    }
+                }
+
                 yield return new WaitForSecondsRealtime(2);
+
                 // 前回プレイしたシーンを読み込み
                 SceneManager.LoadScene(GameDirector.Instance.GetSceneName);
+
                 break;
 
-            case ButtonState.Play:
+            case ButtonState.Play:  // 再開
                 Time.timeScale = 1;
                 break;
 
@@ -273,13 +332,36 @@ public class UI_Director : MonoBehaviour
                 SceneManager.LoadScene(SceneMenu);
                 break;
 
-            case ButtonState.Menu:
+            case ButtonState.Menu:  // メニュー
+
+                GameObject.Find("Main Camera").gameObject.GetComponent<Result_CameraAnim>().StartCoroutine("CameraMove");
+
+                while (Panel_UI.GetComponent<CanvasGroup>().alpha > 0)
+                {
+                    Panel_UI.GetComponent<CanvasGroup>().alpha -= downAlpha;
+                    yield return null;
+                }
+                yield return new WaitForSecondsRealtime(2.0f);
                 SceneManager.LoadScene(SceneMenu);
                 break;
 
-            case ButtonState.Next:
-                Debug.Log(GameDirector.Instance.GetSceneNumber);
+            case ButtonState.Next:  // 次
+
+                GameObject obj = Instantiate(Fade_Down) as GameObject;
+
+                while(Panel_UI.GetComponent<CanvasGroup>().alpha > 0)
+                {
+                    Debug.Log(Panel_UI.GetComponent<CanvasGroup>().alpha + "fdr");
+
+                    Panel_UI.GetComponent<CanvasGroup>().alpha -= downAlpha;
+                    Debug.Log(Panel_UI.GetComponent<CanvasGroup>().alpha);
+                    Debug.Log("true");
+                    yield return null;
+                }
+
+                yield return new WaitForSecondsRealtime(2.0f);
                 SceneManager.LoadScene(STAGE_NAME + GameDirector.Instance.GetSceneNumber.ToString());
+
                 break;
         }
 

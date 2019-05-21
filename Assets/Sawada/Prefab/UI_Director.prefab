@@ -135,7 +135,7 @@ MonoBehaviour:
   SceneMenu:
     m_SceneName: Stage_Select
   SceneGameOrver:
-    m_SceneName: GameOrver
+    m_SceneName: GameOver
   SceneResult:
     m_SceneName: Result
   UI_Pause01: {fileID: 0}
@@ -146,3 +146,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 40dd956c809d1db4b996c071788ba571, type: 3}
   - {fileID: 8300000, guid: 310ed5be107dfdb4ca9e153c16694cea, type: 3}
   - {fileID: 8300000, guid: 45077866914194f4aac625389020e325, type: 3}
+  Fade_Down: {fileID: 1100393662354678, guid: 8551bd248f6ef874bab7a02b52fd8788, type: 2}
+  PanelAlpha: {fileID: 0}
+  downAlpha: 0.05
