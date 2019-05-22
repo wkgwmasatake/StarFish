@@ -134,6 +134,13 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         return SceneManager.LoadSceneAsync(AreaSelectScene);
     }
 
+    // アプリケーションが終了したとき
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetInt("STAGE", GameDirector.Instance.GetStageClear_Flg);       // ステージのクリア状況をPlayerPrefsに保存
+        PlayerPrefs.SetInt("AREA", GameDirector.Instance.GetAreaClear_Flg);         // エリアの制覇状況をPlayerPrefsに保存
+    }
+
     public void UI_Fade()
     {
         StartCoroutine("PauseUI_Fade");
@@ -149,7 +156,6 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         }
     }
 
-    
     #region Getter/Setter
     
     //ポジションのゲッター・セッター

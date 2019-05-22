@@ -121,11 +121,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4180600684782944, guid: f13a073637308434cae62849169c2c61, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -23.026651
+      value: -13.91
       objectReference: {fileID: 0}
     - target: {fileID: 4180600684782944, guid: f13a073637308434cae62849169c2c61, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -72.93936
+      value: -30.88
       objectReference: {fileID: 0}
     - target: {fileID: 4180600684782944, guid: f13a073637308434cae62849169c2c61, type: 2}
       propertyPath: m_LocalPosition.z
@@ -151,16 +151,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114693766571470050, guid: f13a073637308434cae62849169c2c61,
-        type: 2}
-      propertyPath: PauseUI
-      value: 
-      objectReference: {fileID: 1530457491}
-    - target: {fileID: 114693766571470050, guid: f13a073637308434cae62849169c2c61,
-        type: 2}
-      propertyPath: StartStage
-      value: 
-      objectReference: {fileID: 1530457490}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f13a073637308434cae62849169c2c61, type: 2}
   m_IsPrefabParent: 0
@@ -949,7 +939,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a959ad79fda1b724e9efaf58b5c97ab5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 313aa126577c2dc4fb4c550936cc9467, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1034,6 +1024,7 @@ MonoBehaviour:
   BGPre: {fileID: 410732172}
   player: {fileID: 2134406536}
   TagName: Wall
+  MARGIN_POINT: 0
 --- !u!81 &581700717
 AudioListener:
   m_ObjectHideFlags: 0
@@ -2288,12 +2279,12 @@ Prefab:
     - target: {fileID: 224762254014486258, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 195
+      value: 69
       objectReference: {fileID: 0}
     - target: {fileID: 224762254014486258, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 346.5
+      value: 123
       objectReference: {fileID: 0}
     - target: {fileID: 224762254014486258, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
         type: 2}
@@ -2458,16 +2449,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4686f040ebb04a54f93ec0d2b8c7b80f, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1530457490 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1132387865147802, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
-    type: 2}
-  m_PrefabInternal: {fileID: 1530457489}
---- !u!1 &1530457491 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1174905559920564, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
-    type: 2}
-  m_PrefabInternal: {fileID: 1530457489}
 --- !u!1 &1615268369
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,7 +24,7 @@ public class CameraMove : MonoBehaviour
     /// <summary>
     /// 　　余白
     /// </summary>
-    private const int MARGIN = 5;
+    private const float MARGIN = 6;
 
 
 
@@ -32,6 +32,13 @@ public class CameraMove : MonoBehaviour
     /// コリジョンサイズ
     /// </summary>
     private Vector2 SIZE = new Vector2(1, 10);
+
+
+
+    /// <summary>
+    ///  その他の変数
+    /// </summary>
+    [SerializeField] private float MARGIN_POINT;
 
 
 
@@ -53,6 +60,8 @@ public class CameraMove : MonoBehaviour
         if (GameDirector.Instance.GetChaceFlg) transform.position = new Vector3(transform.position.x, player.transform.position.y, transform.position.z);
         else transform.position = transform.position;
 
+
+        // カメラの移動制限
         Vector3 player_pos = transform.position;
         player_pos.y = Mathf.Clamp(player_pos.y, -BG.height / 2 + MARGIN, BG.height / 2 + MARGIN);
         transform.position = new Vector3(player_pos.x, player_pos.y, player_pos.z);

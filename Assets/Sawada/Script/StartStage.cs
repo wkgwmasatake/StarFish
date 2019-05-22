@@ -35,7 +35,6 @@ public class StartStage : MonoBehaviour
     public void AnimEventCallBack()
     {
         GameDirector.Instance.SetStarFishFlg = true;
-        Debug.Log("はいった");
     }
 
 
