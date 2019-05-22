@@ -36,10 +36,4 @@ public class StartStage : MonoBehaviour
     {
         GameDirector.Instance.SetStarFishFlg = true;
     }
-
-
-    private void OnDestroy()
-    {
-        GameDirector.Instance.SetPauseFlg = false;
-    }
 }
