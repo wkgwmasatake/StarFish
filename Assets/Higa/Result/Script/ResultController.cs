@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ResultController : MonoBehaviour {
 
@@ -18,9 +19,9 @@ public class ResultController : MonoBehaviour {
     [SerializeField] Image whitefade;
     [SerializeField] GameObject rising_star;
     [SerializeField] GameObject fade_star;
-    [SerializeField] GameObject shootingStar;
-    [SerializeField] GameObject constellation_line;
-    [SerializeField] GameObject constellation_image;
+    [SerializeField] GameObject starry_sky;
+    [SerializeField] SpriteRenderer[] constellation_line;
+    [SerializeField] SpriteRenderer[] constellation_image;
     [SerializeField] GameObject[] sheep_stars;
     [SerializeField] GameObject[] cassiopeia_stars;
     [SerializeField] GameObject[] smallbear_stars;
@@ -28,9 +29,7 @@ public class ResultController : MonoBehaviour {
     [SerializeField] GameObject[] crab_stars;
     [SerializeField] int stage_num;
     [SerializeField] int now_clear_stage;
-
-
-    [SerializeField] AudioSource se_splash;
+    [SerializeField] float fadetime;
 
     [SerializeField] float RisingTime;
 
@@ -40,6 +39,8 @@ public class ResultController : MonoBehaviour {
     private ParticleSystem _star_ps;
     private float time;
     private int area_num;
+    private SpriteRenderer now_line;
+    private SpriteRenderer now_image;
     
 
     private bool pawnflg1, pawnflg2, pawnflg3;
@@ -49,7 +50,8 @@ public class ResultController : MonoBehaviour {
 
         whitefade.enabled = true;
 
-        //shootingStar.SetActive(false);
+
+        starry_sky.SetActive(false);
 
         now_phase = PHASE.FADE;
 
@@ -59,23 +61,23 @@ public class ResultController : MonoBehaviour {
         switch (area_num)
         {
             case 0:
-                PawnStarCluster(sheep_stars);
+                PawnStarCluster(constellation_line[area_num],constellation_image[area_num], sheep_stars);
                 break;
 
             case 1:
-                PawnStarCluster(cassiopeia_stars);
+                PawnStarCluster(constellation_line[area_num], constellation_image[area_num], cassiopeia_stars);
                 break;
 
             case 2:
-                PawnStarCluster(smallbear_stars);
+                PawnStarCluster(constellation_line[area_num], constellation_image[area_num], smallbear_stars);
                 break;
 
             case 3:
-                PawnStarCluster(balance_stars);
+                PawnStarCluster(constellation_line[area_num], constellation_image[area_num], balance_stars);
                 break;
 
             case 4:
-                PawnStarCluster(crab_stars);
+                PawnStarCluster(constellation_line[area_num], constellation_image[area_num], crab_stars);
                 break;
         }
 
@@ -85,6 +87,11 @@ public class ResultController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
         //Debug.Log(GameDirector.Instance.GetArmNumber());
         switch (now_phase)
         {
@@ -93,7 +100,7 @@ public class ResultController : MonoBehaviour {
                 break;
 
             case PHASE.STAR:
-                StarfishProcess();
+                //StarfishProcess();
                 break;
 
             case PHASE.CAMERA:
@@ -119,57 +126,67 @@ public class ResultController : MonoBehaviour {
     }
 
 
-    private void StarfishProcess()
-    {
+    //private void StarfishProcess()
+    //{
 
-        if(pawnflg1 == false)
-        {
+    //    if(pawnflg1 == false)
+    //    {
 
-            _rising_star = Instantiate(rising_star);
-            //Rigidbody2D rb = _star.GetComponent<Rigidbody2D>();
-            //_star_ps = _rising_star.GetComponent<ParticleSystem>();
+    //        _rising_star = Instantiate(rising_star);
+    //        //Rigidbody2D rb = _star.GetComponent<Rigidbody2D>();
+    //        //_star_ps = _rising_star.GetComponent<ParticleSystem>();
 
-            //Vector2 force = new Vector2(0f, 45f);
-            //rb.AddForce(force, ForceMode2D.Impulse);
-            //rb.AddTorque(5f, ForceMode2D.Impulse);
+    //        //Vector2 force = new Vector2(0f, 45f);
+    //        //rb.AddForce(force, ForceMode2D.Impulse);
+    //        //rb.AddTorque(5f, ForceMode2D.Impulse);
 
-            Invoke("PawnFadeStar", 1f);
+    //        Invoke("PawnFadeStar", 1f);
 
-            pawnflg1 = true;
+    //        pawnflg1 = true;
 
-        }
+    //    }
 
-        time += Time.time;
-        if (time >= RisingTime)
-        {
-            if (GameObject.Find("GameDirector") != null)
-            {
-                GameDirector.Instance.ParticleFlg = true;
-                //Debug.Log("finish");
-            }
-            else
-            {
-                Debug.Log("Fireworks finished");
-            }
+    //    time += Time.time;
+    //    if (time >= RisingTime)
+    //    {
+    //        if (GameObject.Find("GameDirector") != null)
+    //        {
+    //            GameDirector.Instance.ParticleFlg = true;
+    //            //Debug.Log("finish");
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("Fireworks finished");
+    //        }
 
-            ChangePhase(PHASE.END);
-        }
-        //Debug.Log(GameDirector.Instance.ParticleFlg);
-    }
+    //        ChangePhase(PHASE.END);
+    //    }
+    //    //Debug.Log(GameDirector.Instance.ParticleFlg);
+    //}
 
 
     private void CameraProcess()
     {
-        if(camera.transform.position != new Vector3(0, 0, -10))
+        if(camera.transform.position != new Vector3(0, -2, -10))
         {
             camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, 5.0f, Time.deltaTime);
-            camera.transform.position = Vector3.Lerp(camera.transform.position, new Vector3(0, 0, -10), Time.deltaTime);
+            camera.transform.position = Vector3.Lerp(camera.transform.position, new Vector3(0, -2, -10), Time.deltaTime);
+
+            float alpha = 1 / (60 * fadetime);
+            var color = now_line.color;
+            color.a += alpha;
+            now_line.color = color;
+            now_image.color = color;
         }
         else
         {
-            GameDirector.Instance.ParticleFlg = true;
+            //GameDirector.Instance.ParticleFlg = true;
             ChangePhase(PHASE.END);
         }
+
+        
+        
+
     }
 
 
@@ -187,13 +204,20 @@ public class ResultController : MonoBehaviour {
         GameDirector.Instance.ParticleFlg = true;
     }
 
-    private void PawnStarCluster(GameObject[] _stars)
+    private void PawnStarCluster(SpriteRenderer _line, SpriteRenderer _image, GameObject[] _stars)
     {
         //for (int i = 0; i < sheep_stars.Length-1; i++)
         //{
         //    sheep_stars[i] = constellation_line.transform.GetChild(i).gameObject;
         //}
 
+        float alpha = 0;
+        var color = _line.color;
+        color.a = alpha;
+        _line.color = color;
+        _image.color = color;
+        now_line = _line;
+        now_image = _image;
 
         for (int i = 0; i < stage_num; i++)
         {
@@ -222,7 +246,7 @@ public class ResultController : MonoBehaviour {
                 Vector3 pos1 = _stars[i].transform.position;
                 pos1.z = -10f;
                 camera.transform.position = pos1;
-                camera.orthographicSize = 0.5f;
+                camera.orthographicSize = 1.0f;
             }
 
         }
@@ -237,6 +261,7 @@ public class ResultController : MonoBehaviour {
         _fade_star.transform.position = pos;
 
         yield return new WaitForSeconds(second);
+        starry_sky.SetActive(true);
         ChangePhase(PHASE.CAMERA);
         GameDirector.Instance.ParticleFlg = true;
 
