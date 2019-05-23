@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class UI_Director : MonoBehaviour
 {
 
-
     /// <summary>
     /// 情報格納用変数
     /// </summary>
