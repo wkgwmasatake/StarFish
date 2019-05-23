@@ -307,7 +307,8 @@ public class StarFishOriginal : MonoBehaviour {
                 else
                 {
                     GameObject canvas = GameObject.Find("Canvas_beta");
-                    if(canvas.transform.GetChild(2).gameObject.activeSelf && canvas.transform.childCount > 1)
+                    Debug.Log(canvas.transform.childCount);
+                    if(canvas.transform.childCount > 2 && canvas.transform.GetChild(2).gameObject.activeSelf)
                     {
                         gameObject.GetComponent<Animator>().SetTrigger("IdleTrigger");
                     }
@@ -621,5 +622,10 @@ public class StarFishOriginal : MonoBehaviour {
         }
 
         return degree;
+    }
+
+    public void StarFishAnim_End()
+    {
+        GameDirector.Instance.SetPauseFlg = false;
     }
 }
