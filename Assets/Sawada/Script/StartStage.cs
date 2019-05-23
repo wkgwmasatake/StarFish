@@ -32,8 +32,8 @@ public class StartStage : MonoBehaviour
         return stageName;
     }
 
-    private void OnDestroy()
+    public void AnimEventCallBack()
     {
-        GameDirector.Instance.SetPauseFlg = false;
+        GameDirector.Instance.SetStarFishFlg = true;
     }
 }

@@ -52,9 +52,10 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     private static int AreaClear_Flg = 1;      //各エリアのクリアフラグ
     private bool pauseFlg = false;               //ポーズフラグ
     private bool _particleFlg;           //パーティクルフラグ
-    private bool _chaceFlg = true;      //カメラの追跡フラグ
+    private bool _chaceFlg = true;       //カメラの追跡フラグ
     private static int _Pearl_Flag;           // パール取得フラグ
     private bool _cameraFlg = false;          // カメラのアニメーションフラグ
+    private bool _starfishFlg = false;
 
 
 
@@ -133,9 +134,30 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         return SceneManager.LoadSceneAsync(AreaSelectScene);
     }
 
-    
-    #region Getter/Setter
+    // アプリケーションが終了したとき
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetInt("STAGE", GameDirector.Instance.GetStageClear_Flg);       // ステージのクリア状況をPlayerPrefsに保存
+        PlayerPrefs.SetInt("AREA", GameDirector.Instance.GetAreaClear_Flg);         // エリアの制覇状況をPlayerPrefsに保存
+    }
 
+    public void UI_Fade()
+    {
+        StartCoroutine("PauseUI_Fade");
+    }
+    IEnumerator PauseUI_Fade()
+    {
+        GameObject obj = GameObject.Find("Canvas_beta").transform.GetChild(1).transform.GetChild(1).gameObject;
+        obj.GetComponent<Button>().enabled = false;
+        while(obj.GetComponent<CanvasGroup>().alpha > 0)
+        {
+            obj.GetComponent<CanvasGroup>().alpha -= 0.05f;
+            yield return null;
+        }
+    }
+
+    #region Getter/Setter
+    
     //ポジションのゲッター・セッター
     public void SetPosition(Vector2 posi) { position = posi; }
     public Vector2 GetPosition() { return position; }
@@ -192,6 +214,9 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     // ゲッター・セッター
     public bool GetCameraAnimFlg { get { return _cameraFlg; } }
     public bool SetCameraAnimFlg { set { _cameraFlg = value; } }
+
+    public bool GetStarFishFlg { get { return _starfishFlg; } }
+    public bool SetStarFishFlg { set { _starfishFlg = value; } }
 
 
     #endregion

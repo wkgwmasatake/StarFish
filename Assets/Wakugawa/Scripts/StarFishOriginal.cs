@@ -43,6 +43,7 @@ public class StarFishOriginal : MonoBehaviour {
     bool PearlFlag = false;         // 真珠の取得状況フラグ
     bool FadeFlag = true;           // 足のフェードイン、フェードアウトのフラグ(trueでフェードアウト、falseでフェードイン)
     float FadeAlpha = 1.0f;         // 足のアルファ値(0～1)
+    Animator anim;
 
     [SerializeField] ParticleSystem[] ParticleList;     // パーティクルリスト(0.. 腕のパーティクル、1.. 爆発のパーティクル、2.. 壁にあたった時のパーティクル、3.. ゴールラインを超えたときのパーティクル)
     [SerializeField] GameObject ArrowObject;            // 矢印のゲームオブジェクト
@@ -73,16 +74,24 @@ public class StarFishOriginal : MonoBehaviour {
 
         rb = GetComponent<Rigidbody2D>();   // Rigidbody2Dを取得
 
+        anim = GetComponent<Animator>();
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+        if(GameDirector.Instance.GetStarFishFlg)
+        {
+            anim.SetTrigger("IdleTrigger");
+            GameDirector.Instance.SetStarFishFlg = false;
+        }
+
         switch (Status)
         {
             case (byte)GAME_STATUS._PLAY:   // ゲームプレイ時
                 if (!GameDirector.Instance.GetPauseFlg)      // ポーズ中でなければ通常通り実行
                 {
-
                     if (GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1)
                     {
                         rotatePower *= 0.97f;                               // 回転力を減衰
@@ -261,6 +270,7 @@ public class StarFishOriginal : MonoBehaviour {
                         ForceY = 0.3f;      // Y方向を固定値に変更
                         FadeAlpha = 1.0f;   // フェード値をリセット
 
+                        // 回転スピードを一定値に設定
                         if(rotatePower > 0)
                         {
                             rotatePower = 0.5f;
@@ -279,22 +289,31 @@ public class StarFishOriginal : MonoBehaviour {
                         FadeImage.color = new Color(255, 255, 255);             // 親の色を白に設定
                         FadeChild.color = new Color(255, 255, 255);             // 子の色を白に設定
 
+                        // 矢印を非アクティブに設定
                         if(ArrowObject.activeSelf)
                         {
                             ArrowObject.SetActive(false);
                         }
+
+                        GameDirector.Instance.UI_Fade();        // 一時停止ボタンをフェードアウト
                     }
 
                     // 残りの可能タップ数が1以下になった時かつ、Yに対する力が 0.001f ～ -0.001f になった時に
                     if (GameDirector.Instance.GetArmNumber() <= 1 && ForceY < 0.001f && ForceY > -0.001f)
                     {
-                        Status = (byte)GAME_STATUS._OVER;      // ゲームオーバー処理へ
+                        Presstime += Time.deltaTime;            // 時間を計測
+
+                        if (Presstime > 2.0f)                   // 2秒間何もなければ
+                        {
+                            Status = (byte)GAME_STATUS._OVER;       // ゲームオーバー処理へ
+                            GameDirector.Instance.UI_Fade();        // 一時停止ボタンをフェードアウト
+                        }
                     }
                 }
                 else
                 {
                     GameObject canvas = GameObject.Find("Canvas_beta");
-                    if(canvas.transform.GetChild(2).gameObject.activeSelf && canvas.transform.childCount > 1)
+                    if(canvas.transform.childCount > 2 && canvas.transform.GetChild(2).gameObject.activeSelf)
                     {
                         gameObject.GetComponent<Animator>().SetTrigger("IdleTrigger");
                     }
@@ -446,6 +465,12 @@ public class StarFishOriginal : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D col)
     {
+        // 最後の腕を消費し、かつ何かのオブジェクトにあたった場合
+        if(GameDirector.Instance.GetArmNumber() <= 1)
+        {
+            Presstime = 0;      // ゲームオーバーまでの時間を延長
+        }
+
         if (col.collider.tag == "Wall")
         {
             if (!GameDirector.Instance.GetPauseFlg)         // 最初のアニメーションでエフェクトを発生させないようにする
@@ -536,15 +561,6 @@ public class StarFishOriginal : MonoBehaviour {
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        // 真珠を取得したとき
-        if(col.tag == "Pearl")
-        {
-            PearlFlag = true;   // 獲得フラグを立てる
-        }
-    }
-
     private void OnTriggerStay2D(Collider2D col)
     {
         // クラゲの足に入った場合
@@ -608,5 +624,10 @@ public class StarFishOriginal : MonoBehaviour {
         }
 
         return degree;
+    }
+
+    public void StarFishAnim_End()
+    {
+        GameDirector.Instance.SetPauseFlg = false;
     }
 }
