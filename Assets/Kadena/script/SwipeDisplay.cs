@@ -16,6 +16,7 @@ public class SwipeDisplay : MonoBehaviour {
     }
     void Flick()
     {
+        if(SelectDirector.Instance.Get_Statezoom() == true) { return; }
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             touchStartPos = new Vector3(Input.mousePosition.x,

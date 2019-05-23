@@ -9,11 +9,18 @@ public class SelectStage : MonoBehaviour {
 
     private AudioSource SE_Taped;
     private AudioSource SE_Failed;
+    private Color yellow = new Color(0.86f, 0.86f, 0.86f, 1);
+    private Color white = new Color(1, 1, 1, 1);
+    private Color dim_yellow = new Color(0.4f, 0.4f, 0.4f, 1);
 
     Button stage_1;
     Button stage_2;
     Button stage_3;
     Button coButton;
+
+    [SerializeField] private Sprite img_unlock;
+    [SerializeField] private Sprite img_lock;
+    [SerializeField] private Sprite img_clear;
 
     private int now_status;
 
@@ -22,9 +29,9 @@ public class SelectStage : MonoBehaviour {
     private string Namestage;
     private enum StateNum// ステージのクリア状況
     {
-        Unlocked = 0, // 選択可能かつ未選択
+        Unlocked = 0, // 選択可能かつ未クリア
         Locked = 1,// 選択不可能
-        Selected = 2,// 選択可能かつ選択中
+        Cleared = 2,// クリア済み 
     }
 
     // Use this for initialization
@@ -92,26 +99,52 @@ public class SelectStage : MonoBehaviour {
                 break;
         }
         Change_SetActive(now_status);
-
     }
 
     private void Change_SetActive(int num)
     {
-        if (num == (int)StateNum.Locked)
+        var img = GetComponent<Image>();
+        switch (num)
         {
-            foreach (Transform child in transform)//ロック状態
-            {
-                child.gameObject.SetActive(true);
-            }
-            coButton.enabled = false;
-        }
-        else
-        {
-            foreach (Transform child in transform)//非ロック状態
-            {
-                child.gameObject.SetActive(false);
-            }
-            coButton.enabled = true;
+            case (int)StateNum.Unlocked://非ロック状態
+                foreach (Transform child in transform)
+                {
+                    if(child.gameObject.name == "imagelocked")
+                    {
+                        child.gameObject.SetActive(false);
+                    }
+                    img.sprite = img_unlock;
+                }
+                coButton.enabled = true;
+
+                break;
+            case (int)StateNum.Locked://ロック状態
+                foreach (Transform child in transform)
+                {
+                    if (child.gameObject.name == "imagelocked")
+                    {
+                        child.gameObject.SetActive(true);
+                    }
+                    img.sprite = img_unlock;
+                }
+                coButton.enabled = false;
+                Light_Emission(dim_yellow);
+
+                break;
+            case (int)StateNum.Cleared://光輝く外見に変更する
+                foreach (Transform child in transform)
+                {
+                    if (child.gameObject.name == "imagelocked")
+                    {
+                        child.gameObject.SetActive(false);
+                    }
+                    img.sprite = img_unlock;
+                }
+
+                img.sprite = img_clear;
+                coButton.enabled = true;
+                Light_Emission(white);
+                break;
         }
     }
 
@@ -121,6 +154,13 @@ public class SelectStage : MonoBehaviour {
 
         string name = "";
         name = NAME;
+
         SceneManager.LoadScene(name);
     }
+
+    private void Light_Emission(Color color)//変色処理
+    {
+        GetComponent<Image>().color = color;
+    }
+
 }
