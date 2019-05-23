@@ -57,7 +57,11 @@ public class ResultController : MonoBehaviour {
 
         pawnflg1 = pawnflg2 = pawnflg3 = false;
 
-        area_num = 0;
+        area_num = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetAreaClear_Flg);
+        //stage_num = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetStageClear_Flg);
+        area_num--;
+        Debug.Log("area_num : " + area_num);
+        Debug.Log("stage_num : " + stage_num);
         switch (area_num)
         {
             case 0:
@@ -78,6 +82,10 @@ public class ResultController : MonoBehaviour {
 
             case 4:
                 PawnStarCluster(constellation_line[area_num], constellation_image[area_num], crab_stars);
+                break;
+
+            default:
+                Debug.Log("Stage Load Error");
                 break;
         }
 
