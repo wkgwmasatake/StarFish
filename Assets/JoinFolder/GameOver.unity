@@ -357,10 +357,11 @@ GameObject:
   - component: {fileID: 363516214}
   - component: {fileID: 363516213}
   - component: {fileID: 363516212}
+  - component: {fileID: 363516215}
   m_Layer: 0
   m_Name: gameover_starfish
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -436,8 +437,18 @@ Transform:
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &363516215
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 363516211}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
 --- !u!1 &384802334
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,7 +721,7 @@ GameObject:
   m_Layer: 0
   m_Name: GameOverController
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -736,7 +747,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 568948217}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 457.1341, y: 2879.2068, z: -46.183346}
+  m_LocalPosition: {x: 0, y: 0.309, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -825,10 +836,11 @@ GameObject:
   m_Component:
   - component: {fileID: 677152677}
   - component: {fileID: 677152676}
+  - component: {fileID: 677152678}
   m_Layer: 0
   m_Name: gameover_text
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -887,8 +899,18 @@ Transform:
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &677152678
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 677152675}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
 --- !u!1 &791362950
 GameObject:
   m_ObjectHideFlags: 0
@@ -1413,8 +1435,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1373885742}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 75, y: 133, z: 0}
-  m_LocalScale: {x: 0.18750001, y: 0.18750001, z: 0.18750001}
+  m_LocalPosition: {x: 69, y: 122.5, z: 0}
+  m_LocalScale: {x: 0.1725, y: 0.1725, z: 0.1725}
   m_Children:
   - {fileID: 1825380500}
   - {fileID: 1533060382}
@@ -1437,7 +1459,7 @@ GameObject:
   - component: {fileID: 1485126707}
   - component: {fileID: 1485126706}
   m_Layer: 0
-  m_Name: GameOver_Fade 1
+  m_Name: 'GameOver_Fade '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

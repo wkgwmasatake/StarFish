@@ -510,6 +510,48 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 59798032}
   m_Script: {fileID: 11500000, guid: e786cbe9b133e0c4ca446b74148de6e8, type: 3}
+--- !u!1001 &731888623
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4528432932040838, guid: 7cafa5b0435c4ec4b8b6541d42d7b07d, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.8134948
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528432932040838, guid: 7cafa5b0435c4ec4b8b6541d42d7b07d, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -22.297037
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528432932040838, guid: 7cafa5b0435c4ec4b8b6541d42d7b07d, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.07910156
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528432932040838, guid: 7cafa5b0435c4ec4b8b6541d42d7b07d, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528432932040838, guid: 7cafa5b0435c4ec4b8b6541d42d7b07d, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528432932040838, guid: 7cafa5b0435c4ec4b8b6541d42d7b07d, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528432932040838, guid: 7cafa5b0435c4ec4b8b6541d42d7b07d, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528432932040838, guid: 7cafa5b0435c4ec4b8b6541d42d7b07d, type: 2}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 7cafa5b0435c4ec4b8b6541d42d7b07d, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &804434183
 Prefab:
   m_ObjectHideFlags: 0
@@ -633,12 +675,12 @@ Prefab:
     - target: {fileID: 224762254014486258, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 195
+      value: 69
       objectReference: {fileID: 0}
     - target: {fileID: 224762254014486258, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 346.5
+      value: 122.5
       objectReference: {fileID: 0}
     - target: {fileID: 224762254014486258, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
         type: 2}
@@ -1297,6 +1339,7 @@ MonoBehaviour:
   BGPre: {fileID: 1639959747}
   player: {fileID: 219575270}
   TagName: Wall
+  MARGIN_POINT: 0
 --- !u!81 &1805055337
 AudioListener:
   m_ObjectHideFlags: 0
