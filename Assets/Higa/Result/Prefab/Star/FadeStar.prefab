@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 198214520716223878}
   - component: {fileID: 199687699308514042}
   - component: {fileID: 114670919876991988}
+  - component: {fileID: 210677645640848940}
   m_Layer: 0
   m_Name: FadeStar
   m_TagString: Untagged
@@ -3445,3 +3446,13 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!210 &210677645640848940
+SortingGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1343215105699502}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 198130800598799290}
   - component: {fileID: 199718654801413764}
   - component: {fileID: 114172979200384334}
+  - component: {fileID: 210517288168532948}
   m_Layer: 0
   m_Name: GrayStar
   m_TagString: Untagged
@@ -3445,3 +3446,13 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!210 &210517288168532948
+SortingGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1456344724109834}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0

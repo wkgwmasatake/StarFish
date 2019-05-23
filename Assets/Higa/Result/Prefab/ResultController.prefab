@@ -139,6 +139,12 @@ MonoBehaviour:
     type: 2}
   fade_star: {fileID: 1343215105699502, guid: 0b02fa3c38fc5514db8202d29715fd17, type: 2}
   starry_sky: {fileID: 0}
+  constellation_parent:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   constellation_line:
   - {fileID: 0}
   - {fileID: 0}
@@ -155,11 +161,22 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  cassiopeia_stars:
   - {fileID: 0}
-  cassiopeia_stars: []
-  smallbear_stars: []
-  balance_stars: []
-  crab_stars: []
+  - {fileID: 0}
+  - {fileID: 0}
+  smallbear_stars:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  balance_stars:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  crab_stars:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   stage_num: 4
   now_clear_stage: 3
   fadetime: 3
