@@ -28,7 +28,6 @@ public class ResultController : MonoBehaviour {
     [SerializeField] GameObject[] smallbear_stars;
     [SerializeField] GameObject[] balance_stars;
     [SerializeField] GameObject[] crab_stars;
-    [SerializeField] int stage_num;
     [SerializeField] int now_clear_stage;
     [SerializeField] float fadetime;
 
@@ -40,6 +39,7 @@ public class ResultController : MonoBehaviour {
     private ParticleSystem _star_ps;
     private float time;
     private int area_num;
+    private int stage_num;
     private SpriteRenderer now_line;
     private SpriteRenderer now_image;
     
@@ -60,9 +60,11 @@ public class ResultController : MonoBehaviour {
 
         //area_num = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetAreaClear_Flg);
         stage_num = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetStageClear_Flg);
-        area_num = //Mathf.CeilToInt(stage_num / 3);
-            (stage_num - 2) / 3;
+        area_num = (stage_num - 2) / 3;
         stage_num -= 3 * area_num;
+        now_clear_stage = GameDirector.Instance.GetSceneNumber - 1;
+        now_clear_stage -= 3 * area_num;
+        Debug.Log("sceneNumber : " + GameDirector.Instance.GetSceneNumber);
         Debug.Log("stage_num : " + stage_num);
         Debug.Log("area_num : " + area_num);
 
@@ -232,9 +234,9 @@ public class ResultController : MonoBehaviour {
         now_line = _line;
         now_image = _image;
 
-        for (int i = 0; i < stage_num-1; i++)
+        for (int i = 0; i < stage_num - 1; i++)
         {
-            if (i != stage_num-2)
+            if (i != now_clear_stage- 1)
             {
                 var _fade_star = Instantiate(fade_star);
                 _fade_star.transform.position = _stars[i].transform.position;
