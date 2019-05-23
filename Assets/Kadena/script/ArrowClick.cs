@@ -49,40 +49,12 @@ public class ArrowClick : MonoBehaviour {
         {
             return;
         }
+
         int pos = SelectDirector.Instance.GetNumArea();
-        Debug.Log("Left "+ pos);
         if (touch_left == false && SelectDirector.Instance.GetNumArea() > 0)
         {
             int state = SelectDirector.Instance.GetStateArea(pos, -1);
             int now_state = SelectDirector.Instance.GetStateArea(pos, 0);
-
-            //if (state != (int)StateNum.Locked)
-            //{
-            //    switch (state)
-            //    {
-            //        case (int)StateNum.Unlocked:
-            //            SelectDirector.Instance.SetState_Selected(pos, -1);
-            //            if (now_state != (int)StateNum.Locked)
-            //            {
-            //                SelectDirector.Instance.SetState_Unlocked(pos, 0);
-            //            }
-            //            break;
-            //        case (int)StateNum.Selected:
-            //            SelectDirector.Instance.SetState_Unlocked(pos, -1);
-            //            if (now_state != (int)StateNum.Locked)
-            //            {
-            //                SelectDirector.Instance.SetState_Selected(pos, 0);
-            //            }
-            //            break;
-            //    }
-            //}
-            //else
-            //{
-            //    if (now_state != (int)StateNum.Locked)
-            //    {
-            //        SelectDirector.Instance.SetState_Unlocked(pos, 0);
-            //    }
-            //}
 
             tap_SE.PlayOneShot(tap_SE.clip);
             SelectDirector.Instance.SetNumArea(-1);
@@ -98,40 +70,10 @@ public class ArrowClick : MonoBehaviour {
             return;
         }
         int pos = SelectDirector.Instance.GetNumArea();
-        Debug.Log("Right " + pos);
-
         if (touch_right == false && SelectDirector.Instance.GetNumArea() < 4)
         {
             int state = SelectDirector.Instance.GetStateArea(pos, 1);
             int now_state = SelectDirector.Instance.GetStateArea(pos, 0);
-
-            //if (state != (int)StateNum.Locked)
-            //{
-            //    switch (state)
-            //    {
-            //        case (int)StateNum.Unlocked:
-            //            SelectDirector.Instance.SetState_Selected(pos, 1);
-            //            if (now_state != (int)StateNum.Locked)
-            //            {
-            //                SelectDirector.Instance.SetState_Unlocked(pos, 0);
-            //            }
-            //            break;
-            //        case (int)StateNum.Selected:
-            //            SelectDirector.Instance.SetState_Unlocked(pos, 1);
-            //            if (now_state != (int)StateNum.Locked)
-            //            {
-            //                SelectDirector.Instance.SetState_Selected(pos, 0);
-            //            }
-            //            break;
-            //    }
-            //}
-            //else
-            //{
-            //    if (now_state != (int)StateNum.Locked)
-            //    {
-            //        SelectDirector.Instance.SetState_Unlocked(pos, 0);
-            //    }
-            //}
 
             tap_SE.PlayOneShot(tap_SE.clip);
             SelectDirector.Instance.SetNumArea(1);
@@ -179,6 +121,4 @@ public class ArrowClick : MonoBehaviour {
             Left.gameObject.SetActive(true);
         }
     }
-    //public float height { get{ return height; } }//ゲッターセッター
-
 }

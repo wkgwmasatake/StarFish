@@ -9,7 +9,7 @@ public class SelectArea : MonoBehaviour {
     [SerializeField] private GameObject Fade_Black;
     [SerializeField] private GameObject Left;
     [SerializeField] private GameObject Right;
-    [SerializeField] private float size_test;
+    [SerializeField] private float add_size;
 
     private AudioSource SE_Taped;
     private AudioSource SE_Failed;
@@ -22,7 +22,8 @@ public class SelectArea : MonoBehaviour {
     [SerializeField] Button area_4;
     [SerializeField] Button area_5;
     Button coButton;// ボタンのコンポーネントを取得
-    private bool zoom_flg = false;//ボタンがズームアップ中か否か
+    private bool state_zoom = false;//ボタンがズームしている状態か否か
+    private bool zoom_flg = false;//ズーム処理中か否か
     private int now_status;
 
     private float red, green, blue, alpha;//gameobjectの色を取得するfloat型変数
@@ -105,14 +106,15 @@ public class SelectArea : MonoBehaviour {
 
     public void ButtonArea()//クリックした時
     {
-        //PlayerPrefs.SetString("Select_Area", gameObject.name);
-        SE_Taped.PlayOneShot(SE_Taped.clip);//効果音再生
+        if(SelectDirector.Instance.Get_Statezoom() == true) { return; }
 
         if (zoom_flg == false)
         {
             StartCoroutine(ZoomUp());
             Left.gameObject.SetActive(false);
             Right.gameObject.SetActive(false);
+            SE_Taped.PlayOneShot(SE_Taped.clip);//効果音再生
+            SelectDirector.Instance.Set_Statezoom();
         }
         else
         {
@@ -127,7 +129,7 @@ public class SelectArea : MonoBehaviour {
 
         while (size < 1.0f)
         {
-            this.transform.localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(size_test, size_test, 1), size);
+            this.transform.localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(add_size, add_size, 1), size);
             size += speed;
 
             zoom_flg = true;
@@ -153,7 +155,7 @@ public class SelectArea : MonoBehaviour {
 
         while (size > 0f)
         {
-            this.transform.localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(size_test, size_test, 1), size);
+            this.transform.localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(add_size, add_size, 1), size);
             size -= speed;
 
             zoom_flg = false;
@@ -179,5 +181,5 @@ public class SelectArea : MonoBehaviour {
         {
             Left.gameObject.SetActive(true);
         }
-    }
+    }   
 }
