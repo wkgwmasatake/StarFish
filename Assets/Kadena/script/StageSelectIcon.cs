@@ -10,9 +10,6 @@ public class StageSelectIcon : MonoBehaviour {
     private AudioSource SE_Taped;
     private AudioSource SE_Failed;
 
-    Button stage_1;
-    Button stage_2;
-    Button stage_3;
     Button coButton;
 
     private int now_status;
