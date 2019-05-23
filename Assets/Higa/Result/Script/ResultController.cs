@@ -20,6 +20,7 @@ public class ResultController : MonoBehaviour {
     [SerializeField] GameObject rising_star;
     [SerializeField] GameObject fade_star;
     [SerializeField] GameObject starry_sky;
+    [SerializeField] GameObject[] constellation_parent;
     [SerializeField] SpriteRenderer[] constellation_line;
     [SerializeField] SpriteRenderer[] constellation_image;
     [SerializeField] GameObject[] sheep_stars;
@@ -57,7 +58,15 @@ public class ResultController : MonoBehaviour {
 
         pawnflg1 = pawnflg2 = pawnflg3 = false;
 
-        area_num = 0;
+        //area_num = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetAreaClear_Flg);
+        stage_num = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetStageClear_Flg);
+        area_num = //Mathf.CeilToInt(stage_num / 3);
+            (stage_num - 2) / 3;
+        stage_num -= 3 * area_num;
+        Debug.Log("stage_num : " + stage_num);
+        Debug.Log("area_num : " + area_num);
+
+        ImageSetActive(area_num);
         switch (area_num)
         {
             case 0:
@@ -78,6 +87,10 @@ public class ResultController : MonoBehaviour {
 
             case 4:
                 PawnStarCluster(constellation_line[area_num], constellation_image[area_num], crab_stars);
+                break;
+
+            default:
+                Debug.Log("Stage Load Error");
                 break;
         }
 
@@ -219,9 +232,9 @@ public class ResultController : MonoBehaviour {
         now_line = _line;
         now_image = _image;
 
-        for (int i = 0; i < stage_num; i++)
+        for (int i = 0; i < stage_num-1; i++)
         {
-            if (i != now_clear_stage - 1)
+            if (i != stage_num-2)
             {
                 var _fade_star = Instantiate(fade_star);
                 _fade_star.transform.position = _stars[i].transform.position;
@@ -266,5 +279,30 @@ public class ResultController : MonoBehaviour {
         GameDirector.Instance.ParticleFlg = true;
 
         //yield return null;
+    }
+
+    private void ImageSetActive(int num)
+    {
+
+        for (int i = 0; i < 5; i++)
+        {
+            if(i != num)
+            {
+                try
+                {
+                    constellation_parent[i].SetActive(false);
+                }
+                catch
+                {
+                    Debug.Log("constellation_parent[" + i + "]");
+                }
+
+            }
+            else
+            {
+                constellation_parent[i].SetActive(true);
+            }
+
+        }
     }
 }
