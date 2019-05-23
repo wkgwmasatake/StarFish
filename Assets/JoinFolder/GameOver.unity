@@ -393,7 +393,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
 --- !u!1 &363516211
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,6 +404,7 @@ GameObject:
   - component: {fileID: 363516214}
   - component: {fileID: 363516213}
   - component: {fileID: 363516212}
+  - component: {fileID: 363516215}
   m_Layer: 0
   m_Name: gameover_starfish
   m_TagString: Untagged
@@ -485,6 +486,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &363516215
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 363516211}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
 --- !u!1 &384802334
 GameObject:
   m_ObjectHideFlags: 0
@@ -1324,7 +1335,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
 --- !u!1 &1365924561
 GameObject:
   m_ObjectHideFlags: 0
