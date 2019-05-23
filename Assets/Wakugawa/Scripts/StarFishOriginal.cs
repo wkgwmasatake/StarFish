@@ -622,4 +622,9 @@ public class StarFishOriginal : MonoBehaviour {
 
         return degree;
     }
+
+    public void StarFishAnim_End()
+    {
+        GameDirector.Instance.SetPauseFlg = false;
+    }
 }

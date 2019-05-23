@@ -61,12 +61,4 @@ public class SaveStageInfo : MonoBehaviour {
 
         GameDirector.Instance.SetPearlFlag = PearlStatus;          // 更新したステージのクリア真珠の取得状況をディレクターに渡す
     }
-
-    // アプリケーション終了時にデータを保存するために呼び出す
-    public void SaveData()
-    {
-        PlayerPrefs.SetInt("STAGE", GameDirector.Instance.GetStageClear_Flg);       // ステージのクリア状況をPlayerPrefsに保存
-        PlayerPrefs.SetInt("AREA", GameDirector.Instance.GetAreaClear_Flg);         // エリアの制覇状況をPlayerPrefsに保存
-        PlayerPrefs.SetInt("PEARL", GameDirector.Instance.GetPearlFlag);            // 真珠の取得状況をPlayerPrefsに保存
-    }
 }
