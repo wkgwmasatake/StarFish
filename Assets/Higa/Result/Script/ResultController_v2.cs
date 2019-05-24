@@ -145,7 +145,11 @@ public class ResultController_v2 : MonoBehaviour
             var color = now_line.color;
             color.a += alpha;
             now_line.color = color;
-            now_image.color = color;
+            if(now_area < release_area || (release_stage == 2 && now_stage == 2))
+            {
+                now_image.color = color;
+
+            }
         }
         else
         {
