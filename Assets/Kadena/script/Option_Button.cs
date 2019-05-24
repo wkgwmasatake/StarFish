@@ -23,7 +23,7 @@ public class Option_Button : MonoBehaviour {
         switch (name)
         {
             case "Stage_Select":
-                SceneManager.LoadScene("Area_Select");
+                SceneManager.LoadScene("Title");
                 break;
             case "Option_Scene":
                 SceneManager.LoadScene(pre_scene);

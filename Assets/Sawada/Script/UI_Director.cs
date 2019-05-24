@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class UI_Director : MonoBehaviour
 {
 
-
     /// <summary>
     /// 情報格納用変数
     /// </summary>
@@ -348,14 +347,12 @@ public class UI_Director : MonoBehaviour
             case ButtonState.Next:  // 次
 
                 GameObject obj = Instantiate(Fade_Down) as GameObject;
+                obj.transform.parent = GameObject.Find("FadePoint").transform; // FadePointを探してその子に設定
 
-                while(Panel_UI.GetComponent<CanvasGroup>().alpha > 0)
+                while (Panel_UI.GetComponent<CanvasGroup>().alpha > 0)
                 {
-                    Debug.Log(Panel_UI.GetComponent<CanvasGroup>().alpha + "fdr");
-
                     Panel_UI.GetComponent<CanvasGroup>().alpha -= downAlpha;
                     Debug.Log(Panel_UI.GetComponent<CanvasGroup>().alpha);
-                    Debug.Log("true");
                     yield return null;
                 }
 

@@ -44,7 +44,7 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
     private int[] Stage_state;
 
     private Text NameText;
-    
+    private bool State_zoom = false;
     //Awake -> Start -> Update
     void Awake()//オブジェクト本体の起動時処理用　
     {
@@ -57,7 +57,7 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
         {
             case 1:
                 setAll_Area(0, 1, 1, 1, 1);
-                setAll_Stage(2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+                setAll_Stage(0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 0;
                 break;
             case 2:
@@ -67,67 +67,72 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
                 break;
             case 3:
                 setAll_Area(0, 1, 1, 1, 1);
-                setAll_Stage(2, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+                setAll_Stage(2, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 0;
                 break;
             case 4:
                 setAll_Area(0, 0, 1, 1, 1);
-                setAll_Stage(2, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+                setAll_Stage(2, 2, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 3;
                 break;
             case 5:
                 setAll_Area(0, 0, 1, 1, 1);
-                setAll_Stage(2, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+                setAll_Stage(2, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 3;
                 break;
             case 6:
                 setAll_Area(0, 0, 1, 1, 1);
-                setAll_Stage(2, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+                setAll_Stage(2, 2, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 3;
                 break;
             case 7:
                 setAll_Area(0, 0, 0, 1, 1);
-                setAll_Stage(2, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1);
+                setAll_Stage(2, 2, 2, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 6;
                 break;
             case 8:
                 setAll_Area(0, 0, 0, 1, 1);
-                setAll_Stage(2, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1);
+                setAll_Stage(2, 2, 2, 2, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1, 1);
                 START_NUM = 6;
                 break;
             case 9:
                 setAll_Area(0, 0, 0, 1, 1);
-                setAll_Stage(2, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1);
+                setAll_Stage(2, 2, 2, 2, 2, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1);
                 START_NUM = 6;
                 break;
             case 10:
                 setAll_Area(0, 0, 0, 0, 1);
-                setAll_Stage(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1);
+                setAll_Stage(2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 1, 1, 1, 1, 1);
                 START_NUM = 9;
                 break;
             case 11:
                 setAll_Area(0, 0, 0, 0, 1);
-                setAll_Stage(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1);
+                setAll_Stage(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 1, 1, 1, 1);
                 START_NUM = 9;
                 break;
             case 12:
                 setAll_Area(0, 0, 0, 0, 1);
-                setAll_Stage(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1);
+                setAll_Stage(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 1, 1, 1);
                 START_NUM = 9;
                 break;
             case 13:
                 setAll_Area(0, 0, 0, 0, 0);
-                setAll_Stage(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1);
+                setAll_Stage(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 1, 1);
                 START_NUM = 12;
                 break;
             case 14:
                 setAll_Area(0, 0, 0, 0, 0);
-                setAll_Stage(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+                setAll_Stage(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 1);
                 START_NUM = 12;
                 break;
             case 15:
                 setAll_Area(0, 0, 0, 0, 0);
-                setAll_Stage(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                setAll_Stage(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0);
+                START_NUM = 12;
+                break;
+            case 16:
+                setAll_Area(0, 0, 0, 0, 0);
+                setAll_Stage(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2);
                 START_NUM = 12;
                 break;
         }
@@ -196,6 +201,7 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
         }
     }
 
+    //ステージ状況受け取り
     public void SetNumStage(int num)//外部からエリア配列の要素数を変更する処理
     {
         num_stage += num;//エリア番号の変更
@@ -229,7 +235,9 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
     {
         return cnt_stage_cleared;
     }
+    //ステージ状況受け取り
 
+    //エリア状況受け取り
     public void SetNumArea(int num)//外部からエリア配列の要素数を変更する処理
     {
         num_area += num;//エリア番号の変更
@@ -269,7 +277,8 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
     {
         return cnt_area_cleared - 1;//GameDirectorの初期値が1ならnum_cleaned - 1にするべきか
     }
-
+    
+    //エリア状況受け取り
     public void SetChangeIcon()
     {
         icon_1.GetComponent<SelectIcon>().CheckState();
@@ -278,4 +287,16 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
         icon_4.GetComponent<SelectIcon>().CheckState();
         icon_5.GetComponent<SelectIcon>().CheckState();
     }
+
+    //ズーム状態受け取り
+    public bool Get_Statezoom()
+    {
+        return State_zoom;
+    }
+
+    public void Set_Statezoom()
+    {
+        State_zoom = !State_zoom;
+    }
+    //ズーム状態受け取り
 }

@@ -12,11 +12,11 @@ EditorBuildSettings:
     path: Assets/JoinFolder/Area_Select.unity
     guid: 6b6cd518d146d35478a5d9f4a8e22b7e
   - enabled: 1
-    path: Assets/JoinFolder/Option_Scene.unity
-    guid: 99ca5f40f73efe14aaa0542c01b0b2e1
-  - enabled: 1
     path: Assets/JoinFolder/Stage_Select.unity
     guid: ee3337eb01f20b04792d595c4dea328e
+  - enabled: 1
+    path: Assets/JoinFolder/Option_Scene.unity
+    guid: 99ca5f40f73efe14aaa0542c01b0b2e1
   - enabled: 1
     path: Assets/JoinFolder/Area1/TestStage1.unity
     guid: 2c9495a9bfbc42c4d8dc84839ab2bded
@@ -57,8 +57,11 @@ EditorBuildSettings:
     path: Assets/JoinFolder/Area5/TestStage13.unity
     guid: 098bf646c7aa6b34f86abdb767995bb0
   - enabled: 1
-    path: Assets/Wakugawa/TestStage/TestStage14.unity
-    guid: 8f03d8af9756475459d3c69b65cb5814
+    path: Assets/JoinFolder/Area5/TestStage14.unity
+    guid: 81b5b7b05c7764e4691bcd3fa01152f7
+  - enabled: 1
+    path: Assets/JoinFolder/Area5/TestStage15.unity
+    guid: 93ffcf7f795683740a8c2317cf09f2a2
   - enabled: 1
     path: Assets/JoinFolder/GameOver.unity
     guid: 04dd5941008b6034bb5e101398f4dd16
