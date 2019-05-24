@@ -4965,20 +4965,20 @@ MonoBehaviour:
   constellation_parent:
   - {fileID: 1769243594}
   - {fileID: 1067717440}
-  - {fileID: 623422921}
   - {fileID: 1990326910}
+  - {fileID: 623422921}
   - {fileID: 1710870539}
   constellation_line:
   - {fileID: 442488350}
   - {fileID: 449998271}
-  - {fileID: 998465079}
   - {fileID: 461827986}
+  - {fileID: 998465079}
   - {fileID: 1533009545}
   constellation_image:
   - {fileID: 2139798334}
   - {fileID: 1684769215}
-  - {fileID: 1353716783}
   - {fileID: 763942688}
+  - {fileID: 1353716783}
   - {fileID: 1766972780}
   sheep_stars:
   - {fileID: 1248682697}
@@ -4989,13 +4989,13 @@ MonoBehaviour:
   - {fileID: 1402220906}
   - {fileID: 843376220}
   smallbear_stars:
-  - {fileID: 2077767865}
-  - {fileID: 1285519100}
-  - {fileID: 581312210}
-  balance_stars:
   - {fileID: 2123440375}
   - {fileID: 1911118231}
   - {fileID: 471160251}
+  balance_stars:
+  - {fileID: 2077767865}
+  - {fileID: 1285519100}
+  - {fileID: 581312210}
   crab_stars:
   - {fileID: 1697864276}
   - {fileID: 1317073079}
@@ -5463,7 +5463,7 @@ Transform:
   - {fileID: 1671129012}
   - {fileID: 1901701085}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &726165386
 Prefab:
@@ -8359,7 +8359,7 @@ Transform:
   - {fileID: 615872590}
   - {fileID: 1239719601}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2026696209
 Prefab:
