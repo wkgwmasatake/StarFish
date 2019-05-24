@@ -1894,6 +1894,48 @@ GameObject:
   m_PrefabParentObject: {fileID: 1885102306738984, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
     type: 2}
   m_PrefabInternal: {fileID: 144414365}
+--- !u!1001 &932440553
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4142564865932768, guid: a18322fee2fb4fb4482cd12f808b5a79, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4142564865932768, guid: a18322fee2fb4fb4482cd12f808b5a79, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4142564865932768, guid: a18322fee2fb4fb4482cd12f808b5a79, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4142564865932768, guid: a18322fee2fb4fb4482cd12f808b5a79, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4142564865932768, guid: a18322fee2fb4fb4482cd12f808b5a79, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4142564865932768, guid: a18322fee2fb4fb4482cd12f808b5a79, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4142564865932768, guid: a18322fee2fb4fb4482cd12f808b5a79, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4142564865932768, guid: a18322fee2fb4fb4482cd12f808b5a79, type: 2}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: a18322fee2fb4fb4482cd12f808b5a79, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1142670153 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1477581010579694, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,

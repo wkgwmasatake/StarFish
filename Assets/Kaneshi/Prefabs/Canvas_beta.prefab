@@ -527,6 +527,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4e894106b26764478eae3a3ab7693e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StageName:
+  - "\u30B7\u30E1\u30A4\u306E\u305F\u3081\u306B"
+  - "\u30AD\u30DC\u30A6\u3092\u305B\u304A\u3063\u3066"
+  - "\u30BD\u30E9\u307E\u3067\u3068\u3069\u3051"
+  - "\u30A4\u30EF\u3092\u3051\u3063\u3066"
+  - "\u30A2\u30A4\u30C0\u3092\u3059\u3059\u307F"
+  - "\u30DB\u30B7\u3068\u306A\u308C"
+  - "\u30CA\u30AC\u30EC\u3092\u3088\u304F\u307F\u3066"
+  - "\u30DF\u3092\u3086\u3060\u306D\u3066"
+  - "\u305F\u304B\u304F\u3068\u3079"
+  - "\u30C4\u30AD\u306E\u30A2\u30BF\u30DE\u3092"
+  - "\u3046\u307E\u304F\u306F\u306D\u3066"
+  - "\u3088\u308A\u305F\u304B\u304F"
+  - "\u30AD\u30DC\u30A6\u3092\u30AB\u30BF\u30C1\u306B"
+  - "\u30D2\u30AB\u30EA\u304B\u304C\u3084\u3051"
+  - "\u30DB\u30B7\u30CA\u30EB\u30D2\u30C8\u30C7"
 --- !u!114 &114175815428173792
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -832,7 +848,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 396d2516adb003a46aa95bc69528bfc8, type: 3}
-    m_FontSize: 200
+    m_FontSize: 150
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
