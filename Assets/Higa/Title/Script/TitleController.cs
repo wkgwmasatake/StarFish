@@ -100,6 +100,9 @@ public class TitleController : MonoBehaviour {
 
         area_select = GameDirector.Instance.LoadAreaSelect();
         area_select.allowSceneActivation = false;
+
+        // PlayerPrefsからステージとエリアの情報を取得
+        GameDirector.Instance.GetFlagInfo();
     }
 	
 	// Update is called once per frame

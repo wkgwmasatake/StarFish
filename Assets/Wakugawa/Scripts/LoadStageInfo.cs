@@ -28,25 +28,4 @@ public class LoadStageInfo : MonoBehaviour {
         Debug.Log((((int)Mathf.Log(StageStatus, 2)) + 1) + ":load");
         return ((int)Mathf.Log(StageStatus, 2)) + 1;      // 求めた値の2の何乗か + 1を出すことでどのステージ、エリアまで解放しているかを出すことができる。
     }
-
-    // 真珠の獲得状況を取得する際に呼び出す関数
-    public bool LoadPearlFlag(int StageNo)
-    {
-        int GetPearlFlag = GameDirector.Instance.GetPearlFlag;      // 真珠の獲得状況を取得
-
-        if(StageNo < 1)         // 引数が1未満の場合
-        {
-            return false;       // 以下の処理を行わない
-        }
-
-        GetPearlFlag = GetPearlFlag >> (StageNo - 1);   // 引数 - 1 の分だけ右に論理シフトを行う
-
-        if((GetPearlFlag & 0x0001) == 1)        // 引数で渡されたステージのビットに1が立っていたら
-        {
-            return true;                        // trueを返す
-        }
-
-        // その他の場合はfalseを返す
-        return false;
-    }
 }

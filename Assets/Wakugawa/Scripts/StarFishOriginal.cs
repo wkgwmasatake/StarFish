@@ -40,7 +40,6 @@ public class StarFishOriginal : MonoBehaviour {
     SpriteRenderer[] LegSpriteRenderer; // 腕のスプライトレンダラー
     Rigidbody2D rb;
     bool OceanFlag;                 // 海流に入った際に使うフラグ
-    bool PearlFlag = false;         // 真珠の取得状況フラグ
     bool FadeFlag = true;           // 足のフェードイン、フェードアウトのフラグ(trueでフェードアウト、falseでフェードイン)
     float FadeAlpha = 1.0f;         // 足のアルファ値(0～1)
     Animator anim;
@@ -386,11 +385,6 @@ public class StarFishOriginal : MonoBehaviour {
                 if(StageNum % 3 == 0)               // 各エリアの最終ステージなら
                 {
                     GetComponent<SaveStageInfo>().SaveAreaClearInfo(StageNum / 3);  // エリアのクリアを保存
-                }
-
-                if(PearlFlag)       // 真珠を獲得していた場合
-                {
-                    GetComponent<SaveStageInfo>().SaveGetPearlInfo(GameDirector.Instance.GetSceneNumber - 1);       // 現在のステージの真珠を獲得したことを保存
                 }
 
                 StartCoroutine("LoadResult");                           // コルーチンでリザルトシーンを読み込む

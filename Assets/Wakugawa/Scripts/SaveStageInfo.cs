@@ -42,23 +42,4 @@ public class SaveStageInfo : MonoBehaviour {
 
         GameDirector.Instance.SetAreaClear_Flg = AreaStatus;            // 更新したエリアのクリア状況をディレクターに渡す
     }
-
-    // それぞれのステージをクリアした際に真珠の獲得状況を保存する関数
-    public void SaveGetPearlInfo(int stageNo)
-    {
-        if (stageNo < 1)
-        {
-            return;
-        }
-
-        int PearlStatus = GameDirector.Instance.GetPearlFlag;      // 真珠の取得状況を取得
-
-        if (PearlStatus < 0)
-        {
-            return;
-        }
-        PearlStatus = PearlStatus | (int)Mathf.Pow(2, stageNo);    // クリアしたステージの番号の2乗と現在のステージの和を真珠の取得状況として変数に格納
-
-        GameDirector.Instance.SetPearlFlag = PearlStatus;          // 更新したステージのクリア真珠の取得状況をディレクターに渡す
-    }
 }
