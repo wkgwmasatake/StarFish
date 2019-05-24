@@ -267,6 +267,9 @@ public class StarFishOriginal : MonoBehaviour {
                     {
                         Status = (byte)GAME_STATUS._CREAR_EFFECT;       // クリア演出処理へ
 
+                        // BGMをフェードアウトさせる
+                        GameObject.Find("SoundManager").GetComponent<SoundManager>().BGM_Fade();
+
                         ForceY = 0.3f;      // Y方向を固定値に変更
                         FadeAlpha = 1.0f;   // フェード値をリセット
 
