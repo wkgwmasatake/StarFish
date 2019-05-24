@@ -211,10 +211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7508ab6e04bc6904b9745c0aaaa3a473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Result:
-    m_SceneName: 
-  GameOver:
-    m_SceneName: 
 --- !u!198 &198094728570495256
 ParticleSystem:
   m_ObjectHideFlags: 1

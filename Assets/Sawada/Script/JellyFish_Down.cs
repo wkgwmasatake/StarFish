@@ -14,14 +14,6 @@ public class JellyFish_Down : MonoBehaviour
             Debug.Log(Flg);
         }
     }
-    //private void OnTriggerExit2D(Collider2D collision)
-    //{
-    //    if(collision.gameObject.tag == "Player")
-    //    {
-    //        Flg = false;
-    //        Debug.Log(Flg);
-    //    }
-    //}
 
     public bool Flg
     {

@@ -13,13 +13,6 @@ public class JellyFish_Top : MonoBehaviour
             Flg = true;
         }
     }
-    //private void OnCollisionExit2D(Collision2D collision)
-    //{
-    //    if(collision.gameObject.tag == "Player")
-    //    {
-    //        Flg = false;
-    //    }
-    //}
 
     public bool Flg
     {

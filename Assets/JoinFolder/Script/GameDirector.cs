@@ -24,6 +24,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     [SerializeField] private SceneObject AreaSelectScene;  //エリアセレクトの情報格納
     [SerializeField] private GameObject player;            //プレイヤーの情報格納
     [SerializeField] private string[] StageSceneName;      //各メインシーンの名前格納
+    [SerializeField] private string[] StageName;              // 各ステージ名
 
 
 
