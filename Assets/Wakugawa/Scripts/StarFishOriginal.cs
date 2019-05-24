@@ -207,6 +207,8 @@ public class StarFishOriginal : MonoBehaviour {
                         {
                             GetComponent<Animator>().enabled = false;       // アニメーターをオフにする
 
+                            this.GetComponent<AudioSource>().PlayOneShot(ClearSound[2]);    // 最初のジャンプの音
+
                             GetComponent<CreateEffect>().InstantiateParticle();
 
                             GameDirector.Instance.SetArmNumber(GameDirector.Instance.GetArmNumber() - 1);               // 腕の本数を1減算
@@ -221,13 +223,6 @@ public class StarFishOriginal : MonoBehaviour {
                             FadeAlpha = 1.0f;
                             FadeFlag = true;
 
-                        }
-                        else                                                            // 最後の花火
-                        {
-                            //Instantiate(ParticleList[(int)PARTICLE.FIREWORK], transform);   // 海星の子に設定して花火のパーティクルを生成
-                            //SaveCSV SavePos = this.GetComponent<SaveCSV>();               // スクリプトを取得
-                            //SavePos.BinarySavePos(position, angle, i);                    // ユーザーの見えない場所に座標と角度を保存 
-                            //StartCoroutine("DestroyObject");                                // 1フレーム後に自分自身を非アクティブに設定
                         }
                     }
 
