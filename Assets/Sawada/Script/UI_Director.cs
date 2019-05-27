@@ -311,6 +311,8 @@ public class UI_Director : MonoBehaviour
                     GameObject retry_Obj = Instantiate(Fade_Down) as GameObject;         // Fade_Dwonオブジェクト生成
                     retry_Obj.transform.parent = GameObject.Find("FadePoint").transform; // FadePointを探してその子に設定
 
+                    GameObject.Find("SoundManager").GetComponent<SoundManager>().BGM_Fade();
+
                     // 指定のUIのアルファ値が０になるまで回す
                     while (PauseUI_Panel.GetComponent<CanvasGroup>().alpha > 0 && Pause_UI.GetComponent<CanvasGroup>().alpha > 0)
                     {
@@ -336,6 +338,8 @@ public class UI_Director : MonoBehaviour
                 if (Time.timeScale <= 0) Time.timeScale = 1;
                 GameObject yes_Obj = Instantiate(Black_Fade) as GameObject;
                 yes_Obj.transform.parent = GameObject.Find("FadePoint").transform;
+
+                GameObject.Find("SoundManager").GetComponent<SoundManager>().BGM_Fade();
 
                 // 指定のUIのアルファ値が０になるまで回す
                 while (PauseUI_Panel_Yes.GetComponent<CanvasGroup>().alpha > 0 && Pause_UI.GetComponent<CanvasGroup>().alpha > 0)
