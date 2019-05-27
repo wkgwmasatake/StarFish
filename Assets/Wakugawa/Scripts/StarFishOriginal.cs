@@ -75,10 +75,12 @@ public class StarFishOriginal : MonoBehaviour {
 
         anim = GetComponent<Animator>();
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        this.GetComponent<AudioSource>().PlayOneShot(ClearSound[3]);    // 最初のジャンプの音
+
+    }
+
+    // Update is called once per frame
+    void Update () {
 
         switch (Status)
         {
@@ -133,14 +135,15 @@ public class StarFishOriginal : MonoBehaviour {
 
                     if (Input.GetMouseButtonUp(0) && GameDirector.Instance.GetArmNumber() > 0)   // 左クリックしたとき、かつタップの最大数以下の時
                     {
-                        OceanFlag = true;       // 海流にそって加速するように変更
-
-                        Presstime = 0;          // 経過時間を初期化
-
-                        rb.velocity = Vector2.zero;                         // 重力加速度をリセット
 
                         if (GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1 && GameDirector.Instance.GetArmNumber() > 1)        // 最初のタップと最後のタップ以外の時
                         {
+                            OceanFlag = true;       // 海流にそって加速するように変更
+
+                            Presstime = 0;          // 経過時間を初期化
+
+                            rb.velocity = Vector2.zero;                         // 重力加速度をリセット
+
                             if (i < 100)
                             {
                                 i++;                                            // 保存する配列の要素番号を1つ加算

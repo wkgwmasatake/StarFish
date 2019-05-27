@@ -58,6 +58,9 @@ public class UI_Director : MonoBehaviour
     private float alphaPlus = 0.05f;
 
     private GameObject Panel_UI;       // UIのPanel情報格納用変数
+    private GameObject PauseUI_Panel;  // UIのパネル
+    private GameObject PauseUI_Panel_Yes;
+    private GameObject Pause_UI;       // ポーズUI
 
     // 各ステージ共通NAME
     private const string STAGE_NAME = "TestStage";
@@ -67,6 +70,12 @@ public class UI_Director : MonoBehaviour
         if (SceneManager.GetActiveScene().name == SceneGameOrver || SceneManager.GetActiveScene().name == SceneResult)
         {
             Panel_UI = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
+        }
+        else
+        {
+            PauseUI_Panel = GameObject.Find("Canvas_beta").transform.GetChild(1).transform.GetChild(2).gameObject;
+            Pause_UI = GameObject.Find("Canvas_beta").transform.GetChild(1).transform.GetChild(1).gameObject;
+            PauseUI_Panel_Yes = GameObject.Find("Canvas_beta").transform.GetChild(1).transform.GetChild(3).gameObject;
         }
     }
     private void Update()
@@ -285,8 +294,8 @@ public class UI_Director : MonoBehaviour
                 if (SceneManager.GetActiveScene().name == SceneGameOrver || SceneManager.GetActiveScene().name == SceneResult)
                 {
                     //Fade_Downオブジェクト生成
-                   GameObject child = Instantiate(Fade_Down) as GameObject;
-                    child.transform.parent = GameObject.Find("FadePoint").transform; // FadePointを探してその子に設定
+                    GameObject retry_Obj = Instantiate(Fade_Down) as GameObject;
+                    retry_Obj.transform.parent = GameObject.Find("FadePoint").transform; // FadePointを探してその子に設定
 
                     // アルファ値を０まで下げる
                     while (Panel_UI.GetComponent<CanvasGroup>().alpha > 0)
@@ -299,22 +308,17 @@ public class UI_Director : MonoBehaviour
                 else
                 {
                     if (Time.timeScale <= 0) Time.timeScale = 1;                     // タイムスケールを元に戻す
-                    GameObject child = Instantiate(Fade_Down) as GameObject;         // Fade_Dwonオブジェクト生成
-                    child.transform.parent = GameObject.Find("FadePoint").transform; // FadePointを探してその子に設定
+                    GameObject retry_Obj = Instantiate(Fade_Down) as GameObject;         // Fade_Dwonオブジェクト生成
+                    retry_Obj.transform.parent = GameObject.Find("FadePoint").transform; // FadePointを探してその子に設定
 
-                    GameObject obj_UI = GameObject.Find("Canvas_beta").transform.GetChild(1).transform.GetChild(2).gameObject;
-                    GameObject Pause_UI = GameObject.Find("Canvas_beta").transform.GetChild(1).transform.GetChild(1).gameObject;
+                    GameObject.Find("SoundManager").GetComponent<SoundManager>().BGM_Fade();
 
-                    // UI_Pause01がアクティブ状態なら
-                    if (obj_UI.activeSelf && Pause_UI.activeSelf)
+                    // 指定のUIのアルファ値が０になるまで回す
+                    while (PauseUI_Panel.GetComponent<CanvasGroup>().alpha > 0 && Pause_UI.GetComponent<CanvasGroup>().alpha > 0)
                     {
-                        // 指定のUIのアルファ値が０になるまで回す
-                        while (obj_UI.GetComponent<CanvasGroup>().alpha > 0 && Pause_UI.GetComponent<CanvasGroup>().alpha > 0)
-                        {
-                            obj_UI.GetComponent<CanvasGroup>().alpha -= downAlpha;
-                            Pause_UI.GetComponent<CanvasGroup>().alpha -= downAlpha;
-                            yield return null;
-                        }
+                        PauseUI_Panel.GetComponent<CanvasGroup>().alpha -= downAlpha;
+                        Pause_UI.GetComponent<CanvasGroup>().alpha -= downAlpha;
+                        yield return null;
                     }
                 }
 
@@ -330,13 +334,28 @@ public class UI_Director : MonoBehaviour
                 break;
 
             case ButtonState.YES:
+
+                if (Time.timeScale <= 0) Time.timeScale = 1;
+                GameObject yes_Obj = Instantiate(Black_Fade) as GameObject;
+                yes_Obj.transform.parent = GameObject.Find("FadePoint").transform;
+
+                GameObject.Find("SoundManager").GetComponent<SoundManager>().BGM_Fade();
+
+                // 指定のUIのアルファ値が０になるまで回す
+                while (PauseUI_Panel_Yes.GetComponent<CanvasGroup>().alpha > 0 && Pause_UI.GetComponent<CanvasGroup>().alpha > 0)
+                {
+                    PauseUI_Panel_Yes.GetComponent<CanvasGroup>().alpha -= downAlpha;
+                    Pause_UI.GetComponent<CanvasGroup>().alpha -= downAlpha;
+                    yield return null;
+                }
+                yield return new WaitForSecondsRealtime(2.0f);
                 SceneManager.LoadScene(SceneMenu);
                 break;
 
             case ButtonState.Menu:  // メニュー
 
-                GameObject fade = Instantiate(Black_Fade) as GameObject;         // Black_Fade生成
-                fade.transform.parent = GameObject.Find("FadePoint").transform;  // FadePointをさがしてその子に設定
+                GameObject menu_Obj = Instantiate(Black_Fade) as GameObject;         // Black_Fade生成
+                menu_Obj.transform.parent = GameObject.Find("FadePoint").transform;  // FadePointをさがしてその子に設定
 
                 while (Panel_UI.GetComponent<CanvasGroup>().alpha > 0)
                 {
@@ -349,8 +368,8 @@ public class UI_Director : MonoBehaviour
 
             case ButtonState.Next:  // 次
 
-                GameObject obj = Instantiate(Fade_Down) as GameObject;
-                obj.transform.parent = GameObject.Find("FadePoint").transform; // FadePointを探してその子に設定
+                GameObject next_Obj = Instantiate(Fade_Down) as GameObject;
+                next_Obj.transform.parent = GameObject.Find("FadePoint").transform; // FadePointを探してその子に設定
 
                 while (Panel_UI.GetComponent<CanvasGroup>().alpha > 0)
                 {

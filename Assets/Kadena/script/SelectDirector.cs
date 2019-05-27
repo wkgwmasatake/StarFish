@@ -160,10 +160,10 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
     {
 
         // Black_Fadeを探して、FadePointの子に設定
-        GameObject.Find("Blackfade").transform.parent = GameObject.Find("FadePoint").transform;
+        GameObject.Find("Blackfade _Up").transform.parent = GameObject.Find("FadePoint").transform;
 
         // BlackFadeのアニメーションコンポーネントを取得
-        BlackFade_Anim = GameObject.Find("Blackfade").GetComponent<Animation>();
+        BlackFade_Anim = GameObject.Find("Blackfade _Up").GetComponent<Animation>();
 
     }
 
@@ -172,7 +172,7 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
     {
         
         // BlackFadeのアニメーションが終わったら
-        if(!BlackFade_Anim.IsPlaying("BlacFade_Up") && !OneShotFlg)
+        if(!BlackFade_Anim.IsPlaying("BlackFade_Up") && !OneShotFlg)
         {
             Debug.Log("アニメーション終了");
 

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4609919183151452}
   - component: {fileID: 111621927397547980}
   m_Layer: 0
-  m_Name: Blackfade
+  m_Name: Blackfade_Down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1594644659840990}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.01, y: -15.78, z: 0}
+  m_LocalPosition: {x: 0.1858294, y: 5.4935527, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 4734893938045412}
@@ -108,12 +108,11 @@ Animation:
   m_GameObject: {fileID: 1594644659840990}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 0}
+  m_Animation: {fileID: 7400000, guid: 88c62e54a268ac745b51320dd828d821, type: 2}
   m_Animations:
-  - {fileID: 7400000, guid: a8dc30b4d672657449cbb049acf0109d, type: 2}
   - {fileID: 7400000, guid: 88c62e54a268ac745b51320dd828d821, type: 2}
   m_WrapMode: 0
-  m_PlayAutomatically: 0
+  m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
 --- !u!212 &212395564018522128

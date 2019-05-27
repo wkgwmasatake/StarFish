@@ -16,8 +16,8 @@ public class SwipeDisplay : MonoBehaviour {
     }
     void Flick()
     {
-        if(SelectDirector.Instance.Get_Statezoom() == true||
-            SelectDirector.Instance.Get_Statemove() == true) { return; }
+        //if(SelectDirector.Instance.Get_Statezoom() == true||
+            //SelectDirector.Instance.Get_Statemove() == true) { return; }
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             touchStartPos = new Vector3(Input.mousePosition.x,
@@ -30,10 +30,10 @@ public class SwipeDisplay : MonoBehaviour {
             touchEndPos = new Vector3(Input.mousePosition.x,
                                       Input.mousePosition.y,
                                       Input.mousePosition.z);
-            if(SelectDirector.Instance.Get_Statemove() == false)
-            {
-                GetDirection();
-            }
+            //if(SelectDirector.Instance.Get_Statemove() == false)
+            //{
+            //    GetDirection();
+            //}
             
         }
     }

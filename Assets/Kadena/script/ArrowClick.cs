@@ -45,7 +45,7 @@ public class ArrowClick : MonoBehaviour {
 
     public void Left_Onclick()
     {
-        bool move = SelectDirector.Instance.Get_Statemove();
+        //bool move = SelectDirector.Instance.Get_Statemove();
 
         int pos = SelectDirector.Instance.GetNumArea();
         if (touch_left == false && SelectDirector.Instance.GetNumArea() > 0)
@@ -61,7 +61,7 @@ public class ArrowClick : MonoBehaviour {
 
     public void Right_Onclick()
     {
-        bool move = SelectDirector.Instance.Get_Statemove();
+        //bool move = SelectDirector.Instance.Get_Statemove();
         int pos = SelectDirector.Instance.GetNumArea();
         if (touch_right == false && SelectDirector.Instance.GetNumArea() < 4)
         {

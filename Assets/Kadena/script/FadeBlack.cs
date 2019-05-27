@@ -16,7 +16,7 @@ public class FadeBlack : MonoBehaviour {
 
     public IEnumerator FadeIn()
     {
-        SelectDirector.Instance.Set_Statemove();
+        //SelectDirector.Instance.Set_Statemove();
 
         float size = 0f;
         float speed = add_speed;
@@ -42,7 +42,7 @@ public class FadeBlack : MonoBehaviour {
             size -= speed;
             yield return null;           
         }
-        SelectDirector.Instance.Set_Statemove();
+        //SelectDirector.Instance.Set_Statemove();
 
     }
 }
