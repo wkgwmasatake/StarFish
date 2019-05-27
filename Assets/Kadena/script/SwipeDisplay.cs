@@ -16,7 +16,8 @@ public class SwipeDisplay : MonoBehaviour {
     }
     void Flick()
     {
-        if(SelectDirector.Instance.Get_Statezoom() == true) { return; }
+        if(SelectDirector.Instance.Get_Statezoom() == true||
+            SelectDirector.Instance.Get_Statemove() == true) { return; }
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             touchStartPos = new Vector3(Input.mousePosition.x,
@@ -29,7 +30,11 @@ public class SwipeDisplay : MonoBehaviour {
             touchEndPos = new Vector3(Input.mousePosition.x,
                                       Input.mousePosition.y,
                                       Input.mousePosition.z);
-            GetDirection();
+            if(SelectDirector.Instance.Get_Statemove() == false)
+            {
+                GetDirection();
+            }
+            
         }
     }
     void GetDirection()
@@ -63,14 +68,11 @@ public class SwipeDisplay : MonoBehaviour {
             case "right":
                 //右フリックされた時の処理
                 leftarrow.GetComponent<ArrowClick>().Left_Onclick();
-
-                Debug.Log("right");
                 break;
 
             case "left":
                 //左フリックされた時の処理
                 rightarrow.GetComponent<ArrowClick>().Right_Onclick();
-                Debug.Log("left");
                 break;
         }
     }

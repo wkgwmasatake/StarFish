@@ -14,68 +14,52 @@ public class LineLighting : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-
         switch (CLEAR_STAGE)
         {
             case 1:
                 num = SelectDirector.Instance.Get_cntStageCleared();
-                Debug.Log("stage1= " + num);
                 break;
             case 2:
                 num = SelectDirector.Instance.Get_cntStageCleared();
-                Debug.Log("stage2= " + num);
                 break;
             case 3:
                 num = SelectDirector.Instance.Get_cntStageCleared();
-                Debug.Log("stage3= " + num);
                 break;
             case 4:
                 num = SelectDirector.Instance.Get_cntStageCleared();
-                Debug.Log("stage4= " + num);
                 break;
             case 5:
                 num = SelectDirector.Instance.Get_cntStageCleared();
-                Debug.Log("stage5= " + num);
                 break;
             case 6:
                 num = SelectDirector.Instance.Get_cntStageCleared();
-                Debug.Log("stage6= " + num);
                 break;
             case 7:
                 num = SelectDirector.Instance.Get_cntStageCleared();
-                Debug.Log("stage2= " + num);
                 break;
             case 8:
                 num = SelectDirector.Instance.Get_cntStageCleared();
-                Debug.Log("stage2= " + num);
                 break;
             case 9:
                 num = SelectDirector.Instance.Get_cntStageCleared();
-                Debug.Log("stage2= " + num);
                 break;
             case 10:
                 num = SelectDirector.Instance.Get_cntStageCleared();
-                Debug.Log("stage2= " + num);
                 break;
             case 11:
                 num = SelectDirector.Instance.Get_cntStageCleared();
-                Debug.Log("stage2= " + num);
                 break;
             case 12:
                 num = SelectDirector.Instance.Get_cntStageCleared();
-                Debug.Log("stage2= " + num);
                 break;
             case 13:
                 num = SelectDirector.Instance.Get_cntStageCleared();
-                Debug.Log("stage2= " + num);
                 break;
             case 14:
                 num = SelectDirector.Instance.Get_cntStageCleared();
-                Debug.Log("stage2= " + num);
                 break;
             case 15:
                 num = SelectDirector.Instance.Get_cntStageCleared();
-                Debug.Log("stage2= " + num);
                 break;
         }
 

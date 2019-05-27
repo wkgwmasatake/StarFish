@@ -107,7 +107,6 @@ public class SelectArea : MonoBehaviour {
     public void ButtonArea()//クリックした時
     {
         if(SelectDirector.Instance.Get_Statezoom() == true) { return; }
-
         if (zoom_flg == false)
         {
             StartCoroutine(ZoomUp());
