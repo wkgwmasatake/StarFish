@@ -12,8 +12,6 @@ public class ZoomOut : MonoBehaviour {
 
     public void Click_ZoomOut()
     {
-        
-
         bool flg = SelectDirector.Instance.Get_Statezoom();
 
         if (flg == true)
