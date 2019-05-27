@@ -98,7 +98,7 @@ public class TitleController : MonoBehaviour {
             star_child[i] = constellation.transform.GetChild(i).gameObject;
         }
 
-        area_select = GameDirector.Instance.LoadAreaSelect();
+        area_select = GameDirector.Instance.LoadMovieScene();    // ムービーシーンに遷移
         area_select.allowSceneActivation = false;
     }
 	

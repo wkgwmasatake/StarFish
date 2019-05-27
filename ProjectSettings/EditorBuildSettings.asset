@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/JoinFolder/Title.unity
     guid: c1a8351218319cd45a4452ddd3c4b56a
   - enabled: 1
+    path: Assets/JoinFolder/Movie.unity
+    guid: aeae1524b30897148b65a795b2ad3c6f
+  - enabled: 1
     path: Assets/JoinFolder/Area_Select.unity
     guid: 6b6cd518d146d35478a5d9f4a8e22b7e
   - enabled: 1
