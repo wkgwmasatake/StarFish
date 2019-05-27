@@ -28,6 +28,8 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
     [SerializeField] private GameObject Return;
 
     [SerializeField] private GameObject under_zoom;
+    [SerializeField] private GameObject left_zoom;
+
 
     private int cnt_stage_cleared;//ステージクリア状況の進行受け取り用
     private int cnt_area_cleared;//エリアクリア状況の進行受け取り用
@@ -151,9 +153,8 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
                 break;
         }
         NameText = GameObject.Find("Name_Text").GetComponent<Text>();
-        SetName(START_NUM + 1);
         num_stage = START_NUM;
-
+        SetNumArea(0);
     }
 
     void Start()//他オブジェクトを参照する場合はこちらで行う
@@ -164,7 +165,7 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
 
         // BlackFadeのアニメーションコンポーネントを取得
         BlackFade_Anim = GameObject.Find("Blackfade _Up").GetComponent<Animation>();
-
+        GetNumArea();
     }
 
 
@@ -287,6 +288,15 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
 
     public int GetNumArea()//エリア配列の要素数を外部から取得する
     {
+        if (num_area == 0)
+        {
+            left_zoom.SetActive(false);
+        }
+        else
+        {
+            left_zoom.SetActive(true);
+        }
+
         return num_area;
     }
 
