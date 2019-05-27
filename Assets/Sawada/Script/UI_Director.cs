@@ -285,6 +285,7 @@ public class UI_Director : MonoBehaviour
                 {
                     //Fade_Downオブジェクト生成
                    GameObject child = Instantiate(Fade_Down) as GameObject;
+                    child.transform.parent = GameObject.Find("FadePoint").transform; // FadePointを探してその子に設定
 
                     // アルファ値を０まで下げる
                     while (Panel_UI.GetComponent<CanvasGroup>().alpha > 0)
