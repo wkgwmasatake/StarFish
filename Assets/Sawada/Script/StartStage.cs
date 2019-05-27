@@ -82,9 +82,4 @@ public class StartStage : MonoBehaviour
 
         return name;
     }
-
-    public void AnimEventCallBack()
-    {
-        GameDirector.Instance.SetStarFishFlg = true;
-    }
 }

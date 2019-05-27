@@ -57,6 +57,8 @@ MonoBehaviour:
     m_SceneName: Result
   AreaSelectScene:
     m_SceneName: Area_Select
+  MovieScene:
+    m_SceneName: Movie
   player: {fileID: 0}
   StageSceneName:
   - TestStage1
@@ -74,6 +76,7 @@ MonoBehaviour:
   - TestStage13
   - TestStage14
   - TestStage15
+  StageName: []
   StageStatus: 0
   AreaStatus: 0
   PearlStatus: 0

@@ -20788,7 +20788,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1314668161}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 117, y: 208, z: 0}
+  m_LocalPosition: {x: 69, y: 122.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 504072315}
@@ -26579,7 +26579,7 @@ MonoBehaviour:
     type: 2}
   lost_star: {fileID: 1395824719966470, guid: c5e99340470e82d4b84790f3bc6e24cc, type: 2}
   nextScene:
-    m_SceneName: Area_Select
+    m_SceneName: Movie
 --- !u!4 &1614786579
 Transform:
   m_ObjectHideFlags: 0
