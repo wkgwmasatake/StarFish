@@ -448,6 +448,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8ba28905af41c2e4694e2f2bd314e30b, type: 3}
   - {fileID: 8300000, guid: ed28f0c62fbae2342acd8a1f01dce1b4, type: 3}
   - {fileID: 8300000, guid: 67514c8a450ee6344a44dd32c9ef8017, type: 3}
+  - {fileID: 8300000, guid: ab0eaa8d473fbea41a72c617e500b02b, type: 3}
   bombPower: 0.6
   ArrowDisplayTime: 0.5
   SavePosDistance: 1

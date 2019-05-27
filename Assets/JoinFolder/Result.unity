@@ -751,6 +751,21 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b9a6e0871317c7344a0e1dc416264e68, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &172815654 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1093652336776588, guid: b9a6e0871317c7344a0e1dc416264e68,
+    type: 2}
+  m_PrefabInternal: {fileID: 172815653}
+--- !u!210 &172815655
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 172815654}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!4 &205509973 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4408794266073004, guid: 39404e09654b5c244b097bc159f418f6,
@@ -1011,7 +1026,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1546196252
+  randomSeed: -1419174955
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5271,7 +5286,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -8288,7 +8303,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1769243595
 Transform:
   m_ObjectHideFlags: 0
