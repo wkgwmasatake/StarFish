@@ -938,7 +938,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 384472331
+  randomSeed: -1546196252
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4691,7 +4691,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 0
 --- !u!1 &461827985
 GameObject:
   m_ObjectHideFlags: 0
@@ -5712,6 +5712,11 @@ Prefab:
     - target: {fileID: 114471106991709810, guid: c62f113ca1bd4c54285b9f91aac2b9e8,
         type: 2}
       propertyPath: GameResultScene.m_SceneName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114471106991709810, guid: c62f113ca1bd4c54285b9f91aac2b9e8,
+        type: 2}
+      propertyPath: MovieScene.m_SceneName
       value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -7154,8 +7159,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1373885742}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 720, y: 1280, z: 0}
-  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
+  m_LocalPosition: {x: 69, y: 122.5, z: 0}
+  m_LocalScale: {x: 0.1725, y: 0.1725, z: 0.1725}
   m_Children:
   - {fileID: 1825380500}
   - {fileID: 1533060382}
@@ -7721,7 +7726,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 0
 --- !u!1001 &1687737319
 Prefab:
   m_ObjectHideFlags: 0
@@ -7964,7 +7969,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1769243595
 Transform:
   m_ObjectHideFlags: 0
