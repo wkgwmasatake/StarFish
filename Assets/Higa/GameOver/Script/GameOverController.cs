@@ -20,6 +20,7 @@ public class GameOverController : MonoBehaviour {
     [SerializeField] Image blackfade2;
     [SerializeField] GameObject starfish;
     [SerializeField] SpriteRenderer gameover_text;
+    [SerializeField] AudioSource bgm;
 
     private float time;
     private float fadetime;
@@ -127,8 +128,17 @@ public class GameOverController : MonoBehaviour {
 
         if(now_phase != PHASE.END && color.a >= 1.0f && GameDirector.Instance.ParticleFlg)
         {
-            ChangePhase(PHASE.END);
+            //ChangePhase(PHASE.END);
             
+        }
+
+        if(bgm.volume <= 1.0f)
+        {
+            bgm.volume = Mathf.Lerp(bgm.volume, 1.0f, Time.deltaTime / 3);
+        }
+        else
+        {
+            ChangePhase(PHASE.END);
         }
     }
 
