@@ -80,12 +80,6 @@ public class StarFishOriginal : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if(GameDirector.Instance.GetStarFishFlg)
-        {
-            anim.SetTrigger("IdleTrigger");
-            GameDirector.Instance.SetStarFishFlg = false;
-        }
-
         switch (Status)
         {
             case (byte)GAME_STATUS._PLAY:   // ゲームプレイ時
