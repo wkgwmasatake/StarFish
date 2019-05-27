@@ -23,6 +23,8 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
     [SerializeField] private GameObject Left_arrow;
     [SerializeField] private GameObject Right_arrow;
 
+    [SerializeField] private GameObject under_zoom;
+
     private int cnt_stage_cleared;//ステージクリア状況の進行受け取り用
     private int cnt_area_cleared;//エリアクリア状況の進行受け取り用
 
@@ -136,13 +138,14 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
                 START_NUM = 12;
                 break;
         }
+        NameText = GameObject.Find("Name_Text").GetComponent<Text>();
+        SetName(START_NUM + 1);
+        num_stage = START_NUM;
+
     }
 
     void Start()//他オブジェクトを参照する場合はこちらで行う
     {
-        NameText = GameObject.Find("Name_Text").GetComponent<Text>();
-        SetName(START_NUM + 1);
-        num_stage = START_NUM;
     }
 
     private void Init_Stage_Select()//シーン開始時の処理　エリアのクリアフラグ読み取りもここで行うこと
@@ -297,6 +300,14 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
     public void Set_Statezoom()
     {
         State_zoom = !State_zoom;
+        if(State_zoom == true)
+        {
+            under_zoom.SetActive(true);
+        }
+        else
+        {
+            under_zoom.SetActive(false);
+        }
     }
     //ズーム状態受け取り
 }

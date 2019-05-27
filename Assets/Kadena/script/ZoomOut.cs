@@ -12,12 +12,13 @@ public class ZoomOut : MonoBehaviour {
 
     public void Click_ZoomOut()
     {
-        SE_Taped.PlayOneShot(SE_Taped.clip);//効果音再生
+        
 
         bool flg = SelectDirector.Instance.Get_Statezoom();
 
         if (flg == true)
         {
+            SE_Taped.PlayOneShot(SE_Taped.clip);//効果音再生
             SelectDirector.Instance.Set_Statezoom();
             GameObject obj;
             int num = SelectDirector.Instance.GetNumArea();
