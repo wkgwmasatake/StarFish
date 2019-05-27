@@ -35,7 +35,6 @@ public class FadeOutAnim_Up : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameDirector.Instance.SetStarFishFlg = true;
         StartStage.SetActive(true);
         PauseUI.SetActive(true);
     }
