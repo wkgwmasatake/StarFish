@@ -390,6 +390,7 @@ GameObject:
   - component: {fileID: 224980582072310232}
   - component: {fileID: 222958306318208484}
   - component: {fileID: 114141899122006564}
+  - component: {fileID: 225759665067118778}
   m_Layer: 5
   m_Name: UI_Pause02
   m_TagString: Untagged
@@ -2063,6 +2064,17 @@ CanvasGroup:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1477581010579694}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!225 &225759665067118778
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1885102306738984}
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
