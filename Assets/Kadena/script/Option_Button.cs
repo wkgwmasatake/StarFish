@@ -23,14 +23,12 @@ public class Option_Button : MonoBehaviour {
         switch (name)
         {
             case "Stage_Select":
+            case "Area_Select":
                 SceneManager.LoadScene("Title");
                 break;
             case "Option_Scene":
                 SceneManager.LoadScene(pre_scene);
-                break;
-            case "Area_Select":
-                SceneManager.LoadScene("Title");
-                break;
+                break;            
         }
     }
 }

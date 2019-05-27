@@ -22,9 +22,11 @@ public class SelectStage : MonoBehaviour {
     [SerializeField] private Sprite img_lock;
     [SerializeField] private Sprite img_clear;
 
+    [SerializeField] private GameObject Water_Fade;     // 画面切り替え時のフェード
+
     private int now_status;
 
-    public string NAME;//inspector上からステージ名を入力出来るようにする
+    public string NAME;　//inspector上からステージ名を入力出来るようにする
 
     private string Namestage;
     private enum StateNum// ステージのクリア状況
@@ -151,16 +153,30 @@ public class SelectStage : MonoBehaviour {
     public void ButtonStage()//クリックした時
     {
         SE_Taped.PlayOneShot(SE_Taped.clip);//効果音再生
-
-        string name = "";
-        name = NAME;
-
-        SceneManager.LoadScene(name);
+        StartCoroutine("Fade_Courutin");
     }
 
     private void Light_Emission(Color color)//変色処理
     {
         GetComponent<Image>().color = color;
+    }
+
+
+
+    /// <summary>
+    ///  切り替わり時のコルーチン
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator Fade_Courutin()
+    {
+        GameObject Fade = Instantiate(Water_Fade) as GameObject;
+        yield return new WaitForSeconds(2.0f);
+
+        string name = "";
+        name = NAME;
+
+        SceneManager.LoadScene(name);
+
     }
 
 }

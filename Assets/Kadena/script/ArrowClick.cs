@@ -45,17 +45,13 @@ public class ArrowClick : MonoBehaviour {
 
     public void Left_Onclick()
     {
-        if (touch_left == true)
-        {
-            return;
-        }
+        bool move = SelectDirector.Instance.Get_Statemove();
 
         int pos = SelectDirector.Instance.GetNumArea();
         if (touch_left == false && SelectDirector.Instance.GetNumArea() > 0)
         {
             int state = SelectDirector.Instance.GetStateArea(pos, -1);
             int now_state = SelectDirector.Instance.GetStateArea(pos, 0);
-
             tap_SE.PlayOneShot(tap_SE.clip);
             SelectDirector.Instance.SetNumArea(-1);
             touch_left = true;
@@ -65,16 +61,12 @@ public class ArrowClick : MonoBehaviour {
 
     public void Right_Onclick()
     {
-        if (touch_right == true)
-        {
-            return;
-        }
+        bool move = SelectDirector.Instance.Get_Statemove();
         int pos = SelectDirector.Instance.GetNumArea();
         if (touch_right == false && SelectDirector.Instance.GetNumArea() < 4)
         {
             int state = SelectDirector.Instance.GetStateArea(pos, 1);
             int now_state = SelectDirector.Instance.GetStateArea(pos, 0);
-
             tap_SE.PlayOneShot(tap_SE.clip);
             SelectDirector.Instance.SetNumArea(1);
             touch_right = true;

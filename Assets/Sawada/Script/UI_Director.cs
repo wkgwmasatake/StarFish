@@ -48,6 +48,7 @@ public class UI_Director : MonoBehaviour
     [SerializeField] private AudioClip[] SE;
 
     [SerializeField] private GameObject Fade_Down;
+    [SerializeField] private GameObject Black_Fade;
 
     [SerializeField] private CanvasGroup PanelAlpha;
     [SerializeField] private float downAlpha;
@@ -334,7 +335,8 @@ public class UI_Director : MonoBehaviour
 
             case ButtonState.Menu:  // メニュー
 
-                GameObject.Find("Main Camera").gameObject.GetComponent<Result_CameraAnim>().StartCoroutine("CameraMove");
+                GameObject fade = Instantiate(Black_Fade) as GameObject;         // Black_Fade生成
+                fade.transform.parent = GameObject.Find("FadePoint").transform;  // FadePointをさがしてその子に設定
 
                 while (Panel_UI.GetComponent<CanvasGroup>().alpha > 0)
                 {
