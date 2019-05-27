@@ -29,6 +29,10 @@ public class ResultController_v2 : MonoBehaviour
     [SerializeField] GameObject[] balance_stars;
     [SerializeField] GameObject[] crab_stars;
     [SerializeField] float fadetime_cam;
+    [SerializeField] AudioSource star_rising;
+    [SerializeField] AudioSource star_fill;
+    [SerializeField] AudioSource star_complete;
+    [SerializeField] AudioSource bgm;
 
     private PHASE now_phase;
 
@@ -93,7 +97,7 @@ public class ResultController_v2 : MonoBehaviour
                 break;
         }
 
-
+        
     }
 
     // Update is called once per frame
@@ -150,15 +154,14 @@ public class ResultController_v2 : MonoBehaviour
                 now_image.color = color;
 
             }
+            bgm.volume = Mathf.Lerp(bgm.volume, 1.0f, Time.deltaTime / 3);
+            Debug.Log(bgm.volume);
         }
         else
         {
             //GameDirector.Instance.ParticleFlg = true;
             ChangePhase(PHASE.END);
         }
-
-
-
 
     }
 
@@ -170,11 +173,6 @@ public class ResultController_v2 : MonoBehaviour
 
     }
 
-    private void PawnFadeStar()
-    {
-        Instantiate(fade_star);
-        GameDirector.Instance.ParticleFlg = true;
-    }
 
     private void PawnStarCluster(SpriteRenderer _line, SpriteRenderer _image, GameObject[] _stars)
     {
@@ -194,6 +192,12 @@ public class ResultController_v2 : MonoBehaviour
         if(now_area < release_area)
         {
             release_stage = 2;
+        }
+
+        if (release_stage < 0)
+        {
+            release_stage = 0;
+            now_stage = 0;
         }
 
         for (int i = 0; i <= release_stage; i++)
@@ -224,6 +228,8 @@ public class ResultController_v2 : MonoBehaviour
                 pos1.z = -10f;
                 camera.transform.position = pos1;
                 camera.orthographicSize = 1.0f;
+
+
             }
 
         }
@@ -236,10 +242,17 @@ public class ResultController_v2 : MonoBehaviour
 
         var _fade_star = Instantiate(fade_star);
         _fade_star.transform.position = pos;
+        star_fill.Play();
 
         yield return new WaitForSeconds(second);
         starry_sky.SetActive(true);
         ChangePhase(PHASE.CAMERA);
+
+        if (now_area < release_area || (release_stage == 2 && now_stage == 2))
+        {
+            star_complete.Play();
+        }
+
         GameDirector.Instance.ParticleFlg = true;
 
         //yield return null;
