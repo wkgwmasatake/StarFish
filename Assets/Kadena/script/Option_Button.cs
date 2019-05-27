@@ -32,17 +32,5 @@ public class Option_Button : MonoBehaviour {
                 SceneManager.LoadScene("Title");
                 break;
         }
-        //if (SceneManager.GetActiveScene().name == "Stage_Select")
-        //{
-        //    SceneManager.LoadScene("Area_Select");
-        //}
-        //else if(SceneManager.GetActiveScene().name == "Option_Scene")
-        //{
-        //    SceneManager.LoadScene(pre_scene);
-        //}
-        //else if(SceneManager.GetActiveScene().name == "Title")
-        //{
-        //    SceneManager.LoadScene("Title");
-        //}
     }
 }

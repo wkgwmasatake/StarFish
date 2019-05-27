@@ -169,7 +169,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1624357606720078}
   m_LocalRotation: {x: 0, y: 0, z: -0.86602545, w: 0.49999994}
-  m_LocalPosition: {x: 5, y: -23.55, z: 0}
+  m_LocalPosition: {x: 1.65, y: -23.55, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children:
   - {fileID: 4315450068489674}
@@ -447,6 +447,7 @@ MonoBehaviour:
   ClearSound:
   - {fileID: 8300000, guid: 8ba28905af41c2e4694e2f2bd314e30b, type: 3}
   - {fileID: 8300000, guid: ed28f0c62fbae2342acd8a1f01dce1b4, type: 3}
+  - {fileID: 8300000, guid: 67514c8a450ee6344a44dd32c9ef8017, type: 3}
   bombPower: 0.6
   ArrowDisplayTime: 0.5
   SavePosDistance: 1

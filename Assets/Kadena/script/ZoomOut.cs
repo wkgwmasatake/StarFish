@@ -3,9 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ZoomOut : MonoBehaviour {
-     
+    private AudioSource SE_Taped;
+
+    void Start()
+    {
+        SE_Taped = GetComponent<AudioSource>();
+    }
+
     public void Click_ZoomOut()
     {
+        SE_Taped.PlayOneShot(SE_Taped.clip);//効果音再生
+
         bool flg = SelectDirector.Instance.Get_Statezoom();
 
         if (flg == true)

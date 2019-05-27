@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class ResultController : MonoBehaviour {
+public class ResultController_v2 : MonoBehaviour
+{
 
     enum PHASE
     {
         FADE,
-        STAR,
         CAMERA,
 
         END,
@@ -28,26 +28,22 @@ public class ResultController : MonoBehaviour {
     [SerializeField] GameObject[] smallbear_stars;
     [SerializeField] GameObject[] balance_stars;
     [SerializeField] GameObject[] crab_stars;
-    [SerializeField] int now_clear_stage;
-    [SerializeField] float fadetime;
-
-    [SerializeField] float RisingTime;
+    [SerializeField] float fadetime_cam;
 
     private PHASE now_phase;
 
     private GameObject _rising_star;
-    private ParticleSystem _star_ps;
-    private float time;
-    private int area_num;
-    private int stage_num;
+    private int release_area;
+    private int release_stage;
+    private int now_stage;
+    private int now_area;
     private SpriteRenderer now_line;
     private SpriteRenderer now_image;
-    
 
-    private bool pawnflg1, pawnflg2, pawnflg3;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
 
         whitefade.enabled = true;
 
@@ -56,39 +52,40 @@ public class ResultController : MonoBehaviour {
 
         now_phase = PHASE.FADE;
 
-        pawnflg1 = pawnflg2 = pawnflg3 = false;
+        //release_area = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetAreaClear_Flg);
+        release_stage = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetStageClear_Flg) - 2;
+        release_area = release_stage / 3;
+        release_stage = release_stage - release_area * 3;
+        now_stage = GameDirector.Instance.GetSceneNumber - 2;
+        now_area = now_stage / 3;
+        now_stage = now_stage - now_area * 3;
+        Debug.Log("GetSceneNumber : " + GameDirector.Instance.GetSceneNumber);
+        Debug.Log("now_stage : " + now_stage);
+        Debug.Log("now_area : " + now_area);
+        Debug.Log("release_stage : " + release_stage);
+        Debug.Log("release_area : " + release_area);
 
-        //area_num = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetAreaClear_Flg);
-        stage_num = GetComponent<LoadStageInfo>().LoadStageClear(GameDirector.Instance.GetStageClear_Flg);
-        area_num = (stage_num - 2) / 3;
-        stage_num -= 3 * area_num;
-        now_clear_stage = GameDirector.Instance.GetSceneNumber - 1;
-        now_clear_stage -= 3 * area_num;
-        Debug.Log("sceneNumber : " + GameDirector.Instance.GetSceneNumber);
-        Debug.Log("stage_num : " + stage_num);
-        Debug.Log("area_num : " + area_num);
-
-        ImageSetActive(area_num);
-        switch (area_num)
+        ImageSetActive(now_area);
+        switch (now_area)
         {
             case 0:
-                PawnStarCluster(constellation_line[area_num],constellation_image[area_num], sheep_stars);
+                PawnStarCluster(constellation_line[now_area], constellation_image[now_area], sheep_stars);
                 break;
 
             case 1:
-                PawnStarCluster(constellation_line[area_num], constellation_image[area_num], cassiopeia_stars);
+                PawnStarCluster(constellation_line[now_area], constellation_image[now_area], cassiopeia_stars);
                 break;
 
             case 2:
-                PawnStarCluster(constellation_line[area_num], constellation_image[area_num], smallbear_stars);
+                PawnStarCluster(constellation_line[now_area], constellation_image[now_area], smallbear_stars);
                 break;
 
             case 3:
-                PawnStarCluster(constellation_line[area_num], constellation_image[area_num], balance_stars);
+                PawnStarCluster(constellation_line[now_area], constellation_image[now_area], balance_stars);
                 break;
 
             case 4:
-                PawnStarCluster(constellation_line[area_num], constellation_image[area_num], crab_stars);
+                PawnStarCluster(constellation_line[now_area], constellation_image[now_area], crab_stars);
                 break;
 
             default:
@@ -97,10 +94,11 @@ public class ResultController : MonoBehaviour {
         }
 
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -114,17 +112,13 @@ public class ResultController : MonoBehaviour {
                 FadeProcess();
                 break;
 
-            case PHASE.STAR:
-                //StarfishProcess();
-                break;
-
             case PHASE.CAMERA:
                 CameraProcess();
                 break;
         }
 
-        Debug.Log(now_phase);
-	}
+        //Debug.Log(now_phase);
+    }
 
     private void FadeProcess()
     {
@@ -134,64 +128,28 @@ public class ResultController : MonoBehaviour {
 
         //Debug.Log(whitefade.rectTransform.anchoredPosition);
 
-        if(whitefade.rectTransform.anchoredPosition.y < -2850f)
+        if (whitefade.rectTransform.anchoredPosition.y < -2850f)
         {
             //ChangePhase(PHASE.CAMERA);
         }
     }
 
-
-    //private void StarfishProcess()
-    //{
-
-    //    if(pawnflg1 == false)
-    //    {
-
-    //        _rising_star = Instantiate(rising_star);
-    //        //Rigidbody2D rb = _star.GetComponent<Rigidbody2D>();
-    //        //_star_ps = _rising_star.GetComponent<ParticleSystem>();
-
-    //        //Vector2 force = new Vector2(0f, 45f);
-    //        //rb.AddForce(force, ForceMode2D.Impulse);
-    //        //rb.AddTorque(5f, ForceMode2D.Impulse);
-
-    //        Invoke("PawnFadeStar", 1f);
-
-    //        pawnflg1 = true;
-
-    //    }
-
-    //    time += Time.time;
-    //    if (time >= RisingTime)
-    //    {
-    //        if (GameObject.Find("GameDirector") != null)
-    //        {
-    //            GameDirector.Instance.ParticleFlg = true;
-    //            //Debug.Log("finish");
-    //        }
-    //        else
-    //        {
-    //            Debug.Log("Fireworks finished");
-    //        }
-
-    //        ChangePhase(PHASE.END);
-    //    }
-    //    //Debug.Log(GameDirector.Instance.ParticleFlg);
-    //}
-
-
     private void CameraProcess()
     {
-        if(camera.transform.position != new Vector3(0, -2, -10))
+        if (camera.transform.position != new Vector3(0, -2, -10))
         {
             camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, 5.0f, Time.deltaTime);
             camera.transform.position = Vector3.Lerp(camera.transform.position, new Vector3(0, -2, -10), Time.deltaTime);
 
-            float alpha = 1 / (60 * fadetime);
+            float alpha = 1 / (60 * fadetime_cam);
             var color = now_line.color;
             color.a += alpha;
             now_line.color = color;
-            now_image.color = color;
+            if(now_area < release_area || (release_stage == 2 && now_stage == 2))
+            {
+                now_image.color = color;
+
+            }
         }
         else
         {
@@ -199,8 +157,8 @@ public class ResultController : MonoBehaviour {
             ChangePhase(PHASE.END);
         }
 
-        
-        
+
+
 
     }
 
@@ -210,7 +168,6 @@ public class ResultController : MonoBehaviour {
 
         now_phase = p;
 
-        pawnflg1 = pawnflg2 = pawnflg3 = false;
     }
 
     private void PawnFadeStar()
@@ -234,9 +191,14 @@ public class ResultController : MonoBehaviour {
         now_line = _line;
         now_image = _image;
 
-        for (int i = 0; i < stage_num - 1; i++)
+        if(now_area < release_area)
         {
-            if (i != now_clear_stage- 1)
+            release_stage = 2;
+        }
+
+        for (int i = 0; i <= release_stage; i++)
+        {
+            if (i != now_stage)
             {
                 var _fade_star = Instantiate(fade_star);
                 _fade_star.transform.position = _stars[i].transform.position;
@@ -288,7 +250,7 @@ public class ResultController : MonoBehaviour {
 
         for (int i = 0; i < 5; i++)
         {
-            if(i != num)
+            if (i != num)
             {
                 try
                 {

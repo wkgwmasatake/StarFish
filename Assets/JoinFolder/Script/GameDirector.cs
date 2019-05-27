@@ -54,7 +54,6 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     private bool pauseFlg = false;               //ポーズフラグ
     private bool _particleFlg;           //パーティクルフラグ
     private bool _chaceFlg = true;       //カメラの追跡フラグ
-    private static int _Pearl_Flag;           // パール取得フラグ
     private bool _cameraFlg = false;          // カメラのアニメーションフラグ
     private bool _starfishFlg = false;
 
@@ -142,6 +141,24 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         PlayerPrefs.SetInt("AREA", GameDirector.Instance.GetAreaClear_Flg);         // エリアの制覇状況をPlayerPrefsに保存
     }
 
+    // タイトル開始時にPlayerPrefsから情報を取得
+    public void GetFlagInfo()
+    {
+        // STAGEの情報がある場合
+        if (PlayerPrefs.HasKey("STAGE"))
+        { 
+            StageClear_Flg = PlayerPrefs.GetInt("STAGE");       // ステージの情報を取得
+            PlayerPrefs.DeleteKey("STAGE");                     // 2度読み防止のため変数を削除
+        }
+
+        // AREAの情報がある場合
+        if(PlayerPrefs.HasKey("AREA"))
+        {
+            AreaClear_Flg = PlayerPrefs.GetInt("AREA");         // エリアの情報を取得
+            PlayerPrefs.DeleteKey("AREA");                      // 2度読み防止のため変数を削除
+        }
+    }
+
     public void UI_Fade()
     {
         StartCoroutine("PauseUI_Fade");
@@ -207,10 +224,6 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
 
     // 最大エリア数ゲッター
     public int GetAreaMax { get { return AREA_MAX; } }
-
-    // パールの取得フラグゲッター・セッター
-    public int GetPearlFlag { get { return _Pearl_Flag; } }
-    public int SetPearlFlag { set { _Pearl_Flag = value; } }
 
     // ゲッター・セッター
     public bool GetCameraAnimFlg { get { return _cameraFlg; } }
