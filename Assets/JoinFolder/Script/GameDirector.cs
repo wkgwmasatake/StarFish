@@ -22,6 +22,7 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     [SerializeField] private SceneObject GameOverScene;    //ゲームオーバーの情報格納
     [SerializeField] private SceneObject GameResultScene;  //ゲームリザルトの情報格納
     [SerializeField] private SceneObject AreaSelectScene;  //エリアセレクトの情報格納
+    [SerializeField] private SceneObject MovieScene;       //ムービーシーン
     [SerializeField] private GameObject player;            //プレイヤーの情報格納
     [SerializeField] private string[] StageSceneName;      //各メインシーンの名前格納
     [SerializeField] private string[] StageName;              // 各ステージ名
@@ -133,6 +134,10 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         _chaceFlg = false;
         return SceneManager.LoadSceneAsync(AreaSelectScene);
     }
+    public AsyncOperation LoadMovieScene()
+    {
+        return SceneManager.LoadSceneAsync(MovieScene);
+    }
 
     // アプリケーションが終了したとき
     private void OnApplicationQuit()
@@ -159,6 +164,8 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
         }
     }
 
+
+    // フェード
     public void UI_Fade()
     {
         StartCoroutine("PauseUI_Fade");

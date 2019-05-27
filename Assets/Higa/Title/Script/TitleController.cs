@@ -57,7 +57,7 @@ public class TitleController : MonoBehaviour {
 
     private Explodable explodable;
 
-    private AsyncOperation area_select;
+    private AsyncOperation MovieScene;
 
     private void Awake()
     {
@@ -98,8 +98,8 @@ public class TitleController : MonoBehaviour {
             star_child[i] = constellation.transform.GetChild(i).gameObject;
         }
 
-        area_select = GameDirector.Instance.LoadMovieScene();    // ムービーシーンに遷移
-        area_select.allowSceneActivation = false;
+        MovieScene = GameDirector.Instance.LoadMovieScene();    // ムービーシーンに遷移
+        MovieScene.allowSceneActivation = false;
 
         // PlayerPrefsからステージとエリアの情報を取得
         GameDirector.Instance.GetFlagInfo();
@@ -191,7 +191,7 @@ public class TitleController : MonoBehaviour {
 
         if (color.a >= 1f)
         {
-            area_select.allowSceneActivation = true;
+            MovieScene.allowSceneActivation = true;
         }
     }
 
