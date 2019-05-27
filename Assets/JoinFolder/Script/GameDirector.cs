@@ -139,10 +139,13 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     }
 
     // アプリケーションが終了したとき
-    private void OnApplicationQuit()
+    private void OnApplicationPause(bool pause)
     {
-        PlayerPrefs.SetInt("STAGE", GameDirector.Instance.GetStageClear_Flg);       // ステージのクリア状況をPlayerPrefsに保存
-        PlayerPrefs.SetInt("AREA", GameDirector.Instance.GetAreaClear_Flg);         // エリアの制覇状況をPlayerPrefsに保存
+        if (pause)
+        {
+            PlayerPrefs.SetInt("STAGE", GameDirector.Instance.GetStageClear_Flg);       // ステージのクリア状況をPlayerPrefsに保存
+            PlayerPrefs.SetInt("AREA", GameDirector.Instance.GetAreaClear_Flg);         // エリアの制覇状況をPlayerPrefsに保存
+        }
     }
 
     // タイトル開始時にPlayerPrefsから情報を取得
