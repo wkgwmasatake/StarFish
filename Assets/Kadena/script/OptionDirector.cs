@@ -10,7 +10,7 @@ public class OptionDirector : SingletonMonoBehaviour<OptionDirector> {
 
     [SerializeField]private GameObject BGM_select;
 
-    //BGM.SEのゲッターセッター
+    
     public void SetBGMvolume(float num)
     {
         BGM_vol = num;
