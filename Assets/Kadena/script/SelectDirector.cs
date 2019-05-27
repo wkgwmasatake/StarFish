@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
     [SerializeField] private string[] AREA_NAME;
 
@@ -22,6 +23,9 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
 
     [SerializeField] private GameObject Left_arrow;
     [SerializeField] private GameObject Right_arrow;
+
+    [SerializeField] private GameObject Option;
+    [SerializeField] private GameObject Return;
 
     [SerializeField] private GameObject under_zoom;
 
@@ -47,9 +51,17 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
 
     private Text NameText;
     private bool State_zoom = false;
+
+    private Animation BlackFade_Anim;    // BlackFadeのアニメーション
+    private bool OneShotFlg = false;     // ループ用フラグ（一回のみ入ってほしいとき）
+
+
     //Awake -> Start -> Update
     void Awake()//オブジェクト本体の起動時処理用　
     {
+        // 各機能を止める
+        Fade_Start();
+
         //gamedirectorのGetStageClear_Flgを用いてクリア状況をcnt_stage_clearedに代入する
         Init_Stage_Select();//
 
@@ -146,7 +158,32 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
 
     void Start()//他オブジェクトを参照する場合はこちらで行う
     {
+
+        // Black_Fadeを探して、FadePointの子に設定
+        GameObject.Find("Blackfade").transform.parent = GameObject.Find("FadePoint").transform;
+
+        // BlackFadeのアニメーションコンポーネントを取得
+        BlackFade_Anim = GameObject.Find("Blackfade").GetComponent<Animation>();
+
     }
+
+
+    void Update()
+    {
+        
+        // BlackFadeのアニメーションが終わったら
+        if(!BlackFade_Anim.IsPlaying("BlacFade_Up") && !OneShotFlg)
+        {
+            Debug.Log("アニメーション終了");
+
+            //　各機能を使えるように
+            Fade_End();
+
+            OneShotFlg = true;
+        }
+
+    }
+
 
     private void Init_Stage_Select()//シーン開始時の処理　エリアのクリアフラグ読み取りもここで行うこと
     {
@@ -309,5 +346,54 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
             under_zoom.SetActive(false);
         }
     }
-    //ズーム状態受け取り
+
+
+    #region フェード関連
+
+    ///<summry>
+    ///  フェード中各機能を触れなくする
+    ///</summry>
+    void Fade_Start()
+    {
+        Left_arrow.GetComponent<Button>().enabled = false;       // 左矢印ボタン
+        Right_arrow.GetComponent<Button>().enabled = false;      // 右矢印ボタン
+        Option.GetComponent<Button>().enabled = false;           // オプションボタン
+        Return.GetComponent<Button>().enabled = false;           // 戻るボタン
+
+        Area1.GetComponent<SelectArea>().enabled = false;
+        Area1.GetComponent<Button>().enabled = false;
+        Area2.GetComponent<SelectArea>().enabled = false;
+        Area2.GetComponent<Button>().enabled = false;
+        Area3.GetComponent<SelectArea>().enabled = false;
+        Area3.GetComponent<Button>().enabled = false;
+        Area4.GetComponent<SelectArea>().enabled = false;
+        Area4.GetComponent<Button>().enabled = false;
+        Area5.GetComponent<SelectArea>().enabled = false;
+        Area5.GetComponent<Button>().enabled = false;
+    }
+
+    ///<summry>
+    ///  フェード終了時、各機能を使えるように
+    ///</summry>
+    void Fade_End()
+    {
+        Left_arrow.GetComponent<Button>().enabled = true;       // 左矢印ボタン
+        Right_arrow.GetComponent<Button>().enabled = true;      // 右矢印ボタン
+        Option.GetComponent<Button>().enabled = true;           // オプションボタン
+        Return.GetComponent<Button>().enabled = true;           // 戻るボタン
+
+        Area1.GetComponent<SelectArea>().enabled = true;
+        Area1.GetComponent<Button>().enabled = true;
+        Area2.GetComponent<SelectArea>().enabled = true;
+        Area2.GetComponent<Button>().enabled = true;
+        Area3.GetComponent<SelectArea>().enabled = true;
+        Area3.GetComponent<Button>().enabled = true;
+        Area4.GetComponent<SelectArea>().enabled = true;
+        Area4.GetComponent<Button>().enabled = true;
+        Area5.GetComponent<SelectArea>().enabled = true;
+        Area5.GetComponent<Button>().enabled = true;
+    }
+
+    #endregion
+
 }
