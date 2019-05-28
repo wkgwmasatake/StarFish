@@ -6,14 +6,18 @@ public class LoadSelect : MonoBehaviour
 {
 
     [SerializeField] private GameObject blackfade;
-
+    [SerializeField] private float VolumeDown;   // 下げる音量
+    
     private AsyncOperation SelectScene;
+    private AudioSource BGM;
 
 	// Use this for initialization
 	void Start ()
     {
         SelectScene = GameDirector.Instance.LoadAreaSelect();
         SelectScene.allowSceneActivation = false;
+
+        BGM = Camera.main.GetComponent<AudioSource>();
 	}
 
     private void Update()
@@ -33,8 +37,14 @@ public class LoadSelect : MonoBehaviour
         SelectScene.allowSceneActivation = true;
     }
 
+    // コルーチン
     IEnumerator Transition()
     {
+        while (BGM.volume > 0)
+        {
+            BGM.volume -= VolumeDown;
+            yield return null;
+        }
         yield return new WaitForSeconds(2.0f);
         Transition_StageSelect();
     }

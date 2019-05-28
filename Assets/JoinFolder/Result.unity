@@ -1291,7 +1291,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1796670940
+  randomSeed: -729907511
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5201,10 +5201,10 @@ GameObject:
   - component: {fileID: 474970707}
   - component: {fileID: 474970706}
   - component: {fileID: 474970704}
+  - component: {fileID: 474970710}
   - component: {fileID: 474970709}
   - component: {fileID: 474970708}
   - component: {fileID: 474970705}
-  - component: {fileID: 474970710}
   m_Layer: 0
   m_Name: ResultController
   m_TagString: Untagged
@@ -6838,6 +6838,21 @@ Prefab:
         type: 2}
       propertyPath: spreadCustomCurve.m_RotationOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114480551906871326, guid: 4bc5cb9adad7a724380d3afd40b40c65,
+        type: 2}
+      propertyPath: BGM
+      value: 
+      objectReference: {fileID: 474970710}
+    - target: {fileID: 114480551906871326, guid: 4bc5cb9adad7a724380d3afd40b40c65,
+        type: 2}
+      propertyPath: VolumeDown
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 82827320140285422, guid: 4bc5cb9adad7a724380d3afd40b40c65,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4bc5cb9adad7a724380d3afd40b40c65, type: 2}

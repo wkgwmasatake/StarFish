@@ -32705,6 +32705,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackfade: {fileID: 1594644659840990, guid: 1578654bcd182c74db6ea7beba825bbb, type: 2}
+  VolumeDown: 0.02
 --- !u!1 &1078054929
 GameObject:
   m_ObjectHideFlags: 0

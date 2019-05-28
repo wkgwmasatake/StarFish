@@ -47,12 +47,14 @@ public class UI_Director : MonoBehaviour
     };
     SEState sState;
     ButtonState bState;
-    [SerializeField] private AudioClip[] SE;
 
+
+    [SerializeField] private AudioClip[] SE;
     [SerializeField] private GameObject Fade_Down;
     [SerializeField] private GameObject Black_Fade;
-
     [SerializeField] private CanvasGroup PanelAlpha;
+    [SerializeField] private AudioSource BGM;
+    [SerializeField] private float VolumeDown;
     [SerializeField] private float downAlpha;
     
     private bool isPlayingCourutin = false;   // Update内のコルーチン用フラグ
@@ -316,6 +318,8 @@ public class UI_Director : MonoBehaviour
                     GameObject retry_Obj = Instantiate(Fade_Down) as GameObject;
                     retry_Obj.transform.parent = GameObject.Find("FadePoint").transform; // FadePointを探してその子に設定
 
+                    StartCoroutine("VolumeDown_Courutin");   // BGMフェード
+
                     // アルファ値を０まで下げる
                     while (Panel_UI.GetComponent<CanvasGroup>().alpha > 0)
                     {
@@ -378,6 +382,8 @@ public class UI_Director : MonoBehaviour
                 GameObject menu_Obj = Instantiate(Black_Fade) as GameObject;         // Black_Fade生成
                 menu_Obj.transform.parent = GameObject.Find("FadePoint").transform;  // FadePointをさがしてその子に設定
 
+                StartCoroutine("VolumeDown_Courutin");   // BGMフェード
+
                 while (Panel_UI.GetComponent<CanvasGroup>().alpha > 0)
                 {
                     Panel_UI.GetComponent<CanvasGroup>().alpha -= downAlpha;
@@ -391,6 +397,8 @@ public class UI_Director : MonoBehaviour
 
                 GameObject next_Obj = Instantiate(Fade_Down) as GameObject;
                 next_Obj.transform.parent = GameObject.Find("FadePoint").transform; // FadePointを探してその子に設定
+
+                StartCoroutine("VolumeDown_Courutin");   // BGMフェード
 
                 while (Panel_UI.GetComponent<CanvasGroup>().alpha > 0)
                 {
@@ -409,6 +417,8 @@ public class UI_Director : MonoBehaviour
                 GameObject title_Obj = Instantiate(Black_Fade) as GameObject;
                 title_Obj.transform.parent = GameObject.Find("FadePoint").transform;
 
+                StartCoroutine("VolumeDown_Courutin");   // BGMフェード
+
                 while (Panel_UI_Title.GetComponent<CanvasGroup>().alpha > 0)
                 {
                     Panel_UI_Title.GetComponent<CanvasGroup>().alpha -= downAlpha;
@@ -424,6 +434,16 @@ public class UI_Director : MonoBehaviour
 
         Time.timeScale = 1;
 
+    }
+
+    // BGMフェード用コルーチン
+    IEnumerator VolumeDown_Courutin()
+    {
+        while (BGM.volume > 0)
+        {
+            BGM.volume -= VolumeDown;
+            yield return null;
+        }
     }
 
     #endregion
