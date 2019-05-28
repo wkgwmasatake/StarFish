@@ -37,6 +37,8 @@ public class TitleController : MonoBehaviour {
 
     [SerializeField] private SceneObject nextScene;
 
+    [SerializeField] private float VolumeDown;    // 下げる音量
+
     private PHASE now_phase;
     private float time;
 
@@ -188,6 +190,8 @@ public class TitleController : MonoBehaviour {
         var color = blackfade1.color;
         color.a += alpha;
         blackfade1.color = color;
+
+        bgm_title.volume -= VolumeDown;
 
         if (color.a >= 1f)
         {

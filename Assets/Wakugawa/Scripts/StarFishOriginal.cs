@@ -295,13 +295,9 @@ public class StarFishOriginal : MonoBehaviour {
                     // 残りの可能タップ数が1以下になった時かつ、Yに対する力が 0.001f ～ -0.001f になった時に
                     if (GameDirector.Instance.GetArmNumber() <= 1 && ForceY < 0.001f && ForceY > -0.001f)
                     {
-                        Presstime += Time.deltaTime;            // 時間を計測
-
-                        if (Presstime > 2.0f)                   // 2秒間何もなければ
-                        {
-                            Status = (byte)GAME_STATUS._OVER;       // ゲームオーバー処理へ
-                            GameDirector.Instance.UI_Fade();        // 一時停止ボタンをフェードアウト
-                        }
+                        GameObject.Find("SoundManager").GetComponent<SoundManager>().BGM_Fade();
+                        Status = (byte)GAME_STATUS._OVER;       // ゲームオーバー処理へ
+                        GameDirector.Instance.UI_Fade();        // 一時停止ボタンをフェードアウト
                     }
                 }
                 else
