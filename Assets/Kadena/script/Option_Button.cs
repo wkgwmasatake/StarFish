@@ -12,7 +12,8 @@ public class Option_Button : MonoBehaviour {
     public void ButtonOption()
     {
         PlayerPrefs.SetString("pre_scene", SceneManager.GetActiveScene().name);
-        SceneManager.LoadScene("Option_Scene");//オプションシーンへの遷移
+        StartCoroutine(FadeScene("Option_Scene"));
+        //SceneManager.LoadScene("Option_Scene");//オプションシーンへの遷移
     }
 
     public void ButtonArea()//オプションボタン以外へのシーン遷移
@@ -22,13 +23,25 @@ public class Option_Button : MonoBehaviour {
 
         switch (name)
         {
+            case "Test_Stage_Select":
             case "Stage_Select":
-            case "Area_Select":
-                SceneManager.LoadScene("Title");
+                StartCoroutine(FadeScene("Title"));
+                //SceneManager.LoadScene("Title");
                 break;
             case "Option_Scene":
-                SceneManager.LoadScene(pre_scene);
+                StartCoroutine(FadeScene(pre_scene));
+
+                //SceneManager.LoadScene(pre_scene);
                 break;            
         }
+    }
+
+    IEnumerator FadeScene(string scene)
+    {
+        GameObject obj = GameObject.Find("Select_bgm");
+        obj.GetComponent<BGM_Select>().Change_Fade_Flg();
+
+        yield return new WaitForSeconds(0.5f);
+        SceneManager.LoadScene(scene);
     }
 }
