@@ -618,6 +618,11 @@ public class StarFishOriginal : MonoBehaviour {
     // 一時停止の際にほかのシーンに遷移する場合に重力を無効化する
     public void RemoveGravity()
     {
-        this.GetComponent<ConstantForce2D>().gameObject.SetActive(false);
+        this.GetComponent<ConstantForce2D>().enabled = false;
+        if(ArrowObject.activeSelf)
+        {
+            ArrowObject.SetActive(false);
+        }
+        rb.velocity = Vector2.zero;
     }
 }
