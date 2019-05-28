@@ -43,15 +43,18 @@ public class UI_Director : MonoBehaviour
         YES,
         NO,
         Next,
+        Title,
     };
     SEState sState;
     ButtonState bState;
-    [SerializeField] private AudioClip[] SE;
 
+
+    [SerializeField] private AudioClip[] SE;
     [SerializeField] private GameObject Fade_Down;
     [SerializeField] private GameObject Black_Fade;
-
     [SerializeField] private CanvasGroup PanelAlpha;
+    [SerializeField] private AudioSource BGM;
+    [SerializeField] private float VolumeDown;
     [SerializeField] private float downAlpha;
     
     private bool isPlayingCourutin = false;   // Update内のコルーチン用フラグ
@@ -59,6 +62,7 @@ public class UI_Director : MonoBehaviour
     private float alphaPlus = 0.05f;
 
     private GameObject Panel_UI;       // UIのPanel情報格納用変数
+    private GameObject Panel_UI_Title;
     private GameObject PauseUI_Panel;  // UIのパネル
     private GameObject PauseUI_Panel_Yes;
     private GameObject Pause_UI;       // ポーズUI
@@ -71,6 +75,7 @@ public class UI_Director : MonoBehaviour
         if (SceneManager.GetActiveScene().name == SceneGameOrver || SceneManager.GetActiveScene().name == SceneResult)
         {
             Panel_UI = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
+            Panel_UI_Title = GameObject.Find("Canvas").transform.GetChild(1).gameObject;
         }
         else
         {
@@ -86,11 +91,18 @@ public class UI_Director : MonoBehaviour
             // 花火が出終わったら
             if (GameDirector.Instance.ParticleFlg)
             {
-                StartCoroutine("UI_FadeCourutin");
+                if (GameDirector.Instance.GetSceneNumber != 17)
+                {
+                    StartCoroutine(UI_FadeCourutin(Panel_UI));
+                }
+                else
+                {
+                    StartCoroutine(UI_FadeCourutin(Panel_UI_Title));
+                }
             }
         }
     }
-    IEnumerator UI_FadeCourutin()
+    IEnumerator UI_FadeCourutin(GameObject panel)
     {
         // このコルーチンに一度でも入ったら強制的にbreakで抜ける
         if (isPlayingCourutin)
@@ -98,10 +110,10 @@ public class UI_Director : MonoBehaviour
             yield break;
         }
 
-        while (Panel_UI.GetComponent<CanvasGroup>().alpha < 1)
+        while (panel.GetComponent<CanvasGroup>().alpha < 1)
         {
-            Panel_UI.SetActive(true);
-            Panel_UI.GetComponent<CanvasGroup>().alpha += downAlpha;
+            panel.SetActive(true);
+            panel.GetComponent<CanvasGroup>().alpha += downAlpha;
 
             yield return null;
         }
@@ -148,7 +160,12 @@ public class UI_Director : MonoBehaviour
     /// </summary>
     public void RetryButton()
     {
-        StartCoroutine(SECourutin(ButtonState.Retry, SEState.SE2));
+        // ２度押し防止
+        if(!GameDirector.Instance.GetRetryFlg)
+        {
+            StartCoroutine(SECourutin(ButtonState.Retry, SEState.SE2));
+            GameDirector.Instance.SetRetryFlg = true;
+        }
     }
 
 
@@ -200,22 +217,26 @@ public class UI_Director : MonoBehaviour
     /// </summary>
     public void MenuButton()
     {
-
-        //シーンがゲームオーバーかリザルトなら
-        if(SceneManager.GetActiveScene().name == SceneGameOrver || SceneManager.GetActiveScene().name == SceneResult)
+        // ２度押し防止
+        if(!GameDirector.Instance.GetMenuFlg)
         {
-            StartCoroutine(SECourutin(ButtonState.Menu, SEState.SE2));
-        }
-        //それ以外なら
-        else
-        {
-            SEPlay(SEState.SE2);
+            //シーンがゲームオーバーかリザルトなら
+            if (SceneManager.GetActiveScene().name == SceneGameOrver || SceneManager.GetActiveScene().name == SceneResult)
+            {
+                StartCoroutine(SECourutin(ButtonState.Menu, SEState.SE2));
+            }
+            //それ以外なら
+            else
+            {
+                SEPlay(SEState.SE2);
 
-            //UI_Pause02アクティブ化
-            UI_Pause02.SetActive(true);
+                //UI_Pause02アクティブ化
+                UI_Pause02.SetActive(true);
 
-            //UI_Pause01非アクティブ化
-            UI_Pause01.SetActive(false);
+                //UI_Pause01非アクティブ化
+                UI_Pause01.SetActive(false);
+            }
+            GameDirector.Instance.SetMenuFlg = true;
         }
     }
 
@@ -227,7 +248,12 @@ public class UI_Director : MonoBehaviour
     /// </summary>
     public void CheckButton_YES()
     {
-        StartCoroutine(SECourutin(ButtonState.YES, SEState.SE2));
+        // ２度押し防止
+        if(!GameDirector.Instance.GetMenu_YesFlg)
+        {
+            StartCoroutine(SECourutin(ButtonState.YES, SEState.SE2));
+            GameDirector.Instance.SetMenu_YesFlg = true;
+        }
     }
     public void CheckButton_NO()
     {
@@ -247,7 +273,20 @@ public class UI_Director : MonoBehaviour
     /// </summary>
     public void NextButton()
     {
-        StartCoroutine(SECourutin(ButtonState.Next, SEState.SE2));
+        // ２度押し防止
+        if (!GameDirector.Instance.GetNextFlg)
+        {
+            StartCoroutine(SECourutin(ButtonState.Next, SEState.SE2));
+            GameDirector.Instance.SetNextFlg = true;
+        }
+    }
+
+    /// <summary>
+    ///  タイトルへ
+    /// </summary>
+    public void Title()
+    {
+        StartCoroutine(SECourutin(ButtonState.Title, SEState.SE2));
     }
 
     /// <summary>
@@ -275,6 +314,7 @@ public class UI_Director : MonoBehaviour
     }
 
 
+
     /// <summary>
     ///  再生終了コルーチン
     /// </summary>
@@ -297,6 +337,8 @@ public class UI_Director : MonoBehaviour
                     //Fade_Downオブジェクト生成
                     GameObject retry_Obj = Instantiate(Fade_Down) as GameObject;
                     retry_Obj.transform.parent = GameObject.Find("FadePoint").transform; // FadePointを探してその子に設定
+
+                    StartCoroutine("VolumeDown_Courutin");   // BGMフェード
 
                     // アルファ値を０まで下げる
                     while (Panel_UI.GetComponent<CanvasGroup>().alpha > 0)
@@ -360,6 +402,8 @@ public class UI_Director : MonoBehaviour
                 GameObject menu_Obj = Instantiate(Black_Fade) as GameObject;         // Black_Fade生成
                 menu_Obj.transform.parent = GameObject.Find("FadePoint").transform;  // FadePointをさがしてその子に設定
 
+                StartCoroutine("VolumeDown_Courutin");   // BGMフェード
+
                 while (Panel_UI.GetComponent<CanvasGroup>().alpha > 0)
                 {
                     Panel_UI.GetComponent<CanvasGroup>().alpha -= downAlpha;
@@ -374,6 +418,8 @@ public class UI_Director : MonoBehaviour
                 GameObject next_Obj = Instantiate(Fade_Down) as GameObject;
                 next_Obj.transform.parent = GameObject.Find("FadePoint").transform; // FadePointを探してその子に設定
 
+                StartCoroutine("VolumeDown_Courutin");   // BGMフェード
+
                 while (Panel_UI.GetComponent<CanvasGroup>().alpha > 0)
                 {
                     Panel_UI.GetComponent<CanvasGroup>().alpha -= downAlpha;
@@ -385,10 +431,39 @@ public class UI_Director : MonoBehaviour
                 SceneManager.LoadScene(STAGE_NAME + GameDirector.Instance.GetSceneNumber.ToString());
 
                 break;
+
+            case ButtonState.Title:  // タイトルへ
+
+                GameObject title_Obj = Instantiate(Black_Fade) as GameObject;
+                title_Obj.transform.parent = GameObject.Find("FadePoint").transform;
+
+                StartCoroutine("VolumeDown_Courutin");   // BGMフェード
+
+                while (Panel_UI_Title.GetComponent<CanvasGroup>().alpha > 0)
+                {
+                    Panel_UI_Title.GetComponent<CanvasGroup>().alpha -= downAlpha;
+                    Debug.Log(Panel_UI.GetComponent<CanvasGroup>().alpha);
+                    yield return null;
+                }
+
+                yield return new WaitForSecondsRealtime(2.0f);
+                SceneManager.LoadScene("Title");
+
+                break;
         }
 
         Time.timeScale = 1;
 
+    }
+
+    // BGMフェード用コルーチン
+    IEnumerator VolumeDown_Courutin()
+    {
+        while (BGM.volume > 0)
+        {
+            BGM.volume -= VolumeDown;
+            yield return null;
+        }
     }
 
     #endregion
