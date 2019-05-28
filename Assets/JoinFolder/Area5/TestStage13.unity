@@ -612,7 +612,7 @@ Prefab:
     - target: {fileID: 224762254014486258, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 121
+      value: 120.5
       objectReference: {fileID: 0}
     - target: {fileID: 224762254014486258, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
         type: 2}
@@ -2160,6 +2160,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.284, y: 1.9076068}
   m_EdgeRadius: 0
+--- !u!210 &1098422891
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1098422889}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1001 &1185426721
 Prefab:
   m_ObjectHideFlags: 0
@@ -3251,6 +3261,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.284, y: 1.9076068}
   m_EdgeRadius: 0
+--- !u!210 &1309650008
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1309650006}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1001 &1331401965
 Prefab:
   m_ObjectHideFlags: 0
@@ -3374,6 +3394,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.284, y: 1.9076068}
   m_EdgeRadius: 0
+--- !u!210 &1442131621
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1442131619}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &1564151479 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1153206887753042, guid: a9457aa7248680941a906fa8875766c8,
@@ -3541,6 +3571,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1724935662}
   - component: {fileID: 1724935661}
+  - component: {fileID: 1724935663}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -3575,6 +3606,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &1724935663
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1724935660}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
 --- !u!1001 &1854710967
 Prefab:
   m_ObjectHideFlags: 0

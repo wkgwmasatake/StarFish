@@ -772,6 +772,7 @@ GameObject:
   m_Component:
   - component: {fileID: 563743878}
   - component: {fileID: 563743877}
+  - component: {fileID: 563743879}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -806,6 +807,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &563743879
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 563743876}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
 --- !u!1001 &627146668
 Prefab:
   m_ObjectHideFlags: 0
