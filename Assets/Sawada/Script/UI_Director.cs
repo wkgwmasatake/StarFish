@@ -13,6 +13,7 @@ public class UI_Director : MonoBehaviour
     [SerializeField] private SceneObject SceneMenu;　         //シーンメニュー
     [SerializeField] private SceneObject SceneGameOrver;　    //シーンゲームオーバー
     [SerializeField] private SceneObject SceneResult;    　　 //シーンリザルト
+    [SerializeField] private GameObject player;
 
 
 
@@ -42,6 +43,7 @@ public class UI_Director : MonoBehaviour
         YES,
         NO,
         Next,
+        Title,
     };
     SEState sState;
     ButtonState bState;
@@ -58,6 +60,7 @@ public class UI_Director : MonoBehaviour
     private float alphaPlus = 0.05f;
 
     private GameObject Panel_UI;       // UIのPanel情報格納用変数
+    private GameObject Panel_UI_Title;
     private GameObject PauseUI_Panel;  // UIのパネル
     private GameObject PauseUI_Panel_Yes;
     private GameObject Pause_UI;       // ポーズUI
@@ -70,6 +73,7 @@ public class UI_Director : MonoBehaviour
         if (SceneManager.GetActiveScene().name == SceneGameOrver || SceneManager.GetActiveScene().name == SceneResult)
         {
             Panel_UI = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
+            Panel_UI_Title = GameObject.Find("Canvas").transform.GetChild(1).gameObject;
         }
         else
         {
@@ -85,11 +89,18 @@ public class UI_Director : MonoBehaviour
             // 花火が出終わったら
             if (GameDirector.Instance.ParticleFlg)
             {
-                StartCoroutine("UI_FadeCourutin");
+                if (GameDirector.Instance.GetSceneNumber != 16)
+                {
+                    StartCoroutine(UI_FadeCourutin(Panel_UI));
+                }
+                else
+                {
+                    StartCoroutine(UI_FadeCourutin(Panel_UI_Title));
+                }
             }
         }
     }
-    IEnumerator UI_FadeCourutin()
+    IEnumerator UI_FadeCourutin(GameObject panel)
     {
         // このコルーチンに一度でも入ったら強制的にbreakで抜ける
         if (isPlayingCourutin)
@@ -97,10 +108,10 @@ public class UI_Director : MonoBehaviour
             yield break;
         }
 
-        while (Panel_UI.GetComponent<CanvasGroup>().alpha < 1)
+        while (panel.GetComponent<CanvasGroup>().alpha < 1)
         {
-            Panel_UI.SetActive(true);
-            Panel_UI.GetComponent<CanvasGroup>().alpha += downAlpha;
+            panel.SetActive(true);
+            panel.GetComponent<CanvasGroup>().alpha += downAlpha;
 
             yield return null;
         }
@@ -273,6 +284,14 @@ public class UI_Director : MonoBehaviour
 
     }
 
+    /// <summary>
+    ///  タイトルへ
+    /// </summary>
+    public void Title()
+    {
+        StartCoroutine(SECourutin(ButtonState.Title, SEState.SE2));
+    }
+
 
     /// <summary>
     ///  再生終了コルーチン
@@ -308,6 +327,7 @@ public class UI_Director : MonoBehaviour
                 else
                 {
                     if (Time.timeScale <= 0) Time.timeScale = 1;                     // タイムスケールを元に戻す
+                    player.GetComponent<StarFishOriginal>().RemoveGravity();         // 海星の重力を消す
                     GameObject retry_Obj = Instantiate(Fade_Down) as GameObject;         // Fade_Dwonオブジェクト生成
                     retry_Obj.transform.parent = GameObject.Find("FadePoint").transform; // FadePointを探してその子に設定
 
@@ -336,6 +356,7 @@ public class UI_Director : MonoBehaviour
             case ButtonState.YES:
 
                 if (Time.timeScale <= 0) Time.timeScale = 1;
+                player.GetComponent<StarFishOriginal>().RemoveGravity();     // 海星の重力を消す
                 GameObject yes_Obj = Instantiate(Black_Fade) as GameObject;
                 yes_Obj.transform.parent = GameObject.Find("FadePoint").transform;
 
@@ -380,6 +401,23 @@ public class UI_Director : MonoBehaviour
 
                 yield return new WaitForSecondsRealtime(2.0f);
                 SceneManager.LoadScene(STAGE_NAME + GameDirector.Instance.GetSceneNumber.ToString());
+
+                break;
+
+            case ButtonState.Title:  // タイトルへ
+
+                GameObject title_Obj = Instantiate(Black_Fade) as GameObject;
+                title_Obj.transform.parent = GameObject.Find("FadePoint").transform;
+
+                while (Panel_UI_Title.GetComponent<CanvasGroup>().alpha > 0)
+                {
+                    Panel_UI_Title.GetComponent<CanvasGroup>().alpha -= downAlpha;
+                    Debug.Log(Panel_UI.GetComponent<CanvasGroup>().alpha);
+                    yield return null;
+                }
+
+                yield return new WaitForSecondsRealtime(2.0f);
+                SceneManager.LoadScene("Title");
 
                 break;
         }
