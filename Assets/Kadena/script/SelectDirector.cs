@@ -166,6 +166,15 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
         // BlackFadeのアニメーションコンポーネントを取得
         BlackFade_Anim = GameObject.Find("Blackfade _Up").GetComponent<Animation>();
         GetNumArea();
+        if (State_zoom == true)
+        {
+            under_zoom.SetActive(true);
+        }
+        else
+        {
+            under_zoom.SetActive(false);
+        }
+
     }
 
 
