@@ -1431,6 +1431,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1827729401}
   - component: {fileID: 1827729400}
+  - component: {fileID: 1827729402}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -1463,6 +1464,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &1827729402
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1827729399}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
 --- !u!1 &1858696961 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1153206887753042, guid: a9457aa7248680941a906fa8875766c8,

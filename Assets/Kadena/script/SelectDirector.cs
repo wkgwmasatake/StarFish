@@ -55,7 +55,6 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
     private bool State_zoom = false;
 
     private Animation BlackFade_Anim;    // BlackFadeのアニメーション
-    private bool OneShotFlg = false;     // ループ用フラグ（一回のみ入ってほしいとき）
 
 
     //Awake -> Start -> Update
@@ -161,10 +160,10 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
     {
 
         // Black_Fadeを探して、FadePointの子に設定
-        GameObject.Find("Blackfade _Up").transform.parent = GameObject.Find("FadePoint").transform;
+        GameObject.Find("Blackfade_Up").transform.parent = GameObject.Find("FadePoint").transform;
 
         // BlackFadeのアニメーションコンポーネントを取得
-        BlackFade_Anim = GameObject.Find("Blackfade _Up").GetComponent<Animation>();
+        BlackFade_Anim = GameObject.Find("Blackfade_Up").GetComponent<Animation>();
         GetNumArea();
         if (State_zoom == true)
         {
@@ -173,23 +172,6 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
         else
         {
             under_zoom.SetActive(false);
-        }
-
-    }
-
-
-    void Update()
-    {
-        
-        // BlackFadeのアニメーションが終わったら
-        if(!BlackFade_Anim.IsPlaying("BlackFade_Up") && !OneShotFlg)
-        {
-            Debug.Log("アニメーション終了");
-
-            //　各機能を使えるように
-            Fade_End();
-
-            OneShotFlg = true;
         }
 
     }
@@ -372,7 +354,7 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
     ///<summry>
     ///  フェード中各機能を触れなくする
     ///</summry>
-    void Fade_Start()
+    public void Fade_Start()
     {
         Left_arrow.GetComponent<Button>().enabled = false;       // 左矢印ボタン
         Right_arrow.GetComponent<Button>().enabled = false;      // 右矢印ボタン
@@ -394,7 +376,7 @@ public class SelectDirector : SingletonMonoBehaviour<SelectDirector> {
     ///<summry>
     ///  フェード終了時、各機能を使えるように
     ///</summry>
-    void Fade_End()
+    public void Fade_End()
     {
         Left_arrow.GetComponent<Button>().enabled = true;       // 左矢印ボタン
         Right_arrow.GetComponent<Button>().enabled = true;      // 右矢印ボタン
