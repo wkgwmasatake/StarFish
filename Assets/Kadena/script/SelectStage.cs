@@ -12,6 +12,7 @@ public class SelectStage : MonoBehaviour {
     private Color yellow = new Color(0.86f, 0.86f, 0.86f, 1);
     private Color white = new Color(1, 1, 1, 1);
     private Color dim_yellow = new Color(0.4f, 0.4f, 0.4f, 1);
+    private float alpha;//gameobjectの色を取得するfloat型変数
 
     Button stage_1;
     Button stage_2;
@@ -23,7 +24,8 @@ public class SelectStage : MonoBehaviour {
     [SerializeField] private Sprite img_clear;
 
     [SerializeField] private GameObject Water_Fade;     // 画面切り替え時のフェード
-
+    [SerializeField] private GameObject top_Starry;
+    [SerializeField] private GameObject bottom_Starry;
     private int now_status;
 
     public string NAME;　//inspector上からステージ名を入力出来るようにする
@@ -41,6 +43,7 @@ public class SelectStage : MonoBehaviour {
     {
         init();
         SE_Taped = GetComponent<AudioSource>();
+        alpha = 1;
     }
 
     private void init()
@@ -170,7 +173,15 @@ public class SelectStage : MonoBehaviour {
     IEnumerator Fade_Courutin()
     {
         GameObject Fade = Instantiate(Water_Fade) as GameObject;
-        yield return new WaitForSeconds(2.0f);
+        
+        GameObject obj = GameObject.Find("Select_bgm");
+        obj.GetComponent<BGM_Select>().Change_Fade_Flg();
+        yield return new WaitForSeconds(0.4f);
+        bottom_Starry.SetActive(false);
+        yield return new WaitForSeconds(0.3f);
+        top_Starry.SetActive(false);
+
+        yield return new WaitForSeconds(1.2f);
 
         string name = "";
         name = NAME;
@@ -178,5 +189,5 @@ public class SelectStage : MonoBehaviour {
         SceneManager.LoadScene(name);
 
     }
-
+   
 }
