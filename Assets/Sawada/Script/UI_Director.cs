@@ -91,7 +91,7 @@ public class UI_Director : MonoBehaviour
             // 花火が出終わったら
             if (GameDirector.Instance.ParticleFlg)
             {
-                if (GameDirector.Instance.GetSceneNumber != 17)
+                if (GameDirector.Instance.GetSceneNumber != 16 || SceneManager.GetActiveScene().name == SceneGameOrver)
                 {
                     StartCoroutine(UI_FadeCourutin(Panel_UI));
                 }
@@ -447,7 +447,7 @@ public class UI_Director : MonoBehaviour
                 }
 
                 yield return new WaitForSecondsRealtime(2.0f);
-                SceneManager.LoadScene("Title");
+                SceneManager.LoadScene("SpecialResult");
 
                 break;
         }
