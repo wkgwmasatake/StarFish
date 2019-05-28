@@ -91,7 +91,7 @@ public class UI_Director : MonoBehaviour
             // 花火が出終わったら
             if (GameDirector.Instance.ParticleFlg)
             {
-                if (GameDirector.Instance.GetSceneNumber != 16)
+                if (GameDirector.Instance.GetSceneNumber != 17)
                 {
                     StartCoroutine(UI_FadeCourutin(Panel_UI));
                 }
@@ -160,7 +160,12 @@ public class UI_Director : MonoBehaviour
     /// </summary>
     public void RetryButton()
     {
-        StartCoroutine(SECourutin(ButtonState.Retry, SEState.SE2));
+        // ２度押し防止
+        if(!GameDirector.Instance.GetRetryFlg)
+        {
+            StartCoroutine(SECourutin(ButtonState.Retry, SEState.SE2));
+            GameDirector.Instance.SetRetryFlg = true;
+        }
     }
 
 
@@ -212,22 +217,26 @@ public class UI_Director : MonoBehaviour
     /// </summary>
     public void MenuButton()
     {
-
-        //シーンがゲームオーバーかリザルトなら
-        if(SceneManager.GetActiveScene().name == SceneGameOrver || SceneManager.GetActiveScene().name == SceneResult)
+        // ２度押し防止
+        if(!GameDirector.Instance.GetMenuFlg)
         {
-            StartCoroutine(SECourutin(ButtonState.Menu, SEState.SE2));
-        }
-        //それ以外なら
-        else
-        {
-            SEPlay(SEState.SE2);
+            //シーンがゲームオーバーかリザルトなら
+            if (SceneManager.GetActiveScene().name == SceneGameOrver || SceneManager.GetActiveScene().name == SceneResult)
+            {
+                StartCoroutine(SECourutin(ButtonState.Menu, SEState.SE2));
+            }
+            //それ以外なら
+            else
+            {
+                SEPlay(SEState.SE2);
 
-            //UI_Pause02アクティブ化
-            UI_Pause02.SetActive(true);
+                //UI_Pause02アクティブ化
+                UI_Pause02.SetActive(true);
 
-            //UI_Pause01非アクティブ化
-            UI_Pause01.SetActive(false);
+                //UI_Pause01非アクティブ化
+                UI_Pause01.SetActive(false);
+            }
+            GameDirector.Instance.SetMenuFlg = true;
         }
     }
 
@@ -239,7 +248,12 @@ public class UI_Director : MonoBehaviour
     /// </summary>
     public void CheckButton_YES()
     {
-        StartCoroutine(SECourutin(ButtonState.YES, SEState.SE2));
+        // ２度押し防止
+        if(!GameDirector.Instance.GetMenu_YesFlg)
+        {
+            StartCoroutine(SECourutin(ButtonState.YES, SEState.SE2));
+            GameDirector.Instance.SetMenu_YesFlg = true;
+        }
     }
     public void CheckButton_NO()
     {
@@ -259,7 +273,20 @@ public class UI_Director : MonoBehaviour
     /// </summary>
     public void NextButton()
     {
-        StartCoroutine(SECourutin(ButtonState.Next, SEState.SE2));
+        // ２度押し防止
+        if (!GameDirector.Instance.GetNextFlg)
+        {
+            StartCoroutine(SECourutin(ButtonState.Next, SEState.SE2));
+            GameDirector.Instance.SetNextFlg = true;
+        }
+    }
+
+    /// <summary>
+    ///  タイトルへ
+    /// </summary>
+    public void Title()
+    {
+        StartCoroutine(SECourutin(ButtonState.Title, SEState.SE2));
     }
 
     /// <summary>
@@ -286,13 +313,6 @@ public class UI_Director : MonoBehaviour
 
     }
 
-    /// <summary>
-    ///  タイトルへ
-    /// </summary>
-    public void Title()
-    {
-        StartCoroutine(SECourutin(ButtonState.Title, SEState.SE2));
-    }
 
 
     /// <summary>

@@ -58,6 +58,12 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     private bool _chaceFlg = true;       //カメラの追跡フラグ
     private bool _cameraFlg = false;          // カメラのアニメーションフラグ
 
+    // ボタン用フラグ（２度押し防止用フラグ）
+    private bool _retryFlg = false;
+    private bool _nextFlg = false;
+    private bool _menuFlg = false;
+    private bool _menu_YesFlg = false;
+
 
 
 
@@ -112,8 +118,6 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
             _distance = ((int)cam.WorldToScreenPoint(goalLine.transform.position).y - (int)cam.WorldToScreenPoint(player.transform.position).y);
         }
     }
-
-
 
 
     /// <summary>
@@ -237,6 +241,16 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     public bool GetCameraAnimFlg { get { return _cameraFlg; } }
     public bool SetCameraAnimFlg { set { _cameraFlg = value; } }
 
+    // ボタン用フラグ ゲッター
+    public bool GetRetryFlg { get { return _retryFlg; } }
+    public bool GetNextFlg { get { return _nextFlg; } }
+    public bool GetMenuFlg { get { return _menuFlg; } }
+    public bool GetMenu_YesFlg { get { return _menu_YesFlg; } }
+    // ボタン用フラグ セッター
+    public bool SetRetryFlg { set { _retryFlg = value; } }
+    public bool SetNextFlg { set { _nextFlg = value; } }
+    public bool SetMenuFlg { set { _menuFlg = value; } }
+    public bool SetMenu_YesFlg { set { _menu_YesFlg = value; } }
 
     #endregion
 
