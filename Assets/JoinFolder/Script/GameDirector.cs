@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameDirector : SingletonMonoBehaviour<GameDirector>
 {
 
+
     /// <summary>
     /// 定数
     /// </summary>
@@ -151,18 +152,16 @@ public class GameDirector : SingletonMonoBehaviour<GameDirector>
     // タイトル開始時にPlayerPrefsから情報を取得
     public void GetFlagInfo()
     {
-        // STAGEの情報がある場合
-        if (PlayerPrefs.HasKey("STAGE"))
-        { 
+        // PlayerPrefsの情報が最新なら
+        if (PlayerPrefs.GetInt("STAGE") > StageClear_Flg)
+        {
             StageClear_Flg = PlayerPrefs.GetInt("STAGE");       // ステージの情報を取得
-            PlayerPrefs.DeleteKey("STAGE");                     // 2度読み防止のため変数を削除
         }
 
-        // AREAの情報がある場合
-        if(PlayerPrefs.HasKey("AREA"))
+        // PlayerPrefsの情報が最新なら
+        if (PlayerPrefs.GetInt("AREA") > AreaClear_Flg)
         {
             AreaClear_Flg = PlayerPrefs.GetInt("AREA");         // エリアの情報を取得
-            PlayerPrefs.DeleteKey("AREA");                      // 2度読み防止のため変数を削除
         }
     }
 

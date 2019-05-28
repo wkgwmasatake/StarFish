@@ -56,7 +56,7 @@ MonoBehaviour:
   GameResultScene:
     m_SceneName: Result
   AreaSelectScene:
-    m_SceneName: Area_Select
+    m_SceneName: Stage_Select
   MovieScene:
     m_SceneName: Movie
   player: {fileID: 0}

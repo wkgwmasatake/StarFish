@@ -8094,6 +8094,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 1942374122870572, guid: d3daa0c1cd12d87449582e6e2a3eead3, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d3daa0c1cd12d87449582e6e2a3eead3, type: 2}
   m_IsPrefabParent: 0
@@ -26575,7 +26579,7 @@ MonoBehaviour:
     type: 2}
   lost_star: {fileID: 1395824719966470, guid: c5e99340470e82d4b84790f3bc6e24cc, type: 2}
   nextScene:
-    m_SceneName: Movie
+    m_SceneName: Stage_Select
 --- !u!4 &1614786579
 Transform:
   m_ObjectHideFlags: 0
@@ -40740,6 +40744,11 @@ Prefab:
         type: 2}
       propertyPath: AreaSelectScene.m_SceneName
       value: Stage_Select
+      objectReference: {fileID: 0}
+    - target: {fileID: 114471106991709810, guid: c62f113ca1bd4c54285b9f91aac2b9e8,
+        type: 2}
+      propertyPath: MovieScene.m_SceneName
+      value: Movie
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c62f113ca1bd4c54285b9f91aac2b9e8, type: 2}

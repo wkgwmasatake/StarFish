@@ -13,6 +13,7 @@ public class UI_Director : MonoBehaviour
     [SerializeField] private SceneObject SceneMenu;　         //シーンメニュー
     [SerializeField] private SceneObject SceneGameOrver;　    //シーンゲームオーバー
     [SerializeField] private SceneObject SceneResult;    　　 //シーンリザルト
+    [SerializeField] private GameObject player;
 
 
 
@@ -308,6 +309,7 @@ public class UI_Director : MonoBehaviour
                 else
                 {
                     if (Time.timeScale <= 0) Time.timeScale = 1;                     // タイムスケールを元に戻す
+                    player.GetComponent<StarFishOriginal>().RemoveGravity();         // 海星の重力を消す
                     GameObject retry_Obj = Instantiate(Fade_Down) as GameObject;         // Fade_Dwonオブジェクト生成
                     retry_Obj.transform.parent = GameObject.Find("FadePoint").transform; // FadePointを探してその子に設定
 
@@ -336,6 +338,7 @@ public class UI_Director : MonoBehaviour
             case ButtonState.YES:
 
                 if (Time.timeScale <= 0) Time.timeScale = 1;
+                player.GetComponent<StarFishOriginal>().RemoveGravity();     // 海星の重力を消す
                 GameObject yes_Obj = Instantiate(Black_Fade) as GameObject;
                 yes_Obj.transform.parent = GameObject.Find("FadePoint").transform;
 

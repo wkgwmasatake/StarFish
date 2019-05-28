@@ -138,6 +138,7 @@ MonoBehaviour:
     m_SceneName: 
   SceneResult:
     m_SceneName: 
+  player: {fileID: 0}
   UI_Pause01: {fileID: 0}
   UI_Pause02: {fileID: 0}
   time: 3

@@ -9,6 +9,8 @@ public class MovieScript : MonoBehaviour
 
     private AsyncOperation area_select;
 
+    private float frame = 0;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -22,9 +24,14 @@ public class MovieScript : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        Debug.Log(movie.frameCount + "aaa");
+        Debug.Log(movie.frame + "aaa");
+        frame += Time.deltaTime;
+
         // 現在のフレームがビデオのフレーム総数を超えたら終了と判定
-		if((ulong)movie.frame >= movie.frameCount)
+		if( frame >= movie.frameCount)
         {
+            frame = 0;
             Debug.Log("終了");
             area_select.allowSceneActivation = true;
         }

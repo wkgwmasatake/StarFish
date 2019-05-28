@@ -958,6 +958,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114480551906871326, guid: 4bc5cb9adad7a724380d3afd40b40c65,
         type: 2}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1885208093}
+    - target: {fileID: 114480551906871326, guid: 4bc5cb9adad7a724380d3afd40b40c65,
+        type: 2}
       propertyPath: UI_Pause01
       value: 
       objectReference: {fileID: 1038487083}
@@ -1023,6 +1028,16 @@ Prefab:
       propertyPath: FadeImage
       value: 
       objectReference: {fileID: 249784083}
+    - target: {fileID: 50622211251031660, guid: 49b7b47df3808f54bb900891d3fc030a,
+        type: 2}
+      propertyPath: m_Simulated
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 247377611134514680, guid: 49b7b47df3808f54bb900891d3fc030a,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 49b7b47df3808f54bb900891d3fc030a, type: 2}
   m_IsPrefabParent: 0
