@@ -42,7 +42,7 @@ public class StarFishOriginal : MonoBehaviour {
     bool OceanFlag;                 // 海流に入った際に使うフラグ
     bool FadeFlag = true;           // 足のフェードイン、フェードアウトのフラグ(trueでフェードアウト、falseでフェードイン)
     float FadeAlpha = 1.0f;         // 足のアルファ値(0～1)
-    Animator anim;
+
 
     [SerializeField] ParticleSystem[] ParticleList;     // パーティクルリスト(0.. 腕のパーティクル、1.. 爆発のパーティクル、2.. 壁にあたった時のパーティクル、3.. ゴールラインを超えたときのパーティクル)
     [SerializeField] GameObject ArrowObject;            // 矢印のゲームオブジェクト
@@ -72,8 +72,6 @@ public class StarFishOriginal : MonoBehaviour {
         ArrowObject.SetActive(false);                           // 非アクティブに設定
 
         rb = GetComponent<Rigidbody2D>();   // Rigidbody2Dを取得
-
-        anim = GetComponent<Animator>();
 
         this.GetComponent<AudioSource>().PlayOneShot(ClearSound[3]);    // 最初のジャンプの音
 
