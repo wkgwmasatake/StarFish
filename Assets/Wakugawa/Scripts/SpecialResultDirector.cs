@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class SpecialResultDirector : MonoBehaviour {
 
-    [SerializeField] GameObject FadeImage;       // 画面を飛ばす際に黒フェードさせるための画像
-    bool TapFlag = false;                   // タップの2度押し防止
+    [SerializeField] GameObject FadeImage;      // 画面を飛ばす際に黒フェードさせるための画像
+    [SerializeField] AudioClip[] Sounds;        // 0番目がジングル、1番目と2番目が効果音
+    bool TapFlag = false;                       // タップの2度押し防止
 
     private void Update()
     {
@@ -44,5 +45,23 @@ public class SpecialResultDirector : MonoBehaviour {
         }
 
         SceneManager.LoadScene("Title");
+    }
+
+    // ジングルを再生
+    private void StartJingle()
+    {
+        GetComponent<AudioSource>().PlayOneShot(Sounds[0]);
+    }
+
+    // 星座の画像を表示する際の効果音を再生
+    private void DisplayStarImageSE()
+    {
+        GetComponent<AudioSource>().PlayOneShot(Sounds[1]);
+    }
+
+    // カメラがズームアウトしたときの効果音を再生
+    private void ZoomOutCameraSE()
+    {
+        GetComponent<AudioSource>().PlayOneShot(Sounds[2]);
     }
 }
