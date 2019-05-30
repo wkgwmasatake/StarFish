@@ -332,6 +332,11 @@ Prefab:
       propertyPath: randomSeed
       value: -1980787706
       objectReference: {fileID: 0}
+    - target: {fileID: 199948304840812008, guid: 38685c1f74d0e1c48a092c2d765fe77c,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 61790091239217046, guid: 38685c1f74d0e1c48a092c2d765fe77c, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 38685c1f74d0e1c48a092c2d765fe77c, type: 2}
@@ -607,12 +612,12 @@ Prefab:
     - target: {fileID: 224762254014486258, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 107
+      value: 66.5
       objectReference: {fileID: 0}
     - target: {fileID: 224762254014486258, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 190
+      value: 118.5
       objectReference: {fileID: 0}
     - target: {fileID: 224762254014486258, guid: 4686f040ebb04a54f93ec0d2b8c7b80f,
         type: 2}
@@ -3679,6 +3684,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1724935662}
   - component: {fileID: 1724935661}
+  - component: {fileID: 1724935663}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -3713,6 +3719,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &1724935663
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1724935660}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 2
 --- !u!1001 &1854710967
 Prefab:
   m_ObjectHideFlags: 0

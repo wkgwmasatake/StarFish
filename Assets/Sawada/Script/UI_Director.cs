@@ -7,6 +7,11 @@ using UnityEngine.SceneManagement;
 public class UI_Director : MonoBehaviour
 {
 
+
+    // 各ステージ共通NAME
+    private const string STAGE_NAME = "TestStage";
+
+
     /// <summary>
     /// 情報格納用変数
     /// </summary>
@@ -17,6 +22,7 @@ public class UI_Director : MonoBehaviour
 
 
 
+
     /// <summary>
     /// UI関連変数
     /// </summary>
@@ -24,6 +30,14 @@ public class UI_Director : MonoBehaviour
     [SerializeField] private GameObject UI_Pause02;
     [SerializeField] private float time;
     [SerializeField] private GameObject CountDown;
+    private GameObject Panel_UI;       // UIのPanel情報格納用変数
+    private GameObject Panel_UI_Title;
+    private GameObject PauseUI_Panel;  // UIのパネル
+    private GameObject PauseUI_Panel_Yes;
+    private GameObject Pause_UI;       // ポーズUI
+
+
+
 
     /// <summary>
     ///  SE関連変数
@@ -49,6 +63,8 @@ public class UI_Director : MonoBehaviour
     ButtonState bState;
 
 
+
+
     [SerializeField] private AudioClip[] SE;
     [SerializeField] private GameObject Fade_Down;
     [SerializeField] private GameObject Black_Fade;
@@ -57,18 +73,12 @@ public class UI_Director : MonoBehaviour
     [SerializeField] private float VolumeDown;
     [SerializeField] private float downAlpha;
     
+
     private bool isPlayingCourutin = false;   // Update内のコルーチン用フラグ
+
 
     private float alphaPlus = 0.05f;
 
-    private GameObject Panel_UI;       // UIのPanel情報格納用変数
-    private GameObject Panel_UI_Title;
-    private GameObject PauseUI_Panel;  // UIのパネル
-    private GameObject PauseUI_Panel_Yes;
-    private GameObject Pause_UI;       // ポーズUI
-
-    // 各ステージ共通NAME
-    private const string STAGE_NAME = "TestStage";
 
     private void Start()
     {
