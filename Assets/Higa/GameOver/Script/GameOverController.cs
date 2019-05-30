@@ -94,6 +94,7 @@ public class GameOverController : MonoBehaviour {
         if (blackfade1.rectTransform.anchoredPosition.y > 2850f)
         {
             ChangePhase(PHASE.TEXT);
+            GameDirector.Instance.ParticleFlg = true;
         }
     }
 
@@ -103,7 +104,7 @@ public class GameOverController : MonoBehaviour {
         if (starfish_anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
         {
             //ChangePhase(PHASE.TEXT);
-            GameDirector.Instance.ParticleFlg = true;
+            //GameDirector.Instance.ParticleFlg = true;
             Debug.Log("ParticleFlg : " + GameDirector.Instance.ParticleFlg);
         }
     }
