@@ -99,7 +99,7 @@ public class GameOverController : MonoBehaviour {
 
     private void StarfishProcess()
     {
-        Debug.Log(starfish_anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+        //Debug.Log(starfish_anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
         if (starfish_anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
         {
             //ChangePhase(PHASE.TEXT);
