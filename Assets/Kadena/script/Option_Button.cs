@@ -21,6 +21,8 @@ public class Option_Button : MonoBehaviour {
         PlayerPrefs.SetString("pre_scene", SceneManager.GetActiveScene().name);
         string name = SceneManager.GetActiveScene().name;
 
+        Debug.Log("リターン");
+
         switch (name)
         {
             case "Test_Stage_Select":
