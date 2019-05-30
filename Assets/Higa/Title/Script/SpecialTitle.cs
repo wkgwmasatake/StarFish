@@ -21,6 +21,7 @@ public class SpecialTitle : MonoBehaviour
     [SerializeField] GameObject gray_star;
     [SerializeField] GameObject fade_star;
     [SerializeField] GameObject starry_sky;
+    [SerializeField] GameObject shooting_star;
     [SerializeField] SpriteRenderer titlelogo;
     [SerializeField] float fadetime_cam;
     [SerializeField] AudioSource star_rising;
@@ -39,6 +40,7 @@ public class SpecialTitle : MonoBehaviour
 
 
         starry_sky.SetActive(false);
+        shooting_star.SetActive(false);
 
         now_phase = PHASE.FADE;
 
@@ -159,6 +161,7 @@ public class SpecialTitle : MonoBehaviour
 
         yield return new WaitForSeconds(second);
         starry_sky.SetActive(true);
+        shooting_star.SetActive(true);
         ChangePhase(PHASE.CAMERA);
 
 
