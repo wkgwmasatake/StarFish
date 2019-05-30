@@ -5,6 +5,12 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class SelectStage : MonoBehaviour {
+
+    /// <summary>
+    /// 定数
+    /// </summary>
+    private const byte STAGE_MAX = 3;
+
     [SerializeField] private GameObject Director;
 
     private AudioSource SE_Taped;
@@ -26,6 +32,12 @@ public class SelectStage : MonoBehaviour {
     [SerializeField] private GameObject Water_Fade;     // 画面切り替え時のフェード
     [SerializeField] private GameObject top_Starry;
     [SerializeField] private GameObject bottom_Starry;
+
+    // 各ボタン
+    [SerializeField] private GameObject[] AreaButton;
+    [SerializeField] private GameObject[] StageButton;
+    [SerializeField] private GameObject BackButton;
+
     private int now_status;
 
     public string NAME;　//inspector上からステージ名を入力出来るようにする
@@ -172,6 +184,13 @@ public class SelectStage : MonoBehaviour {
     /// <returns></returns>
     IEnumerator Fade_Courutin()
     {
+        // ステージのボタン設定オフ
+        for(int i = 0; i < STAGE_MAX; i++)
+        {
+            StageButton[i].GetComponent<Button>().enabled = false;
+        }
+        BackButton.GetComponent<Button>().enabled = false;
+
         GameObject Fade = Instantiate(Water_Fade) as GameObject;
         
         GameObject obj = GameObject.Find("Select_bgm");
@@ -187,7 +206,5 @@ public class SelectStage : MonoBehaviour {
         name = NAME;
 
         SceneManager.LoadScene(name);
-
     }
-   
 }
