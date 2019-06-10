@@ -25,7 +25,6 @@ public class LoadStageInfo : MonoBehaviour {
             return -1;
         }
 
-        Debug.Log((((int)Mathf.Log(StageStatus, 2)) + 1) + ":load");
         return ((int)Mathf.Log(StageStatus, 2)) + 1;      // 求めた値の2の何乗か + 1を出すことでどのステージ、エリアまで解放しているかを出すことができる。
     }
 }
