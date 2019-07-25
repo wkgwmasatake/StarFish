@@ -11228,6 +11228,53 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!1001 &615930338
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4699094249657918, guid: 51c4c223ef807b84dae8418397ee7dff, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4699094249657918, guid: 51c4c223ef807b84dae8418397ee7dff, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4699094249657918, guid: 51c4c223ef807b84dae8418397ee7dff, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4699094249657918, guid: 51c4c223ef807b84dae8418397ee7dff, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4699094249657918, guid: 51c4c223ef807b84dae8418397ee7dff, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4699094249657918, guid: 51c4c223ef807b84dae8418397ee7dff, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4699094249657918, guid: 51c4c223ef807b84dae8418397ee7dff, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4699094249657918, guid: 51c4c223ef807b84dae8418397ee7dff, type: 2}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114435336297071284, guid: 51c4c223ef807b84dae8418397ee7dff,
+        type: 2}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 592751692}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 51c4c223ef807b84dae8418397ee7dff, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &625104679
 GameObject:
   m_ObjectHideFlags: 0
