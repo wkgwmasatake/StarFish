@@ -17,7 +17,7 @@ public class FadeOutAnim_Up : MonoBehaviour
         anim = GetComponent<Animation>();
 
         PauseUI = GameObject.Find("Canvas_beta").transform.GetChild(1).transform.GetChild(1).gameObject;
-        StartStage = GameObject.Find("Canvas_beta").transform.GetChild(2).gameObject;
+        StartStage = GameObject.Find("Canvas_beta").transform.GetChild(3).gameObject;
 
         // プレイヤー側で動かないように
         GameDirector.Instance.SetPauseFlg = true;

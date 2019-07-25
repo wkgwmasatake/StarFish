@@ -131,7 +131,7 @@ public class StarFishOriginal : MonoBehaviour {
                         gameObject.transform.GetChild(selectArm).GetComponent<SpriteRenderer>().color = new Color(fadecolor.r, FadeAlpha, FadeAlpha);
                     }
 
-                    if (Input.GetMouseButtonUp(0) && GameDirector.Instance.GetArmNumber() > 0)   // 左クリックしたとき、かつタップの最大数以下の時
+                    if (Input.GetMouseButtonDown(0) && GameDirector.Instance.GetArmNumber() > 0)   // 左クリックしたとき、かつタップの最大数以下の時
                     {
 
                         if (GameDirector.Instance.GetArmNumber() <= _MAX_TAP + 1 && GameDirector.Instance.GetArmNumber() > 1)        // 最初のタップと最後のタップ以外の時
@@ -618,5 +618,10 @@ public class StarFishOriginal : MonoBehaviour {
             ArrowObject.SetActive(false);
         }
         rb.velocity = Vector2.zero;
+    }
+
+    public void FlagChange()
+    {
+        GameObject.Find("Canvas_beta").transform.GetChild(2).GetComponent<ArrowDisplay>().ChangeArrowFlag();
     }
 }
